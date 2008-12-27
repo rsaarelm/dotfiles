@@ -1,0 +1,25 @@
+! Xmodmap codes for the multimedia keys in Microsoft Natural Ergonomic 4000
+! keyboard.
+
+keycode 178 = XF86WWW
+keycode 229 = XF86Search
+keycode 236 = XF86Mail
+
+keycode 183 = XF86Launch1
+keycode 184 = XF86Launch2
+keycode 93 = XF86Launch3
+keycode 131 = XF86Launch4
+keycode 247 = XF86Launch5
+
+keycode 230 = XF86Favorites
+keycode 160 = XF86AudioMute
+keycode 174 = XF86AudioLowerVolume
+keycode 176 = XF86AudioRaiseVolume
+keycode 162 = XF86AudioPlay
+
+keycode 234 = XF86Back
+keycode 233 = XF86Forward
+
+! Putting the keypad extra parens to a better use.
+keycode 246 = XF86AudioPrev
+keycode 251 = XF86AudioNext
