@@ -2,7 +2,6 @@ alias ls="ls --color"
 alias ocaml="rlwrap ocaml"
 alias sml="rlwrap sml"
 alias R="R --no-save"
-alias ls="ls --color"
 alias tstamp="date +%Y-%m-%d"
 alias shuffle="python -c \"import sys; import random; args = sys.argv[1:]; random.shuffle(args); print ' '.join(args)\""
 
