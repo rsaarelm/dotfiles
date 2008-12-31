@@ -1,0 +1,6 @@
+[user]
+	email = risto.saarelma@iki.fi
+	name = Risto Saarelma
+[alias]
+	ci = commit
+	st = status
