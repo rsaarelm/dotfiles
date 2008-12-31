@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# A script for making book collection jars with EBookME. Make .txt files of
+# the books, put them in a directory with the name you want for the
+# collection, and give the name of the directory as the parameter to this
+# script.
+
+EBOOKME="java -jar $HOME/local/EBookME_2.5/EBookME.jar"
+BASE=`basename $1`
+
+$EBOOKME -Dout=$BASE `for x in $BASE/*.txt; do echo -n "-Dname=\`basename $x .txt\` $x "; done`
