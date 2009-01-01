@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Grab the current SSH agent forwarding parameters and generate a script that
+# sets them in subshells. Used to reset GNU screen sessions to use the current
+# SSH agent settings.
+
+# From here: http://deadman.org/sshscreen.html
+
+SSHVARS="SSH_CLIENT SSH_TTY SSH_AUTH_SOCK SSH_CONNECTION DISPLAY"
+
+for x in ${SSHVARS} ; do
+    (eval echo $x=\$$x) | sed  's/=/="/
+                                s/$/"/
+                                s/^/export /'
+done 1>$HOME/bin/fixssh
+chmod u+x $HOME/bin/fixssh
