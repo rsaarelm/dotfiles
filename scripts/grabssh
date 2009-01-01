@@ -13,4 +13,3 @@ for x in ${SSHVARS} ; do
                                 s/$/"/
                                 s/^/export /'
 done 1>$HOME/bin/fixssh
-chmod u+x $HOME/bin/fixssh
