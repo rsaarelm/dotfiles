@@ -222,10 +222,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom key bindings
 
-; A non-alty binding for command execution.
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
-
 ; Bind autocomplete to C-Tab
 (global-set-key (kbd "C-<tab>") 'dabbrev-expand)
 (define-key minibuffer-local-map (kbd "C-<tab>") 'dabbrev-expand)
