@@ -2,12 +2,12 @@
 ! 2006-01-01 Shai Coleman, http://colemak.com/ . Public domain. 
 
 keycode  49 =        grave    asciitilde        BackSpace         BackSpace
-keycode  10 =            1        exclam        equal             plus
-keycode  11 =            2            at          minus          underscore
-keycode  12 =            3    numbersign                0         parenright
-keycode  13 =            4        dollar                9         parenleft
-keycode  14 =            5       percent                8         asterisk
-keycode  15 =            6   asciicircum                7        ampersand
+keycode  10 =            1        exclam        apostrophe quotedbl
+keycode  11 =            2            at        minus underscore
+keycode  12 =            3    numbersign        bracketleft     braceleft
+keycode  13 =            4        dollar        bracketright    braceright
+keycode  14 =            5       percent        parenleft ampersand
+keycode  15 =            6   asciicircum        parenright asterisk
 keycode  16 =            7     ampersand                6         asciicircum
 keycode  17 =            8      asterisk                5        percent
 keycode  18 =            9     parenleft                4        dollar
