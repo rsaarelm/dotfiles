@@ -1,7 +1,7 @@
 ! xmodmap for the Colemak layout.
 ! 2006-01-01 Shai Coleman, http://colemak.com/ . Public domain. 
 
-keycode  49 =        grave    asciitilde        BackSpace         BackSpace
+keycode  49 =        grave    asciitilde        BackSpace BackSpace
 keycode  10 =            1        exclam        apostrophe quotedbl
 keycode  11 =            2            at        minus underscore
 keycode  12 =            3    numbersign        bracketleft     braceleft
@@ -58,5 +58,5 @@ keycode  65 =        space         space           Return Return
 
 keycode 113 = Mode_switch
 ! Map the Win key to Ctrl
-add Control = Control_L
 keycode 115 = Control_L Control_L
+add Control = Control_L
