@@ -215,3 +215,5 @@ function! ColemakHJKL()
   noremap <C-w><S-BS> <C-w>H
 
 endfunction
+
+call ColemakHJKL()
