@@ -3,8 +3,11 @@ dopath("goto_multihead")
 defbindings("WScreen", {
     -- Bind some function keys under alt, since other apps use the plain ones.
     kpress(ALTMETA.."F12", nil),
-    kpress(META.."F12", "mod_query.query_menu(_, 'mainmenu', 'Main menu: ')"),
-    kpress(META.."F11", "ioncore.exec_on(_, 'xscreensaver-command -lock')"),
+    kpress(META.."F5", "mod_query.query_menu(_, 'mainmenu', 'Main menu: ')"),
+    kpress(META.."F6", "ioncore.exec_on(_, 'xscreensaver-command -lock')"),
+
+    bdoc("Switch to n:th object (workspace, full screen client window) "..
+         "within current screen."),
 
     kpress(META.."KP_Divide", "WScreen.switch_prev(_)"),
     kpress(META.."KP_Multiply", "WScreen.switch_next(_)"),
@@ -63,17 +66,13 @@ defbindings("WFrame", {
 defbindings("WMPlex.toplevel", {
     -- Bind some function keys under alt, since other apps use the plain ones.
     kpress(ALTMETA.."F1", nil),
-    kpress(META.."F1", "mod_query.query_man(_, ':man')"),
+    kpress(META.."F1", "ioncore.exec_on(_, 'x-terminal-emulator')"),
     kpress(ALTMETA.."F2", nil),
-    kpress(META.."F2", "ioncore.exec_on(_, 'x-terminal-emulator')"),
-    kpress(ALTMETA.."F3", nil),
-    kpress(META.."F3", "mod_query.query_exec(_)"),
+    kpress(META.."F2", "mod_query.query_exec(_)"),
+    kpress(ALTMETA.."F3", nil), 
     kpress(ALTMETA.."F4", nil), 
-    kpress(ALTMETA.."F5", nil),
-    kpress(ALTMETA.."F6", nil),
-    kpress(META.."F6", "mod_query.query_runfile(_, 'run-mailcap --action=view')"),
-    kpress(ALTMETA.."F9", nil),
-    kpress(META.."F9", "mod_query.query_workspace(_)"),
+    kpress(ALTMETA.."F7", nil),
+    kpress(META.."F7", "mod_query.query_workspace(_)"),
 
     kpress("XF86WWW", "ioncore.exec_on(_, 'x-www-browser')"),
     kpress("XF86Search", "ioncore.exec_on(_, 'xfe')"),

@@ -1,2 +1,2 @@
-META="Mod4+"
-ALTMETA="Control+Mod4+"
+META="Mod1+"
+ALTMETA="Control+Mod1+"
