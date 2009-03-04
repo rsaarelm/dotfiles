@@ -4,10 +4,10 @@
 keycode  49 =        grave    asciitilde        BackSpace BackSpace
 keycode  10 =            1        exclam        apostrophe quotedbl
 keycode  11 =            2            at        minus underscore
-keycode  12 =            3    numbersign        bracketleft     braceleft
-keycode  13 =            4        dollar        bracketright    braceright
-keycode  14 =            5       percent        parenleft ampersand
-keycode  15 =            6   asciicircum        parenright asterisk
+keycode  12 =            3    numbersign        parenleft ampersand
+keycode  13 =            4        dollar        parenright asterisk
+keycode  14 =            5       percent        bracketleft     braceleft
+keycode  15 =            6   asciicircum        bracketright    braceright
 keycode  16 =            7     ampersand                6         asciicircum
 keycode  17 =            8      asterisk                5        percent
 keycode  18 =            9     parenleft                4        dollar
