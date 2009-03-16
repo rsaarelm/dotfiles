@@ -54,7 +54,8 @@ keycode  61 =        slash      question           z Z
 
 keycode  66 = Mode_switch
 keycode  94 =        backslash bar  adiaeresis Adiaeresis
-keycode  65 =        space         space           Return Return
+keycode  65 =        space         space
+keycode  23 = Tab Tab Return Return
 
 keycode 113 = Mode_switch
 ! Map the Win key to Ctrl
