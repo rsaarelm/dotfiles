@@ -73,7 +73,12 @@ keycode  61 =        slash      question     questiondown        asciitilde
                                                                                       
 ! Caps  s control, lctrl is backspace
 ! Remember to do 'xset r 37' to enable repeat on the ctrl-backspace.
-keycode  37 =    BackSpace     BackSpace        BackSpace         BackSpace            
+keycode  37 = BackSpace Terminate_Server
+
+! Backspace is now caps
+! TODO: Make this work with number row, useless otherwise.
+!keycode 22 = Caps_Lock
+
 keycode  66 = Control_L Control_L
 keycode  94 = quotedbl apostrophe
 keycode  65 =        space         space            space      nobreakspace            
@@ -94,6 +99,7 @@ add    Control = Control_L Control_R
 !add    Mod2    = Num_Lock
 !add    Mod4    = Meta_L Meta_R
 !add    Mod5    = Scroll_Lock 
+!add Lock = Caps_Lock
 
 !keycode   9 = Escape
 !keycode  22 = BackSpace Terminate_Server
