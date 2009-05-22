@@ -15,10 +15,10 @@ import XMonad.Hooks.ManageDocks
 -- TwoPane and Spiral require RotSlaves to be really useful.
 import XMonad.Layout.TwoPane
 import XMonad.Layout.Spiral
-import XMonad.Layout.StackTile
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Tabbed
 import XMonad.Layout.WindowNavigation
+import XMonad.Layout.ToggleLayouts
 import qualified XMonad.StackSet (focus, up, down)
 import XMonad.Util.EZConfig
 import System.Exit
@@ -78,8 +78,29 @@ swapWithMaster = windows $ W.modify' $
                \c -> case c of
                      W.Stack _ [] []     -> c
                      W.Stack t [] (x:rs) -> W.Stack x [t] rs
-                     W.Stack t ls rs -> W.Stack x [] (xs ++ [t] ++ rs) where (x:xs) = reverse ls
+                     W.Stack t ls rs -> W.Stack x [] (xs ++ [t] ++ rs)
+                         where (x:xs) = reverse ls
 
+-- Cycle the stack of windows up or down, maintaining focus on nth window.
+cycleAllUp :: X ()
+cycleAllUp = windows $ W.modify' $
+             \c -> case c of
+                     W.Stack _ [] []     -> c
+                     W.Stack t [] (r:rs) -> W.Stack r [] (rs ++ [t])
+                     W.Stack t (l:ls) [] -> W.Stack l (ls ++ [t]) []
+                     W.Stack t (l:ls) (r:rs) -> W.Stack r (ls ++ [t]) (rs ++ [l])
+                                                                              
+cycleAllDown :: X ()
+cycleAllDown = windows $ W.modify' $
+               \c -> case c of
+                       W.Stack _ [] []     -> c
+                       W.Stack t [] rs -> W.Stack x [] (t:reverse xs)
+                           where (x:xs) = reverse rs
+                       W.Stack t ls [] -> W.Stack x (t:reverse xs) []
+                           where (x:xs) = reverse ls
+                       W.Stack t ls rs -> W.Stack x (y:reverse xs) (t:reverse ys)
+                           where (x:xs) = reverse ls
+                                 (y:ys) = reverse rs
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -106,37 +127,38 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --  Reset the layouts on the current workspace to default
   , ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
 
+  --  Toggle toggleable layout
+  , ((modMask .|. controlMask, xK_space ), sendMessage ToggleLayout)
+
   -- Resize viewed windows to the correct size
   , ((modMask,               xK_n     ), refresh)
 
   -- Rotate non-master windows
-  , ((modMask .|. shiftMask, xK_Tab   ), rotSlavesUp)
-
-  -- Rotate non-master windows
   , ((modMask,               xK_o   ), rotSlavesUp)
 
-  -- Move focus to the next window
-  --, ((modMask,               xK_Tab   ), windows W.focusDown)
-  , ((modMask,               xK_Tab   ), swapWithMaster)
+  -- Move focus
+  , ((modMask,               xK_Tab   ), windows W.focusDown)
 
-  -- Move focus to the next window
-  , ((modMask,               xK_n     ), windows W.focusDown)
+  , ((modMask .|. shiftMask, xK_Tab   ), windows W.focusUp)
 
-  -- Move focus to the previous window
-  , ((modMask,               xK_e     ), windows W.focusUp  )
+  -- Rotate the window stack.
+
+  , ((modMask,               xK_n     ), cycleAllUp)
+
+  , ((modMask,               xK_e     ), cycleAllDown)
 
   -- Move focus to the master window
   --, ((modMask,               xK_m     ), windows W.focusMaster  )
-  , ((modMask,               xK_m     ), swapWithMaster )
+  , ((modMask,               xK_grave    ), swapWithMaster )
 
   -- Swap the focused window and the master window
   , ((modMask,               xK_Return), windows W.swapMaster)
 
   -- Swap the focused window with the next window
-  , ((modMask .|. shiftMask, xK_n     ), windows W.swapDown  )
+  , ((modMask .|. shiftMask, xK_n     ), windows W.swapUp)
 
   -- Swap the focused window with the previous window
-  , ((modMask .|. shiftMask, xK_e     ), windows W.swapUp    )
+  , ((modMask .|. shiftMask, xK_e     ), windows W.swapDown)
 
   -- Shrink the master area
   , ((modMask,               xK_h     ), sendMessage Shrink)
@@ -243,8 +265,8 @@ instance LayoutClass VertiTwoPane a where
 
   description _ = "VertiTwoPane"
 
---myLayout = tiled ||| Full
-myLayout = smartBorders $ avoidStruts $ TwoPane delta hRatio ||| Full ||| spiral (6/7) ||| VertiTwoPane delta vRatio
+-- There are different TwoPane layouts for landscape and portrait monitors.
+myLayout = smartBorders $ avoidStruts $ simpleTabbed ||| toggleLayouts (VertiTwoPane delta vRatio) (TwoPane delta hRatio) ||| spiral (6/7)
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta hRatio
