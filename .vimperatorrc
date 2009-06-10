@@ -1,0 +1,68 @@
+" Remapping
+" -----------------------------------------------------------------------------------------
+" Start command line mode
+noremap ; :
+
+" Start an extended hint mode
+noremap . ;
+
+" Scroll document to the left
+noremap n h
+
+" Find next
+noremap k n
+
+" Go back in the browser history
+noremap N H
+
+" Find previous
+noremap K N
+
+" Go to an older position in the jump list
+noremap <C-n> <C-o>
+
+" Scroll document to the right
+noremap i l
+
+" Go forward in the browser history
+noremap I L
+
+" Start caret mode
+noremap s i
+
+" Scroll document up
+noremap u k
+
+" Undo closing of a tab
+noremap <C-z> u
+
+" Passthrough mode
+noremap <C-x> <C-z>
+
+" Scroll window upwards in the buffer
+noremap U <C-u>
+
+" Go to the previous tab
+noremap <C-u> <C-p>
+
+" Scroll document down
+noremap e j
+
+" Scroll window downwards in the buffer
+noremap E <C-d>
+
+" Go to the next tab
+noremap <C-e> <C-n>
+
+" Scroll up a full page
+noremap j <C-b>
+
+" Scroll down a full page
+noremap h <C-f>
+
+" Copy currently selected text
+noremap <C-c> Y
+
+" Stop loading the current web page
+noremap C <C-c>
+
