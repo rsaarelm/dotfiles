@@ -82,13 +82,42 @@
       '(:foreground "White" :background "Black" :scale 1.2
         :matchers ("begin" "$" "$$" "\\(" "\\[")))
 
-; Setup the sequence of todo keywords. Doesn't seem to work with the Emacs22.1 default orgmode.
+; Setup the sequence of org-mode todo keywords.
+;
+; TODO: Tasks you know how to finish, can be finished in a single day and you
+; are actively committed to finish.
+;
+; STARTED: Tasks you have started working on.
+;
+; WAITING: Tasks that can't be started before something else happens. Should
+; explain what they're waiting on in the task text.
+;
+; SOMEDAY: Tasks you don't know how to finish or are too big for a single day,
+; and you aren't actively committed to finish them. "I'll do it someday,
+; maybe."
+;
+; PROJECT: Tasks you are committed to doing, but are too big or vague to be
+; TODO items.
+; 
+; TASK: TODO-style tasks, concrete, doable in a single day, you haven't
+; committed to doing. Promote these to TODO items if you need something to do.
+;
+; CANCELED: Canceled tasks. Should explain why the task was canceled.
+;
+; DONE: Finished tasks
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "|" "DONE(d)")
-        (sequence "|" "MAYBE(m)" "WAITING(w)")
-        (sequence "FIXME(x)" "|" "DONE(d)")
-        (sequence "FEATURE(f)" "|" "FEATUREDONE")
-        (sequence "|" "CANCELED(c)")))
+      '((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d)")
+        (sequence "WAITING(w)" "SOMEDAY(S!)" "PROJECT(p)" "TASK(t)" "|" "CANCELED(c)")))
+
+(setq org-todo-keyword-faces
+      '(("TODO" :foreground "deep pink" :weight bold)
+        ("STARTED" :foreground "yellow" :weight bold)
+        ("DONE" :foreground "forest green" :weight bold)
+        ("WAITING" :foreground "orange" :weight bold)
+        ("SOMEDAY" :foreground "medium orchid" :weight bold)
+        ("CANCELED" :foreground "turquoise" :weight bold)
+        ("TASK" :foreground "firebrick" :weight bold)
+        ("PROJECT" :foreground "red" :weight bold)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C / C++
