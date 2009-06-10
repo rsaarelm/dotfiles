@@ -305,6 +305,30 @@
     (insert "\n")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Vimpulse mode
+
+; Permutate HJKL bindings to make sense with a Colemak keymap.
+(defun viper-colemak-hjkl ()
+  (interactive)
+  (define-key viper-vi-global-user-map "j" 'viper-backward-char)
+  (define-key viper-vi-global-user-map "k" 'viper-next-line)
+  (define-key viper-vi-global-user-map "h" 'viper-previous-line)
+  (define-key viper-vi-global-user-map "l" 'viper-forward-char))
+
+(defun vimpulse-on ()
+  (interactive)
+  (require 'rect-mark)               ; Vim-style rectangle selection highlight
+  (setq viper-mode t)                ; enable Viper at load time
+  (setq viper-ex-style-editing nil)  ; can backspace past start of insert / line
+  (require 'viper)                   ; load Viper
+  (require 'vimpulse)                ; load Vimpulse
+  (viper-colemak-hjkl)
+  (setq woman-use-own-frame nil)     ; don't create new frame for manpages
+  (setq woman-use-topic-at-point t)) ; don't prompt upon K key (manpage display)
+
+; (vimpulse-on)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Version control
 
 ; Don't ask about following symlinks to svn files.
