@@ -64,15 +64,37 @@
       (setq load-path (cons (concat orgmode-dir "/lisp") load-path))
       (require 'org-install))))
 
-; Start org-mode for .org files.
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-
-; Timestamp done TODO items.
-(setq org-log-done t)
-
 ; Prevent conflict with shift-dir keys for switching buffer
 ; The config variable used to be org-CUA-compatible.
 (setq org-replace-disputed-keys t)
+
+; Start org-mode for .org files.
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+
+; Custom settings in org-mode
+(add-hook 'org-mode-hook
+          (lambda ()
+            ; flyspell for automatic spell checking
+            (flyspell-mode 1)))
+
+; Set the state of clocked tasks to STARTED
+(setq org-clock-in-switch-to-state "STARTED")
+
+; Make the clock persist across sessions
+(setq org-clock-persist t)
+(org-clock-persistence-insinuate)
+
+; Restart clock from old time if there is an open clock line.
+(setq org-clock-in-resume t)
+
+(setq org-clock-out-remove-zero-time-clocks t)
+
+; Don't clock out when moving task to DONE, allow manual finishing touches
+; within the clocked time.
+(setq org-clock-out-when-done nil)
+
+; Timestamp done TODO items.
+(setq org-log-done t)
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -118,6 +140,29 @@
         ("CANCELED" :foreground "turquoise" :weight bold)
         ("TASK" :foreground "firebrick" :weight bold)
         ("PROJECT" :foreground "red" :weight bold)))
+
+; Org and remember mode
+(require 'remember)
+(org-remember-insinuate)
+
+; Key binding for doing org-remember
+; XXX: Clobbers regexp-search backwards.
+(global-set-key (kbd "C-M-r") 'org-remember)
+
+; Collection bins for notes and tasks entered via remember.
+; You can add the line
+; #+FILETAGS: REFILE
+; in the collection files to mark the entries as ones that should be refiled
+; to more proper locations in due course.
+(setq my-tasks-file "~/org/tasks.org")
+(setq my-notes-file "~/org/notes.org")
+
+(setq org-remember-templates `(("todo" ?t "* TODO %?
+  %u
+  %a" ,my-tasks-file bottom nil)
+                                     ("note" ?n "* %?
+  %u
+  %a" ,my-notes-file bottom nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C / C++
