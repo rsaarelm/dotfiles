@@ -179,7 +179,7 @@
 ;; SML
 
 ;;; MLB modle
-(autoload 'esml-ml-mode "esml-mlb-mode")
+(autoload 'esml-mlb-mode "esml-mlb-mode")
 (add-to-list 'auto-mode-alist '("\\.mlb\\'" . esml-mlb-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -292,9 +292,21 @@
 (global-set-key [C-f12] (lambda () (interactive) (in-other-buffer 'exhume-buffer)))
 (global-set-key [C-f11] (lambda () (interactive) (in-other-buffer 'bury-buffer)))
 
+; Replace the useless default buffer list with a better one.
+(global-set-key "\C-x\C-b" 'buffer-menu)
+
 ; Window navigation
 (global-set-key (kbd "C-,") (lambda () (interactive) (other-window -1)))
 (global-set-key (kbd "C-.") 'other-window)
+
+; Vim-style jumping to the opposing paren
+(defun goto-match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis, otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
+(global-set-key (kbd "C-%") 'goto-match-paren)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Global settings
@@ -324,6 +336,9 @@
 ; No bell.
 (setq visible-bell t)
 
+; No blink
+(blink-cursor-mode nil)
+
 ; Start the server so we can use emacsclient
 ; This doesn't work in MS Windows, so we use the conditional.
 (when (and first-evaluation-of-dot-emacs (not (eq window-system 'w32)))
@@ -347,7 +362,9 @@
 (setq kill-whole-line t)
 
 ; Autocleanse end-of-line whitespace.
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+; (Commented out for now, can't be used when developing code collaboratively
+; since it messes up patches with whitespace elimination noise.)
+;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc functions
