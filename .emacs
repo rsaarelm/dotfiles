@@ -131,13 +131,13 @@
         (sequence "WAITING(w)" "SOMEDAY(S)" "PROJECT(P)" "|" "CANCELLED(c)")))
 
 (setq org-todo-keyword-faces
-      '(("TODO" :foreground "deep pink" :weight bold)
-        ("STARTED" :foreground "yellow" :weight bold)
+      '(("TODO" :foreground "chartreuse" :weight bold)
+        ("STARTED" :foreground "green yellow" :weight bold)
         ("DONE" :foreground "forest green" :weight bold)
-        ("WAITING" :foreground "orange" :weight bold)
+        ("WAITING" :foreground "indian red" :weight bold)
         ("SOMEDAY" :foreground "medium orchid" :weight bold)
-        ("PROJECT" :foreground "red" :weight bold)
-        ("CANCELLED" :foreground "turquoise" :weight bold)))
+        ("PROJECT" :foreground "turquoise" :weight bold)
+        ("CANCELLED" :foreground "steel blue" :weight bold)))
 
 ; State triggers
 ;
