@@ -433,7 +433,7 @@
 (setq visible-bell t)
 
 ; No blink
-(blink-cursor-mode nil)
+(blink-cursor-mode 0)
 
 ; Start the server so we can use emacsclient
 ; This doesn't work in MS Windows, so we use the conditional.
