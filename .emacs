@@ -347,9 +347,19 @@
 (global-set-key "\C-q" 'backward-kill-word)
 (global-set-key "\C-\M-q" 'quoted-insert)
 
-; Compile or run program based on directory
-(global-set-key [f9] 'custom-compile)
-(global-set-key [S-f9] 'custom-run)
+; Accessing various modes from anywhere
+
+; Allow F9 to serve as a prefix key
+(global-set-key (kbd "<f9>") (make-sparse-keymap))
+
+; Show org agenda
+(global-set-key (kbd "<f9> a") 'org-agenda)
+; Show calendar
+(global-set-key (kbd "<f9> c") 'calendar)
+; Show calculator
+(global-set-key (kbd "<f9> l") 'calc)
+; Go to currently clocked task
+(global-set-key (kbd "<f9> o") 'org-clock-goto)
 
 ; Moving up and down is useful, moving to next and previous word is useful.
 ; These should both be under the same mode key. M-n and M-p are unbound, so...
