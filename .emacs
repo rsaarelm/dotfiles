@@ -123,13 +123,12 @@
 ; PROJECT: Tasks you are committed to doing, but are too big or vague to be
 ; TODO items.
 ; 
-; CANCELED: Canceled tasks. Should explain why the task was canceled.
+; CANCELLED: Cancelled tasks. Should explain why the task was cancelled.
 ;
 ; DONE: Finished tasks
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d)")
-        (sequence "WAITING(w)" "SOMEDAY(S)" "PROJECT(P)")
-        (sequence "|" "CANCELED(c)")))
+        (sequence "WAITING(w)" "SOMEDAY(S)" "PROJECT(P)" "|" "CANCELLED(c)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "deep pink" :weight bold)
@@ -138,7 +137,28 @@
         ("WAITING" :foreground "orange" :weight bold)
         ("SOMEDAY" :foreground "medium orchid" :weight bold)
         ("PROJECT" :foreground "red" :weight bold)
-        ("CANCELED" :foreground "turquoise" :weight bold)))
+        ("CANCELLED" :foreground "turquoise" :weight bold)))
+
+; State triggers
+;
+; We want CANCELLED and WAITING states to show up in subtasks as well. Do this
+; by assigning tags to the tasks on setting the state.
+;
+; We also use a NEXT action tag, which gets removed if the task ends up
+; waiting or done.
+(setq org-todo-state-tags-triggers
+      '(("CANCELLED" ("CANCELLED" . t))
+        ("WAITING" ("WAITING" . t) ("NEXT"))
+        ("SOMEDAY" ("WAITING" . t))
+        (done ("NEXT") ("WAITING"))
+        ("TODO" ("WAITING") ("CANCELLED"))
+        ("STARTED" ("WAITING"))
+        ("PROJECT" ("CANCELLED") ("PROJECT" . t))))
+
+; Quick tags, add with C-c C-q
+(setq org-tag-alist '(("NEXT" . ?n)
+                      ("WAITING" . ?w)
+                      ))
 
 ; Custom agenda
 (setq org-agenda-custom-commands 
@@ -147,6 +167,37 @@
         ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
         ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
         ("n" "Notes" tags "NOTES" nil)))
+
+; Define stuck projects as PROJECT-tag trees ones without a NEXT action.
+(setq org-stuck-projects '("/PROJECT" nil ("NEXT") ""))
+
+; Support for task effort estimates
+
+; Do effort estimates by going into column mode with C-c C-x C-c and choosing
+; a value in the Effort field.
+
+; Set up the effort value for column-mode view.
+(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+; Set up predefined effort values.
+(setq org-global-properties '(("Effort_ALL" . "0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 8:00")))
+
+; Appointments from org agenda
+
+; Rebuild reminders whenever agenda is modified.
+; XXX: Clears all appts set via other means.
+(defun regenerate-org-appt ()
+  (interactive)
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
+
+(regenerate-org-appt)
+
+(add-hook 'org-finalize-agenda 'regenerate-org-appt)
+
+(appt-activate t)
+
+; Bring up the next day's appointments after midnight.
+(run-at-time "24:01" nil 'my-org-agenda-to-appt)
 
 ; Org and remember mode
 (require 'remember)
