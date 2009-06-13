@@ -165,7 +165,7 @@
 ; Quick tags, add with C-c C-q
 (setq org-tag-alist '(("NEXT" . ?n)
                       ("WAITING" . ?w)
-                      ))
+                      ("REFILE" . ?r)))
 
 ; Custom agenda
 (setq org-agenda-custom-commands 
