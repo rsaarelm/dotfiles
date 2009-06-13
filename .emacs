@@ -79,8 +79,15 @@
             ; flyspell for automatic spell checking
             (flyspell-mode 1)))
 
-; Set the state of clocked tasks to STARTED
-(setq org-clock-in-switch-to-state "STARTED")
+; Set the state of todo-style items to STARTED when clocking them.
+(defun my-clock-in-switch (state)
+  (cond ((string= state "TODO") "STARTED")
+        ((string= state "WAITING") "STARTED")
+        ((string= state "SOMEDAY") "STARTED")
+        ((string= state "CANCELED") "STARTED")
+        (t state)))
+
+(setq org-clock-in-switch-to-state #'my-clock-in-switch)
 
 ; Make the clock persist across sessions
 (setq org-clock-persist t)
