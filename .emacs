@@ -123,12 +123,12 @@
 ; PROJECT: Tasks you are committed to doing, but are too big or vague to be
 ; TODO items.
 ; 
-; CANCELLED: Cancelled tasks. Should explain why the task was cancelled.
+; CANCELED: Canceled tasks. Should explain why the task was canceled.
 ;
 ; DONE: Finished tasks.
 (setq org-todo-keywords
       '((sequence "TODO(t!)" "STARTED(s)" "|" "DONE(d!/!)")
-        (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "PROJECT(P!)" "|" "CANCELLED(c@/!)")))
+        (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "PROJECT(P!)" "|" "CANCELED(c@/!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "chartreuse" :weight bold)
@@ -137,23 +137,23 @@
         ("WAITING" :foreground "indian red" :weight bold)
         ("SOMEDAY" :foreground "medium orchid" :weight bold)
         ("PROJECT" :foreground "turquoise" :weight bold)
-        ("CANCELLED" :foreground "steel blue" :weight bold)))
+        ("CANCELED" :foreground "steel blue" :weight bold)))
 
 ; State triggers
 ;
-; We want CANCELLED and WAITING states to show up in subtasks as well. Do this
+; We want CANCELED and WAITING states to show up in subtasks as well. Do this
 ; by assigning tags to the tasks on setting the state.
 ;
 ; We also use a NEXT action tag, which gets removed if the task ends up
 ; waiting or done.
 (setq org-todo-state-tags-triggers
-      '(("CANCELLED" ("CANCELLED" . t))
+      '(("CANCELED" ("CANCELED" . t))
         ("WAITING" ("WAITING" . t) ("NEXT"))
         ("SOMEDAY" ("WAITING" . t))
         (done ("NEXT") ("WAITING"))
-        ("TODO" ("WAITING") ("CANCELLED"))
-        ("STARTED" ("WAITING") ("CANCELLED"))
-        ("PROJECT" ("CANCELLED") ("PROJECT" . t))))
+        ("TODO" ("WAITING") ("CANCELED"))
+        ("STARTED" ("WAITING") ("CANCELED"))
+        ("PROJECT" ("CANCELED") ("PROJECT" . t))))
 
 ; Quick tags, add with C-c C-q
 (setq org-tag-alist '(("NEXT" . ?n)
