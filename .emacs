@@ -71,7 +71,7 @@
 (setq org-replace-disputed-keys t)
 
 ; Start org-mode for .org files.
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 
 ; Custom settings in org-mode
 (add-hook 'org-mode-hook
@@ -125,10 +125,10 @@
 ; 
 ; CANCELLED: Cancelled tasks. Should explain why the task was cancelled.
 ;
-; DONE: Finished tasks
+; DONE: Finished tasks.
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d)")
-        (sequence "WAITING(w)" "SOMEDAY(S)" "PROJECT(P)" "|" "CANCELLED(c)")))
+      '((sequence "TODO(t!)" "STARTED(s)" "|" "DONE(d!/!)")
+        (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "PROJECT(P!)" "|" "CANCELLED(c@/!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "chartreuse" :weight bold)
@@ -152,7 +152,7 @@
         ("SOMEDAY" ("WAITING" . t))
         (done ("NEXT") ("WAITING"))
         ("TODO" ("WAITING") ("CANCELLED"))
-        ("STARTED" ("WAITING"))
+        ("STARTED" ("WAITING") ("CANCELLED"))
         ("PROJECT" ("CANCELLED") ("PROJECT" . t))))
 
 ; Quick tags, add with C-c C-q
@@ -212,15 +212,22 @@
 ; #+FILETAGS: REFILE
 ; in the collection files to mark the entries as ones that should be refiled
 ; to more proper locations in due course.
-(setq my-tasks-file "~/org/tasks.org")
-(setq my-notes-file "~/org/notes.org")
 
-(setq org-remember-templates `(("todo" ?t "* TODO %?
+; Put remember files in home or work subdir depending on which exists.
+(let* ((prefix
+        (cond ((file-exists-p "~/org/home") "~/org/home/")
+              ((file-exists-p "~/org/work") "~/org/work/")
+              (t "~/org/")))
+       
+       (tasks-file (concat prefix "tasks.org"))
+       (notes-file (concat prefix "notes.org")))
+
+  (setq org-remember-templates `(("todo" ?t "* TODO %?
   %u
-  %a" ,my-tasks-file bottom nil)
-                                     ("note" ?n "* %?
+  %a" ,tasks-file bottom nil)
+                                 ("note" ?n "* %?
   %u
-  %a" ,my-notes-file bottom nil)))
+  %a" ,notes-file bottom nil))))
 
 ; Refiling settings
 
