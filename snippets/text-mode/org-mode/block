@@ -1,0 +1,5 @@
+#name : #+BEGIN_...#+END_
+# --
+#+BEGIN_$1 $2
+$0
+#+END_$1
