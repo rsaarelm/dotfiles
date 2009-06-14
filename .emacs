@@ -123,10 +123,6 @@
 
 (setq org-clock-out-remove-zero-time-clocks t)
 
-; Don't clock out when moving task to DONE, allow manual finishing touches
-; within the clocked time.
-(setq org-clock-out-when-done nil)
-
 ; Timestamp done TODO items.
 (setq org-log-done t)
 
@@ -204,8 +200,9 @@
         ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
         ("n" "Notes" tags "NOTES" nil)))
 
-; Define stuck projects as PROJECT-tag trees ones without a NEXT action.
-(setq org-stuck-projects '("/PROJECT" nil ("NEXT") ""))
+; Define stuck projects as PROJECT-tag trees ones without any TODOs or started
+; tasks.
+(setq org-stuck-projects '("/PROJECT-DONE" ("STARTED" "TODO") nil ""))
 
 ; Support for task effort estimates
 
@@ -452,14 +449,16 @@
 ; Allow F9 to serve as a prefix key
 (global-set-key (kbd "<f9>") (make-sparse-keymap))
 
-; Show org agenda
-(global-set-key (kbd "<f9> a") 'org-agenda)
 ; Show calendar
 (global-set-key (kbd "<f9> c") 'calendar)
 ; Show calculator
 (global-set-key (kbd "<f9> l") 'calc)
 ; Go to currently clocked task
 (global-set-key (kbd "<f9> o") 'org-clock-goto)
+
+; Show org agenda
+(global-set-key (kbd "<f10>") 'org-agenda)
+
 
 ; Moving up and down is useful, moving to next and previous word is useful.
 ; These should both be under the same mode key. M-n and M-p are unbound, so...
