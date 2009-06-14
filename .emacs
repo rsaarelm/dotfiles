@@ -97,6 +97,10 @@
 ; Custom settings in org-mode
 (add-hook 'org-mode-hook
           (lambda ()
+            ; yasnippet
+            (make-variable-buffer-local 'yas/trigger-key)
+            (setq yas/trigger-key [tab])
+            (define-key yas/keymap [tab] 'yas/next-field-group)
             ; flyspell for automatic spell checking
             (flyspell-mode 1)))
 
@@ -343,6 +347,12 @@
 ;; Lua
 
 (setq lua-indent-level 2)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Yasnippet
+
+;(require 'yasnippet-bundle)
+(yas/load-directory "~/.elisp/snippets")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; File templates
