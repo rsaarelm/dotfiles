@@ -115,6 +115,10 @@
       '(:foreground "White" :background "Black" :scale 1.2
         :matchers ("begin" "$" "$$" "\\(" "\\[")))
 
+; Require braces for subscripts and superscripts, fixes the annoying
+; subscript-itis from underscores in regular text.
+(setq org-export-with-sub-superscripts '{})
+
 ; Setup the sequence of org-mode todo keywords.
 ;
 ; TODO: Tasks you know how to finish, can be finished in a single day and you
