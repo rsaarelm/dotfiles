@@ -1,0 +1,4 @@
+#name : This week's clocktable
+# --
+#+BEGIN: clocktable :scope agenda :block `(format-time-string "%Y-W%V")` :link
+#+END: clocktable
