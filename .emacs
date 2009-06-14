@@ -50,6 +50,25 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ELPA setup
+
+;; Eval the expression below to fetch ELPA:
+; (let ((buffer (url-retrieve-synchronously
+;	       "http://tromey.com/elpa/package-install.el")))
+;  (save-excursion
+;    (set-buffer buffer)
+;    (goto-char (point-min))
+;    (re-search-forward "^$" nil 'move)
+;    (eval-region (point) (point-max))
+;    (kill-buffer (current-buffer))))
+  
+
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HTML editing
 
 ;;; Use nxml-mode instead of html-mode for html files.
