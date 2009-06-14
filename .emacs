@@ -27,15 +27,17 @@
 ; Note: It's important to set the default font _before_ invoking color-theme.
 ; Otherwise Emacs seems to get confused about window dimensions.
 
-(setq font-spec "-misc-fixed-*-*-*-*-*-100-*-*-*-*-*-*")
+(defun my-set-font (font-spec)
+  (setq default-frame-alist
+	(cons
+	 (cons 'font font-spec)
+	 default-frame-alist)))
+
+(my-set-font "-misc-fixed-medium-*-*-*-15-*-*-*-*-*-*-*")
 
 (when (string= (system-name) "erebus")
-  (setq font-spec "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"))
+  (my-set-font "-misc-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"))
 
-(setq default-frame-alist
-      (cons
-       (cons 'font font-spec)
-       default-frame-alist))
 
 (require 'color-theme)
 (if window-system
