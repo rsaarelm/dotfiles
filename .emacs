@@ -679,6 +679,21 @@
              "   :read_date: " (format-time-string "%Y-%m-%d") "\n"
              "   :END:\n"))))
 
+(defun hh-mm-ss-to-seconds (time-string)
+  (interactive)
+  "Parse a string hh:mm:ss into seconds."
+  (if (string= time-string "n/a") "n/a"
+    (let* ((nums (map 'list #'string-to-number (split-string time-string ":")))
+           (hours (car nums))
+           (mins (cadr nums))
+           (secs (caddr nums)))
+      (+ (* hours 3600) (* mins 60) secs))))
+
+(defun spreadsheet-string-to-number (number-string)
+  (interactive)
+  (if (string= number-string "n/a") "n/a"
+    (float (string-to-number number-string))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load host-specific configurations
 
