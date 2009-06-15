@@ -75,6 +75,13 @@
 (add-to-list 'auto-mode-alist '("\\.html\\'" . nxml-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Flyspell mode
+
+; Only highlight the latest perceived misspelling. Don't clutter buffers with
+; highlight junk from false positives.
+(setq flyspell-persistent-highlight nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org-mode
 
 ; Some settings inspired by http://doc.norang.ca/org-mode.html
