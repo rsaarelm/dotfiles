@@ -1,0 +1,7 @@
+#name : Toplevel section
+# --
+* $1
+:PROPERTIES:
+:CATEGORY: $2
+:ARCHIVE: %s_archive:: * $1
+:END:

@@ -27,15 +27,17 @@
 ; Note: It's important to set the default font _before_ invoking color-theme.
 ; Otherwise Emacs seems to get confused about window dimensions.
 
-(setq font-spec "-misc-fixed-*-*-*-*-*-100-*-*-*-*-*-*")
+(defun my-set-font (font-spec)
+  (setq default-frame-alist
+	(cons
+	 (cons 'font font-spec)
+	 default-frame-alist)))
+
+(my-set-font "-misc-fixed-medium-*-*-*-15-*-*-*-*-*-*-*")
 
 (when (string= (system-name) "erebus")
-  (setq font-spec "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"))
+  (my-set-font "-misc-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"))
 
-(setq default-frame-alist
-      (cons
-       (cons 'font font-spec)
-       default-frame-alist))
 
 (require 'color-theme)
 (if window-system
@@ -48,6 +50,25 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ELPA setup
+
+;; Eval the expression below to fetch ELPA:
+; (let ((buffer (url-retrieve-synchronously
+;	       "http://tromey.com/elpa/package-install.el")))
+;  (save-excursion
+;    (set-buffer buffer)
+;    (goto-char (point-min))
+;    (re-search-forward "^$" nil 'move)
+;    (eval-region (point) (point-max))
+;    (kill-buffer (current-buffer))))
+  
+
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HTML editing
 
 ;;; Use nxml-mode instead of html-mode for html files.
@@ -55,6 +76,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org-mode
+
+; Some settings inspired by http://doc.norang.ca/org-mode.html
 
 ; Manually load a new org-mode
 (let
@@ -64,15 +87,44 @@
       (setq load-path (cons (concat orgmode-dir "/lisp") load-path))
       (require 'org-install))))
 
-; Start org-mode for .org files.
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-
-; Timestamp done TODO items.
-(setq org-log-done t)
-
 ; Prevent conflict with shift-dir keys for switching buffer
 ; The config variable used to be org-CUA-compatible.
 (setq org-replace-disputed-keys t)
+
+; Start org-mode for .org files.
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
+
+; Custom settings in org-mode
+(add-hook 'org-mode-hook
+          (lambda ()
+            ; yasnippet
+            (make-variable-buffer-local 'yas/trigger-key)
+            (setq yas/trigger-key [tab])
+            (define-key yas/keymap [tab] 'yas/next-field-group)
+            ; flyspell for automatic spell checking
+            (flyspell-mode 1)))
+
+; Set the state of todo-style items to STARTED when clocking them.
+(defun my-clock-in-switch (state)
+  (cond ((string= state "TODO") "STARTED")
+        ((string= state "WAITING") "STARTED")
+        ((string= state "SOMEDAY") "STARTED")
+        ((string= state "CANCELED") "STARTED")
+        (t state)))
+
+(setq org-clock-in-switch-to-state #'my-clock-in-switch)
+
+; Make the clock persist across sessions
+(setq org-clock-persist t)
+(org-clock-persistence-insinuate)
+
+; Restart clock from old time if there is an open clock line.
+(setq org-clock-in-resume t)
+
+(setq org-clock-out-remove-zero-time-clocks t)
+
+; Timestamp done TODO items.
+(setq org-log-done t)
 
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -82,13 +134,139 @@
       '(:foreground "White" :background "Black" :scale 1.2
         :matchers ("begin" "$" "$$" "\\(" "\\[")))
 
-; Setup the sequence of todo keywords. Doesn't seem to work with the Emacs22.1 default orgmode.
+; Require braces for subscripts and superscripts, fixes the annoying
+; subscript-itis from underscores in regular text.
+(setq org-export-with-sub-superscripts '{})
+
+; Setup the sequence of org-mode todo keywords.
+;
+; TODO: Tasks you know how to finish, can be finished in a single day and you
+; are actively committed to finish.
+;
+; STARTED: Tasks you have started working on or tasks that are always ongoing
+; such as following the news and answering email.
+;
+; WAITING: Tasks that can't be started before something else happens. Should
+; explain what they're waiting on in the task text.
+;
+; SOMEDAY: Tasks you aren't actively committed to finish them. "I'll do it
+; someday, maybe."
+;
+; PROJECT: Tasks you are committed to doing, but are too big or vague to be
+; TODO items.
+; 
+; CANCELED: Canceled tasks. Should explain why the task was canceled.
+;
+; DONE: Finished tasks.
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "|" "DONE(d)")
-        (sequence "|" "MAYBE(m)" "WAITING(w)")
-        (sequence "FIXME(x)" "|" "DONE(d)")
-        (sequence "FEATURE(f)" "|" "FEATUREDONE")
-        (sequence "|" "CANCELED(c)")))
+      '((sequence "TODO(t!)" "STARTED(s)" "|" "DONE(d!/!)")
+        (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "PROJECT(P!)" "|" "CANCELED(c@/!)")))
+
+(setq org-todo-keyword-faces
+      '(("TODO" :foreground "chartreuse" :weight bold)
+        ("STARTED" :foreground "green yellow" :weight bold)
+        ("DONE" :foreground "forest green" :weight bold)
+        ("WAITING" :foreground "indian red" :weight bold)
+        ("SOMEDAY" :foreground "medium orchid" :weight bold)
+        ("PROJECT" :foreground "turquoise" :weight bold)
+        ("CANCELED" :foreground "steel blue" :weight bold)))
+
+; State triggers
+;
+; We want CANCELED and WAITING states to show up in subtasks as well. Do this
+; by assigning tags to the tasks on setting the state.
+;
+; We also use a NEXT action tag, which gets removed if the task ends up
+; waiting or done.
+(setq org-todo-state-tags-triggers
+      '(("CANCELED" ("CANCELED" . t))
+        ("WAITING" ("WAITING" . t) ("NEXT"))
+        ("SOMEDAY" ("WAITING" . t))
+        (done ("NEXT") ("WAITING"))
+        ("TODO" ("WAITING") ("CANCELED"))
+        ("STARTED" ("WAITING") ("CANCELED"))
+        ("PROJECT" ("CANCELED") ("PROJECT" . t))))
+
+; Quick tags, add with C-c C-q
+(setq org-tag-alist '(("NEXT" . ?n)
+                      ("WAITING" . ?w)
+                      ("REFILE" . ?r)))
+
+; Custom agenda
+(setq org-agenda-custom-commands 
+      '(("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
+        ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
+        ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
+        ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
+        ("n" "Notes" tags "NOTES" nil)))
+
+; Define stuck projects as PROJECT-tag trees ones without any TODOs or started
+; tasks.
+(setq org-stuck-projects '("/PROJECT-DONE" ("STARTED" "TODO") nil ""))
+
+; Support for task effort estimates
+
+; Do effort estimates by going into column mode with C-c C-x C-c and choosing
+; a value in the Effort field.
+
+; Set up the effort value for column-mode view.
+(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+; Set up predefined effort values.
+(setq org-global-properties '(("Effort_ALL" . "0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 8:00")))
+
+; Appointments from org agenda
+
+; Rebuild reminders whenever agenda is modified.
+; XXX: Clears all appts set via other means.
+(defun regenerate-org-appt ()
+  (interactive)
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
+
+(regenerate-org-appt)
+
+(add-hook 'org-finalize-agenda 'regenerate-org-appt)
+
+(appt-activate t)
+
+; Bring up the next day's appointments after midnight.
+(run-at-time "24:01" nil 'my-org-agenda-to-appt)
+
+; Org and remember mode
+(require 'remember)
+(org-remember-insinuate)
+
+; Key binding for doing org-remember
+; XXX: Clobbers regexp-search backwards.
+(global-set-key (kbd "C-M-r") 'org-remember)
+
+; Collection bins for notes and tasks entered via remember.
+; You can add the line
+; #+FILETAGS: REFILE
+; in the collection files to mark the entries as ones that should be refiled
+; to more proper locations in due course.
+
+; Put remember files in home or work subdir depending on which exists.
+(let* ((prefix
+        (cond ((file-exists-p "~/org/home") "~/org/home/")
+              ((file-exists-p "~/org/work") "~/org/work/")
+              (t "~/org/")))
+       
+       (tasks-file (concat prefix "tasks.org"))
+       (notes-file (concat prefix "notes.org")))
+
+  (setq org-remember-templates `(("todo" ?t "* TODO %?
+  %u
+  %a" ,tasks-file bottom nil)
+                                 ("note" ?n "* %?
+  %u
+  %a" ,notes-file bottom nil))))
+
+; Refiling settings
+
+(setq org-completion-use-ido t)
+(setq org-refile-targets '((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5)))
+(setq org-refile-use-outline-path (quote file))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C / C++
@@ -105,6 +283,10 @@
 (c-add-style "personal-c-style" personal-c-style)
 
 (setq c-default-style '((other . "personal-c-style")))
+
+; Keep the clock running on the remember item.
+(setq org-remember-clock-out-on-exit nil)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C#
@@ -150,7 +332,7 @@
 ;; SML
 
 ;;; MLB modle
-(autoload 'esml-ml-mode "esml-mlb-mode")
+(autoload 'esml-mlb-mode "esml-mlb-mode")
 (add-to-list 'auto-mode-alist '("\\.mlb\\'" . esml-mlb-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -162,6 +344,12 @@
 ;; Lua
 
 (setq lua-indent-level 2)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Yasnippet
+
+;(require 'yasnippet-bundle)
+(yas/load-directory "~/.elisp/snippets")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; File templates
@@ -214,6 +402,30 @@
     (insert "\n")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Vimpulse mode
+
+; Permutate HJKL bindings to make sense with a Colemak keymap.
+(defun viper-colemak-hjkl ()
+  (interactive)
+  (define-key viper-vi-global-user-map "j" 'viper-backward-char)
+  (define-key viper-vi-global-user-map "k" 'viper-next-line)
+  (define-key viper-vi-global-user-map "h" 'viper-previous-line)
+  (define-key viper-vi-global-user-map "l" 'viper-forward-char))
+
+(defun vimpulse-on ()
+  (interactive)
+  (require 'rect-mark)               ; Vim-style rectangle selection highlight
+  (setq viper-mode t)                ; enable Viper at load time
+  (setq viper-ex-style-editing nil)  ; can backspace past start of insert / line
+  (require 'viper)                   ; load Viper
+  (require 'vimpulse)                ; load Vimpulse
+  (viper-colemak-hjkl)
+  (setq woman-use-own-frame nil)     ; don't create new frame for manpages
+  (setq woman-use-topic-at-point t)) ; don't prompt upon K key (manpage display)
+
+; (vimpulse-on)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Version control
 
 ; Don't ask about following symlinks to svn files.
@@ -232,9 +444,21 @@
 (global-set-key "\C-q" 'backward-kill-word)
 (global-set-key "\C-\M-q" 'quoted-insert)
 
-; Compile or run program based on directory
-(global-set-key [f9] 'custom-compile)
-(global-set-key [S-f9] 'custom-run)
+; Accessing various modes from anywhere
+
+; Allow F9 to serve as a prefix key
+(global-set-key (kbd "<f9>") (make-sparse-keymap))
+
+; Show calendar
+(global-set-key (kbd "<f9> c") 'calendar)
+; Show calculator
+(global-set-key (kbd "<f9> l") 'calc)
+; Go to currently clocked task
+(global-set-key (kbd "<f9> o") 'org-clock-goto)
+
+; Show org agenda
+(global-set-key (kbd "<f10>") 'org-agenda)
+
 
 ; Moving up and down is useful, moving to next and previous word is useful.
 ; These should both be under the same mode key. M-n and M-p are unbound, so...
@@ -263,9 +487,21 @@
 (global-set-key [C-f12] (lambda () (interactive) (in-other-buffer 'exhume-buffer)))
 (global-set-key [C-f11] (lambda () (interactive) (in-other-buffer 'bury-buffer)))
 
+; Replace the useless default buffer list with a better one.
+(global-set-key "\C-x\C-b" 'buffer-menu)
+
 ; Window navigation
 (global-set-key (kbd "C-,") (lambda () (interactive) (other-window -1)))
 (global-set-key (kbd "C-.") 'other-window)
+
+; Vim-style jumping to the opposing paren
+(defun goto-match-paren (arg)
+  "Go to the matching parenthesis if on parenthesis, otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
+(global-set-key (kbd "C-%") 'goto-match-paren)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Global settings
@@ -295,6 +531,9 @@
 ; No bell.
 (setq visible-bell t)
 
+; No blink
+(blink-cursor-mode 0)
+
 ; Start the server so we can use emacsclient
 ; This doesn't work in MS Windows, so we use the conditional.
 (when (and first-evaluation-of-dot-emacs (not (eq window-system 'w32)))
@@ -318,7 +557,9 @@
 (setq kill-whole-line t)
 
 ; Autocleanse end-of-line whitespace.
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+; (Commented out for now, can't be used when developing code collaboratively
+; since it messes up patches with whitespace elimination noise.)
+;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc functions
@@ -437,6 +678,21 @@
              "   :URL:     " url "\n"
              "   :read_date: " (format-time-string "%Y-%m-%d") "\n"
              "   :END:\n"))))
+
+(defun hh-mm-ss-to-seconds (time-string)
+  (interactive)
+  "Parse a string hh:mm:ss into seconds."
+  (if (string= time-string "n/a") "n/a"
+    (let* ((nums (map 'list #'string-to-number (split-string time-string ":")))
+           (hours (car nums))
+           (mins (cadr nums))
+           (secs (caddr nums)))
+      (+ (* hours 3600) (* mins 60) secs))))
+
+(defun spreadsheet-string-to-number (number-string)
+  (interactive)
+  (if (string= number-string "n/a") "n/a"
+    (float (string-to-number number-string))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load host-specific configurations
