@@ -467,12 +467,9 @@
 ; Show org agenda
 (global-set-key (kbd "<f10>") 'org-agenda)
 
-
-; Moving up and down is useful, moving to next and previous word is useful.
-; These should both be under the same mode key. M-n and M-p are unbound, so...
-
-(global-set-key "\M-p" 'previous-line)
-(global-set-key "\M-n" 'next-line)
+; Quick line movement with the meta p, n keys.
+(global-set-key "\M-p" (lambda () (interactive) (dotimes (_ 5) (previous-line))))
+(global-set-key "\M-n" (lambda () (interactive) (dotimes (_ 5) (next-line))))
 
 ; Buffer and window navigation
 
