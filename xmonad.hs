@@ -109,17 +109,17 @@ cycleAllDown = windows $ W.modify' $
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Application launcher
-  [ ((modMask,               xK_F1), spawn "gmrun")
+  [ ((modMask,               xK_F5), spawn "gmrun")
   , ((modMask .|. shiftMask, xK_p     ), spawn "gmrun")
 
   -- launch dmenu
   , ((modMask,               xK_p     ), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
 
   -- Launch terminal, browser, text editor or a file explorer.
-  , ((modMask,               xK_F2), spawn $ XMonad.terminal conf)
-  , ((modMask,               xK_F3    ), spawn "firefox")
-  , ((modMask,               xK_F4    ), spawn "emacs22")
-  , ((modMask,               xK_F5    ), spawn "xfe")
+  , ((modMask,               xK_F1), spawn $ XMonad.terminal conf)
+  , ((modMask,               xK_F2    ), spawn "firefox")
+  , ((modMask,               xK_F3    ), spawn "emacs22")
+  , ((modMask,               xK_F4    ), spawn "xfe")
   -- close focused window
   , ((modMask ,              xK_c     ), kill)
 

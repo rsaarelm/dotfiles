@@ -75,6 +75,13 @@
 (add-to-list 'auto-mode-alist '("\\.html\\'" . nxml-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Flyspell mode
+
+; Only highlight the latest perceived misspelling. Don't clutter buffers with
+; highlight junk from false positives.
+(setq flyspell-persistent-highlight nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org-mode
 
 ; Some settings inspired by http://doc.norang.ca/org-mode.html
@@ -121,7 +128,14 @@
 ; Restart clock from old time if there is an open clock line.
 (setq org-clock-in-resume t)
 
+; Clear out zero-time clocks.
 (setq org-clock-out-remove-zero-time-clocks t)
+
+; Keep the clock running on the remember item.
+(setq org-remember-clock-out-on-exit nil)
+
+;; Don't clock out when moving task to a done state.
+(setq org-clock-out-when-done nil)
 
 ; Timestamp done TODO items.
 (setq org-log-done t)
@@ -198,6 +212,7 @@
         ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
         ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
         ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
+        ("T" "Active TODO items" todo "PROJECT|TODO|STARTED" ((org-agenda-todo-ignore-with-date nil)))
         ("n" "Notes" tags "NOTES" nil)))
 
 ; Define stuck projects as PROJECT-tag trees ones without any TODOs or started
@@ -284,9 +299,6 @@
 
 (setq c-default-style '((other . "personal-c-style")))
 
-; Keep the clock running on the remember item.
-(setq org-remember-clock-out-on-exit nil)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C#
@@ -348,7 +360,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippet
 
-;(require 'yasnippet-bundle)
+(require 'yasnippet-bundle)
 (yas/load-directory "~/.elisp/snippets")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -459,12 +471,9 @@
 ; Show org agenda
 (global-set-key (kbd "<f10>") 'org-agenda)
 
-
-; Moving up and down is useful, moving to next and previous word is useful.
-; These should both be under the same mode key. M-n and M-p are unbound, so...
-
-(global-set-key "\M-p" 'previous-line)
-(global-set-key "\M-n" 'next-line)
+; Quick line movement with the meta p, n keys.
+(global-set-key "\M-p" (lambda () (interactive) (dotimes (_ 5) (previous-line))))
+(global-set-key "\M-n" (lambda () (interactive) (dotimes (_ 5) (next-line))))
 
 ; Buffer and window navigation
 

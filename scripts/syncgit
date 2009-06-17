@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Synchronize all Git repositories under ~/work with their origins.
+# XXX: Currently fails if a dir under ~/work is not a Git repo with a valid
+# origin.
+
+for dir in ~/work/*
+do
+        (cd $dir &&
+        echo $dir
+        git fetch
+        git push)
+done

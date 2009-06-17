@@ -1,5 +1,5 @@
-#name : #+BEGIN_...#+END_
+#name : #+BEGIN_SRC txt...#+END_SRC
 # --
-#+BEGIN_$1 $2
+#+BEGIN_SRC txt
 $0
-#+END_$1
+#+END_SRC
