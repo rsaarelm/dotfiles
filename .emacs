@@ -128,7 +128,14 @@
 ; Restart clock from old time if there is an open clock line.
 (setq org-clock-in-resume t)
 
+; Clear out zero-time clocks.
 (setq org-clock-out-remove-zero-time-clocks t)
+
+; Keep the clock running on the remember item.
+(setq org-remember-clock-out-on-exit nil)
+
+;; Don't clock out when moving task to a done state.
+(setq org-clock-out-when-done nil)
 
 ; Timestamp done TODO items.
 (setq org-log-done t)
@@ -291,9 +298,6 @@
 (c-add-style "personal-c-style" personal-c-style)
 
 (setq c-default-style '((other . "personal-c-style")))
-
-; Keep the clock running on the remember item.
-(setq org-remember-clock-out-on-exit nil)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
