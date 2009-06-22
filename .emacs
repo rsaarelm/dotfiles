@@ -189,20 +189,20 @@
 ;
 ; We want CANCELED and WAITING states to show up in subtasks as well. Do this
 ; by assigning tags to the tasks on setting the state.
-;
-; We also use a NEXT action tag, which gets removed if the task ends up
-; waiting or done.
 (setq org-todo-state-tags-triggers
       '(("CANCELED" ("CANCELED" . t))
-        ("WAITING" ("WAITING" . t) ("NEXT"))
+        ("WAITING" ("WAITING" . t) ("WORKINGON"))
         ("SOMEDAY" ("WAITING" . t))
-        (done ("NEXT") ("WAITING"))
+        (done ("WORKINGON") ("WAITING"))
         ("TODO" ("WAITING") ("CANCELED"))
         ("STARTED" ("WAITING") ("CANCELED"))
         ("PROJECT" ("CANCELED") ("PROJECT" . t))))
 
 ; Quick tags, add with C-c C-q
-(setq org-tag-alist '(("NEXT" . ?n)
+; 
+; WORKINGON is a tag for projects that are currently at top priority and from
+; which the next task should be picked from.
+(setq org-tag-alist '(("WORKINGON" . ?o)
                       ("WAITING" . ?w)
                       ("REFILE" . ?r)))
 
@@ -213,6 +213,7 @@
         ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
         ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
         ("T" "Active TODO items" todo "PROJECT|TODO|STARTED" ((org-agenda-todo-ignore-with-date nil)))
+        ("o" "The current active projects" tags-todo "WORKINGON" ((org-agenda-todo-ignore-with-date nil)))
         ("n" "Notes" tags "NOTES" nil)))
 
 ; Define stuck projects as PROJECT-tag trees ones without any TODOs or started
