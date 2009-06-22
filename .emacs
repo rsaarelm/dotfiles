@@ -264,8 +264,8 @@
 
 ; Put remember files in home or work subdir depending on which exists.
 (let* ((prefix
-        (cond ((file-exists-p "~/org/home") "~/org/home/")
-              ((file-exists-p "~/org/work") "~/org/work/")
+        (cond ((file-exists-p "~/work/orghome") "~/work/orghome/")
+              ((file-exists-p "~/work/orgwork") "~/work/orgwork/")
               (t "~/org/")))
        
        (tasks-file (concat prefix "tasks.org"))
@@ -703,6 +703,23 @@
   (interactive)
   (if (string= number-string "n/a") "n/a"
     (float (string-to-number number-string))))
+
+(defun spreadsheet-running-speed (hh-mm-ss-string km-string)
+  (interactive)
+  (let ((km (spreadsheet-string-to-number km-string))
+        (sec (hh-mm-ss-to-seconds hh-mm-ss-string)))
+    (if (or (equal km "n/a") (equal sec "n/a"))
+        "n/a" 
+      (format "%.2f" (/ km (/ sec 3600.0))))))
+
+(defun spreadsheet-running-meters-per-beat (hh-mm-ss-string bpm-string km-string)
+  (interactive)
+  (let ((km (spreadsheet-string-to-number km-string))
+        (bpm (spreadsheet-string-to-number bpm-string))
+        (sec (hh-mm-ss-to-seconds hh-mm-ss-string)))
+    (if (or (equal km "n/a") (equal bpm "n/a") (equal sec "n/a"))
+        "n/a" 
+      (format "%.2f" (/ (* km 1000.0) (* bpm (/ sec 60.0)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load host-specific configurations
