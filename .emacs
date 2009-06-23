@@ -178,7 +178,7 @@
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "chartreuse" :weight bold)
-        ("STARTED" :foreground "green yellow" :weight bold)
+        ("STARTED" :foreground "black" :background "green yellow" :weight bold)
         ("DONE" :foreground "forest green" :weight bold)
         ("WAITING" :foreground "indian red" :weight bold)
         ("SOMEDAY" :foreground "medium orchid" :weight bold)
@@ -189,20 +189,20 @@
 ;
 ; We want CANCELED and WAITING states to show up in subtasks as well. Do this
 ; by assigning tags to the tasks on setting the state.
-;
-; We also use a NEXT action tag, which gets removed if the task ends up
-; waiting or done.
 (setq org-todo-state-tags-triggers
       '(("CANCELED" ("CANCELED" . t))
-        ("WAITING" ("WAITING" . t) ("NEXT"))
+        ("WAITING" ("WAITING" . t) ("WORKINGON"))
         ("SOMEDAY" ("WAITING" . t))
-        (done ("NEXT") ("WAITING"))
+        (done ("WORKINGON") ("WAITING"))
         ("TODO" ("WAITING") ("CANCELED"))
         ("STARTED" ("WAITING") ("CANCELED"))
         ("PROJECT" ("CANCELED") ("PROJECT" . t))))
 
 ; Quick tags, add with C-c C-q
-(setq org-tag-alist '(("NEXT" . ?n)
+; 
+; WORKINGON is a tag for projects that are currently at top priority and from
+; which the next task should be picked from.
+(setq org-tag-alist '(("WORKINGON" . ?o)
                       ("WAITING" . ?w)
                       ("REFILE" . ?r)))
 
@@ -212,7 +212,7 @@
         ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
         ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
         ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
-        ("T" "Active TODO items" todo "PROJECT|TODO|STARTED" ((org-agenda-todo-ignore-with-date nil)))
+        ("T" "Currently active projects" tags-todo "WORKINGON" ((org-agenda-todo-ignore-with-date nil)))
         ("n" "Notes" tags "NOTES" nil)))
 
 ; Define stuck projects as PROJECT-tag trees ones without any TODOs or started
@@ -240,12 +240,12 @@
 
 (regenerate-org-appt)
 
-(add-hook 'org-finalize-agenda 'regenerate-org-appt)
+(add-hook 'org-finalize-agenda-hook 'regenerate-org-appt)
 
 (appt-activate t)
 
 ; Bring up the next day's appointments after midnight.
-(run-at-time "24:01" nil 'my-org-agenda-to-appt)
+(run-at-time "24:01" nil 'regenerate-org-appt)
 
 ; Org and remember mode
 (require 'remember)
@@ -416,13 +416,78 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Vimpulse mode
 
-; Permutate HJKL bindings to make sense with a Colemak keymap.
+; Permutate HJKL bindings to make sense with a Colemak keymap. This is
+; different from Coleman's own, much more extensive Colemak Vim map.
 (defun viper-colemak-hjkl ()
   (interactive)
   (define-key viper-vi-global-user-map "j" 'viper-backward-char)
   (define-key viper-vi-global-user-map "k" 'viper-next-line)
   (define-key viper-vi-global-user-map "h" 'viper-previous-line)
   (define-key viper-vi-global-user-map "l" 'viper-forward-char))
+
+; Might need more tweaking for special modes?
+; Missing stuff
+; - onoremap r i for inneR objects
+; - WORD movement
+; - end of word backwards
+(defun colemak-vimpulse ()
+  "Activate Shai Coleman's Colemak Vim mapping in
+Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
+  (interactive)
+  ; Navigation with unei. Use shift to move five steps at a time.
+  (define-key viper-vi-global-user-map "n" 'viper-backward-char)
+  (define-key viper-vi-global-user-map "u" 'viper-previous-line)
+  (define-key viper-vi-global-user-map "e" 'viper-next-line)
+  (define-key viper-vi-global-user-map "i" 'viper-forward-char)
+  (define-key viper-vi-global-user-map "N"
+    (lambda () (interactive) (viper-backward-char 5)))
+  (define-key viper-vi-global-user-map "U"
+    (lambda () (interactive) (viper-previous-line 5)))
+  (define-key viper-vi-global-user-map "E"
+    (lambda () (interactive) (viper-next-line 5)))
+  (define-key viper-vi-global-user-map "I"
+    (lambda () (interactive) (viper-forward-char 5)))
+
+  ; Beginning and end of line with L and Y.
+  (define-key viper-vi-global-user-map "L" 'viper-bol-and-skip-white)
+  (define-key viper-vi-global-user-map "Y" 'viper-goto-eol)
+
+  ; Previous / next word with l and y.
+  (define-key viper-vi-global-user-map "l" 'viper-backward-word)
+  (define-key viper-vi-global-user-map "y" 'viper-forward-word)
+
+  ; Goto line with - / _
+  (define-key viper-vi-global-user-map "-" 'vimpulse-goto-first-line)
+  (define-key viper-vi-global-user-map "_" 'viper-goto-line)
+
+  ; Command line from ;
+  (define-key viper-vi-global-user-map ";" 'viper-ex)
+
+  ; Cut/copy/paste with xcv
+  (define-key viper-vi-global-user-map "x" 'viper-delete-char)
+  (define-key viper-vi-global-user-map "c" 'viper-command-argument) ; XXX: 'y' Viper's bindings are weird and wrong here...
+  (aset viper-exec-array ?c 'viper-exec-yank)
+  (define-key viper-vi-global-user-map "v" 'viper-Put-back) ; XXX: gP in Coleman's map, vimpulse equivalent?
+  (define-key viper-vi-global-user-map "X" 'viper-erase-line) ; XXX: Is this correct for dd?
+  (define-key viper-vi-global-user-map "C" 'viper-yank-line) ; XXX: Supposed to be yy
+  (define-key viper-vi-global-user-map "V" 'viper-put-back)
+  
+  ; Undo and redo.
+  (define-key viper-vi-global-user-map "z" 'undo)
+  ; XXX: Missing gz -> U
+  (define-key viper-vi-global-user-map "Z" 'redo)
+
+  ; Insert, append, change
+  (define-key viper-vi-global-user-map "s" 'viper-insert)
+  (define-key viper-vi-global-user-map "S" 'viper-Insert)
+  (define-key viper-vi-global-user-map "t" 'viper-append)
+  (define-key viper-vi-global-user-map "T" 'viper-Append)
+  (define-key viper-vi-global-user-map "w" 'viper-command-argument) ; XXX: 'c' Command-argument again, need the actual 
+  (aset viper-exec-array ?w 'viper-exec-change)
+  (define-key viper-vi-global-user-map "W" 'viper-change-to-eol)
+  ; TODO: Work in progress...
+)
+
 
 (defun vimpulse-on ()
   (interactive)
@@ -431,7 +496,8 @@
   (setq viper-ex-style-editing nil)  ; can backspace past start of insert / line
   (require 'viper)                   ; load Viper
   (require 'vimpulse)                ; load Vimpulse
-  (viper-colemak-hjkl)
+;  (viper-colemak-hjkl)
+  (colemak-vimpulse)
   (setq woman-use-own-frame nil)     ; don't create new frame for manpages
   (setq woman-use-topic-at-point t)) ; don't prompt upon K key (manpage display)
 
