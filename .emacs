@@ -178,7 +178,7 @@
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "chartreuse" :weight bold)
-        ("STARTED" :foreground "green yellow" :weight bold)
+        ("STARTED" :foreground "black" :background "green yellow" :weight bold)
         ("DONE" :foreground "forest green" :weight bold)
         ("WAITING" :foreground "indian red" :weight bold)
         ("SOMEDAY" :foreground "medium orchid" :weight bold)
@@ -212,8 +212,7 @@
         ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
         ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
         ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
-        ("T" "Active TODO items" todo "PROJECT|TODO|STARTED" ((org-agenda-todo-ignore-with-date nil)))
-        ("o" "The current active projects" tags-todo "WORKINGON" ((org-agenda-todo-ignore-with-date nil)))
+        ("T" "Currently active projects" tags-todo "WORKINGON" ((org-agenda-todo-ignore-with-date nil)))
         ("n" "Notes" tags "NOTES" nil)))
 
 ; Define stuck projects as PROJECT-tag trees ones without any TODOs or started
@@ -241,12 +240,12 @@
 
 (regenerate-org-appt)
 
-(add-hook 'org-finalize-agenda 'regenerate-org-appt)
+(add-hook 'org-finalize-agenda-hook 'regenerate-org-appt)
 
 (appt-activate t)
 
 ; Bring up the next day's appointments after midnight.
-(run-at-time "24:01" nil 'my-org-agenda-to-appt)
+(run-at-time "24:01" nil 'regenerate-org-appt)
 
 ; Org and remember mode
 (require 'remember)
