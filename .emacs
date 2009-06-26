@@ -636,6 +636,9 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 ; since it messes up patches with whitespace elimination noise.)
 ;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+; Show the trailing whitespace anyway.
+(setq show-trailing-whitespace t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc functions
 
