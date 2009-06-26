@@ -121,6 +121,9 @@
 
 (setq org-clock-in-switch-to-state #'my-clock-in-switch)
 
+; Remember lots of old clocks
+(setq org-clock-history-length 35)
+
 ; Make the clock persist across sessions
 (setq org-clock-persist t)
 (org-clock-persistence-insinuate)
