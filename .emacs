@@ -35,13 +35,9 @@
 
 (my-set-font "-misc-fixed-medium-*-*-*-15-*-*-*-*-*-*-*")
 
-(when (string= (system-name) "erebus")
-  (my-set-font "-misc-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"))
-
-
 (require 'color-theme)
 (if window-system
-    (color-theme-goldenrod)
+    (color-theme-taylor)
   (color-theme-hober))
 
 ; Kill the GUI clutter
@@ -274,10 +270,10 @@
        (notes-file (concat prefix "notes.org")))
 
   (setq org-remember-templates `(("todo" ?t "* TODO %?
-  %U
+  %T
   %a" ,tasks-file bottom nil)
                                  ("note" ?n "* %?
-  %U
+  %T
   %a" ,notes-file bottom nil))))
 
 ; Refiling settings
