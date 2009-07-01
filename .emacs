@@ -270,11 +270,9 @@
        (notes-file (concat prefix "notes.org")))
 
   (setq org-remember-templates `(("todo" ?t "* TODO %?
-  %T
-  %a" ,tasks-file bottom nil)
+  %T" ,tasks-file bottom nil)
                                  ("note" ?n "* %?
-  %T
-  %a" ,notes-file bottom nil))))
+  %T" ,notes-file bottom nil))))
 
 ; Refiling settings
 
