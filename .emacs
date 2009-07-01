@@ -540,6 +540,12 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 (global-set-key "\M-p" (lambda () (interactive) (dotimes (_ 5) (previous-line))))
 (global-set-key "\M-n" (lambda () (interactive) (dotimes (_ 5) (next-line))))
 
+; Don't use suspend on Windows, it's not the concern of Emacs there and
+; doesn't even work right on tiling WMs with no concept of hiding windows.
+; Instead, follow the original idea of accessing a shell and run ansi-term.
+(if window-system
+    (global-set-key "\C-z" 'ansi-term))
+
 ; Buffer and window navigation
 
 (defun exhume-buffer ()
