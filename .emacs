@@ -531,7 +531,7 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 ; Go to currently clocked task
 (global-set-key (kbd "<f9> o") 'org-clock-goto)
 ; Change clocked task to one in history.
-(global-set-key (kbd "<f9> t") 'org-clock-select-task)
+(global-set-key (kbd "<f9> t") (lambda () (interactive) (org-clock-in '(4))))
 
 ; Show org agenda
 (global-set-key (kbd "<f10>") 'org-agenda)
