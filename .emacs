@@ -530,6 +530,8 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 (global-set-key (kbd "<f9> l") 'calc)
 ; Go to currently clocked task
 (global-set-key (kbd "<f9> o") 'org-clock-goto)
+; Change clocked task to one in history.
+(global-set-key (kbd "<f9> t") 'org-clock-select-task)
 
 ; Show org agenda
 (global-set-key (kbd "<f10>") 'org-agenda)
