@@ -219,7 +219,8 @@
         ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
         ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
         ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
-        ("T" "Currently active projects" tags-todo "WORKINGON" ((org-agenda-todo-ignore-with-date nil)))
+        ("T" "Currently active projects" tags "WORKINGON/TODO|STARTED"
+         ((org-agenda-todo-ignore-with-date nil)))
         ("n" "Notes" tags "NOTES" nil)))
 
 ; Define stuck projects as PROJECT-tag trees ones without any TODOs or started
@@ -287,6 +288,17 @@
 (setq org-completion-use-ido t)
 (setq org-refile-targets '((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5)))
 (setq org-refile-use-outline-path (quote file))
+
+; Mark a parent TODO done if all children are done.
+; Requires a statistics cookie ([/] or [%]) on the parent entry to work.
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (print n-done)
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+     
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C / C++
