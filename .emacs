@@ -839,7 +839,7 @@ given time value or current time."
     (cond
      ((< secs daybreak-1) (prev-daily-time daybreak-2 time))
      ((< secs daybreak-2) (prev-daily-time daybreak-1 time))
-     (true (prev-daily-time daybreak-2 time)))))
+     (t (prev-daily-time daybreak-2 time)))))
 
 (defun half-day-end-time (&optional time)
   (delta-seconds (/ seconds-in-day 2) (half-day-start-time time)))
