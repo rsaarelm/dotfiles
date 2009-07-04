@@ -802,6 +802,48 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
         "n/a" 
       (format "%.2f" (/ (* km 1000.0) (* bpm (/ sec 60.0)))))))
 
+(defvar seconds-in-day (* 24 60 60))
+
+(defun seconds-after-midnight (&optional time)
+  (multiple-value-bind (sec min hour) (decode-time time)
+    (+ (* 3600 hour) (* 60 min) sec)))
+
+(defun delta-seconds (delta-sec &optional time)
+  "Return a time value with delta-sec added to the seconds of the
+given time value or current time."
+  (let ((date (decode-time time)))
+    (setcar date (+ (car date) delta-sec))
+    (apply 'encode-time date)))
+
+(defun next-daily-time (seconds-after-midnight &optional time)
+  "When is the next occurrence of the given daily time point after given time."
+  (let ((current-secs (seconds-after-midnight time)))
+    (if (< current-secs seconds-after-midnight)
+        (delta-seconds (- seconds-after-midnight current-secs) time)
+      (delta-seconds
+       (+ seconds-after-midnight (- seconds-in-day current-secs))
+       time))))
+
+(defun prev-daily-time (seconds-after-midnight &optional time)
+  "When is the previous occurrence of the given daily time point after given time."
+  (delta-seconds (- seconds-in-day) (next-daily-time seconds-after-midnight time)))
+
+; Half-day time points. Used with a biphasic sleep cycle where you are asleep
+; in the early morning and in the afternoon each day and awake the rest of the
+; time. Used to make org-mode clocktables for half-days.
+
+(defun half-day-start-time (&optional time)
+  (let ((secs (seconds-after-midnight time))
+        (daybreak-1 (hh-mm-ss-to-seconds "05:00:00"))
+        (daybreak-2 (hh-mm-ss-to-seconds "17:00:00")))
+    (cond
+     ((< secs daybreak-1) (prev-daily-time daybreak-2 time))
+     ((< secs daybreak-2) (prev-daily-time daybreak-1 time))
+     (true (prev-daily-time daybreak-2 time)))))
+
+(defun half-day-end-time (&optional time)
+  (delta-seconds (/ seconds-in-day 2) (half-day-start-time time)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Load host-specific configurations
 

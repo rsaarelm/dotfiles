@@ -1,0 +1,4 @@
+#name : half-day clocktable
+# --
+#+BEGIN: clocktable :scope agenda :tstart "`(format-time-string "<%Y-%m-%d %a %H:%M>" (half-day-start-time))`" :tend "`(format-time-string "<%Y-%m-%d %a %H:%M>" (half-day-end-time))`" :link
+#+END: clocktable
