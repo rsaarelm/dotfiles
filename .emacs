@@ -35,12 +35,12 @@
 
 (my-set-font "-misc-fixed-medium-*-*-*-15-*-*-*-*-*-*-*")
 
-(defvar nice-color-themes '(color-theme-goldenrod
-                            ;color-theme-taylor
-                            color-theme-classic
-                            color-theme-deep-blue
-                            color-theme-resolve
-                            ))
+(setq nice-color-themes '(;color-theme-goldenrod
+                          ;;color-theme-taylor ; This gets confused with a terminal...
+                          ;color-theme-classic
+                          color-theme-deep-blue
+                          ;color-theme-resolve
+                          ))
 
 (require 'color-theme)
 (if window-system
