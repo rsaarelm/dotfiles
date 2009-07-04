@@ -35,9 +35,17 @@
 
 (my-set-font "-misc-fixed-medium-*-*-*-15-*-*-*-*-*-*-*")
 
+(defvar nice-color-themes '(color-theme-goldenrod
+                            ;color-theme-taylor
+                            color-theme-classic
+                            color-theme-deep-blue
+                            color-theme-resolve
+                            ))
+
 (require 'color-theme)
 (if window-system
-    (color-theme-taylor)
+    ; Pick a random color theme.
+    (funcall (nth (random (length nice-color-themes)) nice-color-themes))
   (color-theme-hober))
 
 ; Kill the GUI clutter
