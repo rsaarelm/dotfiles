@@ -65,7 +65,7 @@
 ;    (re-search-forward "^$" nil 'move)
 ;    (eval-region (point) (point-max))
 ;    (kill-buffer (current-buffer))))
-  
+
 
 (when
     (load
@@ -175,7 +175,7 @@
 ;
 ; PROJECT: Tasks you are committed to doing, but are too big or vague to be
 ; TODO items.
-; 
+;
 ; CANCELED: Canceled tasks. Should explain why the task was canceled.
 ;
 ; DONE: Finished tasks.
@@ -206,7 +206,7 @@
         ("PROJECT" ("CANCELED") ("PROJECT" . t))))
 
 ; Quick tags, add with C-c C-q
-; 
+;
 ; WORKINGON is a tag for projects that are currently at top priority and from
 ; which the next task should be picked from.
 (setq org-tag-alist '(("WORKINGON" . ?o)
@@ -214,7 +214,7 @@
                       ("REFILE" . ?r)))
 
 ; Custom agenda
-(setq org-agenda-custom-commands 
+(setq org-agenda-custom-commands
       '(("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
         ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
         ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
@@ -274,7 +274,7 @@
         (cond ((file-exists-p "~/work/orghome") "~/work/orghome/")
               ((file-exists-p "~/work/orgwork") "~/work/orgwork/")
               (t "~/org/")))
-       
+
        (tasks-file (concat prefix "tasks.org"))
        (notes-file (concat prefix "notes.org")))
 
@@ -488,7 +488,7 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
   (define-key viper-vi-global-user-map "X" 'viper-erase-line) ; XXX: Is this correct for dd?
   (define-key viper-vi-global-user-map "C" 'viper-yank-line) ; XXX: Supposed to be yy
   (define-key viper-vi-global-user-map "V" 'viper-put-back)
-  
+
   ; Undo and redo.
   (define-key viper-vi-global-user-map "z" 'undo)
   ; XXX: Missing gz -> U
@@ -499,7 +499,7 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
   (define-key viper-vi-global-user-map "S" 'viper-Insert)
   (define-key viper-vi-global-user-map "t" 'viper-append)
   (define-key viper-vi-global-user-map "T" 'viper-Append)
-  (define-key viper-vi-global-user-map "w" 'viper-command-argument) ; XXX: 'c' Command-argument again, need the actual 
+  (define-key viper-vi-global-user-map "w" 'viper-command-argument) ; XXX: 'c' Command-argument again, need the actual
   (aset viper-exec-array ?w 'viper-exec-change)
   (define-key viper-vi-global-user-map "W" 'viper-change-to-eol)
   ; TODO: Work in progress...
@@ -802,7 +802,7 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
   (let ((km (spreadsheet-string-to-number km-string))
         (sec (hh-mm-ss-to-seconds hh-mm-ss-string)))
     (if (or (equal km "n/a") (equal sec "n/a"))
-        "n/a" 
+        "n/a"
       (format "%.2f" (/ km (/ sec 3600.0))))))
 
 (defun spreadsheet-running-meters-per-beat (hh-mm-ss-string bpm-string km-string)
@@ -811,7 +811,7 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
         (bpm (spreadsheet-string-to-number bpm-string))
         (sec (hh-mm-ss-to-seconds hh-mm-ss-string)))
     (if (or (equal km "n/a") (equal bpm "n/a") (equal sec "n/a"))
-        "n/a" 
+        "n/a"
       (format "%.2f" (/ (* km 1000.0) (* bpm (/ sec 60.0)))))))
 
 (defvar seconds-in-day (* 24 60 60))
