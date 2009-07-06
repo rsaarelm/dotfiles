@@ -38,7 +38,8 @@
 (setq nice-color-themes '(;color-theme-goldenrod
                           ;;color-theme-taylor ; This gets confused with a terminal...
                           ;color-theme-classic
-                          color-theme-deep-blue
+                          ;color-theme-deep-blue
+                          color-theme-charcoal-black
                           ;color-theme-resolve
                           ))
 
@@ -289,15 +290,15 @@
 (setq org-refile-targets '((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5)))
 (setq org-refile-use-outline-path (quote file))
 
-; Mark a parent TODO done if all children are done.
-; Requires a statistics cookie ([/] or [%]) on the parent entry to work.
-(defun org-summary-todo (n-done n-not-done)
-  "Switch entry to DONE when all subentries are done, to TODO otherwise."
-  (print n-done)
-  (let (org-log-done org-log-states)   ; turn off logging
-    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
-     
-(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+; Doesn't seem to work correctly
+;; Mark a parent TODO done if all children are done.
+;; Requires a statistics cookie ([/] or [%]) on the parent entry to work.
+;(defun org-summary-todo (n-done n-not-done)
+;  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+;  (let (org-log-done org-log-states)   ; turn off logging
+;    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+;
+;(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
