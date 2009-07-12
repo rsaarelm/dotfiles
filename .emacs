@@ -528,6 +528,64 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 (setq vc-follow-symlinks nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ErgoEmacs modifications
+
+; Partial ergoemacs setup
+(defun ergoemacs-on ()
+  (interactive)
+  ; Cursor motion
+  (global-unset-key (kbd "M-n"))
+  (global-unset-key (kbd "M-i"))
+  (global-unset-key (kbd "M-u"))
+  (global-unset-key (kbd "M-e"))
+  (global-unset-key (kbd "M-h"))
+  (global-unset-key (kbd "M-l"))
+  (global-unset-key (kbd "M-y"))
+
+  (global-unset-key (kbd "M-N"))
+  (global-unset-key (kbd "M-I"))
+  (global-unset-key (kbd "M-U"))
+  (global-unset-key (kbd "M-E"))
+  (global-unset-key (kbd "M-H"))
+  (global-unset-key (kbd "M-L"))
+  (global-unset-key (kbd "M-Y"))
+
+  (define-key org-mode-map "\M-n" nil)
+  (define-key org-mode-map "\M-e" nil)
+
+  (global-set-key (kbd "M-n") 'backward-char)
+  (global-set-key (kbd "M-i") 'forward-char)
+  (global-set-key (kbd "M-u") 'previous-line)
+  (global-set-key (kbd "M-e") 'next-line)
+
+  (global-set-key (kbd "M-U") 'scroll-down)
+  (global-set-key (kbd "M-E") 'scroll-up)
+  (global-set-key (kbd "M-N") 'beginning-of-buffer)
+  (global-set-key (kbd "M-I") 'end-of-buffer)
+
+  (global-set-key (kbd "M-h") 'beginning-of-buffer)
+  (global-set-key (kbd "M-H") 'end-of-buffer)
+
+  (global-set-key (kbd "M-l") 'backward-word)
+  (global-set-key (kbd "M-y") 'forward-word)
+  (global-set-key (kbd "C-M-l") 'backward-sexp)
+  (global-set-key (kbd "C-M-y") 'forward-sexp)
+  (global-set-key (kbd "M-L") 'backward-paragraph)
+  (global-set-key (kbd "M-Y") 'forward-paragraph)
+
+  (global-unset-key (kbd "M-j"))
+  (global-set-key (kbd "M-j") (make-sparse-keymap))
+
+  (global-set-key (kbd "M-j M-n") 'windmove-left)
+  (global-set-key (kbd "M-j M-i") 'windmove-right)
+  (global-set-key (kbd "M-j M-u") 'windmove-up)
+  (global-set-key (kbd "M-j M-e") 'windmove-down)
+)
+
+(ergoemacs-on)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom key bindings
 
 ; Bind autocomplete to C-Tab
