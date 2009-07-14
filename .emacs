@@ -114,7 +114,10 @@
             (setq yas/trigger-key [tab])
             (define-key yas/keymap [tab] 'yas/next-field-group)
             ; flyspell for automatic spell checking
-            (flyspell-mode 1)))
+            (flyspell-mode 1)
+            ; keybindings
+            (local-set-key (kbd "C-c r") 'review-org-entry)
+            ))
 
 ; Set the state of todo-style items to STARTED when clocking them.
 (defun my-clock-in-switch (state)
@@ -300,6 +303,49 @@
 ;
 ;(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
+
+; Creating headings for scheduling spaced repetition. The idea in spaced
+; repetition (http://en.wikipedia.org/wiki/Spaced_repetition) is to revisit
+; topics after a number of days have passed to learn them better.
+;
+; The function returns a string of a review item title, including the
+; indentation stars. Review items are identified by the title prefix
+; "HEADING". Items under review items stay on the same level to make it easy
+; to insert a list of consecutive review items.
+(defun org-parent-is-review ()
+  (eq (string-match "REVIEW " (nth 4 (org-heading-components))) 0))
+
+(defun org-review-title-string ()
+  (let* ((parent-title (nth 4 (org-heading-components)))
+         (parent-depth (nth 0 (org-heading-components)))
+         (parent-is-review (org-parent-is-review))
+         (title (if parent-is-review parent-title (concat "REVIEW " parent-title)))
+         (depth (if parent-is-review parent-depth (+ parent-depth 1))))
+    (with-temp-buffer
+      (dotimes (_ depth) (insert "*"))
+      (insert " ")
+      (insert title)
+      (buffer-string))))
+
+; Insert scheduling data using the org date input system, allowing for formats
+; like "+1d".
+(defun set-scheduled-date (org-date-string)
+  (org-add-planning-info
+   'scheduled
+   (apply 'encode-time
+          (org-parse-time-string (org-read-date nil nil org-date-string)))))
+
+(defun review-org-entry (&optional org-date-string)
+  (interactive)
+  (let ((date-string (or org-date-string (read-from-minibuffer "Date: ")))
+        (parent-title (nth 4 (org-heading-components))))
+    (if (org-parent-is-review)
+        (progn (org-insert-heading)
+               (insert parent-title))
+      (progn (org-insert-subheading nil)
+             (insert "REVIEW ")
+             (insert parent-title)))
+    (set-scheduled-date date-string)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C / C++
