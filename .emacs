@@ -339,6 +339,7 @@
   (interactive)
   (let ((date-string (or org-date-string (read-from-minibuffer "Date: ")))
         (parent-title (nth 4 (org-heading-components))))
+    (move-end-of-line nil)
     (if (org-parent-is-review)
         (progn (org-insert-heading)
                (insert parent-title))
