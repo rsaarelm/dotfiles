@@ -661,10 +661,6 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 ; Show org agenda
 (global-set-key (kbd "<f10>") 'org-agenda)
 
-; Quick line movement with the meta p, n keys.
-(global-set-key "\M-p" (lambda () (interactive) (dotimes (_ 5) (previous-line))))
-(global-set-key "\M-n" (lambda () (interactive) (dotimes (_ 5) (next-line))))
-
 ; Don't use suspend on Windows, it's not the concern of Emacs there and
 ; doesn't even work right on tiling WMs with no concept of hiding windows.
 ; Instead, follow the original idea of accessing a shell and run ansi-term.
