@@ -103,6 +103,9 @@
 ; The config variable used to be org-CUA-compatible.
 (setq org-replace-disputed-keys t)
 
+; Activate org-protocol to that we can access org from external programs.
+(require 'org-protocol)
+
 ; Start org-mode for .org files.
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
 
@@ -265,7 +268,7 @@
 
 ; Key binding for doing org-remember
 ; XXX: Clobbers regexp-search backwards.
-(global-set-key (kbd "C-M-r") 'org-remember)
+(global-set-key (kbd "C-M-r") (lambda () (interactive) (org-remember nil "n")))
 
 ; Collection bins for notes and tasks entered via remember.
 ; You can add the line
@@ -279,13 +282,10 @@
               ((file-exists-p "~/work/orgwork") "~/work/orgwork/")
               (t "~/org/")))
 
-       (tasks-file (concat prefix "tasks.org"))
        (notes-file (concat prefix "notes.org")))
 
-  (setq org-remember-templates `(("todo" ?t "* TODO %?
-  %T" ,tasks-file bottom nil)
-                                 ("note" ?n "* %?
-  %T" ,notes-file bottom nil))))
+  (setq org-remember-templates `((?w "* URL: %:description\n  %T\n  %c\n\n%i" ,notes-file bottom nil)
+                                 ("note" ?n "* %?\n  %T" ,notes-file bottom nil))))
 
 ; Refiling settings
 
