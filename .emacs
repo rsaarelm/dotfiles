@@ -35,12 +35,12 @@
 
 (my-set-font "-misc-fixed-medium-*-*-*-15-*-*-*-*-*-*-*")
 
-(setq nice-color-themes '(;color-theme-goldenrod
-                          ;;color-theme-taylor ; This gets confused with a terminal...
+(setq nice-color-themes '(color-theme-goldenrod
+                          ;color-theme-taylor
                           ;color-theme-classic
                           ;color-theme-deep-blue
                           color-theme-charcoal-black
-                          ;color-theme-resolve
+                          color-theme-resolve
                           ))
 
 (require 'color-theme)
@@ -226,6 +226,10 @@
         ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
         ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
         ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
+;        ("c" "Calendar challenge tags" agenda (tags "calendar_challenge"))
+;         ((agenda "" ((org-agenda-ndays 7) (org-agenda-time-grid nil)))
+;          (tags-todo "calendar_challenge"))
+         ;((org-agenda-compact-blocks t)))
         ("T" "Currently active projects" tags "WORKINGON/TODO|STARTED"
          ((org-agenda-todo-ignore-with-date nil)))
         ("n" "Notes" tags "NOTES" nil)))
@@ -284,7 +288,7 @@
 
        (notes-file (concat prefix "notes.org")))
 
-  (setq org-remember-templates `((?w "* URL: %:description\n  %T\n  %c\n\n%i" ,notes-file bottom nil)
+  (setq org-remember-templates `((?w "* WWW: %:description\n  %T\n  [[%:link]]\n\n%i" ,notes-file bottom nil)
                                  ("note" ?n "* %?\n  %T" ,notes-file bottom nil))))
 
 ; Refiling settings
@@ -427,6 +431,8 @@
 
 (require 'yasnippet-bundle)
 (yas/load-directory "~/.elisp/snippets")
+(add-to-list 'yas/extra-mode-hooks 'csharp-mode-hook)
+(yas/initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; File templates
