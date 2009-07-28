@@ -427,6 +427,13 @@
 (setq lua-indent-level 2)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Factor
+
+(let ((fuel-file "~/local/factor/misc/fuel/fu.el"))
+  (when (file-exists-p fuel-file)
+    (load-file fuel-file)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippet
 
 (require 'yasnippet-bundle)
