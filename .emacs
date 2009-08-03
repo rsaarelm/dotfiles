@@ -187,8 +187,8 @@
 ;
 ; DONE: Finished tasks.
 (setq org-todo-keywords
-      '((sequence "TODO(t!)" "STARTED(s)" "|" "DONE(d!/!)")
-        (sequence "WAITING(w@/!)" "SOMEDAY(S!)" "PROJECT(P!)" "|" "CANCELED(c@/!)")))
+      '((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
+        (sequence "WAITING(w@/!)" "SOMEDAY(S)" "PROJECT(P)" "|" "CANCELED(c@/!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "chartreuse" :weight bold)
