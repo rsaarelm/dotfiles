@@ -216,7 +216,12 @@
 ;
 ; WORKINGON is a tag for projects that are currently at top priority and from
 ; which the next task should be picked from.
+;
+; CHUNK signifies an undivided work session of a certain length (25 minutes is
+; common) This is based on the Pomodoro Technique. Daily productivity can be
+; measured by counting items tagged with CHUNK in the agenda for that day.
 (setq org-tag-alist '(("WORKINGON" . ?o)
+                      ("CHUNK" . ?c)
                       ("WAITING" . ?w)
                       ("REFILE" . ?r)))
 
