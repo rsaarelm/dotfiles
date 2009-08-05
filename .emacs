@@ -186,9 +186,14 @@
 ; CANCELED: Canceled tasks. Should explain why the task was canceled.
 ;
 ; DONE: Finished tasks.
+;
+; CHUNK: An undivided work session of a certain length (25 minutes is common)
+; This is based on the Pomodoro Technique. Daily productivity can be measured
+; by counting CHUNK items in the agenda for that day.
 (setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-        (sequence "WAITING(w@/!)" "SOMEDAY(S)" "PROJECT(P)" "|" "CANCELED(c@/!)")))
+        (sequence "WAITING(w@/!)" "SOMEDAY(S)" "PROJECT(P)" "|" "CANCELED(C@/!)")
+        (sequence "|" "CHUNK(c)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "chartreuse" :weight bold)
@@ -216,12 +221,7 @@
 ;
 ; WORKINGON is a tag for projects that are currently at top priority and from
 ; which the next task should be picked from.
-;
-; CHUNK signifies an undivided work session of a certain length (25 minutes is
-; common) This is based on the Pomodoro Technique. Daily productivity can be
-; measured by counting items tagged with CHUNK in the agenda for that day.
 (setq org-tag-alist '(("WORKINGON" . ?o)
-                      ("CHUNK" . ?c)
                       ("WAITING" . ?w)
                       ("REFILE" . ?r)))
 
