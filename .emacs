@@ -151,6 +151,8 @@
 ;; Don't clock out when moving task to a done state.
 (setq org-clock-out-when-done nil)
 
+(setq org-clock-modeline-total 'current)
+
 ; Timestamp done TODO items.
 (setq org-log-done t)
 
