@@ -251,7 +251,7 @@
 ; Set up the effort value for column-mode view.
 (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
 ; Set up predefined effort values.
-(setq org-global-properties '(("Effort_ALL" . "0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 8:00")))
+(setq org-global-properties '(("Effort_ALL" . "0:25 0:50 1:15 1:40 2:05 2:30 2:55 3:20 3:45 4:10 4:35 5:00")))
 
 ; Appointments from org agenda
 
