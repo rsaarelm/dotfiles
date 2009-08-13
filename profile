@@ -9,6 +9,7 @@ export PATH="./:$HOME/bin:$HOME/local/bin:$PATH"
 export EDITOR="vim"
 export VISUAL="vim"
 export LD_LIBRARY_PATH="/usr/local/lib:$HOME/local/lib:."
+export FACTOR_ROOTS="$HOME/work/factor"
 
 # Grab all jar files in ~/local/lib into CLASSPATH
 for x in $HOME/local/lib/*.jar
