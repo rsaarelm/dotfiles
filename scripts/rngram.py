@@ -79,6 +79,12 @@ def build_dict(lines):
 
         line = line.strip()
 
+        # Allow stuff like empty lines when double-quoted.
+        if line.startswith('"'):
+            ns = {}
+            ns['__builtins__'] = None
+            line = eval(line, ns)
+
         # current item has been processed, move to the next one
         if current and indent == 0:
             current = None
