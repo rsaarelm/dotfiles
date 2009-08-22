@@ -626,10 +626,11 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
   (global-set-key (kbd "M-u") 'previous-line)
   (global-set-key (kbd "M-e") 'next-line)
 
-  (global-set-key (kbd "M-U") 'scroll-down)
-  (global-set-key (kbd "M-E") 'scroll-up)
-  (global-set-key (kbd "M-N") 'beginning-of-buffer)
-  (global-set-key (kbd "M-I") 'end-of-buffer)
+  (global-set-key (kbd "M-N") 'windmove-left)
+  (global-set-key (kbd "M-I") 'windmove-right)
+  (global-set-key (kbd "M-U") 'windmove-up)
+  (global-set-key (kbd "M-E") 'windmove-down)
+
 
   (global-set-key (kbd "M-h") 'beginning-of-buffer)
   (global-set-key (kbd "M-H") 'end-of-buffer)
@@ -644,10 +645,10 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
   (global-unset-key (kbd "M-j"))
   (global-set-key (kbd "M-j") (make-sparse-keymap))
 
-  (global-set-key (kbd "M-j M-n") 'windmove-left)
-  (global-set-key (kbd "M-j M-i") 'windmove-right)
-  (global-set-key (kbd "M-j M-u") 'windmove-up)
-  (global-set-key (kbd "M-j M-e") 'windmove-down)
+  (global-set-key (kbd "M-j M-e") 'scroll-down)
+  (global-set-key (kbd "M-j M-u") 'scroll-up)
+  (global-set-key (kbd "M-j M-n") 'beginning-of-buffer)
+  (global-set-key (kbd "M-j M-i") 'end-of-buffer)
 )
 
 (ergoemacs-on)
