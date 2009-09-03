@@ -1,0 +1,14 @@
+#name : Walking step count chart
+# --
+|     | steps | km |
+|-----+-------+----|
+| Mon |       |    |
+| Tue |       |    |
+| Wed |       |    |
+| Thu |       |    |
+| Fri |       |    |
+| Sat |       |    |
+| Sun |       |    |
+|-----+-------+----|
+|     |       |    |
+#+TBLFM: \$3=\$2 * 0.0009::@9\$2=vsum(@I..@II)
