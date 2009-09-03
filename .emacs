@@ -125,6 +125,7 @@
 ; Set the state of todo-style items to STARTED when clocking them.
 (defun my-clock-in-switch (state)
   (cond ((string= state "TODO") "STARTED")
+        ((string= state "NEXT") "STARTED")
         ((string= state "WAITING") "STARTED")
         ((string= state "SOMEDAY") "STARTED")
         ((string= state "CANCELED") "STARTED")
@@ -173,6 +174,8 @@
 ; TODO: Tasks you know how to finish, can be finished in a single day and you
 ; are actively committed to finish.
 ;
+; NEXT: Imminent tasks, things that you will work on today.
+;
 ; STARTED: Tasks you have started working on or tasks that are always ongoing
 ; such as following the news and answering email.
 ;
@@ -188,17 +191,13 @@
 ; CANCELED: Canceled tasks. Should explain why the task was canceled.
 ;
 ; DONE: Finished tasks.
-;
-; CHUNK: An undivided work session of a certain length (25 minutes is common)
-; This is based on the Pomodoro Technique. Daily productivity can be measured
-; by counting CHUNK items in the agenda for that day.
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d!/!)")
-        (sequence "WAITING(w@/!)" "SOMEDAY(S)" "PROJECT(P)" "|" "CANCELED(C@/!)")
-        (sequence "|" "CHUNK(c)")))
+      '((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "|" "DONE(d!/!)")
+        (sequence "WAITING(w@/!)" "SOMEDAY(S)" "PROJECT(P)" "|" "CANCELED(C@/!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "chartreuse" :weight bold)
+        ("NEXT" :foreground "orange" :weight bold)
         ("STARTED" :foreground "black" :background "green yellow" :weight bold)
         ("DONE" :foreground "forest green" :weight bold)
         ("WAITING" :foreground "indian red" :weight bold)
@@ -223,27 +222,29 @@
 ;
 ; WORKINGON is a tag for projects that are currently at top priority and from
 ; which the next task should be picked from.
-(setq org-tag-alist '(("WORKINGON" . ?o)
+(setq org-tag-alist '(("WORKINGON" . ?a)
                       ("WAITING" . ?w)
                       ("REFILE" . ?r)))
 
 ; Custom agenda
 (setq org-agenda-custom-commands
-      '(("P" "Projects" tags "/!PROJECT" ((org-use-tag-inheritance nil)))
-        ("s" "Started Tasks" todo "STARTED" ((org-agenda-todo-ignore-with-date nil)))
-        ("w" "Tasks waiting on something" tags "WAITING" ((org-use-tag-inheritance nil)))
-        ("r" "Refile New Notes and Tasks" tags "REFILE" ((org-agenda-todo-ignore-with-date nil)))
-;        ("c" "Calendar challenge tags" agenda (tags "calendar_challenge"))
-;         ((agenda "" ((org-agenda-ndays 7) (org-agenda-time-grid nil)))
-;          (tags-todo "calendar_challenge"))
-         ;((org-agenda-compact-blocks t)))
-        ("T" "Currently active projects" tags "WORKINGON/TODO|STARTED"
+      '(("p" "Active projects" tags "WORKINGON/PROJECT" ((org-use-tag-inheritance nil)))
+        ("P" "All projects" tags "/PROJECT" ((org-use-tag-inheritance nil)))
+        ("w" "Tasks waiting on something" tags "WAITING"
+         ((org-use-tag-inheritance nil)))
+        ("a" "Actively developed tasks" tags
+        "WORKINGON/PROJECT|TODO|NEXT|STARTED"
+         ((org-use-tag-inheritance nil)))
+        ("A" "Actively developed task subtrees" tags
+        "WORKINGON/PROJECT|TODO|NEXT|STARTED"
+         ())
+        ("n" "Started and upcoming tasks" tags "/NEXT|STARTED"
          ((org-agenda-todo-ignore-with-date nil)))
-        ("n" "Notes" tags "NOTES" nil)))
+        ))
 
 ; Define stuck projects as PROJECT-tag trees ones without any TODOs or started
 ; tasks.
-(setq org-stuck-projects '("/PROJECT-DONE" ("STARTED" "TODO") nil ""))
+(setq org-stuck-projects '("/PROJECT-DONE" ("STARTED" "TODO" "NEXT") nil ""))
 
 ; Support for task effort estimates
 
