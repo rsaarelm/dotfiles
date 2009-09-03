@@ -785,7 +785,7 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 ;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ; Show the trailing whitespace anyway.
-(setq show-trailing-whitespace t)
+(setq-default show-trailing-whitespace t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc functions
