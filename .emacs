@@ -653,6 +653,10 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 
 (ergoemacs-on)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Marker pen
+
+(require 'markerpen)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom key bindings
