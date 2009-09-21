@@ -296,8 +296,8 @@
 
        (notes-file (concat prefix "notes.org")))
 
-  (setq org-remember-templates `((?w "* WWW: %:description\n  %T\n  [[%:link]]\n\n%i" ,notes-file bottom nil)
-                                 ("note" ?n "* %?\n  %T" ,notes-file bottom nil))))
+  (setq org-remember-templates `((?w "* WWW: %:description\n  %T\n  [[%:link]]\n\n%i" ,notes-file "Notes" nil)
+                                 ("note" ?n "* %?\n  %T" ,notes-file "Notes" nil))))
 
 ; Refiling settings
 
@@ -653,6 +653,10 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 
 (ergoemacs-on)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Marker pen
+
+(require 'markerpen)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom key bindings
