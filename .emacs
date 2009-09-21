@@ -199,7 +199,7 @@
       '(("TODO" :foreground "chartreuse" :weight bold)
         ("NEXT" :foreground "orange" :weight bold)
         ("STARTED" :foreground "black" :background "green yellow" :weight bold)
-        ("DONE" :foreground "forest green" :weight bold)
+        ("DONE" :foreground "slate gray" :weight bold)
         ("WAITING" :foreground "indian red" :weight bold)
         ("SOMEDAY" :foreground "medium orchid" :weight bold)
         ("PROJECT" :foreground "turquoise" :weight bold)
