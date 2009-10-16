@@ -199,7 +199,7 @@
       '(("TODO" :foreground "chartreuse" :weight bold)
         ("NEXT" :foreground "orange" :weight bold)
         ("STARTED" :foreground "black" :background "green yellow" :weight bold)
-        ("DONE" :foreground "forest green" :weight bold)
+        ("DONE" :foreground "slate gray" :weight bold)
         ("WAITING" :foreground "indian red" :weight bold)
         ("SOMEDAY" :foreground "medium orchid" :weight bold)
         ("PROJECT" :foreground "turquoise" :weight bold)
@@ -910,10 +910,12 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
              "   :read_date: " (format-time-string "%Y-%m-%d") "\n"
              "   :END:\n"))))
 
+(defun non-num-stringp (str) (or (equal str "") (equal str "n/a")))
+
 (defun hh-mm-ss-to-seconds (time-string)
   (interactive)
   "Parse a string hh:mm:ss into seconds."
-  (if (string= time-string "n/a") "n/a"
+  (if (non-num-stringp time-string) ""
     (let* ((nums (map 'list #'string-to-number (split-string time-string ":")))
            (hours (car nums))
            (mins (cadr nums))
@@ -922,15 +924,15 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 
 (defun spreadsheet-string-to-number (number-string)
   (interactive)
-  (if (string= number-string "n/a") "n/a"
+  (if (non-num-stringp number-string) ""
     (float (string-to-number number-string))))
 
 (defun spreadsheet-running-speed (hh-mm-ss-string km-string)
   (interactive)
   (let ((km (spreadsheet-string-to-number km-string))
         (sec (hh-mm-ss-to-seconds hh-mm-ss-string)))
-    (if (or (equal km "n/a") (equal sec "n/a"))
-        "n/a"
+    (if (or (non-num-stringp km) (non-num-stringp sec))
+        ""
       (format "%.2f" (/ km (/ sec 3600.0))))))
 
 (defun spreadsheet-running-meters-per-beat (hh-mm-ss-string bpm-string km-string)
@@ -938,8 +940,8 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
   (let ((km (spreadsheet-string-to-number km-string))
         (bpm (spreadsheet-string-to-number bpm-string))
         (sec (hh-mm-ss-to-seconds hh-mm-ss-string)))
-    (if (or (equal km "n/a") (equal bpm "n/a") (equal sec "n/a"))
-        "n/a"
+    (if (or (non-num-stringp km) (non-num-stringp bpm) (non-num-stringp sec))
+        ""
       (format "%.2f" (/ (* km 1000.0) (* bpm (/ sec 60.0)))))))
 
 (defvar seconds-in-day (* 24 60 60))
