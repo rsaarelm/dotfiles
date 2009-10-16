@@ -23,7 +23,7 @@ msg_lock = threading.Lock()
 def add_message(msg):
   try:
     msg_lock.acquire()
-    msg_queue.append((msg.strip(), time.time()))
+    msg_queue.append((msg.strip() + ' ', time.time()))
   finally:
     msg_lock.release()
 
