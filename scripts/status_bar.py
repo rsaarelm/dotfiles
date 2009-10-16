@@ -59,6 +59,18 @@ class StdinReader(threading.Thread):
 def msg_str((msg, tstamp)):
   return "^fg(%s)%s^fg()" % (age_color(time.time() - tstamp), msg)
 
+def accumulate_msgs(acc, msgs, space_left):
+  if len(msgs) == 0: return acc
+  msg = msgs[-1]
+  if space_left >= len(msg[0]):
+    acc.insert(0, msg_str(msg))
+    return accumulate_msgs(acc, msgs[:-1], space_left - len(msg[0]))
+  elif space_left <= 0:
+    return acc
+  else:
+    acc.insert(0, msg_str((msg[0][-space_left:], msg[1])))
+    return acc
+
 def main(*argv):
   global msg_queue
   StdinReader().start()
@@ -69,8 +81,10 @@ def main(*argv):
       msg_lock.acquire()
 
       cull_messages()
-      for x in msg_queue:
-        string += msg_str(x) + " "
+
+      # Show the last n characters worth of stuff from the message queue
+      # colored appropriately.
+      string = "".join(accumulate_msgs([], msg_queue, 120))
 
     finally:
       msg_lock.release()
