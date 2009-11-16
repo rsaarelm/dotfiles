@@ -119,7 +119,12 @@
             ; flyspell for automatic spell checking
             (flyspell-mode 1)
             ; keybindings
-            (local-set-key (kbd "<f5>") 'org-smart-reschedule) ; Spaced repetition learning.
+
+            ; Spaced repetition learning.
+            ; Assume best retention unless shift is pressed.
+            (local-set-key (kbd "<f5>")
+                           (lambda () (interactive) (org-smart-reschedule 5)))
+            (local-set-key (kbd "S-<f5>") 'org-smart-reschedule)
             ))
 
 ; Set the state of todo-style items to STARTED when clocking them.
