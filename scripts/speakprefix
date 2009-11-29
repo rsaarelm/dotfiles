@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Read text from stdin, speak it using speech synthesis and prepend the
+# provided sound file with it. Output new wav to stdout.
+
+text2wave | sox - -t wav - remix - rate `soxi -r $1` channels `soxi -c $1` | sox - $1 -t wav -
