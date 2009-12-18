@@ -97,6 +97,7 @@
   (if (file-exists-p orgmode-dir)
     (progn
       (setq load-path (cons (concat orgmode-dir "/lisp") load-path))
+      (setq load-path (cons (concat orgmode-dir "/contrib/lisp") load-path))
       (require 'org-install))))
 
 ; Prevent conflict with shift-dir keys for switching buffer
