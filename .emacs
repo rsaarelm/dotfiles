@@ -139,8 +139,8 @@
 
 (setq org-clock-in-switch-to-state #'my-clock-in-switch)
 
-; Remember lots of old clocks
-(setq org-clock-history-length 35)
+; Remember old clocks
+(setq org-clock-history-length 10)
 
 ; Make the clock persist across sessions
 (setq org-clock-persist t)
@@ -310,6 +310,13 @@
 (setq org-completion-use-ido t)
 (setq org-refile-targets '((org-agenda-files :maxlevel . 5) (nil :maxlevel . 5)))
 (setq org-refile-use-outline-path (quote file))
+
+; Latex settings
+
+; Get \Perp symbol work for stochastic text.
+;(setq org-export-latex-append-header "\\usepackage{txfonts}")
+(setq org-export-latex-append-header "\\newcommand{\\Perp}{\\perp \\! \\! \\! \\perp}")
+
 
 ; Doesn't seem to work correctly
 ;; Mark a parent TODO done if all children are done.
@@ -769,6 +776,14 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 
 ; Show the trailing whitespace anyway.
 (setq-default show-trailing-whitespace t)
+
+; Paste at cursor position when mouse-pasting
+(setq mouse-yank-at-point t)
+
+; Local binaries in exec-path
+
+(setenv "PATH" (concat (getenv "PATH") ":~/bin"))
+(setq exec-path (append exec-path '("~/bin")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc functions
