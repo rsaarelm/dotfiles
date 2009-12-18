@@ -385,6 +385,17 @@
 (setq auto-mode-alist (append '(("\\.build$" . xml-mode)) auto-mode-alist))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Google Go
+
+(add-to-list 'load-path "~/.elisp/go-mode-load.el" t)
+(require 'go-mode-load)
+
+(defun gofmt-buffer ()
+  (interactive)
+  (mark-whole-buffer)
+  (shell-command-on-region (region-beginning) (region-end) "gofmt" -1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SML
 
 ;;; MLB modle
