@@ -1,4 +1,4 @@
-{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses #-}
+{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, TypeSynonymInstances #-}
 
 --
 -- xmonad example config file.
@@ -11,20 +11,27 @@
 
 import XMonad
 import XMonad.Actions.RotSlaves
-import XMonad.Hooks.ManageDocks
 -- TwoPane and Spiral require RotSlaves to be really useful.
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.TwoPane
 import XMonad.Layout.Spiral
 import XMonad.Layout.NoBorders
+import XMonad.Layout.LayoutHints
 import XMonad.Layout.Tabbed
 import XMonad.Layout.WindowNavigation
 import XMonad.Layout.ToggleLayouts
+import XMonad.Layout.IM
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Reflect
+import XMonad.Layout.StackTile
 import qualified XMonad.StackSet (focus, up, down)
 import XMonad.Util.EZConfig
 import System.Exit
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import Data.Ratio
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -66,12 +73,12 @@ myNumlockMask   = mod2Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces    = ["1:emacs","2:console","3:web","4:irc","5:doc","6:gimp","7:vm","8:mail","9:sound"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor  = "#444444"
-myFocusedBorderColor = "#00bb00"
+myFocusedBorderColor = "#00bbbb"
 
 swapWithMaster :: X ()
 swapWithMaster = windows $ W.modify' $
@@ -89,7 +96,7 @@ cycleAllUp = windows $ W.modify' $
                      W.Stack t [] (r:rs) -> W.Stack r [] (rs ++ [t])
                      W.Stack t (l:ls) [] -> W.Stack l (ls ++ [t]) []
                      W.Stack t (l:ls) (r:rs) -> W.Stack r (ls ++ [t]) (rs ++ [l])
-                                                                              
+
 cycleAllDown :: X ()
 cycleAllDown = windows $ W.modify' $
                \c -> case c of
@@ -118,7 +125,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Launch terminal, browser, text editor or a file explorer.
   , ((modMask,               xK_F1), spawn $ XMonad.terminal conf)
   , ((modMask,               xK_F2    ), spawn "firefox")
-  , ((modMask,               xK_F3    ), spawn "emacs22")
+  , ((modMask,               xK_F3    ), spawn "emacs23")
   , ((modMask,               xK_F4    ), spawn "xfe")
   -- close focused window
   , ((modMask ,              xK_c     ), kill)
@@ -267,11 +274,39 @@ instance LayoutClass VertiTwoPane a where
 
   description _ = "VertiTwoPane"
 
+-- Accordion with the order munging fixed.
+
+data Accordion a = Accordion deriving ( Read, Show )
+
+instance LayoutClass Accordion Window where
+    pureLayout _ sc ws = zip ups tops ++ [(W.focus ws, mainPane)] ++ zip dns bottoms
+     where
+       ups    = reverse $ W.up ws
+       dns    = W.down ws
+       (top,  allButTop) = splitVerticallyBy (1%8 :: Ratio Int) sc
+       (center,  bottom) = splitVerticallyBy (6%7 :: Ratio Int) allButTop
+       (allButBottom, _) = splitVerticallyBy (7%8 :: Ratio Int) sc
+       mainPane | ups /= [] && dns /= [] = center
+                | ups /= []              = allButTop
+                | dns /= []              = allButBottom
+                | otherwise              = sc
+       tops    = if ups /= [] then splitVertically (length ups) top    else []
+       bottoms = if dns /= [] then splitVertically (length dns) bottom else []
+
+
 -- There are different TwoPane layouts for landscape and portrait monitors.
-myLayout = smartBorders $ avoidStruts $ simpleTabbed ||| toggleLayouts (VertiTwoPane delta vRatio) (TwoPane delta hRatio) ||| spiral (6/7)
+myLayout = smartBorders $ avoidStruts $
+           onWorkspace "6:gimp" gimp $
+           fullscreen ||| stacking ||| tiled
   where
      -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta hRatio
+     tiled   = layoutHints $ Tall nmaster delta hRatio
+
+     -- tabbed fullscreen
+     fullscreen = simpleTabbed
+
+     -- stack on top of each other
+     stacking = toggleLayouts (StackTile 1 delta (4/5)) Accordion
 
      -- The default number of windows in the master pane
      nmaster = 1
@@ -284,6 +319,11 @@ myLayout = smartBorders $ avoidStruts $ simpleTabbed ||| toggleLayouts (VertiTwo
 
      -- Percent of screen to increment by when resizing panes
      delta   = 3/100
+
+     -- Gimp workspace from http://nathanhowell.net/2009/03/08/xmonad-and-the-gimp/
+     gimp    = withIM (0.11) (Role "gimp-toolbox") $
+               reflectHoriz $
+               withIM (0.15) (Role "gimp-dock") Full
 
 ------------------------------------------------------------------------
 -- Window rules:
@@ -303,8 +343,16 @@ myLayout = smartBorders $ avoidStruts $ simpleTabbed ||| toggleLayouts (VertiTwo
 myManageHook = manageDocks <+> composeAll
 --myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doFloat
+    , className =? "Gimp"           --> doShift "6:gimp"
+    , className =? "Firefox"        --> doShift "3:web"
+    , className =? "Evince"         --> doShift "5:doc"
+    , className =? "Xpdf"           --> doShift "5:doc"
+    , className =? "GV"             --> doShift "5:doc"
+    , className =? "Djview4"        --> doShift "5:doc"
+    , className =? "Xchm"           --> doShift "5:doc"
+    , className =? "rdesktop"       --> doShift "7:vm"
     , resource  =? "desktop_window" --> doIgnore
+    , resource  =? "xmessage"       --> doCenterFloat
     , resource  =? "kdesktop"       --> doIgnore ]
 
 -- Whether focus follows the mouse pointer.
