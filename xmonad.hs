@@ -125,7 +125,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Launch terminal, browser, text editor or a file explorer.
   , ((modMask,               xK_F1), spawn $ XMonad.terminal conf)
   , ((modMask,               xK_F2    ), spawn "firefox")
-  , ((modMask,               xK_F3    ), spawn "emacs23")
+  , ((modMask,               xK_F3    ), spawn "emacs")
   , ((modMask,               xK_F4    ), spawn "xfe")
   -- close focused window
   , ((modMask ,              xK_c     ), kill)
