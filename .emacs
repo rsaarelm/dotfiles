@@ -17,9 +17,9 @@
 
 ; Use UTF-8 by default.
 
-(prefer-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
+;(prefer-coding-system 'utf-8)
+;(set-keyboard-coding-system 'utf-8)
+;(set-terminal-coding-system 'utf-8)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visual settings
@@ -33,7 +33,9 @@
 	 (cons 'font font-spec)
 	 default-frame-alist)))
 
-(my-set-font "-misc-fixed-medium-*-*-*-15-*-*-*-*-*-*-*")
+;(my-set-font "-misc-fixed-medium-*-*-*-15-*-*-*-*-*-*-*")
+(my-set-font "Inconsolata 14")
+
 
 (setq nice-color-themes '(color-theme-goldenrod
                           ;color-theme-taylor
@@ -132,6 +134,7 @@
 (defun my-clock-in-switch (state)
   (cond ((string= state "TODO") "STARTED")
         ((string= state "NEXT") "STARTED")
+        ((string= state "FIXME") "STARTED")
         ((string= state "WAITING") "STARTED")
         ((string= state "SOMEDAY") "STARTED")
         ((string= state "CANCELED") "STARTED")
@@ -182,6 +185,8 @@
 ;
 ; NEXT: Imminent tasks, things that you will work on today.
 ;
+; FIXME: Broken things that need fixing.
+;
 ; STARTED: Tasks you have started working on or tasks that are always ongoing
 ; such as following the news and answering email.
 ;
@@ -199,10 +204,11 @@
 ; DONE: Finished tasks.
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "|" "DONE(d!/!)")
-        (sequence "WAITING(w@/!)" "SOMEDAY(S)" "PROJECT(P)" "|" "CANCELED(C@/!)")))
+        (sequence "WAITING(w@/!)" "SOMEDAY(S)" "PROJECT(P)" "FIXME(f)" "|" "CANCELED(C@/!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "chartreuse" :weight bold)
+        ("FIXME" :foreground "violet red" :weight bold)
         ("NEXT" :foreground "orange" :weight bold)
         ("STARTED" :foreground "black" :background "green yellow" :weight bold)
         ("DONE" :foreground "slate gray" :weight bold)
@@ -221,6 +227,7 @@
         ("SOMEDAY" ("WAITING" . t))
         (done ("WORKINGON") ("WAITING"))
         ("TODO" ("WAITING") ("CANCELED"))
+        ("FIXME" ("WAITING") ("CANCELED"))
         ("STARTED" ("WAITING") ("CANCELED"))
         ("PROJECT" ("CANCELED") ("PROJECT" . t))))
 
@@ -239,10 +246,10 @@
         ("w" "Tasks waiting on something" tags "WAITING"
          ((org-use-tag-inheritance nil)))
         ("t" "Actively developed tasks" tags
-        "WORKINGON/PROJECT|TODO|NEXT|STARTED"
+        "WORKINGON/PROJECT|TODO|NEXT|STARTED|FIXME"
          ((org-use-tag-inheritance nil)))
         ("T" "Actively developed task subtrees" tags
-        "WORKINGON/PROJECT|TODO|NEXT|STARTED"
+        "WORKINGON/PROJECT|TODO|NEXT|STARTED|FIXME"
          ())
         ("n" "Started and upcoming tasks" tags "/NEXT|STARTED"
          ((org-agenda-todo-ignore-with-date nil)))
@@ -250,7 +257,7 @@
 
 ; Define stuck projects as PROJECT-tag trees ones without any TODOs or started
 ; tasks.
-(setq org-stuck-projects '("/PROJECT-DONE" ("STARTED" "TODO" "NEXT") nil ""))
+(setq org-stuck-projects '("/PROJECT-DONE" ("STARTED" "TODO" "NEXT" "FIXME") nil ""))
 
 ; Support for task effort estimates
 
@@ -397,10 +404,8 @@
 (add-to-list 'load-path "~/.elisp/go-mode-load.el" t)
 (require 'go-mode-load)
 
-(defun gofmt-buffer ()
-  (interactive)
-  (mark-whole-buffer)
-  (shell-command-on-region (region-beginning) (region-end) "gofmt" -1))
+; Narrow tabs in go source.
+(add-hook 'go-mode-hook (lambda () (setq tab-width 3)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SML
