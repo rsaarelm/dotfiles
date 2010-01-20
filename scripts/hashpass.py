@@ -18,8 +18,11 @@ password_chars = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
 def get_source_string():
     id = raw_input("Site identifier: ")
     pw = getpass("Salt password: ")
-    pw2 = getpass("Salt password again: ")
-    if pw != pw2: raise Exception("Salt passwords don't match.")
+    # Commented out double check. This is a good idea when generating the
+    # password, but just an annoyance when retrieving it. Generate the
+    # password twice to make sure you got it right. 
+    # pw2 = getpass("Salt password again: ")
+    # if pw != pw2: raise Exception("Salt passwords don't match.")
     return id + pw
 
 def readable_password(digest):
@@ -35,3 +38,4 @@ if __name__ == '__main__':
         main()
     except Exception as e:
         print e
+
