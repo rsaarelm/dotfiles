@@ -13,6 +13,12 @@ export VISUAL="vim"
 export LD_LIBRARY_PATH="/usr/local/lib:$HOME/local/lib:."
 export FACTOR_ROOTS="$HOME/work/factor"
 
+# Go language settings
+export GOROOT=$HOME/local/go
+export GOOS=linux
+export GOARCH=386
+export GOBIN=$HOME/bin
+
 # Grab all jar files in ~/local/lib into CLASSPATH
 for x in $HOME/local/lib/*.jar
 do
