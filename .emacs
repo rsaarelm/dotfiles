@@ -46,9 +46,15 @@
                           ))
 
 (require 'color-theme)
+
+(defun random-color-theme ()
+  ; Seed the rng
+  (random t)
+  (nth (random (length nice-color-themes)) nice-color-themes))
+
 (if window-system
-    ; Pick a random color theme.
-    (funcall (nth (random (length nice-color-themes)) nice-color-themes))
+  ; Pick a random color theme when under wm.
+  (funcall (random-color-theme))
   (color-theme-hober))
 
 ; Kill the GUI clutter
