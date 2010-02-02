@@ -38,11 +38,11 @@
 
 
 (setq nice-color-themes '(color-theme-goldenrod
-                          ;color-theme-taylor
-                          ;color-theme-classic
-                          ;color-theme-deep-blue
+                          color-theme-taylor
+                          color-theme-classic
+                          color-theme-deep-blue
                           color-theme-charcoal-black
-                          color-theme-resolve
+                          color-theme-ramangalahy
                           ))
 
 (require 'color-theme)
