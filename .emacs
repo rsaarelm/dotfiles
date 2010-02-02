@@ -498,14 +498,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Vimpulse mode
 
-; Permutate HJKL bindings to make sense with a Colemak keymap. This is
-; different from Coleman's own, much more extensive Colemak Vim map.
+; Make Colemak layout's ijkl-equivalent keys work as arrow keys in viper mode.
 (defun viper-colemak-hjkl ()
   (interactive)
-  (define-key viper-vi-global-user-map "j" 'viper-backward-char)
-  (define-key viper-vi-global-user-map "k" 'viper-next-line)
-  (define-key viper-vi-global-user-map "h" 'viper-previous-line)
-  (define-key viper-vi-global-user-map "l" 'viper-forward-char))
+  (define-key viper-vi-global-user-map "h" 'viper-search-next)
+  (define-key viper-vi-global-user-map "j" 'viper-undo)
+  (define-key viper-vi-global-user-map "k" 'viper-end-of-word)
+  (define-key viper-vi-global-user-map "l" 'viper-insert)
+
+  (define-key viper-vi-global-user-map "u" 'viper-previous-line)
+  (define-key viper-vi-global-user-map "n" 'viper-backward-char)
+  (define-key viper-vi-global-user-map "e" 'viper-next-line)
+  (define-key viper-vi-global-user-map "i" 'viper-forward-char))
 
 ; Might need more tweaking for special modes?
 ; Missing stuff
@@ -578,8 +582,7 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
   (setq viper-ex-style-editing nil)  ; can backspace past start of insert / line
   (require 'viper)                   ; load Viper
   (require 'vimpulse)                ; load Vimpulse
-;  (viper-colemak-hjkl)
-  (colemak-vimpulse)
+  (viper-colemak-hjkl)
   (setq woman-use-own-frame nil)     ; don't create new frame for manpages
   (setq woman-use-topic-at-point t)) ; don't prompt upon K key (manpage display)
 
