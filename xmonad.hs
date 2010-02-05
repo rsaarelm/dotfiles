@@ -12,6 +12,7 @@
 import XMonad
 import XMonad.Actions.RotSlaves
 -- TwoPane and Spiral require RotSlaves to be really useful.
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.TwoPane
@@ -73,7 +74,7 @@ myNumlockMask   = mod2Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["1:emacs","2:console","3:web","4:irc","5:doc","6:gimp","7:vm","8:mail","9:sound"]
+myWorkspaces    = ["1:edit","2:console","3:web","4:irc","5:doc","6:gimp","7:vm","8:mail","9:sound"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
@@ -343,13 +344,14 @@ myLayout = smartBorders $ avoidStruts $
 myManageHook = manageDocks <+> composeAll
 --myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doShift "6:gimp"
+    , className =? "Emacs"          --> doShift "1:edit"
     , className =? "Firefox"        --> doShift "3:web"
     , className =? "Evince"         --> doShift "5:doc"
     , className =? "Xpdf"           --> doShift "5:doc"
     , className =? "GV"             --> doShift "5:doc"
     , className =? "Djview4"        --> doShift "5:doc"
     , className =? "Xchm"           --> doShift "5:doc"
+    , className =? "Gimp"           --> doShift "6:gimp"
     , className =? "rdesktop"       --> doShift "7:vm"
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "xmessage"       --> doCenterFloat
@@ -387,7 +389,17 @@ myStartupHook = return ()
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad defaults
+
+main = xmonad =<< statusBar myBar myPP toggleStrutsKey defaults
+
+myBar = "xmobar"
+
+myPP = xmobarPP { ppCurrent = xmobarColor "#429942" "" . wrap "<" ">" }
+
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+
+myConfig = defaultConfig { modMask=mod4Mask }
+
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
