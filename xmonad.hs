@@ -298,7 +298,7 @@ instance LayoutClass Accordion Window where
 -- There are different TwoPane layouts for landscape and portrait monitors.
 myLayout = smartBorders $ avoidStruts $
            onWorkspace "6:gimp" gimp $
-           fullscreen ||| stacking ||| tiled
+           stacking ||| fullscreen ||| tiled
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = layoutHints $ Tall nmaster delta hRatio
