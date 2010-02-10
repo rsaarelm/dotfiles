@@ -16,7 +16,21 @@ export FACTOR_ROOTS="$HOME/work/factor"
 # Go language settings
 export GOROOT=$HOME/local/go
 export GOOS=linux
-export GOARCH=386
+
+# Smart $GOARCH setting.
+case `uname -m` in
+'x86_64')
+  export GOARCH=amd64
+;;
+'i686')
+  export GOARCH=386
+;;
+*)
+  # Default to 32-bit x86.
+  export GOARCH=386
+;;
+esac
+
 export GOBIN=$HOME/bin
 
 # Grab all jar files in ~/local/lib into CLASSPATH
