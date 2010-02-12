@@ -9,7 +9,7 @@ Config { font = "xft:Sans-9:bold"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
-                    , Run Date "%Y-%m-%d week %V %H:%M:%S" "date" 10
+                    , Run Date "%a %Y-%m-%d week %V %H:%M:%S" "date" 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
