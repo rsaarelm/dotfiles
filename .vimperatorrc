@@ -67,5 +67,5 @@ noremap <C-c> Y
 noremap C <C-c>
 
 " Disable Vimperator keys in Google Mail and Reader
-:autocmd LocationChange .* :js modes.passAllKeys = /mail\.google\.com|www\.google\.com\/reader\/view/.test(buffer.URL)
+:autocmd LocationChange .* :js modes.passAllKeys = /wave\.google\.com|mail\.google\.com|www\.google\.com\/reader\/view/.test(buffer.URL)
 
