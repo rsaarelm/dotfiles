@@ -5,7 +5,7 @@ alias R="R --no-save"
 alias tstamp="date +%Y-%m-%d"
 alias shuffle="python -c \"import sys; import random; args = sys.argv[1:]; random.shuffle(args); print ' '.join(args)\""
 alias arst="setxkbmap fi"
-alias asdf="xmodmap ~/work/config/colemak.xmodmap; xset r 37; xmodmap ~/local.xmodmap"
+alias asdf="xmodmap ~/work/config/colemak.xmodmap; xset r 37"
 
 export PATH="./:$HOME/bin:$HOME/local/bin:$PATH"
 export EDITOR="vim"

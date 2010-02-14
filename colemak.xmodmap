@@ -60,7 +60,7 @@ keycode  37 =    BackSpace     BackSpace        BackSpace         BackSpace
 keycode  66 =    Control_L     Control_L
 keycode  94 =        minus    underscore           endash            emdash
 keycode  65 =        space         space            space      nobreakspace
-!keycode 108 =  Mode_switch   Mode_switch
+keycode 108 =  Mode_switch   Mode_switch
 clear Lock
 
 clear Control
