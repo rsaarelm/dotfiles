@@ -36,7 +36,6 @@
 ;(my-set-font "-misc-fixed-medium-*-*-*-15-*-*-*-*-*-*-*")
 (my-set-font "Inconsolata 14")
 
-
 (setq nice-color-themes '(color-theme-goldenrod
                           color-theme-taylor
                           color-theme-classic
@@ -46,6 +45,7 @@
                           ))
 
 (require 'color-theme)
+(color-theme-initialize)
 
 (defun random-color-theme ()
   ; Seed the rng
