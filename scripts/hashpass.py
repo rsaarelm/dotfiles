@@ -11,12 +11,16 @@ from the hash.
 
 from getpass import getpass
 import hashlib
+import sys
 
 password_len = 16
 password_chars = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
 
 def get_source_string():
-    id = raw_input("Site identifier: ")
+    try:
+        id = sys.argv[1]
+    except:
+        id = raw_input("Site identifier: ")
     pw = getpass("Salt password: ")
     # Commented out double check. This is a good idea when generating the
     # password, but just an annoyance when retrieving it. Generate the
