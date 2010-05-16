@@ -7,7 +7,7 @@ alias shuffle="python -c \"import sys; import random; args = sys.argv[1:]; rando
 alias arst="setxkbmap fi"
 alias asdf="xmodmap ~/work/config/colemak.xmodmap; xset r 37"
 
-export PATH="./:$HOME/bin:$HOME/local/bin:$PATH"
+export PATH="$HOME/bin:$HOME/local/bin:$PATH:$HOME/work/config/scripts"
 export EDITOR="vim"
 export VISUAL="vim"
 export LD_LIBRARY_PATH="/usr/local/lib:$HOME/local/lib:."
