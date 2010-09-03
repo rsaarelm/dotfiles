@@ -113,7 +113,7 @@
 (setq org-replace-disputed-keys t)
 
 ; Activate org-protocol to that we can access org from external programs.
-(require 'org-protocol)
+;(require 'org-protocol)
 
 ; Start org-mode for .org files.
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
@@ -438,11 +438,17 @@
     (load-file fuel-file)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; D
+
+(autoload 'd-mode "d-mode" "Major mode for editing D code." t)
+(add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippet
 
 (require 'yasnippet-bundle)
 (yas/load-directory "~/.elisp/snippets")
-(add-to-list 'yas/extra-mode-hooks 'csharp-mode-hook)
+;(add-to-list 'yas/extra-mode-hooks 'csharp-mode-hook)
 (yas/initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -593,69 +599,6 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 
 ; Don't ask about following symlinks to svn files.
 (setq vc-follow-symlinks nil)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ErgoEmacs modifications
-
-; Partial ergoemacs setup
-(defun ergoemacs-on ()
-  (interactive)
-  ; Cursor motion
-  (global-unset-key (kbd "M-n"))
-  (global-unset-key (kbd "M-i"))
-  (global-unset-key (kbd "M-u"))
-  (global-unset-key (kbd "M-e"))
-  (global-unset-key (kbd "M-h"))
-  (global-unset-key (kbd "M-l"))
-  (global-unset-key (kbd "M-y"))
-
-  (global-unset-key (kbd "M-N"))
-  (global-unset-key (kbd "M-I"))
-  (global-unset-key (kbd "M-U"))
-  (global-unset-key (kbd "M-E"))
-  (global-unset-key (kbd "M-H"))
-  (global-unset-key (kbd "M-L"))
-  (global-unset-key (kbd "M-Y"))
-
-  (define-key org-mode-map "\M-n" nil)
-  (define-key org-mode-map "\M-e" nil)
-
-  (global-set-key (kbd "M-n") 'backward-char)
-  (global-set-key (kbd "M-i") 'forward-char)
-  (global-set-key (kbd "M-u") 'previous-line)
-  (global-set-key (kbd "M-e") 'next-line)
-
-  (global-set-key (kbd "M-N") 'windmove-left)
-  (global-set-key (kbd "M-I") 'windmove-right)
-  (global-set-key (kbd "M-U") 'windmove-up)
-  (global-set-key (kbd "M-E") 'windmove-down)
-
-
-  (global-set-key (kbd "M-h") 'beginning-of-buffer)
-  (global-set-key (kbd "M-H") 'end-of-buffer)
-
-  (global-set-key (kbd "M-l") 'backward-word)
-  (global-set-key (kbd "M-y") 'forward-word)
-  (global-set-key (kbd "C-M-l") 'backward-sexp)
-  (global-set-key (kbd "C-M-y") 'forward-sexp)
-  (global-set-key (kbd "M-L") 'backward-paragraph)
-  (global-set-key (kbd "M-Y") 'forward-paragraph)
-
-  (global-unset-key (kbd "M-j"))
-  (global-set-key (kbd "M-j") (make-sparse-keymap))
-
-  (global-set-key (kbd "M-j M-e") 'scroll-down)
-  (global-set-key (kbd "M-j M-u") 'scroll-up)
-  (global-set-key (kbd "M-j M-n") 'beginning-of-buffer)
-  (global-set-key (kbd "M-j M-i") 'end-of-buffer)
-)
-
-(ergoemacs-on)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Marker pen
-
-(require 'markerpen)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom key bindings
