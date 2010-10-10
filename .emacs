@@ -446,7 +446,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippet
 
-(require 'yasnippet-bundle)
+(require 'yasnippet)
 (yas/load-directory "~/.elisp/snippets")
 ;(add-to-list 'yas/extra-mode-hooks 'csharp-mode-hook)
 (yas/initialize)
