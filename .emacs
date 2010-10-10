@@ -630,6 +630,11 @@ Vimpulse. (http://colemak.com/pub/vim/colemak.vim)"
 ; Show org agenda
 (global-set-key (kbd "<f10>") 'org-agenda)
 
+; Regular compile, prompt for compile command.
+(global-set-key (kbd "<f5>") 'compile)
+; Quick compile, run the same compile command as last time.
+(global-set-key (kbd "S-<f5>") (lambda () (interactive) (compile compile-command)))
+
 ; Don't use suspend on Windows, it's not the concern of Emacs there and
 ; doesn't even work right on tiling WMs with no concept of hiding windows.
 ; Instead, follow the original idea of accessing a shell and run ansi-term.
