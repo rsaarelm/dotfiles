@@ -20,26 +20,26 @@ def get_source_string():
     try:
         id = sys.argv[1]
     except:
-        id = raw_input("Site identifier: ")
+        id = input("Site identifier: ")
     pw = getpass("Salt password: ")
     # Commented out double check. This is a good idea when generating the
     # password, but just an annoyance when retrieving it. Generate the
-    # password twice to make sure you got it right. 
+    # password twice to make sure you got it right.
     # pw2 = getpass("Salt password again: ")
     # if pw != pw2: raise Exception("Salt passwords don't match.")
     return id + pw
 
 def readable_password(digest):
-    return ''.join([password_chars[ord(x) % len(password_chars)]
+    return ''.join([password_chars[x % len(password_chars)]
                     for x in digest][:password_len])
 
 def main():
-    password = readable_password(hashlib.sha256(get_source_string()).digest())
-    print "The password is:", password
+    password = readable_password(hashlib.sha256(get_source_string().encode('utf-8')).digest())
+    print("The password is:", password)
 
 if __name__ == '__main__':
     try:
         main()
     except Exception as e:
-        print e
+        print(e)
 
