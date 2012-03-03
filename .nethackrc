@@ -1,6 +1,6 @@
 OPTIONS=windowtype:tty,hilite_pet,color,lit_corridor,standout,decgraphics
 OPTIONS=confirm,fixinv,safe_pet,sortpack,!legacy,!mail
 OPTIONS=verbose,showexp,time,perm_invent,showscore
-OPTIONS=autopickup,pickup_types:$,boulder:0,hpmon,msg_window:full
+OPTIONS=autopickup,pickup_types:$,boulder:0,msg_window:full
 #OPTIONS=disclose:+i+a+v+g+c
 OPTIONS=scores:5t/6a/o
