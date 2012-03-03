@@ -1,18 +1,16 @@
+# Silence bell.
 xset b off
 
-xmodmap ~/project/config/custom_keymap.xmodmap
-xmodmap ~/project/config/multimedia.xmodmap
+# Colemak layout with Caps as Ctrl.
+setxkbmap us -variant colemak
+xmodmap -e 'keycode 66 = Control_L'
+xmodmap -e 'add Control = Control_L'
 
-xscreensaver &
-DISPLAY=:0.1 xrandr -o 1  # Rotate 2nd display
+[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-keychain -q --clear ~/.ssh/id_rsa
-. ~/.keychain/`uname -n`-sh
+# SSH Keychain
+SSH_ASKPASS=/usr/lib/ssh/ssh-askpass keychain ~/.ssh/id_rsa
+[ -f ~/.keychain/$HOSTNAME-sh ] && . ~/.keychain/$HOSTNAME-sh 2>/dev/null
+[ -f ~/.keychain/$HOSTNAME-sh-gpg ] && . ~/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
 
-# Set to the preferred WM.
-ion3
-#$HOME/work/core/scripts/status_bar.py | dzen2 -e '' -ta r &
-#$HOME/local/bin/xmonad
-
-keychain -k all
-
+exec xmonad
