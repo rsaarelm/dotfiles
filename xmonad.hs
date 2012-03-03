@@ -37,7 +37,7 @@ import Data.Ratio
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "x-terminal-emulator"
+myTerminal      = "urxvt"
 
 -- Width of the window border in pixels.
 --
@@ -125,7 +125,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Launch terminal, browser, text editor or a file explorer.
   , ((modMask,               xK_F1), spawn $ XMonad.terminal conf)
-  , ((modMask,               xK_F2    ), spawn "firefox")
+  , ((modMask,               xK_F2    ), spawn "chromium")
   , ((modMask,               xK_F3    ), spawn "emacs")
   , ((modMask,               xK_F4    ), spawn "xfe")
   -- close focused window
@@ -413,7 +413,6 @@ defaults = defaultConfig {
         focusFollowsMouse  = myFocusFollowsMouse,
         borderWidth        = myBorderWidth,
         modMask            = myModMask,
-        numlockMask        = myNumlockMask,
         workspaces         = myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
