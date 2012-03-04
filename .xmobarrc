@@ -1,11 +1,13 @@
-Config { font = "xft:Sans-9:bold"
+Config { font = "6x10"
        , bgColor = "black"
        , fgColor = "grey"
        , position = Top
        , lowerOnStart = False
        , commands = [ Run Weather "EFHK" ["-t","<station>: <tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
                     , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Wireless "wlan0" ["-t","Wifi: <essid>, <quality>"] 10
                     , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run BatteryP ["BAT0"] ["-t","Power left: <timeleft> h","--","-c","energy_full"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
@@ -14,7 +16,7 @@ Config { font = "xft:Sans-9:bold"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ |<fc=#ee9a00>%date%</fc>"
+       , template = "%StdinReader% }{ %wlan0wi% | %battery% | %cpu% | %memory% | <fc=#ee9a00>%date%</fc>"
        }
 
 -- Extra status displays for template, took too much space.
