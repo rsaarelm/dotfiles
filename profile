@@ -10,4 +10,4 @@ export EDITOR="vim"
 export VISUAL="vim"
 # export LD_LIBRARY_PATH="/usr/local/lib:$HOME/local/lib:."
 
-export PS1="\[\033[1;32m\]\$(date +%H:%M)\[\033[0m\] \u@\h \W$ "
+export PS1="[$(date +%H:%M) \u@\h \W]$ "
