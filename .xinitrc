@@ -21,4 +21,7 @@ xscreensaver &
 
 redshift -l 60:25 &
 
+dropboxd &
+
 exec xmonad
+#exec awesome
