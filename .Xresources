@@ -28,7 +28,8 @@
 *color7:  #cccccc
 *color15: #ffffff
 
-URxvt.font: 7x13bold
+! URxvt.font: 7x13
+URxvt.font: xft:Terminus
 URxvt.scrollBar: off
 URxvt.perl-ext:      default,url-select
 URxvt.keysym.M-u:    perl:url-select:select_next
