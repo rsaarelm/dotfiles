@@ -4,7 +4,7 @@ alias sml="rlwrap sml"
 alias R="R --no-save"
 alias arst="setxkbmap fi"
 alias asdf="setxkbmap us -variant colemak;xmodmap -e 'remove Control = Control_L' -e 'keycode 66 = Control_L Control_L Control_L Control_L' -e 'keycode 37 = BackSpace BackSpace BackSpace BackSpace' -e 'add Control = Control_L'"
-alias make="make -j $(grep -c 'model name' /proc/cpuinfo)"  # Run as many processes as we have cores by default.
+export MAKEFLAGS="-j $(grep -c 'model name' /proc/cpuinfo)"  # Run as many processes as we have cores by default.
 
 export PATH="$HOME/bin:$HOME/local/bin:$PATH:$HOME/work/config/scripts"
 export EDITOR="vim"
