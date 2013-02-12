@@ -1,0 +1,6 @@
+# Write your default config options here!
+
+heartbeat-cmd="xscreensaver-command -deactivate &"
+stop-xscreensaver=1
+af=scaletempo
+subfont-osd-scale=2
