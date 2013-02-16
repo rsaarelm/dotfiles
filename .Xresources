@@ -1,0 +1,61 @@
+! terminal colors ------------------------------------------------------------
+
+*background: #0d1926
+*foreground: #d9e6f2
+
+! black
+*color0: #121917
+
+! bright_black
+*color8: #313735
+
+! red
+*color1: #e6754c
+
+! bright_red
+*color9: #f3baa5
+
+! green
+*color2: #4ce675
+
+! bright_green
+*color10: #a5f3ba
+
+! yellow
+*color3: #bde64c
+
+! bright_yellow
+*color11: #def3a5
+
+! blue
+*color4: #754ce6
+
+! bright_blue
+*color12: #baa5f3
+
+! cyan
+*color6: #4cbde6
+
+! bright_cyan
+*color14: #a5def3
+
+! magenta
+*color5: #e64cbd
+
+! bright_magenta
+*color13: #f3a5de
+
+! white
+*color7: #c0c6c5
+
+! bright_white
+*color15: #dee5e3
+
+URxvt.font: 7x13
+! URxvt.font: xft:Terminus
+URxvt.scrollBar: off
+URxvt.perl-ext:      default,url-select
+URxvt.keysym.M-u:    perl:url-select:select_next
+URxvt.url-select.launcher: google-chrome --incognito
+URxvt.url-select.underline: true
+URxvt*termName:rxvt
