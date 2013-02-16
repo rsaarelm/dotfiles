@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Pomodoro work timer, pop up a break reminder every half hour on the clock.
+while [ true ]; do sleep $((30-(`date +%-M`%30)))m; xmessage -timeout 1 break; done
