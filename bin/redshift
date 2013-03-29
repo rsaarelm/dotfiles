@@ -1,2 +1,2 @@
 # Redshift screen temperature daemon for Helsinki timezone
-redshift -l 60:25
+/usr/bin/redshift -l 60:25
