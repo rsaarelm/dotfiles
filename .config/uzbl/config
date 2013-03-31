@@ -236,8 +236,8 @@ set ebind     = @mode_bind global,-insert
 @cbind  w            = event REQ_NEW_WINDOW
 
 # Page movement binds
-@cbind  j            = scroll vertical 20
-@cbind  k            = scroll vertical -20
+@cbind  e            = scroll vertical 20
+@cbind  i            = scroll vertical -20
 @cbind  h            = scroll horizontal -20
 @cbind  l            = scroll horizontal 20
 @cbind  <Page_Up>    = scroll vertical -100%
@@ -308,8 +308,8 @@ set ebind     = @mode_bind global,-insert
 @cbind  O<uri:\@uri>_  = uri %s
 
 # Mode setting binds
-@cbind  i        = @set_mode insert
-@bind   <Ctrl>i  = @set_mode insert
+@cbind  k        = @set_mode insert
+@bind   <Ctrl>k  = @set_mode insert
 
 # Hard-bound bookmarks
 @cbind  gh  = uri http://www.uzbl.org
