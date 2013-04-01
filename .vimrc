@@ -9,11 +9,11 @@ se showmatch
 se hlsearch
 se smartcase
 se ruler
-se guifont=terminus
 se guioptions=ac
 
-syntax on
-colo torte
+syntax enable
+se background=dark
+colo solarized
 
 " Timestamp abbreviation
 iabbr tsp <<C-r>=strftime("%Y-%m-%d %H:%M")<cr>>
