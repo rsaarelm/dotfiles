@@ -32,3 +32,6 @@ imap <right> <nop>
 imap qq <esc>
 
 autocmd BufRead,BufNewFile *.txt,*.org,README,TODO,BUGS,COMMIT_EDITMSG se formatoptions+=t formatoptions-=r tw=68
+
+set directory=~/.vim/swap//
+set backupdir=~/.vim/backup//
