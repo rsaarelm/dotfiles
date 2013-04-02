@@ -1,3 +1,5 @@
+[[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
+
 alias homegit="GIT_DIR=~/work/homegit GIT_WORK_TREE=~ git"
 alias ls="ls --color=auto"
 alias arst="setxkbmap us -variant intl"
