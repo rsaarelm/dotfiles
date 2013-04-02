@@ -1,4 +1,4 @@
-alias homegit="GIT_DIR=~/work/homegit/.git GIT_WORK_TREE=~ git"
+alias homegit="GIT_DIR=~/work/homegit GIT_WORK_TREE=~ git"
 alias ls="ls --color=auto"
 alias arst="setxkbmap us -variant intl"
 alias asdf="xset b off;setxkbmap us -variant colemak;xmodmap -e 'remove Control = Control_L' -e 'keycode 66 = Control_L Control_L Control_L Control_L' -e 'keycode 37 = BackSpace BackSpace BackSpace BackSpace' -e 'add Control = Control_L'"

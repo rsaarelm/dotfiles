@@ -1,4 +1,4 @@
-alias homegit="GIT_DIR=~/work/homegit/.git GIT_WORK_TREE=~ git"
+alias homegit="GIT_DIR=~/work/homegit GIT_WORK_TREE=~ git"
 alias ls="ls --color"
 alias R="R --no-save"
 alias arst="setxkbmap fi"
