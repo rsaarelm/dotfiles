@@ -2,5 +2,6 @@
 	name = Risto Saarelma
 	email = risto.saarelma@iki.fi
 [core]
+	autocrlf = true
 [color]
 	ui = true
