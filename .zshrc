@@ -35,3 +35,18 @@ user_color() { if [[ "$EUID" = 0 ]]; then echo "red"; else; echo "blue"; fi }
 
 PS1='%~ %# '
 RPS1='$(git_prompt)%{$fg[$(user_color)]%}%n@%m%{$reset_color%} %{$fg[cyan]%}%T%{$reset_color%}'
+
+# Colemak layout friendly vikeys setup
+bindkey -M vicmd 'n' vi-backward-char
+bindkey -M vicmd 'e' down-line-or-history
+bindkey -M vicmd 'E' vi-join
+bindkey -M vicmd 'i' up-line-or-history
+bindkey -M vicmd 'o' vi-forward-char
+bindkey -M vicmd 'h' vi-repeat-search
+bindkey -M vicmd 'l' vi-insert
+bindkey -M vicmd 'L' vi-insert-bol
+bindkey -M vicmd 'k' vi-open-line-below
+bindkey -M vicmd 'K' vi-open-line-above
+bindkey -M vicmd 'j' vi-forward-word-end
+
+bindkey -M viins 'qq' vi-cmd-mode
