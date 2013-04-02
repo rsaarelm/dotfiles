@@ -1,14 +1,6 @@
+#!/bin/bash
 # Silence bell.
 xset b off
-
-# Colemak layout
-setxkbmap us -variant colemak
-# Caps into Ctrl
-xmodmap -e 'remove Control = Control_L'
-xmodmap -e 'keycode 66 = Control_L Control_L Control_L Control_L'
-# Ctrl into backspace
-xmodmap -e 'keycode 37 = BackSpace BackSpace BackSpace BackSpace'
-xmodmap -e 'add Control = Control_L'
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
