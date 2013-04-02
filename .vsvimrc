@@ -1,0 +1,16 @@
+" VsVim doesn't support langmap based key remapping,
+" need to do Colemak navigation the verbose way for it.
+no n h
+no N H
+no e j
+no i k
+no o l
+no O L
+no h n
+no H N
+no k o
+no K O
+no l i
+no L I
+
+imap qk <Esc>
