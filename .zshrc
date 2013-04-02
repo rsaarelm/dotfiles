@@ -49,4 +49,5 @@ bindkey -M vicmd 'k' vi-open-line-below
 bindkey -M vicmd 'K' vi-open-line-above
 bindkey -M vicmd 'j' vi-forward-word-end
 
-bindkey -M viins 'qq' vi-cmd-mode
+bindkey -M viins 'qk' vi-cmd-mode
+bindkey -M viins 'kq' vi-cmd-mode

@@ -3,6 +3,7 @@ set langmap=li,ko,hn,je,nh,ej,ik,ol,LI,KO,HN,JE,NH,EJ,IK,OL
 
 se expandtab
 se softtabstop=4
+se shiftwidth=4
 se nojoinspaces
 
 se showmatch
@@ -29,7 +30,8 @@ imap <left> <nop>
 imap <right> <nop>
 
 " Esc hack
-imap qq <esc>
+imap qk <esc>
+imap kq <esc>
 
 autocmd BufRead,BufNewFile *.txt,*.org,README,TODO,BUGS,COMMIT_EDITMSG se formatoptions+=t formatoptions-=r tw=68
 
