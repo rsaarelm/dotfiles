@@ -29,9 +29,8 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
-" Esc hack
-imap qk <esc>
-imap kq <esc>
+" Esc hack, actually "qk", but must use o here because of langmap.
+imap qo <esc>
 
 autocmd BufRead,BufNewFile *.txt,*.org,README,TODO,BUGS,COMMIT_EDITMSG se formatoptions+=t formatoptions-=r tw=68
 
