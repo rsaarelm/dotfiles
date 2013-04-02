@@ -13,7 +13,7 @@ se guioptions=ac
 
 syntax enable
 se background=dark
-colo solarized
+colo desert
 
 " Timestamp abbreviation
 iabbr tsp <<C-r>=strftime("%Y-%m-%d %H:%M")<cr>>
