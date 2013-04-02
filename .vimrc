@@ -1,5 +1,5 @@
 " colemak movement remapping.
-set langmap=li,ko,hn,je,nh,ej,ik,ol,LI,KO,HN,JE,NH,EJ,IK,OL
+set langmap=li,ko,hn,je,nh,ej,ik,ol,LI,KO,JE,EJ,IK,OL
 
 se expandtab
 se softtabstop=4
