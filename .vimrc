@@ -5,6 +5,7 @@ set expandtab
 set softtabstop=4
 set shiftwidth=4
 set nojoinspaces
+set backspace=indent,eol,start
 
 set showmatch
 set hlsearch
