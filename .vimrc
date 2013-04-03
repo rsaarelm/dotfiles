@@ -49,3 +49,4 @@ imap qo <esc>
 " Use line wrapping for these file types.
 autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG se formatoptions+=t formatoptions-=r tw=68
 
+filetype indent on
