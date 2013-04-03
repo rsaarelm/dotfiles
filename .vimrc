@@ -1,19 +1,27 @@
 " colemak movement remapping.
 set langmap=li,ko,hn,je,nh,ej,ik,ol,LI,KO,JE,EJ,IK,OL
 
-se expandtab
-se softtabstop=4
-se shiftwidth=4
-se nojoinspaces
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+set nojoinspaces
 
-se showmatch
-se hlsearch
-se smartcase
-se ruler
-se guioptions=ac
+set showmatch
+set hlsearch
+set smartcase
+set ruler
+set guioptions=ac
+set autochdir
+
+" Don't clobber working directory with swap files.
+set directory=~/.vim/swap//
+set backupdir=~/.vim/backup//
+
+" Find tags file recursively
+set tags=./tags;/
 
 syntax enable
-se background=dark
+set background=dark
 colo desert
 
 " Timestamp abbreviation
@@ -32,7 +40,6 @@ imap <right> <nop>
 " Esc hack, actually "qk", but must use o here because of langmap.
 imap qo <esc>
 
-autocmd BufRead,BufNewFile *.txt,*.org,README,TODO,BUGS,COMMIT_EDITMSG se formatoptions+=t formatoptions-=r tw=68
+" Use line wrapping for these file types.
+autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG se formatoptions+=t formatoptions-=r tw=68
 
-set directory=~/.vim/swap//
-set backupdir=~/.vim/backup//
