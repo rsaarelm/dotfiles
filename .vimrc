@@ -42,4 +42,7 @@ imap qo <esc>
 " Use line wrapping for these file types.
 autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG se formatoptions+=t formatoptions-=r tw=68
 
+" Special mode for text Anki decks: Tab-separated single-line.
+autocmd BufRead,BufNewFile *anki.txt se formatoptions-=t noexpandtab lbr wrap
+
 filetype indent on
