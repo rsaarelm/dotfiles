@@ -36,16 +36,6 @@ match BadWhitespace /\s\+\%#\@<!$\| \+\zs\t\+\|\t\+\zs \+/
 " Timestamp abbreviation
 iabbr tsp <<C-r>=strftime("%Y-%m-%d %H:%M")<cr>>
 
-" Hardcore mode
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
-
 " Esc hack, actually "qk", but must use o here because of langmap.
 imap qo <esc>
 
