@@ -43,6 +43,6 @@ imap qo <esc>
 autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG se formatoptions+=t formatoptions-=r tw=68
 
 " Special mode for text Anki decks: Tab-separated single-line.
-autocmd BufRead,BufNewFile *anki.txt se formatoptions-=t noexpandtab lbr wrap
+autocmd BufRead,BufNewFile *anki.txt se formatoptions-=t noexpandtab softtabstop=0 showbreak=\ \  lbr wrap
 
 filetype indent on
