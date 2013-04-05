@@ -14,3 +14,6 @@ no l i
 no L I
 
 imap qk <Esc>
+
+set expandtab
+set softtabstop=4
