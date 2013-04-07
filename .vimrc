@@ -47,4 +47,7 @@ autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDI
 " Special mode for text Anki decks: Tab-separated single-line.
 autocmd BufRead,BufNewFile *anki.txt se formatoptions-=t noexpandtab softtabstop=0 showbreak=\ \  lbr wrap
 
+" Use physical tabs with Go files
+autocmd BufRead,BufNewFile *.go se noexpandtab softtabstop=0 tabstop=4
+
 filetype indent on
