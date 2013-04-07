@@ -8,6 +8,7 @@ set nojoinspaces
 set backspace=indent,eol,start
 set ignorecase
 set smartcase
+set formatoptions-=t
 
 set showmatch
 set hlsearch
@@ -34,7 +35,8 @@ highlight BadWhitespace ctermbg=darkgreen guibg=darkgreen
 match BadWhitespace /\s\+\%#\@<!$\| \+\zs\t\+\|\t\+\zs \+/
 
 " Timestamp abbreviation
-iabbr tsp <<C-r>=strftime("%Y-%m-%d %H:%M")<cr>>
+iabbr tsp <<C-r>=strftime("%Y-%m-%d")<cr>>
+iabbr tspt <<C-r>=strftime("%Y-%m-%d %H:%M")<cr>>
 
 " Esc hack, actually "qk", but must use o here because of langmap.
 imap qo <esc>
