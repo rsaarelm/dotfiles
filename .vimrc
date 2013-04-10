@@ -15,6 +15,8 @@ set hlsearch
 set smartcase
 set ruler
 set guioptions=ac
+set guicursor+=a:blinkon0
+
 set autochdir
 
 " Don't clobber working directory with swap files.
