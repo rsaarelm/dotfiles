@@ -16,11 +16,12 @@ autoload -U colors && colors # Enable colors in prompt
 setopt prompt_subst
 
 git_prompt() {
-  local git_where="$(git name-rev --name-only --no-undefined --always HEAD 2> /dev/null)"
+  local git_where="$(timeout 0.1 git name-rev --name-only --no-undefined --always HEAD 2> /dev/null)"
   if [[ ! -n $git_where ]]; then return; fi
   local col="%{$reset_color%}"
-  local gits="$(git status -unormal 2>&1)"
-  if [[ $gits =~ "Untracked files" ]]; then
+  local gits="$(timeout 0.3 git status -unormal 2>&1)"
+  if [[ -z $gits ]]; then; col="%{$fg_bold[black]%}" # Timed out
+  elif [[ $gits =~ "Untracked files" ]]; then
     if [[ $gits =~ "Changes not staged" ]]; then; col="%{$fg[magenta]%}"
     elif [[ $gits =~ "Changes to be committed" ]]; then; col="%{$fg[cyan]%}"
     else; col="%{$fg[blue]%}"
