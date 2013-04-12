@@ -37,7 +37,7 @@ git_prompt() {
 user_color() { if [[ "$EUID" = 0 ]]; then echo "red"; else; echo "green"; fi }
 
 PS1='%{$fg[$(user_color)]%}%~ %#%{$reset_color%} '
-RPS1='$(git_prompt)%{$fg[$(user_color)]%}%n@%m%{$reset_color%} %{$fg[cyan]%}%T%{$reset_color%}'
+RPS1='$(git_prompt)%{$fg[$(user_color)]%}%n@%m%{$reset_color%} %{$fg[cyan]%}%D{%H:%M:%S}%{$reset_color%}'
 
 # Colemak layout friendly vikeys setup
 bindkey -M vicmd 'n' vi-backward-char
