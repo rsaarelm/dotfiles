@@ -53,3 +53,12 @@ bindkey -M vicmd 'K' vi-open-line-above
 bindkey -M vicmd 'j' vi-forward-word-end
 
 bindkey -M viins 'qk' vi-cmd-mode
+
+is_cygwin() {
+    [[ `uname -o` == 'Cygwin' ]]
+}
+
+if is_cygwin; then
+    # Revert Cygwin's path mangling for P4.
+    alias p4='PWD=$(cygpath --windows --absolute .) p4'
+fi
