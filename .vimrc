@@ -31,10 +31,10 @@ set background=dark
 colo desert
 
 highlight BadWhitespace ctermbg=darkgreen guibg=darkgreen
-" Match trailing whitespace, except when you are typing at the end of the line
+" Match whitespace at the end of the line
 " | match physical tabs after space
 " | match space after physical tab
-match BadWhitespace /\s\+\%#\@<!$\| \+\zs\t\+\|\t\+\zs \+/
+match BadWhitespace /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
 
 " Timestamp abbreviation
 iabbr tsp <<C-r>=strftime("%Y-%m-%d")<cr>>
