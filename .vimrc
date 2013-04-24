@@ -26,6 +26,11 @@ set backupdir=~/.vim/backup//
 " Find tags file recursively
 set tags=./tags;/
 
+" Better tab completion
+set wildmenu
+set wildmode=list:longest,full
+set wildignore=*.o,*.so,*~
+
 syntax enable
 set background=dark
 colo desert
