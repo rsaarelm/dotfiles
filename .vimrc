@@ -57,4 +57,6 @@ autocmd BufRead,BufNewFile *anki.txt se formatoptions-=t noexpandtab softtabstop
 " Use physical tabs with Go files
 autocmd BufRead,BufNewFile *.go se noexpandtab softtabstop=0 tabstop=4
 
+autocmd FileType make se noexpandtab
+
 filetype indent on
