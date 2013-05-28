@@ -11,6 +11,7 @@ set backspace=indent,eol,start
 set ignorecase
 set smartcase
 set formatoptions-=t
+set modeline
 
 set showmatch
 set hlsearch
