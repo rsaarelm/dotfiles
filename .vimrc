@@ -12,6 +12,7 @@ set ignorecase
 set smartcase
 set formatoptions-=t
 set modeline
+set visualbell
 
 set showmatch
 set hlsearch
