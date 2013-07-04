@@ -11,25 +11,29 @@ general {
         interval = 5
 }
 
-order += "ipv6"
+#order += "ipv6"
+# System drive
 order += "disk /"
-order += "run_watch DHCP"
-order += "run_watch VPN"
+# User drive
+order += "disk /home/"
+#order += "run_watch DHCP"
+#order += "run_watch VPN"
 order += "wireless wlan0"
 order += "ethernet eth0"
 order += "battery 0"
 order += "load"
+order += "volume master"
 order += "tztime local"
 
 wireless wlan0 {
-        format_up = "W: (%quality at %essid) %ip"
-        format_down = "W: down"
+        format_up = "%essid %ip %quality"
+        format_down = "wlan down"
 }
 
 ethernet eth0 {
         # if you use %speed, i3status requires root privileges
-        format_up = "E: %ip (%speed)"
-        format_down = "E: down"
+        format_up = "%ip (%speed)"
+        format_down = "eth down"
 }
 
 battery 0 {
@@ -45,7 +49,7 @@ run_watch VPN {
 }
 
 tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
+        format = "Week %V %Y-%m-%d %a %H:%M:%S"
 }
 
 load {
@@ -53,5 +57,16 @@ load {
 }
 
 disk "/" {
-        format = "%free"
+        format = "%free/%total"
+}
+
+disk "/home/" {
+        format = "%free/%total"
+}
+
+volume master {
+    format = "♪: %volume"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
 }
