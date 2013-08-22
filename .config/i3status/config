@@ -57,11 +57,11 @@ load {
 }
 
 disk "/" {
-        format = "%free/%total"
+        format = "%used/%total"
 }
 
 disk "/home/" {
-        format = "%free/%total"
+        format = "%used/%total"
 }
 
 volume master {
