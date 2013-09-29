@@ -28,8 +28,8 @@
 *background: #111
 *foreground: #AAA
 
-URxvt.font: xft:Terminus-10,7x13
-! URxvt*font: xft:Fixedsys Excelsior 3.01\\-L2,7x13
+URxvt.font: -*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*,7x13
+! URxvt.font: -*-profont-*-*-*-*-11-*-*-*-*-*-*-*,7x13
 URxvt.scrollBar: off
 URxvt.perl-ext:      default,url-select
 URxvt.keysym.M-u:    perl:url-select:select_next
