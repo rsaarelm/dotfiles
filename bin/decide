@@ -1,0 +1,4 @@
+#!/usr/bin/env perl
+# Usage: decide choice 1,choice 2,choice 3, ...
+@csv=split(',',join(' ',@ARGV));
+print $csv[rand($#csv+1)], "\n";
