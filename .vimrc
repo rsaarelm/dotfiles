@@ -13,6 +13,7 @@ set smartcase
 set formatoptions-=t
 set modeline
 set visualbell
+set autoindent
 
 set showmatch
 set hlsearch
