@@ -39,6 +39,12 @@ user_color() { if [[ "$EUID" = 0 ]]; then echo "red"; else; echo "green"; fi }
 PS1='%{$fg[$(user_color)]%}%~ %#%{$reset_color%} '
 RPS1='$(git_prompt)%{$fg[$(user_color)]%}%n@%m%{$reset_color%} %{$fg[cyan]%}%D{%H:%M:%S}%{$reset_color%}'
 
+# Simpler prompt when using Midnight Commander
+if ps $PPID | grep mc; then
+    PS1="%~ %# "
+    RPS1=
+fi
+
 # Haven't learned to comfortably switch modes in the ZLE, making it use the
 # Emacs mode instead of the Vim one.
 bindkey -e
