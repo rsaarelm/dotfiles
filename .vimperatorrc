@@ -1,8 +1,8 @@
 " Colemak-friendly movement keys
 no n h
 no N H
-no e j
-no i k
+no e 8j
+no i 8k
 no o l
 no O L
 no h n
