@@ -49,6 +49,8 @@ fi
 # Emacs mode instead of the Vim one.
 bindkey -e
 
+autoload -U zmv
+
 is_cygwin() {
     [[ `uname -o` == 'Cygwin' ]]
 }
