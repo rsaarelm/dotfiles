@@ -71,3 +71,6 @@ autocmd BufRead,BufNewFile *.go se noexpandtab softtabstop=0 tabstop=4
 autocmd FileType make se noexpandtab
 
 filetype indent on
+
+" Unify tabs and remove trailing whitespace.
+command! WhiteClean retab | %s/\s\+$
