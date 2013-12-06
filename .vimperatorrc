@@ -11,4 +11,4 @@ no k o
 no K O
 no l i
 no L I
-no <C-S-n> :window -private :tabopen
+no <C-S-n> :window -private :tabopen<C-m>
