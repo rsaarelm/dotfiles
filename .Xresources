@@ -25,8 +25,8 @@
 *color7:  #EDE
 *color15: #FFF
 
-*background: #111
-*foreground: #AAA
+URxvt.background: Black
+URxvt.foreground: Gray
 
 URxvt.font: xft:Terminus:bold:pixelsize=16
 ! URxvt.font: -*-proggyclean-*-*-*-*-*-*-*-*-*-*-*-*,7x13
