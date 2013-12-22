@@ -5,6 +5,9 @@ alias ls="ls --color=auto -lF"
 alias arst="setxkbmap us -variant intl"
 alias asdf="xset b off;setxkbmap us -variant colemak;xmodmap -e 'remove Control = Control_L' -e 'keycode 66 = Control_L Control_L Control_L Control_L' -e 'keycode 37 = BackSpace BackSpace BackSpace BackSpace' -e 'add Control = Control_L'"
 
+# Log out from the shell when starting X
+alias startx="startx&disown;exit"
+
 export PATH="$PATH:$HOME/bin"
 export EDITOR=vim
 export VISUAL=vim
