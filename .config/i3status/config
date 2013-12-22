@@ -18,19 +18,19 @@ order += "disk /"
 order += "disk /home/"
 #order += "run_watch DHCP"
 #order += "run_watch VPN"
-order += "wireless wlan0"
-order += "ethernet eth0"
+order += "wireless wlp8s0"
+order += "ethernet enp2s0"
 order += "battery 0"
 order += "load"
 order += "volume master"
 order += "tztime local"
 
-wireless wlan0 {
+wireless wlp8s0 {
         format_up = "%essid %ip %quality"
         format_down = "wlan down"
 }
 
-ethernet eth0 {
+ethernet enp2s0 {
         # if you use %speed, i3status requires root privileges
         format_up = "%ip (%speed)"
         format_down = "eth down"
