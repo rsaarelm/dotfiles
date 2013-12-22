@@ -7,6 +7,7 @@ directory, the homegit repository does not live at ~/.git and is
 accessed using a special 'homegit' alias that replaces the 'git'
 command.
 
-To use, do `git clone --bare` of homegit into $HOMEGIT_PATH and
-use `alias homegit="GIT_DIR=$HOMEGIT_PATH GIT_WORK_TREE=~ git"`.
+Installation:
 
+    git clone --bare git@github.com:rsaarelm/homegit ~/.homegit
+    GIT_DIR=~/.homegit GIT_WORK_TREE=~/ git checkout
