@@ -76,3 +76,18 @@ filetype indent on
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
+
+" Instantly Better Vim stuff, from Damien Conway
+" Highlight column 80.
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
+
+" Swap ; and :, mostly using :, so shouldn't need shift for it.
+nnoremap  ;  :
+nnoremap  :  ;
+
+" Swap v and CTRL-v, mostly using block mode not visual mode
+nnoremap    v   <C-V>
+nnoremap <C-V>     v
+vnoremap    v   <C-V>
+vnoremap <C-V>     v
