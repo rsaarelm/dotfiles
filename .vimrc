@@ -85,6 +85,8 @@ call matchadd('ColorColumn', '\%81v', 100)
 " Swap ; and :, mostly using :, so shouldn't need shift for it.
 nnoremap  ;  :
 nnoremap  :  ;
+vnoremap  ;  :
+vnoremap  :  ;
 
 " Swap v and CTRL-v, mostly using block mode not visual mode
 nnoremap    v   <C-V>
