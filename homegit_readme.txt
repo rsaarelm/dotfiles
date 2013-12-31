@@ -9,5 +9,5 @@ command.
 
 Installation:
 
-    git clone --bare git@github.com:rsaarelm/homegit ~/.homegit
+    git clone --bare https://github.com/rsaarelm/homegit ~/.homegit
     GIT_DIR=~/.homegit GIT_WORK_TREE=~/ git checkout
