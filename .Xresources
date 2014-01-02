@@ -34,8 +34,7 @@ URxvt.font: xft:Terminus:bold:pixelsize=16
 URxvt.scrollBar: off
 URxvt.perl-ext:      default,url-select
 URxvt.keysym.M-u:    perl:url-select:select_next
-! URxvt.url-select.launcher: google-chrome --incognito
-URxvt.url-select.launcher: firefox
+URxvt.url-select.launcher: chromium --incognito
 URxvt.url-select.underline: true
 URxvt*termName:rxvt
 URxvt*saveLines: 32000
