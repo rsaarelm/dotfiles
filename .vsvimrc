@@ -15,6 +15,18 @@ no L I
 
 imap qk <Esc>
 
+" Swap ; and :, mostly using :, so shouldn't need shift for it.
+nnoremap  ;  :
+nnoremap  :  ;
+vnoremap  ;  :
+vnoremap  :  ;
+
+" Swap v and CTRL-v, mostly using block mode not visual mode
+nnoremap    v   <C-V>
+nnoremap <C-V>     v
+vnoremap    v   <C-V>
+vnoremap <C-V>     v
+
 set expandtab
 set softtabstop=4
 set tabstop=4
