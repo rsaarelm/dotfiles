@@ -1,1 +1,3 @@
-anacron -t ~/etc/anacrontab
+if (( $+commands[anacron] )) ; then
+    anacron -t ~/etc/anacrontab
+fi
