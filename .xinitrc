@@ -18,4 +18,7 @@ dropboxd &
 # Disable touchpad tapping for 2 seconds when typing
 syndaemon -t -k -i 2 -d
 
+# Synchronize Ctrl-C and terminal clipboards
+parcellite &
+
 exec i3
