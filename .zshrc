@@ -39,8 +39,8 @@ git_prompt() {
 
 user_color() { if [[ "$EUID" = 0 ]]; then echo "red"; else; echo "green"; fi }
 
-PS1='%{$fg[$(user_color)]%}%~ %#%{$reset_color%} '
-RPS1='$(git_prompt)%{$fg[$(user_color)]%}%n@%m%{$reset_color%} %{$fg[cyan]%}%D{%H:%M:%S}%{$reset_color%}'
+PS1='%m %{$fg[$(user_color)]%}%~ %#%{$reset_color%} '
+RPS1='$(git_prompt)%{$fg[$(user_color)]%}%n%{$reset_color%} %{$fg[cyan]%}%D{%H:%M:%S}%{$reset_color%}'
 
 # Simpler prompt when using Midnight Commander
 if ps $PPID | grep mc; then
