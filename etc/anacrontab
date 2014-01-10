@@ -1,9 +1,0 @@
-SHELL=/bin/sh
-PATH=/sbin:/bin:/usr/sbin:/usr/bin
-MAILTO=$USER
-
-#period in days   delay in minutes   job-identifier   command
-
-# ~/tmp is a file for random downloads, keep it clean from things older than 30
-# days that I haven't bothered to move elsewhere.
-1   10   reap    nice tmpreaper 30d $HOME/tmp
