@@ -9,7 +9,7 @@ alias asdf="xset b off;setxkbmap us -variant colemak;xmodmap -e 'remove Control 
 # Log out from the shell when starting X
 alias startx="startx&disown;exit"
 
-export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.cabal/bin"
 export EDITOR=vim
 export VISUAL=vim
 
