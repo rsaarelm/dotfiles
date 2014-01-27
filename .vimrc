@@ -60,17 +60,17 @@ map <C-i> <C-w>i
 map <C-o> <C-w>o
 
 " Use line wrapping for these file types.
-autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG se formatoptions+=t formatoptions-=r tw=68
+autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG setl formatoptions+=t formatoptions-=r tw=68
 
 " Special mode for text Anki decks: Tab-separated single-line.
-autocmd BufRead,BufNewFile *anki.txt se formatoptions-=t noexpandtab softtabstop=0 showbreak=\ \  lbr wrap
+autocmd BufRead,BufNewFile *anki.txt setl formatoptions-=t noexpandtab softtabstop=0 showbreak=\ \  lbr wrap
 
 " Use physical tabs with Go files
-autocmd BufRead,BufNewFile *.go se noexpandtab softtabstop=0 tabstop=4
+autocmd BufRead,BufNewFile *.go setl noexpandtab softtabstop=0 tabstop=4
 
-autocmd BufRead,BufNewFile *.md se syntax=markdown formatoptions+=tr tw=68
+autocmd BufRead,BufNewFile *.md setl syntax=markdown formatoptions+=tr tw=68
 
-autocmd FileType make se noexpandtab
+autocmd FileType make setl noexpandtab
 
 filetype indent on
 
