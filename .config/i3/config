@@ -116,6 +116,9 @@ bindsym $mod+Shift+f exec "i3-msg exit"
 #bindsym $mod+l exec "i3lock"
 bindsym $mod+Shift+l exec "sudo pm-suspend & i3lock"
 
+# Quick-launch a one-off browser instance.
+bindsym $mod+F2 exec "chromium --incognito"
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
