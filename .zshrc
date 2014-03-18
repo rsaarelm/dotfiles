@@ -38,10 +38,26 @@ git_prompt() {
   echo $col"±$git_where%{$reset_color%} "
 }
 
+# Time tracking
+t_prompt() {
+  local cur="$(t cur)"
+  if [[ -z $cur ]]; then return; fi
+  local curtime="$(t curtime)"
+  echo "%{$fg[magenta]%}$cur: $curtime%{$reset_color%} "
+}
+
+clock_prompt() {
+  echo "%{$fg[cyan]%}%D{%H:%M:%S}%{$reset_color%}"
+}
+
+ret_prompt() {
+  echo "%(?..%{$fg[yellow]%}%?%{$reset_color%} )"
+}
+
 user_color() { if [[ "$EUID" = 0 ]]; then echo "red"; else; echo "green"; fi }
 
-PS1='%m %{$fg[$(user_color)]%}%~ %#%{$reset_color%} '
-RPS1='$(git_prompt)%{$fg[$(user_color)]%}%n%{$reset_color%} %{$fg[cyan]%}%D{%H:%M:%S}%{$reset_color%}'
+PS1='%m $(ret_prompt)%{$fg[$(user_color)]%}%~ %#%{$reset_color%} '
+RPS1='$(git_prompt)%{$fg[$(user_color)]%}%n%{$reset_color%} $(t_prompt)$(clock_prompt)'
 
 # Simpler prompt when using Midnight Commander
 if ps $PPID | grep mc; then
