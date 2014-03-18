@@ -44,6 +44,17 @@ _t_last() {
   sed -ne '/^o/{g;p;};h;' ${timelog} | tail -n 1 | __t_extract_project
 }
 
+# Show the currently clocked-in time
+_t_curtime() {
+  THEN_DATE=`sed -e '/^i/!d;$!d' ${timelog} | __t_extract_time`
+  if [ -n "$THEN_DATE" ]; then
+    THEN=`date --date "$THEN_DATE" +%s`
+    NOW=`date +%s`
+    let DIFF=$NOW-$THEN
+    echo $(__t_convertsecs $DIFF)
+  fi
+}
+
 # Show usage
 _t_usage() {
   # TODO
@@ -57,6 +68,7 @@ actions:
      hours - show balance for today
      edit - edit timelog file
      cur - show currently open project
+     curtime - show hours into currently open project
      last - show last closed project
      grep - grep timelog for argument
      cat - show timelog
@@ -78,6 +90,20 @@ __t_extract_project() {
       }'
 }
 
+__t_extract_time() {
+  awk '$1 != "o" {
+        print $2 " " $3
+      }'
+}
+
+__t_convertsecs() {
+    ((h=${1}/3600))
+    ((m=(${1}%3600)/60))
+    ((s=${1}%60))
+    #printf "%02d:%02d:%02d\n" $h $m $s
+    printf "%2d:%02d\n" $h $m
+}
+
 action=$1; shift
 [ "$TIMELOG" ] && timelog="$TIMELOG" || timelog="${HOME}/.timelog.ldg"
 
@@ -90,6 +116,7 @@ case "${action}" in
   switch)   _t_sw "$@";;
   edit) _t_do $EDITOR "$@";;
   cur)  _t_cur "$@";;
+  curtime)  _t_curtime "$@";;
   last) _t_last "$@";;
   grep) _t_do grep "$@";;
   cat)  _t_do cat "$@";;
