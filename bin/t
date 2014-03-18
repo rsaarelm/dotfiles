@@ -36,7 +36,9 @@ _t_sw() {
 
 # Show the currently clocked-in project
 _t_cur() {
-  sed -e '/^i/!d;$!d' ${timelog} | __t_extract_project
+  if [ -e "$timelog" ]; then
+    sed -e '/^i/!d;$!d' ${timelog} | __t_extract_project
+  fi
 }
 
 # Show the last checked out project
@@ -46,12 +48,14 @@ _t_last() {
 
 # Show the currently clocked-in time
 _t_curtime() {
-  THEN_DATE=`sed -e '/^i/!d;$!d' ${timelog} | __t_extract_time`
-  if [ -n "$THEN_DATE" ]; then
-    THEN=`date --date "$THEN_DATE" +%s`
-    NOW=`date +%s`
-    let DIFF=$NOW-$THEN
-    echo $(__t_convertsecs $DIFF)
+  if [ -e "$timelog" ]; then
+    THEN_DATE=`sed -e '/^i/!d;$!d' ${timelog} | __t_extract_time`
+    if [ -n "$THEN_DATE" ]; then
+      THEN=`date --date "$THEN_DATE" +%s`
+      NOW=`date +%s`
+      let DIFF=$NOW-$THEN
+      echo $(__t_convertsecs $DIFF)
+    fi
   fi
 }
 
