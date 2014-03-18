@@ -55,6 +55,11 @@ _t_curtime() {
   fi
 }
 
+# List all projects
+_t_list() {
+  grep "^i " ${timelog} | __t_extract_project | sort | uniq
+}
+
 # Show usage
 _t_usage() {
   # TODO
@@ -74,6 +79,7 @@ actions:
      cat - show timelog
      less - show timelog in pager
      timelog - show timelog file
+     list - list all projects
 EOF
 }
 
@@ -122,6 +128,7 @@ case "${action}" in
   cat)  _t_do cat "$@";;
   less)  _t_do less;;
   timelog) _t_timelog "$@";;
+  list) _t_list "$@";;
 
   h)    _t_usage;;
   *)    _t_usage;;
