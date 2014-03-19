@@ -28,6 +28,11 @@ _t_out() {
   echo o `date '+%Y-%m-%d %H:%M:%S'` $* >>$timelog
 }
 
+# Done item
+_t_done() {
+  echo "; d" `date '+%Y-%m-%d %H:%M:%S'` $* >>$timelog
+}
+
 # switch projects
 _t_sw() {
   echo o `date '+%Y-%m-%d %H:%M:%S'` >>$timelog
@@ -72,6 +77,7 @@ Usage: t action
 actions:
      in - clock into project or last project
      out - clock out of project
+     done - add an unclocked done item
      sw,switch - switch projects
      bal - show balance
      hours - show balance for today
@@ -120,6 +126,7 @@ action=$1; shift
 case "${action}" in
   in)   _t_in "$@";;
   out)  _t_out "$@";;
+  done)  _t_done "$@";;
   sw)   _t_sw "$@";;
   bal) _t_ledger bal "$@";;
   hours) _t_ledger bal -p "since today" "$@";;
