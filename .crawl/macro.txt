@@ -2,33 +2,20 @@
 # WARNING: This file is entirely auto-generated.
 
 # Key Mappings:
-K:n
-A:h
+K:,
+A:n
+
+K:b
+A:m
 
 K:e
 A:j
 
-K:i
-A:k
-
-K:o
-A:l
-
-K:l
-A:y
-
-K:m
-A:b
-
-K:,
-A:n
-
-
 K:h
 A:i
 
-K:b
-A:m
+K:i
+A:k
 
 K:j
 A:o
@@ -36,6 +23,55 @@ A:o
 K:k
 A:,
 
+K:l
+A:y
+
+K:m
+A:b
+
+K:n
+A:h
+
+K:o
+A:l
+
 K:y
+A:e
+
+
+K2:,
+A:n
+
+K2:b
+A:m
+
+K2:e
+A:j
+
+K2:h
+A:i
+
+K2:i
+A:k
+
+K2:j
+A:o
+
+K2:k
+A:,
+
+K2:l
+A:y
+
+K2:m
+A:b
+
+K2:n
+A:h
+
+K2:o
+A:l
+
+K2:y
 A:e
 # Command Macros:
