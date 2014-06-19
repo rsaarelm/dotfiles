@@ -1,0 +1,41 @@
+# Dungeon Crawl Stone Soup 0.14.1 macro file
+# WARNING: This file is entirely auto-generated.
+
+# Key Mappings:
+K:n
+A:h
+
+K:e
+A:j
+
+K:i
+A:k
+
+K:o
+A:l
+
+K:l
+A:y
+
+K:m
+A:b
+
+K:,
+A:n
+
+
+K:h
+A:i
+
+K:b
+A:m
+
+K:j
+A:o
+
+K:k
+A:,
+
+K:y
+A:e
+# Command Macros:
