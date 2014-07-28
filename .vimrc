@@ -37,14 +37,7 @@ set wildmode=list:longest,full
 set wildignore=*.o,*.so,*~
 
 syntax enable
-set background=dark
-colo desert
-
-highlight BadWhitespace ctermbg=darkgreen guibg=darkgreen
-" Match whitespace at the end of the line
-" | match physical tabs after space
-" | match space after physical tab
-match BadWhitespace /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
+"set background=dark
 
 " Timestamp abbreviation
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
@@ -54,10 +47,10 @@ iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 imap qo <esc>
 
 " Easier window navigation
-map <C-n> <C-w>n
-map <C-e> <C-w>e
-map <C-i> <C-w>i
-map <C-o> <C-w>o
+noremap <C-n> <C-w>n
+noremap <C-e> <C-w>e
+noremap <C-i> <C-w>i
+noremap <C-o> <C-w>o
 
 " Use line wrapping for these file types.
 autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG setl formatoptions+=t formatoptions-=r tw=68
@@ -73,14 +66,22 @@ autocmd BufRead,BufNewFile *.md setl syntax=markdown formatoptions+=tr tw=68
 autocmd FileType make setl noexpandtab
 
 filetype indent on
+filetype plugin indent on
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
 
+highlight BadWhitespace ctermbg=darkgreen guibg=darkgreen
+autocmd BufRead,BufNewFile * match BadWhitespace /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
+" | match physical tabs after space
+" | match space after physical tab
+
 " Instantly Better Vim stuff, from Damien Conway
 " Highlight column 80.
 highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
+" call matchadd('ColorColumn', '\%81v', 100)
+"autocmd BufRead,BufNewFile * call matchadd('ColorColumn', '\%81v', 100)
+" XXX: This causes slowdowns with big files. Disabled for now.
 
 " Swap ; and :, mostly using :, so shouldn't need shift for it.
 nnoremap  ;  :
