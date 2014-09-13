@@ -46,11 +46,13 @@ iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 " Esc hack, actually "qk", but must use o here because of langmap.
 imap qo <esc>
 
-" Easier window navigation
+" Easier window and tab navigation
 noremap <C-n> <C-w>n
 noremap <C-e> <C-w>e
 noremap <C-i> <C-w>i
 noremap <C-o> <C-w>o
+noremap <C-k> <C-PageUp>
+noremap <C-m> <C-PageDown>
 
 " Use line wrapping for these file types.
 autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG setl formatoptions+=t formatoptions-=r tw=68
