@@ -65,6 +65,9 @@ autocmd BufRead,BufNewFile *.go setl noexpandtab softtabstop=0 tabstop=4
 
 autocmd BufRead,BufNewFile *.md setl syntax=markdown formatoptions+=tr tw=68
 
+" Override the barbaric textwidth of the default Rust mode
+autocmd BufRead,BufNewFile *.rs setl tw=78
+
 autocmd FileType make setl noexpandtab
 
 filetype indent on
@@ -96,3 +99,12 @@ nnoremap    v   <C-V>
 nnoremap <C-V>     v
 vnoremap    v   <C-V>
 vnoremap <C-V>     v
+
+" C-] doesn't work right in Windows gvim when using Colemak layout. Let's
+" remap follow-tag to F3 and next-tag to F4.
+nnoremap <f3> <C-]>
+nnoremap <f4> :tn<cr>
+
+" Buffer navigation
+nnoremap <f1> :bp<cr>
+nnoremap <f2> :bn<cr>
