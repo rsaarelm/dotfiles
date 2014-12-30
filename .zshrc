@@ -21,14 +21,24 @@ git_prompt() {
   local col="%{$reset_color%}"
   local gits="$(timeout 0.3 git status -unormal 2>&1)"
   if [[ -z $gits ]]; then; col="%{$fg_bold[black]%}" # Timed out
-  elif [[ $gits =~ "Untracked files" ]]; then
-    if [[ $gits =~ "Changes not staged" ]]; then; col="%{$fg[magenta]%}"
-    elif [[ $gits =~ "Changes to be committed" ]]; then; col="%{$fg[cyan]%}"
-    else; col="%{$fg[blue]%}"
-    fi
   else
-    if [[ $gits =~ "Changes not staged" ]]; then; col="%{$fg[yellow]%}"
-    elif [[ $gits =~ "Changes to be committed" ]]; then; col="%{$fg[green]%}"
+    # Untracked files are messy, but don't really matter that much. Notify
+    # about them with a dimmer status color.
+    if [[ $gits =~ "Untracked files" ]]; then local u=1; fi
+    if [[ $gits =~ "Changes not staged" ]]; then local ns=1; fi
+    if [[ $gits =~ "Changes to be committed" ]]; then local c=1; fi
+
+    # Changes partially committed, better get that figured out.
+    if [[ $u && $ns && $c ]]; then col="%{$fg[red]%}";
+    elif [[ $ns && $c ]]; then col="%{$fg_bold[red]%}";
+    # Things are changed, but not ready to commit yet.
+    elif [[ $u && $ns ]]; then col="%{$fg[yellow]%}";
+    elif [[ $ns ]]; then col="%{$fg_bold[yellow]%}";
+    # Commit is good to go.
+    elif [[ $u && $c ]]; then col="%{$fg[green]%}";
+    elif [[ $c ]]; then col="%{$fg_bold[green]%}";
+    # Just some untracked files around.
+    elif [[ $u ]]; then col="%{$fg[blue]%}";
     fi
   fi
   local prompt=
