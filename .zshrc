@@ -27,10 +27,14 @@ git_prompt() {
     if [[ $gits =~ "Untracked files" ]]; then local u=1; fi
     if [[ $gits =~ "Changes not staged" ]]; then local ns=1; fi
     if [[ $gits =~ "Changes to be committed" ]]; then local c=1; fi
+    if [[ $gits =~ "Unmerged paths" ]]; then local m=1; fi
 
+    # Unmerged stuff, go fix.
+    if [[ $u && $m ]]; then col="%{$fg[red]%}";
+    elif [[ $m ]]; then col="%{$fg_bold[red]%}";
     # Changes partially committed, better get that figured out.
-    if [[ $u && $ns && $c ]]; then col="%{$fg[red]%}";
-    elif [[ $ns && $c ]]; then col="%{$fg_bold[red]%}";
+    elif [[ $u && $ns && $c ]]; then col="%{$fg[magenta]%}";
+    elif [[ $ns && $c ]]; then col="%{$fg_bold[magenta]%}";
     # Things are changed, but not ready to commit yet.
     elif [[ $u && $ns ]]; then col="%{$fg[yellow]%}";
     elif [[ $ns ]]; then col="%{$fg_bold[yellow]%}";
