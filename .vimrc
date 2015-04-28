@@ -70,13 +70,16 @@ autocmd BufRead,BufNewFile *.rs setl tw=78
 
 autocmd FileType make setl noexpandtab
 
+" Run cargo with ':make' in rust projects.
+autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
+
 filetype indent on
 filetype plugin indent on
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
 
-highlight BadWhitespace ctermbg=darkgreen guibg=darkgreen
+highlight BadWhitespace ctermbg=darkgray guibg=gray8
 autocmd BufRead,BufNewFile * match BadWhitespace /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
 " | match physical tabs after space
 " | match space after physical tab
@@ -108,3 +111,13 @@ nnoremap <f4> :tn<cr>
 " Buffer navigation
 nnoremap <f1> :bp<cr>
 nnoremap <f2> :bn<cr>
+
+" Syntastic
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0

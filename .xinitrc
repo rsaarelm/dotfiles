@@ -13,7 +13,7 @@ SSH_ASKPASS=/usr/lib/ssh/ssh-askpass keychain ~/.ssh/id_rsa
 
 redshift -l 60:25 &
 
-dropboxd &
+dropbox &
 
 # Disable touchpad tapping for 2 seconds when typing
 syndaemon -t -k -i 2 -d
