@@ -1,6 +1,6 @@
 (ensure-installed 'evil)
-(ensure-installed 'laplomak-evil)
+(ensure-installed 'colemak-evil)
 
 (require 'evil)
-(require 'laplomak-evil)
+(require 'colemak-evil)
 (evil-mode 1)
