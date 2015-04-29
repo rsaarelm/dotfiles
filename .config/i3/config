@@ -35,8 +35,8 @@ bindsym $mod+s exec dmenu_run
 # change focus
 bindsym $mod+n focus left
 bindsym $mod+e focus down
-bindsym $mod+i focus up
-bindsym $mod+o focus right
+bindsym $mod+u focus up
+bindsym $mod+i focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -129,8 +129,8 @@ mode "resize" {
         # Pressing down will grow the window’s height.
         bindsym n resize shrink width 10 px or 10 ppt
         bindsym e resize grow height 10 px or 10 ppt
-        bindsym i resize shrink height 10 px or 10 ppt
-        bindsym o resize grow width 10 px or 10 ppt
+        bindsym u resize shrink height 10 px or 10 ppt
+        bindsym i resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
