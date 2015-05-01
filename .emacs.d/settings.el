@@ -17,3 +17,19 @@
 (setq mouse-yank-at-point t)
 
 (ensure-installed 'better-defaults)
+
+; Timestamp command for text logs
+(defun insert-timestamp (x)
+  "Emit a date stamp, add time if prefix argument is given"
+  (interactive "P")
+  (insert (format-time-string "%Y-%m-%d"))
+  (if x (insert (format-time-string " %H:%M"))))
+
+(global-set-key (kbd "C-c .") 'insert-timestamp)
+
+; Auto linewrap in text modes
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(setq-default fill-column 78)
+
+(add-to-list 'default-frame-alist '(font . "Dina 10" ))
+(set-face-attribute 'default t :font "Dina 10" )
