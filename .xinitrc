@@ -21,4 +21,6 @@ syndaemon -t -k -i 2 -d
 # Synchronize Ctrl-C and terminal clipboards
 parcellite &
 
+emacs --daemon
+
 exec i3

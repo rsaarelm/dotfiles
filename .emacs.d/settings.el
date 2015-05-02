@@ -29,7 +29,6 @@
 
 ; Auto linewrap in text modes
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-(setq-default fill-column 78)
+(setq-default fill-column 72)
 
-(add-to-list 'default-frame-alist '(font . "Dina 10" ))
-(set-face-attribute 'default t :font "Dina 10" )
+(setq-default column-number-mode t)
