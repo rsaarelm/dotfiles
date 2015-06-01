@@ -1,8 +1,5 @@
 execute pathogen#infect()
 
-" colemak movement remapping.
-set langmap=li,ko,hn,je,nh,ej,ik,ol,LI,KO,JE,EJ,IK,OL
-
 set expandtab
 set softtabstop=4
 set shiftwidth=4
