@@ -1,6 +1,7 @@
 (org-babel-do-load-languages
   'org-babel-load-languages
   '((R . t)
+    (maxima . t)
     (gnuplot . t)))
 
 ; I'll be running my own code, don't want a yes-confirm each time I

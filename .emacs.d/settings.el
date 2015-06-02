@@ -32,3 +32,6 @@
 (setq-default fill-column 72)
 
 (setq-default column-number-mode t)
+
+; Do not use doubled space after a period.
+(setq sentence-end-double-space nil)
