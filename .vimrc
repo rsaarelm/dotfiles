@@ -44,10 +44,10 @@ iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 imap qo <esc>
 
 " Easier window and tab navigation
-noremap <C-n> <C-w>n
-noremap <C-e> <C-w>e
-noremap <C-i> <C-w>i
-noremap <C-o> <C-w>o
+noremap <C-n> <C-w>h
+noremap <C-e> <C-w>j
+noremap <C-u> <C-w>k
+noremap <C-i> <C-w>l
 noremap <C-k> <C-PageUp>
 noremap <C-m> <C-PageDown>
 
@@ -118,3 +118,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 "let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" Fix navigation in directory view.
+augroup netrw_colemak_fix
+    autocmd!
+    autocmd filetype netrw call Fix_netrw_maps_for_colemak()
+augroup END
+function! Fix_netrw_maps_for_colemak()
+    noremap <buffer> n h
+    noremap <buffer> e gj
+    noremap <buffer> u gk
+    noremap <buffer> i l
+endfunction
