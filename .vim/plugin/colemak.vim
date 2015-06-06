@@ -10,17 +10,16 @@
     if v:version < 700 | echohl WarningMsg | echo "colemak.vim: You need Vim version 7.0 or later." | echohl None | finish | endif
 " }}}
 " Up/down/left/right {{{
-    " Always go down/up one line regardless of "set wrap". Is that a sane default?
     nnoremap n h|xnoremap n h|onoremap h h|
-    nnoremap e gj|xnoremap e gj|onoremap n gj|
-    nnoremap u gk|xnoremap u gk|onoremap e gk|
+    nnoremap e j|xnoremap e j|onoremap n j|
+    nnoremap u k|xnoremap u k|onoremap e k|
     nnoremap i l|xnoremap i l|onoremap i l|
 " }}}
 " Turbo navigation {{{
     " Works with counts, see ":help complex-repeat"
     nnoremap <silent> N @='5h'<CR>|xnoremap <silent> N @='5h'<CR>|onoremap <silent> N @='5h'<CR>|
-    nnoremap <silent> E @='5gj'<CR>|xnoremap <silent> E @='5gj'<CR>|onoremap <silent> E @='5gj'<CR>|
-    nnoremap <silent> U @='5gk'<CR>|xnoremap <silent> U @='5gk'<CR>|onoremap <silent> U @='5gk'<CR>|
+    nnoremap <silent> E @='5j'<CR>|xnoremap <silent> E @='5j'<CR>|onoremap <silent> E @='5j'<CR>|
+    nnoremap <silent> U @='5k'<CR>|xnoremap <silent> U @='5k'<CR>|onoremap <silent> U @='5k'<CR>|
     nnoremap <silent> I @='5l'<CR>|xnoremap <silent> I @='5l'<CR>|onoremap <silent> I @='5l'<CR>|
 " }}}
 " Words forward/backward {{{
@@ -48,12 +47,9 @@
     nnoremap ww cc|
 " }}}
 " Cut/copy/paste {{{
-    nnoremap x x|xnoremap x d|
-    nnoremap xx dd|
     nnoremap c y|xnoremap c y|
     nnoremap cc yy|
     nnoremap v p|xnoremap v p|
-    nnoremap X dd|xnoremap X d|
     nnoremap C yy|xnoremap C y|
     nnoremap V P|xnoremap V P|
 " }}}
@@ -91,6 +87,8 @@
 " }}}
 " Overridden keys must be prefixed with g {{{
     nnoremap gX X|xnoremap gX X|
+    nnoremap gu gk|xnoremap gu gk|
+    nnoremap ge gj|xnoremap ge gj|
     nnoremap gK K|xnoremap gK K|
     nnoremap gL L|xnoremap gL L|
     nnoremap gv gp|xnoremap gv gp|
