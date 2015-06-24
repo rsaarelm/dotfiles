@@ -2,7 +2,7 @@
 
 # usage print-backup [small_binary_data] [output.pdf]
 # Creates a PDF with base64 output of the binary data both as text and as a
-# sequence of QR codes. Currently assumes the data comes in ~1k size.
+# sequence of QR codes. Currently assumes the data comes in ~2k size.
 
 # Dependencies:
 # qrencode
@@ -11,8 +11,12 @@
 
 TDIR=$(mktemp -d)
 
-split $1 -n 4 $TDIR/PART
-base64 -w 38 < $1 > $TDIR/data.txt
+split $1 -n 8 $TDIR/PART
+
+# The custom width is important to make the data line up nicely when being
+# typeset.
+base64 -w 54 < $1 > $TDIR/data.txt
+
 cd $TDIR
 
 for i in PART*; do
@@ -21,27 +25,34 @@ done
 
 cat > hardcopy.tex <<EOF
 \documentclass[twocolumn]{article}
-\usepackage{geometry}
+\usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
 \usepackage{fancyvrb}
+
+\newcommand{\pics}[2] {
+\noindent\minipage{0.5\linewidth}
+\includegraphics[width=\linewidth]{#1}
+\endminipage\hfill
+\noindent\minipage{0.5\linewidth}
+\includegraphics[width=\linewidth]{#2}
+\endminipage
+}
+
 \begin{document}
 
-\noindent\minipage{0.5\linewidth}
-\includegraphics[width=\linewidth]{PARTaa.png}
-\endminipage\hfill
-\noindent\minipage{0.5\linewidth}
-\includegraphics[width=\linewidth]{PARTab.png}
-\endminipage
+\pics{PARTaa.png}{PARTab.png}
+\pics{PARTac.png}{PARTad.png}
+\pics{PARTae.png}{PARTaf.png}
+\pics{PARTag.png}{PARTah.png}
 
-\noindent\minipage{0.5\linewidth}
-\includegraphics[width=\linewidth]{PARTac.png}
-\endminipage\hfill
-\noindent\minipage{0.5\linewidth}
-\includegraphics[width=\linewidth]{PARTad.png}
-\endminipage
+\vfill
+\columnbreak
 
+\footnotesize
 \VerbatimInput{data.txt}
+
 \end{document}
+
 EOF
 
 rubber -d hardcopy.tex
