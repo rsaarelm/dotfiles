@@ -7,7 +7,15 @@ directory, the homegit repository does not live at ~/.git and is
 accessed using a special 'homegit' alias that replaces the 'git'
 command.
 
-Installation:
+* Misc. stuff
+
+todo.txt modeline for vim:
+# vim:formatoptions-=t:showbreak=\ \ :linebreak:wrap
+
+Anki deck file modeline for vim:
+# vim:formatoptions-=t:noexpandtab:softtabstop=0:showbreak=\ \ :lbr:wrap
+
+* Installation:
 
     git clone --bare https://github.com/rsaarelm/homegit ~/.homegit
     GIT_DIR=~/.homegit GIT_WORK_TREE=~/ git checkout
