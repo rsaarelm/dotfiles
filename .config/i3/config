@@ -114,7 +114,7 @@ bindsym $mod+Shift+p restart
 bindsym $mod+Shift+f exec "i3-msg exit"
 
 #bindsym $mod+l exec "i3lock"
-bindsym $mod+Shift+l exec "sudo pm-suspend & i3lock"
+bindsym $mod+Shift+l exec "sudo systemctl suspend & i3lock"
 
 # Quick-launch a one-off browser instance.
 bindsym $mod+F2 exec "chromium --incognito"
