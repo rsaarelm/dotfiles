@@ -135,3 +135,6 @@ function! Fix_netrw_maps_for_colemak()
     noremap <buffer> u gk
     noremap <buffer> i l
 endfunction
+
+" Fix :E
+let g:loaded_logipat = 1
