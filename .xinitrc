@@ -9,18 +9,11 @@ SSH_ASKPASS=/usr/lib/ssh/ssh-askpass keychain ~/.ssh/id_rsa
 [ -f ~/.keychain/$HOSTNAME-sh ] && . ~/.keychain/$HOSTNAME-sh 2>/dev/null
 [ -f ~/.keychain/$HOSTNAME-sh-gpg ] && . ~/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
 
-#xscreensaver &
-
 redshift -l 60:25 &
 
 dropbox &
 
 # Disable touchpad tapping for 2 seconds when typing
-syndaemon -t -k -i 2 -d
-
-# Synchronize Ctrl-C and terminal clipboards
-parcellite &
-
-emacs --daemon
+#syndaemon -t -k -i 2 -d
 
 exec i3
