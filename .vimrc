@@ -99,12 +99,6 @@ nnoremap  :  ;
 vnoremap  ;  :
 vnoremap  :  ;
 
-" Swap v and CTRL-v, mostly using block mode not visual mode
-nnoremap    v   <C-V>
-nnoremap <C-V>     v
-vnoremap    v   <C-V>
-vnoremap <C-V>     v
-
 " C-] doesn't work right in Windows gvim when using Colemak layout. Let's
 " remap follow-tag to F3 and next-tag to F4.
 nnoremap <f3> <C-]>
