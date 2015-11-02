@@ -86,12 +86,9 @@ autocmd BufRead,BufNewFile * match BadWhitespace /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
 " | match physical tabs after space
 " | match space after physical tab
 
-" Instantly Better Vim stuff, from Damien Conway
-" Highlight column 80.
-highlight ColorColumn ctermbg=magenta
-" call matchadd('ColorColumn', '\%81v', 100)
-"autocmd BufRead,BufNewFile * call matchadd('ColorColumn', '\%81v', 100)
-" XXX: This causes slowdowns with big files. Disabled for now.
+" Highlight things past 80th column
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn=join(range(81,999),",")
 
 " Swap ; and :, mostly using :, so shouldn't need shift for it.
 nnoremap  ;  :
