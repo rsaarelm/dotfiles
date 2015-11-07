@@ -81,13 +81,11 @@ filetype plugin indent on
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
 
-highlight BadWhitespace ctermbg=darkgray guibg=gray8
 autocmd BufRead,BufNewFile * match BadWhitespace /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
 " | match physical tabs after space
 " | match space after physical tab
 
 " Highlight things past 80th column
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
 let &colorcolumn=join(range(81,999),",")
 
 " Swap ; and :, mostly using :, so shouldn't need shift for it.
@@ -129,3 +127,9 @@ endfunction
 
 " Fix :E
 let g:loaded_logipat = 1
+
+if has("gui_running")
+  colorscheme desert
+endif
+highlight BadWhitespace ctermbg=darkgray guibg=gray8
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
