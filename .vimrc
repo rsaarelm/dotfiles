@@ -131,5 +131,5 @@ let g:loaded_logipat = 1
 if has("gui_running")
   colorscheme desert
 endif
-highlight BadWhitespace ctermbg=darkgray guibg=gray8
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
+highlight BadWhitespace ctermbg=darkgray guibg=#3F3833
+highlight ColorColumn ctermbg=darkgray guibg=#2c2d27
