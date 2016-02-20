@@ -11,8 +11,10 @@
 " }}}
 " Up/down/left/right {{{
     nnoremap n h|xnoremap n h|onoremap h h|
-    nnoremap e j|xnoremap e j|onoremap n j|
-    nnoremap u k|xnoremap u k|onoremap e k|
+    nnoremap e gj|xnoremap e gj|onoremap n gj|
+    nnoremap u gk|xnoremap u gk|onoremap e gk|
+    nnoremap ge j|xnoremap ge j|onoremap gn j|
+    nnoremap gu k|xnoremap gu k|onoremap ge k|
     nnoremap i l|xnoremap i l|onoremap i l|
 " }}}
 " Turbo navigation {{{
