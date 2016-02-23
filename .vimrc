@@ -92,6 +92,15 @@ au FileType rust nmap <leader>gd <Plug>(rust-doc)
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
 
+autocmd BufRead,BufNewFile *.py setl noexpandtab softtabstop=0 shiftwidth=0
+
+autocmd BufRead,BufNewFile *.yaml setl softtabstop=2 shiftwidth=2
+
+" Despite being .txt, CMakeLists shouldn't be line wrapped.
+autocmd BufRead,BufNewFile CMakeLists.txt setl formatoptions-=t
+
+autocmd FileType make setl noexpandtab
+
 " Timestamp abbreviation
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
@@ -147,3 +156,6 @@ if has('gui_running')
 else
     colorscheme industry
 endif
+
+highlight BadWhitespace ctermbg=brown guibg=#3F3833
+highlight ColorColumn ctermbg=darkblue guibg=#2c2d27
