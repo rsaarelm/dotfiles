@@ -113,7 +113,7 @@ bindsym $mod+Shift+p restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+f exec "i3-msg exit"
 
-#bindsym $mod+l exec "i3lock"
+bindsym $mod+l exec "i3lock"
 bindsym $mod+Shift+l exec "sudo systemctl suspend & i3lock"
 
 # Quick-launch a one-off browser instance.
@@ -152,3 +152,5 @@ bar {
 }
 
 workspace_layout tabbed
+
+mouse_warping none
