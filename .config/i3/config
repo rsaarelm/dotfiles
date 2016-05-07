@@ -153,4 +153,7 @@ bar {
 
 workspace_layout tabbed
 
+# Alt-tab between two most recent workspaces
+bindsym $mod+Tab workspace back_and_forth
+
 mouse_warping none
