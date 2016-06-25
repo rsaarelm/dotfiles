@@ -38,6 +38,9 @@ set wildmenu
 set wildmode=list:longest,full
 set wildignore=*.o,*.so,*~
 
+" Navigation help
+set relativenumber
+
 syntax enable
 "set background=dark
 
@@ -57,7 +60,7 @@ noremap <C-k> <C-PageUp>
 noremap <C-m> <C-PageDown>
 
 " Use line wrapping for these file types.
-autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG setl formatoptions+=t formatoptions-=r tw=68
+autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG setl formatoptions+=t formatoptions-=r tw=78
 
 " Special mode for text Anki decks: Tab-separated single-line.
 autocmd BufRead,BufNewFile *anki.txt setl formatoptions-=t noexpandtab softtabstop=0 showbreak=\ \  lbr wrap
@@ -65,7 +68,7 @@ autocmd BufRead,BufNewFile *anki.txt setl formatoptions-=t noexpandtab softtabst
 " Use physical tabs with Go files
 autocmd BufRead,BufNewFile *.go setl noexpandtab softtabstop=0 tabstop=4
 
-autocmd BufRead,BufNewFile *.md setl syntax=markdown formatoptions+=tr tw=68
+autocmd BufRead,BufNewFile *.md setl syntax=markdown formatoptions+=tr tw=78
 
 " Override the barbaric textwidth of the default Rust mode
 autocmd BufRead,BufNewFile *.rs setl tw=78
