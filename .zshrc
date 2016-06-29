@@ -1,5 +1,3 @@
-[[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
-
 alias homegit="GIT_DIR=~/.homegit GIT_WORK_TREE=~ git"
 alias ls="ls --color=auto"
 alias R="R --no-save" # Used as quick calculator, make it easy to exit.
@@ -90,3 +88,5 @@ if is_cygwin; then
     # Revert Cygwin's path mangling for P4.
     alias p4='PWD=$(cygpath --windows --absolute .) p4'
 fi
+
+[[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
