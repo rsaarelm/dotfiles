@@ -6,6 +6,7 @@ call plug#begin()
 Plug 'equalsraf/neovim-gui-shim'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-unimpaired'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'timonv/vim-cargo'
