@@ -76,8 +76,8 @@ nnoremap k i|xnoremap k i|onoremap k i|
 nnoremap K I|xnoremap K I|onoremap K I|
 
 " Faster window navigation
-nnoremap <C-e> <C-W>e
-nnoremap <C-i> <C-W>i
+nnoremap <C-e> <C-W>j
+nnoremap <C-i> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
 
@@ -91,3 +91,4 @@ map ; :
 " Make the visual block mode the default
 nnoremap v <C-v>|xnoremap v <C-v>
 nnoremap <C-v> v|xnoremap <C-v> v
+nnoremap <C-q> v|xnoremap <C-q> v
