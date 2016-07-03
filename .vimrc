@@ -65,24 +65,30 @@ iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 " Colemak navigation hack
 " (Only remap vertical movement keys, there are smarter ways to move
 " horizontally.)
-set langmap=ki,ik,KI,IK,ej,je
-" Alternative remapping, won't work as nicely in eg. NerdTree.
-"nnoremap ge j|xnoremap ge j|onoremap ge j|
-"nnoremap gi k|xnoremap gi k|onoremap gi k|
-"nnoremap e gj|xnoremap e gj|onoremap e gj|
-"nnoremap i gk|xnoremap i gk|onoremap i gk|
-"nnoremap I K|xnoremap I K|onoremap I K|
-"nnoremap j e|xnoremap j e|onoremap j e|
-"nnoremap k i|xnoremap k i|onoremap k i|
-"nnoremap K I|xnoremap K I|onoremap K I|
+" Langmap is nice and concise, but seems to break unimpaired somehow
+"set langmap=ki,ik,KI,IK,ej,je
+nnoremap ge j|xnoremap ge j|onoremap ge j|
+nnoremap gi k|xnoremap gi k|onoremap gi k|
+nnoremap e gj|xnoremap e gj|onoremap e gj|
+nnoremap i gk|xnoremap i gk|onoremap i gk|
+nnoremap I K|xnoremap I K|onoremap I K|
+nnoremap j e|xnoremap j e|onoremap j e|
+nnoremap k i|xnoremap k i|onoremap k i|
+nnoremap K I|xnoremap K I|onoremap K I|
+
+" Remap NERDtree stuff to enable our hacked navigation there.
+let NERDTreeMapOpenExpl='j'
+let NERDTreeMapOpenSplit='k'
 
 " Faster window navigation
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-nnoremap <C-e> <C-W>e
-nnoremap <C-i> <C-W>i
-"nnoremap <C-e> <C-W>j
-"nnoremap <C-i> <C-W>k
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
+nnoremap <C-e> <C-W>j
+nnoremap <C-i> <C-W>k
+" langmap versions.
+"noremap <C-e> <C-W>e
+"noremap <C-i> <C-W>i
+
 
 " Faster tab navigation
 nnoremap <C-k> :tabp<cr>
