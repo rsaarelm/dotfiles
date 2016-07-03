@@ -1,138 +1,93 @@
+" 2015-06-29: Migrating to Neovim, starting vimrc from scratch.
+
 " Use ~/.vim subdirectory even when on Windows
 if has('win32') || has('win64')
-   set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 endif
 
-execute pathogen#infect()
+call plug#begin()
+
+" Needed for changing font in Neovim-QT.
+Plug 'equalsraf/neovim-gui-shim'
+
+" Ergonomics
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-unimpaired'
+
+" Files and stuff
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+
+" Rust
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+Plug 'timonv/vim-cargo'
+
+" Misc
+Plug 'freitass/todo.txt-vim'
+Plug 'tpope/vim-sensible'
+
+call plug#end()
+
+" TODO: Get this right somehow for both terminal-based and GUI nvim.
+"colorscheme blue
+
+let mapleader=" "
+
+set relativenumber
 
 set expandtab
 set softtabstop=4
 set shiftwidth=4
-set nojoinspaces
-set backspace=indent,eol,start
-set ignorecase
-set smartcase
-set formatoptions-=t
-set modeline
-set visualbell
-set autoindent
 
-set showmatch
-set hlsearch
-set smartcase
+set nojoinspaces
+
 set ruler
+set hidden
 set guioptions=ac
 set guicursor+=a:blinkon0
 
-set autochdir
+set ignorecase
+set smartcase
+set hlsearch
 
-" Don't clobber working directory with swap files.
-set directory=~/.vim/swap//
-set backupdir=~/.vim/backup//
+filetype plugin indent on
 
-" Find tags file recursively
-set tags=./tags;/
+autocmd FileType text setlocal textwidth=78
 
-" Better tab completion
-set wildmenu
-set wildmode=list:longest,full
-set wildignore=*.o,*.so,*~
-
-" Navigation help
-set relativenumber
-
-syntax enable
-"set background=dark
+" Unify tabs and remove trailing whitespace.
+command! WhiteClean retab | %s/\s\+$
 
 " Timestamp abbreviation
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 
-" Esc hack, actually "qk", but must use o here because of langmap.
-imap qo <esc>
+" Colemak navigation hack
+" (Only remap vertical movement keys, there are smarter ways to move
+" horizontally.)
+"set langmap=ki,ik,KI,IK,ej,je
+nnoremap ge j|xnoremap ge j|onoremap ge j|
+nnoremap gi k|xnoremap gi k|onoremap gi k|
+nnoremap e gj|xnoremap e gj|onoremap e gj|
+nnoremap i gk|xnoremap i gk|onoremap i gk|
+nnoremap I K|xnoremap I K|onoremap I K|
+nnoremap j e|xnoremap j e|onoremap j e|
+nnoremap k i|xnoremap k i|onoremap k i|
+nnoremap K I|xnoremap K I|onoremap K I|
 
-" Easier window and tab navigation
-noremap <C-n> <C-w>h
-noremap <C-e> <C-w>j
-noremap <C-u> <C-w>k
-noremap <C-i> <C-w>l
-noremap <C-k> <C-PageUp>
-noremap <C-m> <C-PageDown>
+" Faster window navigation
+nnoremap <C-e> <C-W>e
+nnoremap <C-i> <C-W>i
+nnoremap <C-l> <C-W>l
+nnoremap <C-h> <C-W>h
 
-" Use line wrapping for these file types.
-autocmd BufRead,BufNewFile *.txt,*.text,*.html,*.org,README,TODO,BUGS,COMMIT_EDITMSG setl formatoptions+=t formatoptions-=r tw=78
+" Faster tab navigation
+nnoremap <C-k> :tabp<cr>
+nnoremap <C-m> :tabn<cr>
 
-" Special mode for text Anki decks: Tab-separated single-line.
-autocmd BufRead,BufNewFile *anki.txt setl formatoptions-=t noexpandtab softtabstop=0 showbreak=\ \  lbr wrap
+" No shift for command-line
+map ; :
 
-" Use physical tabs with Go files
-autocmd BufRead,BufNewFile *.go setl noexpandtab softtabstop=0 tabstop=4
-
-autocmd BufRead,BufNewFile *.md setl syntax=markdown formatoptions+=tr tw=78
-
-" Override the barbaric textwidth of the default Rust mode
-autocmd BufRead,BufNewFile *.rs setl tw=78
-
-autocmd FileType make setl noexpandtab
-
-" Run cargo with ':make' in rust projects.
-autocmd BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
-
-filetype indent on
-filetype plugin indent on
-
-" Unify tabs and remove trailing whitespace.
-command! WhiteClean retab | %s/\s\+$
-
-autocmd BufRead,BufNewFile * match BadWhitespace /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
-" | match physical tabs after space
-" | match space after physical tab
-
-" Highlight things past 80th column
-let &colorcolumn=join(range(81,999),",")
-
-" Swap ; and :, mostly using :, so shouldn't need shift for it.
-nnoremap  ;  :
-nnoremap  :  ;
-vnoremap  ;  :
-vnoremap  :  ;
-
-" C-] doesn't work right in Windows gvim when using Colemak layout. Let's
-" remap follow-tag to F3 and next-tag to F4.
-nnoremap <f3> <C-]>
-nnoremap <f4> :tn<cr>
-
-" Buffer navigation
-nnoremap <f1> :bp<cr>
-nnoremap <f2> :bn<cr>
-
-" Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Fix navigation in directory view.
-augroup netrw_colemak_fix
-    autocmd!
-    autocmd filetype netrw call Fix_netrw_maps_for_colemak()
-augroup END
-function! Fix_netrw_maps_for_colemak()
-    noremap <buffer> n h
-    noremap <buffer> e gj
-    noremap <buffer> u gk
-    noremap <buffer> i l
-endfunction
-
-" Fix :E
-let g:loaded_logipat = 1
-
-if has("gui_running")
-  colorscheme desert
-endif
-highlight BadWhitespace ctermbg=darkgray guibg=#3F3833
-highlight ColorColumn ctermbg=darkgray guibg=#2c2d27
+" Make the visual block mode the default
+nnoremap v <C-v>|xnoremap v <C-v>
+nnoremap <C-v> v|xnoremap <C-v> v
