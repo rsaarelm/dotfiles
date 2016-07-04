@@ -101,3 +101,5 @@ map ; :
 nnoremap v <C-v>|xnoremap v <C-v>
 nnoremap <C-v> v|xnoremap <C-v> v
 nnoremap <C-q> v|xnoremap <C-q> v
+
+cabbrev E Explore
