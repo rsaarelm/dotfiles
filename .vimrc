@@ -25,7 +25,8 @@ Plug 'timonv/vim-cargo'
 
 " Input modes
 Plug 'dhruvasagar/vim-table-mode'
-Plug 'joom/latex-unicoder.vim'
+" FIXME: Latex-unicoder clashes with window-navigation C-l.
+"Plug 'joom/latex-unicoder.vim'
 
 " Misc
 Plug 'freitass/todo.txt-vim'
