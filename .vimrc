@@ -8,7 +8,7 @@ endif
 call plug#begin()
 
 " Needed for changing font in Neovim-QT.
-Plug 'equalsraf/neovim-gui-shim'
+"Plug 'equalsraf/neovim-gui-shim'
 
 " Ergonomics
 Plug 'easymotion/vim-easymotion'
@@ -22,6 +22,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'timonv/vim-cargo'
+
+" Input modes
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'joom/latex-unicoder.vim'
 
 " Misc
 Plug 'freitass/todo.txt-vim'
