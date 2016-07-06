@@ -40,6 +40,7 @@ call plug#end()
 let mapleader=" "
 
 set relativenumber
+set number
 
 set expandtab
 set softtabstop=4
@@ -55,6 +56,10 @@ set guicursor+=a:blinkon0
 set ignorecase
 set smartcase
 set hlsearch
+
+" Don't clobber working directory with swap files.
+set directory=~/.vim/swap//
+set backupdir=~/.vim/backup//
 
 filetype plugin indent on
 
