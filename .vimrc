@@ -25,12 +25,12 @@ Plug 'timonv/vim-cargo'
 
 " Input modes
 Plug 'dhruvasagar/vim-table-mode'
-" FIXME: Latex-unicoder clashes with window-navigation C-l.
-"Plug 'joom/latex-unicoder.vim'
+Plug 'joom/latex-unicoder.vim'
 
 " Misc
 Plug 'freitass/todo.txt-vim'
 Plug 'tpope/vim-sensible'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
@@ -72,33 +72,37 @@ command! WhiteClean retab | %s/\s\+$
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 
-" Colemak navigation hack
-" (Only remap vertical movement keys, there are smarter ways to move
-" horizontally.)
-" Langmap is nice and concise, but seems to break unimpaired somehow
-"set langmap=ki,ik,KI,IK,ej,je
+" Navigate using neio, make Colemak layout work
 nnoremap ge j|xnoremap ge j|onoremap ge j|
-nnoremap gi k|xnoremap gi k|onoremap gi k|
 nnoremap e gj|xnoremap e gj|onoremap e gj|
+nnoremap j e|xnoremap j e|onoremap j e|
+
+nnoremap gi k|xnoremap gi k|onoremap gi k|
 nnoremap i gk|xnoremap i gk|onoremap i gk|
 nnoremap I K|xnoremap I K|onoremap I K|
-nnoremap j e|xnoremap j e|onoremap j e|
-nnoremap k i|xnoremap k i|onoremap k i|
-nnoremap K I|xnoremap K I|onoremap K I|
+
+nnoremap n h|xnoremap n h|onoremap n h|
+nnoremap N H|xnoremap N H|onoremap N H|
+nnoremap h n|xnoremap h n|onoremap h n|
+nnoremap H N|xnoremap H N|onoremap H N|
+
+nnoremap o l|xnoremap o l|onoremap o l|
+nnoremap O L|xnoremap O L|onoremap O L|
+
+nnoremap k o|xnoremap k o|onoremap k o|
+nnoremap K O|xnoremap K O|onoremap K O|
+nnoremap l i|xnoremap l i|onoremap l i|
+nnoremap L I|xnoremap L I|onoremap L I|
 
 " Remap NERDtree stuff to enable our hacked navigation there.
 let NERDTreeMapOpenExpl='j'
 let NERDTreeMapOpenSplit='k'
 
 " Faster window navigation
-noremap <C-h> <C-W>h
-noremap <C-l> <C-W>l
+noremap <C-n> <C-W>h
+noremap <C-o> <C-W>l
 nnoremap <C-e> <C-W>j
 nnoremap <C-i> <C-W>k
-" langmap versions.
-"noremap <C-e> <C-W>e
-"noremap <C-i> <C-W>i
-
 
 " Faster tab navigation
 nnoremap <C-k> :tabp<cr>
@@ -112,4 +116,5 @@ nnoremap v <C-v>|xnoremap v <C-v>
 nnoremap <C-v> v|xnoremap <C-v> v
 nnoremap <C-q> v|xnoremap <C-q> v
 
+" :E gets clobbered by some other commands.
 cabbrev E Explore
