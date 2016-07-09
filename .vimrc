@@ -104,6 +104,9 @@ noremap <C-o> <C-W>l
 nnoremap <C-e> <C-W>j
 nnoremap <C-i> <C-W>k
 
+" Remap clobbered back-jumping.
+noremap <C-h> <C-o>
+
 " Faster tab navigation
 nnoremap <C-k> :tabp<cr>
 nnoremap <C-m> :tabn<cr>
