@@ -7,6 +7,7 @@ alias asdf="xset b off;setxkbmap us -variant colemak;xmodmap -e 'remove Control 
 export PATH="$HOME/bin:$HOME/local/bin:$PATH:$HOME/.cargo/bin"
 export EDITOR=vim
 export VISUAL=vim
+export RUST_SRC_PATH=/home/rsaarelm/rustc-nightly/src
 
 setopt hist_ignore_space
 
@@ -88,5 +89,7 @@ if is_cygwin; then
     # Revert Cygwin's path mangling for P4.
     alias p4='PWD=$(cygpath --windows --absolute .) p4'
 fi
+
+eval $(thefuck --alias)
 
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
