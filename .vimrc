@@ -57,6 +57,10 @@ set ignorecase
 set smartcase
 set hlsearch
 
+set visualbell
+
+set nowrap
+
 " Don't clobber working directory with swap files.
 set directory=~/.vim/swap//
 set backupdir=~/.vim/backup//
@@ -64,6 +68,7 @@ set backupdir=~/.vim/backup//
 filetype plugin indent on
 
 autocmd FileType text setlocal textwidth=78
+autocmd BufNewFile,BufRead *.md set filetype=markdown
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
@@ -101,15 +106,11 @@ let NERDTreeMapOpenSplit='k'
 " Faster window navigation
 noremap <C-n> <C-W>h
 noremap <C-o> <C-W>l
-nnoremap <C-e> <C-W>j
-nnoremap <C-i> <C-W>k
+noremap <C-e> <C-W>j
+noremap <C-i> <C-W>k
 
 " Remap clobbered back-jumping.
 noremap <C-h> <C-o>
-
-" Faster tab navigation
-nnoremap <C-k> :tabp<cr>
-nnoremap <C-m> :tabn<cr>
 
 " No shift for command-line
 map ; :
