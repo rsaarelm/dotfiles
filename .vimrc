@@ -65,6 +65,8 @@ set nowrap
 set directory=~/.vim/swap//
 set backupdir=~/.vim/backup//
 
+set virtualedit=block
+
 filetype plugin indent on
 
 autocmd FileType text setlocal textwidth=78
