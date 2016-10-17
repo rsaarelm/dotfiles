@@ -79,6 +79,9 @@ command! WhiteClean retab | %s/\s\+$
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 
+" Red error message
+iabbr ansired \33[31;1m\33[0m<Left><Left><Left><Left><Left><Left>
+
 " Navigate using neio, make Colemak layout work
 nnoremap ge j|xnoremap ge j|onoremap ge j|
 nnoremap e gj|xnoremap e gj|onoremap e gj|
@@ -124,3 +127,10 @@ nnoremap <C-q> v|xnoremap <C-q> v
 
 " :E gets clobbered by some other commands.
 cabbrev E Explore
+
+" C-] is broken for some reason on Windows with default Colemak layout.
+" Provide alternative
+if has("win32")
+    map <F3> <C-]>
+    map <F4> g<C-]>
+endif
