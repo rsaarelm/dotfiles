@@ -171,14 +171,22 @@ function! s:assoc(dict, key, val)
   let a:dict[a:key] = add(get(a:dict, a:key, []), a:val)
 endfunction
 
-function! s:ask(message)
+function! s:ask(message, ...)
   call inputsave()
   echohl WarningMsg
-  let proceed = input(a:message.' (y/N) ') =~? '^y'
+  let answer = input(a:message.(a:0 ? ' (y/N/a) ' : ' (y/N) '))
   echohl None
   call inputrestore()
   echo "\r"
-  return proceed
+  return (a:0 && answer =~? '^a') ? 2 : (answer =~? '^y') ? 1 : 0
+endfunction
+
+function! s:ask_no_interrupt(...)
+  try
+    return call('s:ask', a:000)
+  catch
+    return 0
+  endtry
 endfunction
 
 function! plug#end()
@@ -267,7 +275,7 @@ function! plug#end()
       syntax enable
     end
   else
-    call s:reload()
+    call s:reload_plugins()
   endif
 endfunction
 
@@ -275,9 +283,13 @@ function! s:loaded_names()
   return filter(copy(g:plugs_order), 'get(s:loaded, v:val, 0)')
 endfunction
 
-function! s:reload()
+function! s:load_plugin(spec)
+  call s:source(s:rtp(a:spec), 'plugin/**/*.vim', 'after/plugin/**/*.vim')
+endfunction
+
+function! s:reload_plugins()
   for name in s:loaded_names()
-    call s:source(s:rtp(g:plugs[name]), 'plugin/**/*.vim', 'after/plugin/**/*.vim')
+    call s:load_plugin(g:plugs[name])
   endfor
 endfunction
 
@@ -496,14 +508,17 @@ function! s:lod_map(map, names, prefix)
     endif
     let extra .= nr2char(c)
   endwhile
-  if v:count
-    call feedkeys(v:count, 'n')
-  endif
-  call feedkeys('"'.v:register, 'n')
+
+  let prefix = v:count ? v:count : ''
+  let prefix .= '"'.v:register.a:prefix
   if mode(1) == 'no'
-    call feedkeys(v:operator)
+    if v:operator == 'c'
+      let prefix = "\<esc>" . prefix
+    endif
+    let prefix .= v:operator
   endif
-  call feedkeys(a:prefix . substitute(a:map, '^<Plug>', "\<Plug>", '') . extra)
+  call feedkeys(prefix, 'n')
+  call feedkeys(substitute(a:map, '^<Plug>', "\<Plug>", '') . extra)
 endfunction
 
 function! plug#(repo, ...)
@@ -605,6 +620,7 @@ function! s:syntax()
   syn match plugRelDate /([^)]*)$/ contained
   syn match plugNotLoaded /(not loaded)$/
   syn match plugError /^x.*/
+  syn region plugDeleted start=/^\~ .*/ end=/^\ze\S/
   syn match plugH2 /^.*:\n-\+$/
   syn keyword Function PlugInstall PlugStatus PlugUpdate PlugClean
   hi def link plug1       Title
@@ -624,6 +640,7 @@ function! s:syntax()
   hi def link plugUpdate  Type
 
   hi def link plugError   Error
+  hi def link plugDeleted Ignore
   hi def link plugRelDate Comment
   hi def link plugEdge    PreProc
   hi def link plugSha     Identifier
@@ -701,12 +718,22 @@ function! s:prepare(...)
     throw 'Invalid current working directory. Cannot proceed.'
   endif
 
+  for evar in ['$GIT_DIR', '$GIT_WORK_TREE']
+    if exists(evar)
+      throw evar.' detected. Cannot proceed.'
+    endif
+  endfor
+
   call s:job_abort()
   if s:switch_in()
-    normal q
+    if b:plug_preview == 1
+      pc
+    endif
+    enew
+  else
+    call s:new_window()
   endif
 
-  call s:new_window()
   nnoremap <silent> <buffer> q  :if b:plug_preview==1<bar>pc<bar>endif<bar>bd<cr>
   if a:0 == 0
     call s:finish_bindings()
@@ -716,10 +743,9 @@ function! s:prepare(...)
   let s:plug_buf = winbufnr(0)
   call s:assign_name()
 
-  silent! unmap <buffer> <cr>
-  silent! unmap <buffer> L
-  silent! unmap <buffer> o
-  silent! unmap <buffer> X
+  for k in ['<cr>', 'L', 'o', 'X', 'd', 'dd']
+    execute 'silent! unmap <buffer>' k
+  endfor
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap cursorline modifiable
   setf vim-plug
   if exists('g:syntax_on')
@@ -785,7 +811,20 @@ function! s:do(pull, force, todo)
       let error = ''
       let type = type(spec.do)
       if type == s:TYPE.string
-        let error = s:bang(spec.do)
+        if spec.do[0] == ':'
+          call s:load_plugin(spec)
+          try
+            execute spec.do[1:]
+          catch
+            let error = v:exception
+          endtry
+          if !s:plug_window_exists()
+            cd -
+            throw 'Warning: vim-plug was terminated by the post-update hook of '.name
+          endif
+        else
+          let error = s:bang(spec.do)
+        endif
       elseif type == s:TYPE.funcref
         try
           let status = installed ? 'installed' : (updated ? 'updated' : 'unchanged')
@@ -909,7 +948,7 @@ function! s:update_impl(pull, force, args) abort
     call s:warn('echom', '[vim-plug] Update Neovim for parallel installer')
   endif
 
-  let python = (has('python') || has('python3')) && (!s:nvim || has('vim_starting'))
+  let python = (has('python') || has('python3')) && !s:nvim
   let ruby = has('ruby') && !s:nvim && (v:version >= 703 || v:version == 702 && has('patch374')) && !(s:is_win && has('gui_running')) && s:check_ruby()
 
   let s:update = {
@@ -975,6 +1014,12 @@ function! s:update_impl(pull, force, args) abort
     endtry
   else
     call s:update_vim()
+    while s:nvim && has('vim_starting')
+      sleep 100m
+      if s:update.fin
+        break
+      endif
+    endwhile
   endif
 endfunction
 
@@ -1020,19 +1065,25 @@ function! s:update_finish()
         call s:log4(name, 'Updating submodules. This may take a while.')
         let out .= s:bang('git submodule update --init --recursive 2>&1', spec.dir)
       endif
-      let msg = printf('%s %s: %s', v:shell_error ? 'x': '-', name, s:lastline(out))
+      let msg = s:format_message(v:shell_error ? 'x': '-', name, out)
       if v:shell_error
         call add(s:update.errors, name)
         call s:regress_bar()
-        execute pos 'd _'
+        silent execute pos 'd _'
         call append(4, msg) | 4
       elseif !empty(out)
-        call setline(pos, msg)
+        call setline(pos, msg[0])
       endif
       redraw
     endfor
-    4 d _
-    call s:do(s:update.pull, s:update.force, filter(copy(s:update.all), 'index(s:update.errors, v:key) < 0 && has_key(v:val, "do")'))
+    silent 4 d _
+    try
+      call s:do(s:update.pull, s:update.force, filter(copy(s:update.all), 'index(s:update.errors, v:key) < 0 && has_key(v:val, "do")'))
+    catch
+      call s:warn('echom', v:exception)
+      call s:warn('echo', '')
+      return
+    endtry
     call s:finish(s:update.pull)
     call setline(1, 'Updated. Elapsed time: ' . split(reltimestr(reltime(s:update.start)))[0] . ' sec.')
     call s:switch_out('normal! gg')
@@ -1062,7 +1113,7 @@ function! s:job_handler(job_id, data, event) abort
 
   if a:event == 'stdout'
     let complete = empty(a:data[-1])
-    let lines = map(filter(a:data, 'len(v:val) > 0'), 'split(v:val, "[\r\n]")[-1]')
+    let lines = map(filter(a:data, 'v:val =~ "[^\r\n]"'), 'split(v:val, "[\r\n]")[-1]')
     call extend(self.lines, lines)
     let self.result = join(self.lines, "\n")
     if !complete
@@ -1148,7 +1199,7 @@ function! s:log(bullet, name, lines)
   if s:switch_in()
     let pos = s:logpos(a:name)
     if pos > 0
-      execute pos 'd _'
+      silent execute pos 'd _'
       if pos > winheight('.')
         let pos = 4
       endif
@@ -1173,8 +1224,8 @@ function! s:tick()
 while 1 " Without TCO, Vim stack is bound to explode
   if empty(s:update.todo)
     if empty(s:jobs) && !s:update.fin
-      let s:update.fin = 1
       call s:update_finish()
+      let s:update.fin = 1
     endif
     return
   endif
@@ -1483,10 +1534,12 @@ class Plugin(object):
     return result[-1]
 
   def update(self):
-    match = re.compile(r'git::?@')
-    actual_uri = re.sub(match, '', self.repo_uri())
-    expect_uri = re.sub(match, '', self.args['uri'])
-    if actual_uri != expect_uri:
+    actual_uri = self.repo_uri()
+    expect_uri = self.args['uri']
+    regex = re.compile(r'^(?:\w+://)?(?:[^@/]*@)?([^:/]*(?::[0-9]*)?)[:/](.*?)(?:\.git)?/?$')
+    ma = regex.match(actual_uri)
+    mb = regex.match(expect_uri)
+    if ma is None or mb is None or ma.groups() != mb.groups():
       msg = ['',
              'Invalid URI: {0}'.format(actual_uri),
              'Expected     {0}'.format(expect_uri),
@@ -1645,6 +1698,11 @@ function! s:update_ruby()
     end
   end
 
+  def compare_git_uri a, b
+    regex = %r{^(?:\w+://)?(?:[^@/]*@)?([^:/]*(?::[0-9]*)?)[:/](.*?)(?:\.git)?/?$}
+    regex.match(a).to_a.drop(1) == regex.match(b).to_a.drop(1)
+  end
+
   require 'thread'
   require 'fileutils'
   require 'timeout'
@@ -1746,9 +1804,8 @@ function! s:update_ruby()
   main = Thread.current
   threads = []
   watcher = Thread.new {
-    while VIM::evaluate('getchar(1)')
-      sleep 0.1
-    end
+    require 'io/console' # >= Ruby 1.9
+    nil until IO.console.getch == 3.chr
     mtx.synchronize do
       running = false
       threads.each { |t| t.raise Interrupt }
@@ -1786,7 +1843,7 @@ function! s:update_ruby()
                 else
                   [false, [data.chomp, "PlugClean required."].join($/)]
                 end
-              elsif current_uri.sub(/git::?@/, '') != uri.sub(/git::?@/, '')
+              elsif !compare_git_uri(current_uri, uri)
                 [false, ["Invalid URI: #{current_uri}",
                          "Expected:    #{uri}",
                          "PlugClean required."].join($/)]
@@ -1832,9 +1889,15 @@ function! s:progress_bar(line, bar, total)
 endfunction
 
 function! s:compare_git_uri(a, b)
-  let a = substitute(a:a, 'git:\{1,2}@', '', '')
-  let b = substitute(a:b, 'git:\{1,2}@', '', '')
-  return a ==# b
+  " See `git help clone'
+  " https:// [user@] github.com[:port] / junegunn/vim-plug [.git]
+  "          [git@]  github.com[:port] : junegunn/vim-plug [.git]
+  " file://                            / junegunn/vim-plug        [/]
+  "                                    / junegunn/vim-plug        [/]
+  let pat = '^\%(\w\+://\)\='.'\%([^@/]*@\)\='.'\([^:/]*\%(:[0-9]*\)\=\)'.'[:/]'.'\(.\{-}\)'.'\%(\.git\)\=/\?$'
+  let ma = matchlist(a:a, pat)
+  let mb = matchlist(a:b, pat)
+  return ma[1:2] ==# mb[1:2]
 endfunction
 
 function! s:format_message(bullet, name, message)
@@ -1974,16 +2037,48 @@ function! s:clean(force)
   if empty(todo)
     call append(line('$'), 'Already clean.')
   else
-    if a:force || s:ask('Proceed?')
-      for dir in todo
-        call s:rm_rf(dir)
-      endfor
-      call append(3, ['Removed.', ''])
+    let s:clean_count = 0
+    call append(3, ['Directories to delete:', ''])
+    redraw!
+    if a:force || s:ask_no_interrupt('Delete all directories?')
+      call s:delete([6, line('$')], 1)
     else
-      call append(3, ['Cancelled.', ''])
+      call setline(4, 'Cancelled.')
+      nnoremap <silent> <buffer> d :set opfunc=<sid>delete_op<cr>g@
+      nmap     <silent> <buffer> dd d_
+      xnoremap <silent> <buffer> d :<c-u>call <sid>delete_op(visualmode(), 1)<cr>
+      echo 'Delete the lines (d{motion}) to delete the corresponding directories'
     endif
   endif
   4
+  setlocal nomodifiable
+endfunction
+
+function! s:delete_op(type, ...)
+  call s:delete(a:0 ? [line("'<"), line("'>")] : [line("'["), line("']")], 0)
+endfunction
+
+function! s:delete(range, force)
+  let [l1, l2] = a:range
+  let force = a:force
+  while l1 <= l2
+    let line = getline(l1)
+    if line =~ '^- ' && isdirectory(line[2:])
+      execute l1
+      redraw!
+      let answer = force ? 1 : s:ask('Delete '.line[2:].'?', 1)
+      let force = force || answer > 1
+      if answer
+        call s:rm_rf(line[2:])
+        setlocal modifiable
+        call setline(l1, '~'.line[1:])
+        let s:clean_count += 1
+        call setline(4, printf('Removed %d directories.', s:clean_count))
+        setlocal nomodifiable
+      endif
+    endif
+    let l1 += 1
+  endwhile
 endfunction
 
 function! s:upgrade()
@@ -2125,11 +2220,15 @@ function! s:preview_commit()
     return
   endif
 
-  execute 'pedit' sha
-  wincmd P
-  setlocal filetype=git buftype=nofile nobuflisted modifiable
-  execute 'silent read !cd' s:shellesc(g:plugs[name].dir) '&& git show --no-color --pretty=medium' sha
-  normal! gg"_dd
+  if exists('g:plug_pwindow') && !s:is_preview_window_open()
+    execute g:plug_pwindow
+    execute 'e' sha
+  else
+    execute 'pedit' sha
+    wincmd P
+  endif
+  setlocal previewwindow filetype=git buftype=nofile nobuflisted modifiable
+  execute 'silent %!cd' s:shellesc(g:plugs[name].dir) '&& git show --no-color --pretty=medium' sha
   setlocal nomodifiable
   nnoremap <silent> <buffer> q :q<cr>
   wincmd p
@@ -2215,7 +2314,7 @@ function! s:revert()
   setlocal modifiable
   normal! "_dap
   setlocal nomodifiable
-  echo 'Reverted.'
+  echo 'Reverted'
 endfunction
 
 function! s:snapshot(force, ...) abort
