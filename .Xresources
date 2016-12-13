@@ -28,7 +28,8 @@
 URxvt.background: Black
 URxvt.foreground: Gray
 
-URxvt.font: 8x13
+!URxvt.font: 8x13
+URxvt.font: xft:DejaVu Sans Mono:pixelsize=24:antialias=true:hinting=true
 URxvt.scrollBar: off
 URxvt.perl-ext:      default,url-select
 URxvt.keysym.M-u:    perl:url-select:select_next

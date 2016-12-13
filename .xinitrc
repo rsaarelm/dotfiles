@@ -13,6 +13,8 @@ redshift -l 60:25 &
 
 dropbox &
 
+xrandr --dpi 144
+
 # Disable touchpad tapping for 2 seconds when typing
 #syndaemon -t -k -i 2 -d
 
