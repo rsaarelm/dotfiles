@@ -13,7 +13,10 @@ redshift -l 60:25 &
 
 dropbox &
 
+# DPI for 4K
 xrandr --dpi 144
+# Main 4K monitor on left, side monitor on right
+xrandr --auto --output DP-1 --left-of DVI-I-1
 
 # Disable touchpad tapping for 2 seconds when typing
 #syndaemon -t -k -i 2 -d
