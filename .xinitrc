@@ -15,8 +15,8 @@ dropbox &
 
 # DPI for 4K
 xrandr --dpi 144
-# Main 4K monitor on left, side monitor on right
-xrandr --auto --output DP-1 --left-of DVI-I-1
+# Main 4K monitor on left, side monitor on right, adjust for lower DPI on side monitor
+xrandr --auto --output DP-1 --left-of DVI-I-1 --output DVI-I-1 --scale 1.5x1.5
 
 # Disable touchpad tapping for 2 seconds when typing
 #syndaemon -t -k -i 2 -d

@@ -29,7 +29,9 @@ URxvt.background: Black
 URxvt.foreground: Gray
 
 !URxvt.font: 8x13
-URxvt.font: xft:DejaVu Sans Mono:pixelsize=24:antialias=true:hinting=true
+!URxvt.font: xft:DejaVu Sans Mono:pixelsize=24:antialias=true:hinting=true
+!URxvt.font: xft:bitstream vera sans mono:size=10:antialias=true
+URxvt.font: xft:hack:size=10:antialias=true:hinting=true,xft:bitstream vera sans mono:size=10:antialias=true:hinting=true,9x15
 URxvt.scrollBar: off
 URxvt.perl-ext:      default,url-select
 URxvt.keysym.M-u:    perl:url-select:select_next
@@ -37,3 +39,5 @@ URxvt.url-select.launcher: chromium --incognito
 URxvt.url-select.underline: true
 URxvt*termName:rxvt
 URxvt*saveLines: 32000
+
+Xft.dpi: 144
