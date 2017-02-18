@@ -39,7 +39,6 @@ call plug#end()
 
 let mapleader=" "
 
-set relativenumber
 set number
 
 set expandtab
