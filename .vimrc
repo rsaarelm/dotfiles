@@ -25,7 +25,6 @@ Plug 'timonv/vim-cargo'
 
 " Input modes
 Plug 'dhruvasagar/vim-table-mode'
-Plug 'joom/latex-unicoder.vim'
 
 " Misc
 Plug 'freitass/todo.txt-vim'
