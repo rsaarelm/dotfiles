@@ -56,6 +56,9 @@ set ignorecase
 set smartcase
 set hlsearch
 
+set lazyredraw " Don't update screen when running macros
+set ttyfast
+
 set visualbell
 
 set nowrap
