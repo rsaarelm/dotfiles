@@ -30,6 +30,7 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'freitass/todo.txt-vim'
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
+Plug 'lukaszkorecki/workflowish'
 
 call plug#end()
 
@@ -69,6 +70,7 @@ filetype plugin indent on
 
 autocmd FileType text setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd FileType workflowish setlocal wrap linebreak breakindent breakindentopt+=shift:2
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
