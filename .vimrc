@@ -96,7 +96,8 @@ nnoremap I K|xnoremap I K|onoremap I K|
 
 nnoremap n h|xnoremap n h|onoremap n h|
 nnoremap N H|xnoremap N H|onoremap N H|
-nnoremap h n|xnoremap h n|onoremap h n|
+" Force fold opening with zv to reproduce behavior of unmapped n
+nnoremap h nzv|xnoremap h nzv|onoremap h nzv|
 nnoremap H N|xnoremap H N|onoremap H N|
 
 nnoremap o l|xnoremap o l|onoremap o l|
