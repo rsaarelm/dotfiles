@@ -86,7 +86,7 @@ autocmd FileType workflowish setlocal wrap linebreak breakindent breakindentopt+
 
 " Automatically jump to #current when opening a workflowish file.
 autocmd BufRead *.wofl :let @/ = "#current"
-autocmd BufRead *.wofl normal! n
+autocmd BufRead *.wofl normal! nzv
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
