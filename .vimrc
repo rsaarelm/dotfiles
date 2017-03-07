@@ -71,9 +71,22 @@ set virtualedit=block
 
 filetype plugin indent on
 
+" Match trailing whitespace and indent mixing spaces with physical tabs.
+autocmd BufRead,BufNewFile * match BadWhitespace /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
+
+" Highlight things past 80th column
+"let &colorcolumn=join(range(81,999),",")
+set colorcolumn=80
+highlight BadWhitespace ctermbg=darkgray guibg=#FFCCAA
+highlight ColorColumn ctermbg=darkgray guibg=#EEEEEE
+
 autocmd FileType text setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd FileType workflowish setlocal wrap linebreak breakindent breakindentopt+=shift:2
+
+" Automatically jump to #current when opening a workflowish file.
+autocmd BufRead *.wofl :let @/ = "#current"
+autocmd BufRead *.wofl normal! n
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
