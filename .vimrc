@@ -34,9 +34,6 @@ Plug 'lukaszkorecki/workflowish'
 
 call plug#end()
 
-" TODO: Get this right somehow for both terminal-based and GUI nvim.
-"colorscheme blue
-
 let mapleader=" "
 
 set number
@@ -72,17 +69,13 @@ set virtualedit=block
 filetype plugin indent on
 
 " Match trailing whitespace and indent mixing spaces with physical tabs.
-autocmd BufRead,BufNewFile * match BadWhitespace /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
+autocmd BufRead,BufNewFile * match Error /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
 
-" Highlight things past 80th column
-"let &colorcolumn=join(range(81,999),",")
 set colorcolumn=80
-highlight BadWhitespace ctermbg=darkgray guibg=#FFCCAA
-highlight ColorColumn ctermbg=darkgray guibg=#EEEEEE
 
 autocmd FileType text setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md set filetype=markdown
-autocmd FileType workflowish setlocal wrap linebreak breakindent breakindentopt+=shift:2
+autocmd FileType workflowish setlocal wrap linebreak breakindent breakindentopt+=shift:2 colorcolumn=0
 
 " Automatically jump to #current when opening a workflowish file.
 autocmd BufRead *.wofl :let @/ = "#current"
@@ -150,4 +143,10 @@ cabbrev E Explore
 if has("win32")
     map <F3> <C-]>
     map <F4> g<C-]>
+endif
+
+"""""""""""""""""""""""""""""""" Color settings
+
+if has("gui_running")
+    colorscheme morning
 endif
