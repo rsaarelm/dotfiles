@@ -4,3 +4,6 @@ heartbeat-cmd="xscreensaver-command -deactivate >&- 2>&- &"
 stop-xscreensaver=1
 af=scaletempo
 subfont-osd-scale=2
+ao=pulse
+unicode=yes
+utf8=yes
