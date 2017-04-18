@@ -91,41 +91,28 @@ iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 " Red error message
 iabbr ansired \33[31;1m\33[0m<Left><Left><Left><Left><Left><Left>
 
-" Navigate using neio, make Colemak layout work
-nnoremap ge j|xnoremap ge j|onoremap ge j|
-nnoremap e gj|xnoremap e gj|onoremap e gj|
-nnoremap j e|xnoremap j e|onoremap j e|
-
-nnoremap gi k|xnoremap gi k|onoremap gi k|
-nnoremap i gk|xnoremap i gk|onoremap i gk|
-nnoremap I K|xnoremap I K|onoremap I K|
-
-nnoremap n h|xnoremap n h|onoremap n h|
-nnoremap N H|xnoremap N H|onoremap N H|
+" Up and down are used a lot, bind them to Coleman N and E.
+" Also make the default behavior move by visual, not logical line,
+" require the g modifier for logical lines (the opposite of the regular
+" setting).
+nnoremap gn j|xnoremap gn j|onoremap gn j|
+nnoremap n gj|xnoremap n gj|onoremap n gj|
 " Force fold opening with zv to reproduce behavior of unmapped n
-nnoremap h nzv|xnoremap h nzv|onoremap h nzv|
-nnoremap H N|xnoremap H N|onoremap H N|
+nnoremap k nzv|xnoremap k nzv|onoremap k nzv|
+nnoremap K Nzv|xnoremap K Nzv|onoremap K Nzv|
 
-nnoremap o l|xnoremap o l|onoremap o l|
-nnoremap O L|xnoremap O L|onoremap O L|
-
-nnoremap k o|xnoremap k o|onoremap k o|
-nnoremap K O|xnoremap K O|onoremap K O|
-nnoremap l i|xnoremap l i|onoremap l i|
-nnoremap L I|xnoremap L I|onoremap L I|
+nnoremap ge k|xnoremap ge k|onoremap ge k|
+nnoremap e gk|xnoremap e gk|onoremap e gk|
+nnoremap j e|xnoremap j e|onoremap j e|
 
 " Remap NERDtree stuff to enable our hacked navigation there.
 let NERDTreeMapOpenExpl='j'
-let NERDTreeMapOpenSplit='k'
 
 " Faster window navigation
-noremap <C-n> <C-W>h
-noremap <C-o> <C-W>l
-noremap <C-e> <C-W>j
-noremap <C-i> <C-W>k
-
-" Remap clobbered back-jumping.
-noremap <C-h> <C-o>
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
+noremap <C-n> <C-W>j
+noremap <C-e> <C-W>k
 
 " No shift for command-line
 map ; :
