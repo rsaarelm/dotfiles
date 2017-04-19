@@ -135,5 +135,5 @@ endif
 """""""""""""""""""""""""""""""" Color settings
 
 if has("gui_running")
-    colorscheme morning
+    colorscheme industry
 endif
