@@ -1,0 +1,45 @@
+#!/usr/bin/python3
+
+# Extremely simple ledger parser
+# Reads a text file with a line syntax that can have:
+#
+#     # Comments to the end of line
+#
+# And two types of data lines:
+#
+#     FOO 123    # Add integer amount of `FOO` that comes from nowhere
+#     FOO 15  BAR 30  # Buy 15 FOO with 30 BAR
+#
+# After the ledger is run, balances of all items will be printed.
+
+from collections import defaultdict
+import sys
+
+class Ledger:
+    def __init__(self, text):
+        self.events = []
+
+        for line in text.splitlines():
+            # Strip comment and split by whitespace
+            elts = line.split('#')[0].split()
+            if len(elts) == 0:
+                continue
+            elif len(elts) in (2, 4):
+                self.events.append((elts[0], int(elts[1]), line))
+                if len(elts) == 4:
+                    self.events.append((elts[2], -int(elts[3]), line))
+            else:
+                assert False, "Syntax error: %s" % line
+
+    def __str__(self):
+        stats = defaultdict(int)
+        for (account, change, line) in self.events:
+            stats[account] += change
+            # Print warning if account goes to negative
+            if stats[account] < 0:
+                print("*** WARNING *** %s goes to %s at '%s'" %
+                        (account, stats[account], line), file=sys.stderr)
+        return '\n'.join(["%s: %s" % (account, stats[account]) for account in stats])
+
+if __name__ == '__main__':
+    print(Ledger(sys.stdin.read()))
