@@ -24,9 +24,11 @@ class Ledger:
             elts = line.split('#')[0].split()
             if len(elts) == 0:
                 continue
-            elif len(elts) in (2, 4):
+            elif len(elts) in (2, 3, 4):
                 self.events.append((elts[0], int(elts[1]), line))
-                if len(elts) == 4:
+                if len(elts) == 3:
+                    self.events.append((elts[2], -int(elts[1]), line))
+                elif len(elts) == 4:
                     self.events.append((elts[2], -int(elts[3]), line))
             else:
                 assert False, "Syntax error: %s" % line
