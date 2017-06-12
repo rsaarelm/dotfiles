@@ -30,7 +30,7 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'freitass/todo.txt-vim'
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
-Plug 'lukaszkorecki/workflowish'
+Plug 'vimoutliner/vimoutliner'
 
 call plug#end()
 
