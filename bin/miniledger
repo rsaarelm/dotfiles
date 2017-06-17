@@ -3,12 +3,14 @@
 # Extremely simple ledger parser
 # Reads a text file with a line syntax that can have:
 #
-#     # Comments to the end of line
+#     Regular lines are comments
 #
 # And two types of data lines:
 #
-#     FOO 123    # Add integer amount of `FOO` that comes from nowhere
-#     FOO 15  BAR 30  # Buy 15 FOO with 30 BAR
+#     Add integer amount of `FOO` that comes from nowhere
+#     > FOO 123
+#     Buy 15 FOO with 30 BAR
+#     > FOO 15  BAR 30
 #
 # After the ledger is run, balances of all items will be printed.
 
@@ -20,8 +22,11 @@ class Ledger:
         self.events = []
 
         for line in text.splitlines():
-            # Strip comment and split by whitespace
-            elts = line.split('#')[0].split()
+            line = line.strip()
+            # Ledger lines must start with '> '
+            if not line.startswith('> '):
+                continue
+            elts = line[2:].split()
             if len(elts) == 0:
                 continue
             elif len(elts) in (2, 3, 4):
