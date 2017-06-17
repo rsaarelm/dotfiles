@@ -77,9 +77,9 @@ autocmd FileType text setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd FileType workflowish setlocal wrap linebreak breakindent breakindentopt+=shift:2 colorcolumn=0
 
-" Automatically jump to #current when opening a workflowish file.
-autocmd BufRead *.wofl :let @/ = "#current"
-autocmd BufRead *.wofl normal! nzO
+" Automatically jump to #current when opening a outliner file.
+autocmd BufRead *.otl :let @/ = "#current"
+autocmd BufRead *.otl normal! nzO
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
