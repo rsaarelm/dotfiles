@@ -20,6 +20,9 @@ import sys
 class Ledger:
     def __init__(self, text):
         self.events = []
+        # Currencies are used to buy other values
+        # To keep the summary shorter, they are not shown if the tally to 0.
+        self.currencies = set()
 
         for line in text.splitlines():
             line = line.strip()
@@ -35,6 +38,8 @@ class Ledger:
                     self.events.append((elts[2], -int(elts[1]), line))
                 elif len(elts) == 4:
                     self.events.append((elts[2], -int(elts[3]), line))
+                if len(elts) > 2:
+                    self.currencies.add(elts[2])
             else:
                 assert False, "Syntax error: %s" % line
 
@@ -46,7 +51,8 @@ class Ledger:
             if stats[account] < 0:
                 print("*** WARNING *** %s goes to %s at '%s'" %
                         (account, stats[account], line), file=sys.stderr)
-        return '\n'.join(["%s: %s" % (account, stats[account]) for account in stats])
+        return '\n'.join(["%s: %s" % (account, stats[account]) for account in stats
+            if account not in self.currencies or stats[account] != 0])
 
 if __name__ == '__main__':
     print(Ledger(sys.stdin.read()))
