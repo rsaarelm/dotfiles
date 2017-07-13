@@ -17,12 +17,15 @@
 from collections import defaultdict
 import sys
 
+def fmt(name, credit, debit):
+    if debit:
+        return "%s: %s (%s)" % (name, credit + debit, credit)
+    else:
+        return "%s: %s" % (name, credit + debit)
+
 class Ledger:
     def __init__(self, text):
         self.events = []
-        # Currencies are used to buy other values
-        # To keep the summary shorter, they are not shown if the tally to 0.
-        self.currencies = set()
 
         for line in text.splitlines():
             line = line.strip()
@@ -38,21 +41,24 @@ class Ledger:
                     self.events.append((elts[2], -int(elts[1]), line))
                 elif len(elts) == 4:
                     self.events.append((elts[2], -int(elts[3]), line))
-                if len(elts) > 2:
-                    self.currencies.add(elts[2])
             else:
                 assert False, "Syntax error: %s" % line
 
     def __str__(self):
-        stats = defaultdict(int)
+        credits = defaultdict(int)
+        debits = defaultdict(int)
         for (account, change, line) in self.events:
-            stats[account] += change
+            if change > 0:
+                credits[account] += change
+            else:
+                debits[account] += change
             # Print warning if account goes to negative
-            if stats[account] < 0:
+            balance = credits[account] + debits[account]
+            if balance < 0:
                 print("*** WARNING *** %s goes to %s at '%s'" %
-                        (account, stats[account], line), file=sys.stderr)
-        return '\n'.join(["%s: %s" % (account, stats[account]) for account in stats
-            if account not in self.currencies or stats[account] != 0])
+                        (account, balance, line), file=sys.stderr)
+        # XXX: Accounts with only debit actions will not be shown.
+        return('\n'.join([fmt(account, credits[account], debits[account]) for account in credits]))
 
 if __name__ == '__main__':
     print(Ledger(sys.stdin.read()))
