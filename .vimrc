@@ -76,10 +76,6 @@ set colorcolumn=80
 autocmd FileType text setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 
-" Automatically jump to #current when opening a outliner file.
-autocmd BufRead *.otl :let @/ = "#current"
-" Close then open up around #current
-autocmd BufRead *.otl normal! nzMnzanzA
 " Set up nice wrapping for long lines
 autocmd FileType votl setlocal wrap linebreak breakindent breakindentopt+=shift:2 colorcolumn=0
 
