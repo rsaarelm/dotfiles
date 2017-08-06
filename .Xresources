@@ -25,7 +25,7 @@
 *color7:  #EDE
 *color15: #FFF
 
-URxvt.background: Black
+URxvt.background: Gray10
 URxvt.foreground: Gray
 
 !URxvt.font: 8x13
