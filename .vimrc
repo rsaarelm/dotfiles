@@ -66,12 +66,16 @@ set backupdir=~/.vim/backup//
 
 set virtualedit=block
 
+" Nicer tab completion
+set wildmode=longest,list,full
+set wildmenu
+
 filetype plugin indent on
 
 " Match trailing whitespace and indent mixing spaces with physical tabs.
 autocmd BufRead,BufNewFile * match Error /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
 
-set colorcolumn=80
+set colorcolumn=81
 
 autocmd FileType text setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md set filetype=markdown
