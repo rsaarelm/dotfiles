@@ -81,7 +81,7 @@ autocmd FileType text setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 
 " Set up nice wrapping for long lines
-autocmd FileType votl setlocal wrap linebreak breakindent breakindentopt+=shift:2 colorcolumn=0 foldlevel=0
+autocmd FileType votl setlocal wrap linebreak breakindent breakindentopt+=shift:2 colorcolumn=0 foldlevel=0 textwidth=100 tabstop=2
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
