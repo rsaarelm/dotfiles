@@ -7,4 +7,3 @@ subfont-osd-scale=2
 ao=pulse
 unicode=yes
 utf8=yes
-audio-stream-silence=yes
