@@ -142,4 +142,8 @@ endif
 
 """""""""""""""""""""""""""""""" Color settings
 
-colorscheme phosphor
+if has('gui_running')
+    colorscheme phosphor
+else
+    colorscheme industry
+endif
