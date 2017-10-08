@@ -88,6 +88,9 @@ au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
+au FileType rust set colorcolumn=101
+au FileType rust nmap <F5> :CargoRun --release
+au FileType rust nmap <F7> :CargoBuild --release
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
