@@ -18,6 +18,14 @@ Plug 'tpope/vim-unimpaired'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 
+if has('win32') || has('win64')
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+else
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+endif
+
+Plug 'junegunn/fzf.vim'
+
 " Rust
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
@@ -33,8 +41,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'vimoutliner/vimoutliner'
 
 call plug#end()
-
-let mapleader=" "
 
 set number
 
@@ -73,6 +79,9 @@ set wildmenu
 filetype plugin indent on
 
 " Match trailing whitespace and indent mixing spaces with physical tabs.
+if has('gui_running')
+    highlight Error ctermbg=brown guibg=#662200
+endif
 autocmd BufRead,BufNewFile * match Error /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
 
 set colorcolumn=81
@@ -156,13 +165,15 @@ if has("win32")
     map <F4> g<C-]>
 endif
 
+" Fzf fuzzy find
+nmap <Leader>b :Buffers<cr>
+
 """""""""""""""""""""""""""""""" Color settings
 
 if has('gui_running')
-    colorscheme phosphor
+    colorscheme ron
 else
     colorscheme industry
 endif
 
-highlight BadWhitespace ctermbg=brown guibg=#3F3833
 highlight ColorColumn ctermbg=darkblue guibg=#2c2d27
