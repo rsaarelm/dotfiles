@@ -92,6 +92,10 @@ au FileType rust set colorcolumn=101
 au FileType rust nmap <F5> :CargoRun --release<cr>
 au FileType rust nmap <F7> :CargoBuild --release<cr>
 
+" Save manual folds
+au BufWinLeave *.* mkview
+au BufWinEnter *.* silent loadview
+
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
 
