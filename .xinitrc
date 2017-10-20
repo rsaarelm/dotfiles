@@ -14,11 +14,11 @@ redshift -l 60:25 &
 dropbox &
 
 # DPI for 4K
-xrandr --dpi 144
+#xrandr --dpi 144
 # Main 4K monitor on left, side monitor on right
-xrandr --auto --output DP-1 --left-of DVI-I-1
-# Pivot, scale down to make browser have enough logical horizontal space.
-xrandr --output DVI-I-1 --rotate left --scale 1.5x1.5
+xrandr --auto --output DP-1 --left-of DVI-I-1 --mode 1920x1080
+# Pivot
+xrandr --output DVI-I-1 --rotate left #--scale 1.5x1.5
 
 # Disable touchpad tapping for 2 seconds when typing
 #syndaemon -t -k -i 2 -d
