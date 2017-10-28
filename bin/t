@@ -133,17 +133,20 @@ def msg(text, show_secs=2):
 		os.system('xmessage -timeout %s %s' % (show_secs, text))
 
 def save_tag(tag, logfile):
-	t = time.time()
-	date, oldtag = last_entry(logfile)
-	prev = prev_ping_time(t)
-	if date and date >= prev:
-		print("Log already covers time up to %s, please edit manually" % emit_date(prev))
-		return
-	fill = catch_up(t, logfile)
-	if fill:
-		print("Caught up with %s missing entries" % fill)
-	add_entry(prev, tag, logfile)
-	print("Filed %s %s" % (emit_date(prev), tag))
+	try:
+		t = time.time()
+		date, oldtag = last_entry(logfile)
+		prev = prev_ping_time(t)
+		if date and date >= prev:
+			print("Log already covers time up to %s, please edit manually" % emit_date(prev))
+			return
+		fill = catch_up(t, logfile)
+		if fill:
+			print("Caught up with %s missing entries" % fill)
+		add_entry(prev, tag, logfile)
+		print("Filed %s %s" % (emit_date(prev), tag))
+	finally:
+		print("Next ping at %s" % emit_date(next_ping_time(t)))
 
 if __name__ == '__main__':
 	if len(sys.argv) == 1:
