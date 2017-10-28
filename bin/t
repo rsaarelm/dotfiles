@@ -2,7 +2,7 @@
 # Time logger
 # Inspired by http://messymatters.com/tagtime/
 
-from datetime import datetime
+from datetime import datetime, timezone
 import math
 import os
 import os.path
@@ -20,7 +20,8 @@ def parse_date(date_str):
 	return int(datetime.strptime(date_str.strip(), DATE_FMT).timestamp())
 
 def emit_date(unix_time):
-	return datetime.fromtimestamp(unix_time).astimezone().strftime(DATE_FMT)
+	tz = datetime.now(timezone.utc).astimezone().tzinfo # XXX: Any better way to do this pre-Python 3.6?
+	return datetime.fromtimestamp(unix_time, tz).astimezone().strftime(DATE_FMT)
 
 def unix_day(unix_time):
 	return int(unix_time / (24*60*60))
