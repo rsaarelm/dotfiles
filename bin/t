@@ -90,7 +90,7 @@ def add_entry(time, tag, logfile):
 		else:
 			print("%s" % (date,), file=f)
 
-def catch_up(time_now, logfile, max_seconds=24*60*60):
+def catch_up(time_now, logfile, max_seconds=24*60*60, fill_tag=None):
 	"""Fill missed entries to logfile."""
 	date, tag = last_entry(logfile)
 	filled = 0
@@ -101,7 +101,7 @@ def catch_up(time_now, logfile, max_seconds=24*60*60):
 	date = next_ping_time(date)
 	prev = prev_ping_time(time_now)
 	while date < prev:
-		add_entry(date, None, logfile)
+		add_entry(date, fill_tag, logfile)
 		date = next_ping_time(date)
 		filled += 1
 	return filled
@@ -134,14 +134,22 @@ def msg(text, show_secs=2):
 
 def save_tag(tag, logfile):
 	t = time.time()
+	fill_missed = None
+	# Hidden feature, use capitalized TAG to fill up all the missed features
+	# Eg. do `t SLEEP` when waking up.
+	if tag.isupper():
+		tag = tag.lower()
+		fill_missed = tag
 	date, oldtag = last_entry(logfile)
 	prev = prev_ping_time(t)
 	if date and date >= prev:
 		print("Log already covers time up to %s, please edit manually" % emit_date(prev))
 		return
-	fill = catch_up(t, logfile)
+	fill = catch_up(t, logfile, fill_tag=fill_missed)
 	if fill:
 		print("Caught up with %s missing entries" % fill)
+		if fill_missed:
+			print("Filed all missing entires as %s" % tag)
 	add_entry(prev, tag, logfile)
 	print("Filed %s %s" % (emit_date(prev), tag))
 
