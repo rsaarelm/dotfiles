@@ -23,4 +23,6 @@ xrandr --output DVI-I-1 --rotate left #--scale 1.5x1.5
 # Disable touchpad tapping for 2 seconds when typing
 #syndaemon -t -k -i 2 -d
 
+t --daemon &
+
 exec i3
