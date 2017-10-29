@@ -148,11 +148,38 @@ def save_tag(tag, logfile):
 	finally:
 		print("Next ping at %s" % emit_date(next_ping_time(t)))
 
+def show_status(logfile):
+	t = time.time()
+	date, oldtag = last_entry(logfile)
+	prev = prev_ping_time(t)
+	prev_str = emit_date(prev)
+	if date and date >= prev:
+		if oldtag:
+			print("Last sample %s already logged as %s" % (prev_str, oldtag))
+		else:
+			print("Last sample %s logged, but has no tag, please edit the log")
+		return
+	print("Last sample %s is unlogged, please enter tag" % prev_str)
+	print("Press Ctrl-C to abort")
+	try:
+		tag = input("> ").strip()
+	except KeyboardInterrupt:
+		print("")
+		tag = None
+	if tag == None or ' ' in tag:
+		print("Invalid tag, aborting")
+		return
+	if tag == '':
+		print("Logging empty timestamp")
+	save_tag(tag, logfile)
+
 if __name__ == '__main__':
 	if len(sys.argv) == 1:
+		show_status(LOG_FILE)
+	elif sys.argv[1] == '--daemon':
 		print("Starting daemon mode")
 		run()
 	elif len(sys.argv) == 2:
 		save_tag(sys.argv[1], LOG_FILE)
 	else:
-		print("Usage %s [last_tag]" % sys.argv[0])
+		print("Usage %s (--daemon | [last_tag])" % sys.argv[0])
