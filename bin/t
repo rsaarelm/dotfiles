@@ -117,11 +117,12 @@ def run():
 	while True:
 		t = time.time()
 		next = next_ping_time(t)
-		#print("Next ping at %s" % emit_date(next))
-		sys.stdout.flush()
-		time.sleep(next - t + 1)
-		t = time.time()
-		msg("log status")
+		if t > next:
+			msg("log status")
+		else:
+			# Don't sleep more than a minute at a time so as to recover
+			# better from daemon machine suspend
+			time.sleep(max(next - t + 1, 60))
 
 def on_windows():
 	return os.name == 'nt'
