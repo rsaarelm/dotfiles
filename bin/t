@@ -128,11 +128,12 @@ def input_or_die(prompt, timeout=60):
 	return ret
 
 def run():
+	next = next_ping_time(time.time())
 	while True:
 		t = time.time()
-		next = next_ping_time(t)
 		if t > next:
 			msg("log status for %s" % emit_date(next))
+			next = next_ping_time(t)
 		else:
 			# Don't sleep more than a minute at a time so as to recover
 			# better from daemon machine suspend
