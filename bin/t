@@ -26,15 +26,29 @@ def emit_date(unix_time):
 def unix_day(unix_time):
 	return int(unix_time / (24*60*60))
 
+# Must use the same random numbers everywhere this is run for different daemons
+# to stay synched to the official schedule, so use a crappy fixed generator.
+g_rng_seed = 0
+RNG_MAX = 2**31 - 1
+
+def seed_rng(seed):
+	global g_rng_seed
+	g_rng_seed = int(seed)
+
+def portable_rng():
+	global g_rng_seed
+	g_rng_seed = (1103515245 * g_rng_seed + 12345) % RNG_MAX
+	return g_rng_seed
+
 def day_schedule(day):
 	def random_wait():
 		mean = AVG_MINUTES * 60
-		wait = int(-1 * mean * math.log(random.random()))
+		r = float(portable_rng()) / RNG_MAX
+		wait = int(-1 * mean * math.log(r))
 		# Clamp out outlier values
 		return max(mean // 4, min(mean * 4, wait))
-
+	seed_rng(day)
 	t = day * 24*60*60
-	random.seed(t)
 	t += random_wait()
 	ret = []
 	while unix_day(t) == day:
