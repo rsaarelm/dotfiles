@@ -183,7 +183,7 @@ if __name__ == '__main__':
 	if len(sys.argv) == 1:
 		show_status(LOG_FILE)
 	elif sys.argv[1] == '--daemon':
-		print("Starting daemon mode")
+		msg("Starting time tracking daemon")
 		run()
 	elif len(sys.argv) == 2:
 		save_tag(sys.argv[1], LOG_FILE)
