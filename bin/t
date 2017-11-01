@@ -142,7 +142,7 @@ def run():
 def on_windows():
 	return os.name == 'nt'
 
-def msg(text, show_secs=120):
+def msg(text, show_secs=2):
 	if on_windows():
 		os.system('%%SystemRoot%%/Sysnative/msg /time:%s "%%username%%" %s' % (show_secs, text))
 	else:
