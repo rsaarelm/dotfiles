@@ -76,6 +76,7 @@ set virtualedit=block
 set wildmode=longest,list,full
 set wildmenu
 
+filetype off
 filetype plugin indent on
 
 " Match trailing whitespace and indent mixing spaces with physical tabs.
@@ -169,10 +170,6 @@ nmap <Leader>b :Buffers<cr>
 
 """""""""""""""""""""""""""""""" Color settings
 
-if has('gui_running')
-    colorscheme ron
-else
-    colorscheme industry
-endif
+colorscheme ron
 
 highlight ColorColumn ctermbg=darkblue guibg=#2c2d27
