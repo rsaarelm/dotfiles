@@ -120,6 +120,22 @@ def catch_up(time_now, logfile, max_seconds=24*60*60, fill_tag=None):
 		filled += 1
 	return filled
 
+def missed_entries(time_now, logfile, max_seconds=24*60*60):
+	"""Count number of missing entries between last entry and current one"""
+	# XXX: Repeats a lot of logic with catch_up
+	date, tag = last_entry(logfile)
+	if not date:
+		return 0
+	if time_now - date >= max_seconds:
+		return 0
+	date = next_ping_time(date)
+	prev = prev_ping_time(time_now)
+	ret = 0
+	while date < prev:
+		date = next_ping_time(date)
+		ret += 1
+	return ret
+
 def input_or_die(prompt, timeout=60):
 	t = threading.Timer(timeout, sys.exit, "timed out")
 	t.start()
@@ -181,6 +197,9 @@ def show_status(logfile):
 			print("Last sample %s logged, but has no tag, please edit the log")
 		return
 	print("Last sample %s is unlogged, please enter tag" % prev_str)
+	missed = missed_entries(t, logfile)
+	if missed > 0:
+		print("Also missing %d entries before that, enter tag CAPITALIZED to fill all with it" % missed)
 	print("Press Ctrl-C to abort")
 	try:
 		tag = input("> ").strip()
