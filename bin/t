@@ -211,19 +211,29 @@ def parse_log(logfile):
 			ret.append((timedata, tag))
 	return ret
 
-def analyze(data):
-	dates = [x[0] for x in data]
-	delta = max(dates) - min(dates)
-	freqs = collections.Counter([x[1] for x in data])
+def summarize(days):
+	freqs = collections.Counter([tag for day in days for tag in days[day]])
+	hours_c = AVG_MINUTES / len(days) / 60
 	for (tag, count) in freqs.items():
-		if not tag:
-			continue
 		# The magic analysis formula, just assume that each tag averages out to
 		# the sampling interval when the tag count increases.
 		#
 		# (This does assume that all the data has been generated using the same
 		# average formula...)
-		print("%s: %.1f h" % (tag, (count * AVG_MINUTES / delta.days / 60)))
+		print("%s: %.1f h" % (tag, (count * hours_c)))
+
+def analyze(data):
+	dates = [x[0] for x in data]
+	days = collections.defaultdict(list)
+	for (date, tag) in data:
+		if tag:
+			days[(date.year, date.month, date.day)].append(tag)
+	workdays = dict([(day, tags) for day, tags in days.items() if "work" in tags])
+	print("Workday stats: ")
+	summarize(workdays)
+	print()
+	print("Global stats: ")
+	summarize(days)
 
 if __name__ == '__main__':
 	if len(sys.argv) == 1:
