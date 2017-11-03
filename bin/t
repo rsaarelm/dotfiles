@@ -217,6 +217,8 @@ if __name__ == '__main__':
 	if len(sys.argv) == 1:
 		show_status(LOG_FILE)
 	elif sys.argv[1] == '--daemon':
+		# Wait a little bit in case we're starting from .xinit
+		time.sleep(2)
 		msg("Starting time tracking daemon")
 		run()
 	elif len(sys.argv) == 2:
