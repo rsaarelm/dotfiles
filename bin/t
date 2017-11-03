@@ -3,6 +3,7 @@
 # Inspired by http://messymatters.com/tagtime/
 
 from datetime import datetime, timezone
+import collections
 import math
 import os
 import os.path
@@ -213,6 +214,38 @@ def show_status(logfile):
 		print("Logging empty timestamp")
 	save_tag(tag, logfile)
 
+def parse_log(logfile):
+	ret = []
+	with open(logfile) as f:
+		for line in f.readlines():
+			line = line.split('#')[0].strip() # Remove comments
+			if not line:
+				continue
+			items = line.split(' ')
+			assert(len(items) > 0 and len(items) <= 2)
+			if len(items) == 2:
+				tag = items[1]
+			else:
+				tag = None
+			# Get rich time data, we may want time zone knowledge
+			timedata = datetime.strptime(items[0].strip(), DATE_FMT)
+			ret.append((timedata, tag))
+	return ret
+
+def analyze(data):
+	dates = [x[0] for x in data]
+	delta = max(dates) - min(dates)
+	freqs = collections.Counter([x[1] for x in data])
+	for (tag, count) in freqs.items():
+		if not tag:
+			continue
+		# The magic analysis formula, just assume that each tag averages out to
+		# the sampling interval when the tag count increases.
+		#
+		# (This does assume that all the data has been generated using the same
+		# average formula...)
+		print("%s: %.1f h" % (tag, (count * AVG_MINUTES / delta.days / 60)))
+
 if __name__ == '__main__':
 	if len(sys.argv) == 1:
 		show_status(LOG_FILE)
@@ -221,6 +254,9 @@ if __name__ == '__main__':
 		time.sleep(2)
 		msg("Starting time tracking daemon")
 		run()
+	elif sys.argv[1] == '--summary':
+		# Summarize your day
+		analyze(parse_log(LOG_FILE))
 	elif len(sys.argv) == 2:
 		save_tag(sys.argv[1], LOG_FILE)
 	else:
