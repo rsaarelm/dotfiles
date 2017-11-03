@@ -194,7 +194,7 @@ def show_status(logfile):
 		if oldtag:
 			print("Last sample %s already logged as %s" % (prev_str, oldtag))
 		else:
-			print("Last sample %s logged, but has no tag, please edit the log")
+			print("Last sample %s logged, but has no tag, please edit the log" % prev_str)
 		return
 	print("Last sample %s is unlogged, please enter tag" % prev_str)
 	missed = missed_entries(t, logfile)
