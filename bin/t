@@ -25,37 +25,16 @@ def emit_date(unix_time):
 	return datetime.fromtimestamp(unix_time, tz).astimezone().strftime(DATE_FMT)
 
 def unix_day(unix_time):
-	return int(unix_time / (24*60*60))
+	return int(unix_time / 86400)
 
-# Must use the same random numbers everywhere this is run for different daemons
-# to stay synched to the official schedule, so use a crappy fixed generator.
-g_rng_seed = 0
-RNG_MAX = 2**31 - 1
-
-def seed_rng(seed):
-	global g_rng_seed
-	g_rng_seed = int(seed)
-
-def portable_rng():
-	global g_rng_seed
-	g_rng_seed = (1103515245 * g_rng_seed + 12345) % RNG_MAX
-	return g_rng_seed
+NOISE_MAX = 0x7fffffff
+def noise(x):
+	x = (x >> 13) ^ x;
+	return (x * (x * x * 60493 + 19990303) + 1376312589) & NOISE_MAX
 
 def day_schedule(day):
-	def random_wait():
-		mean = AVG_MINUTES * 60
-		r = float(portable_rng()) / RNG_MAX
-		wait = int(-1 * mean * math.log(r))
-		# Clamp out outlier values
-		return max(mean // 4, min(mean * 4, wait))
-	seed_rng(day)
-	t = day * 24*60*60
-	t += random_wait()
-	ret = []
-	while unix_day(t) == day:
-		ret.append(t)
-		t += random_wait()
-	return ret
+	day = range(day * 86400, day * 86400 + 86400)
+	return [t for t in day if noise(t) < NOISE_MAX / (AVG_MINUTES * 60)]
 
 def next_ping_time(unix_time):
 	unix_time = int(unix_time)
