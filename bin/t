@@ -33,8 +33,9 @@ def noise(x):
 	return (x * (x * x * 60493 + 19990303) + 1376312589) & NOISE_MAX
 
 def day_schedule(day):
-	day = range(day * 86400, day * 86400 + 86400)
-	return [t for t in day if noise(t) < NOISE_MAX / (AVG_MINUTES * 60)]
+	# Ping can hit once every minute.
+	day = range(day * 1440, day * 1440 + 1440)
+	return [t * 60 for t in day if noise(t) < NOISE_MAX / AVG_MINUTES]
 
 def next_ping_time(unix_time):
 	unix_time = int(unix_time)
