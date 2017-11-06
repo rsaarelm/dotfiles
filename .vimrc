@@ -124,7 +124,7 @@ iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 " Red error message
 iabbr ansired \33[31;1m\33[0m<Left><Left><Left><Left><Left><Left>
 
-" Up and down are used a lot, bind them to Coleman N and E.
+" Up and down are used a lot, bind them to Colemak N and E.
 " Also make the default behavior move by visual, not logical line,
 " require the g modifier for logical lines (the opposite of the regular
 " setting).
