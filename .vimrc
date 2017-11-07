@@ -80,9 +80,6 @@ filetype off
 filetype plugin indent on
 
 " Match trailing whitespace and indent mixing spaces with physical tabs.
-if has('gui_running')
-    highlight Error ctermbg=brown guibg=#662200
-endif
 autocmd BufRead,BufNewFile * match Error /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
 
 set colorcolumn=81
@@ -173,3 +170,4 @@ nmap <Leader>b :Buffers<cr>
 colorscheme ron
 
 highlight ColorColumn ctermbg=darkblue guibg=#2c2d27
+highlight Error ctermbg=brown guibg=#331100
