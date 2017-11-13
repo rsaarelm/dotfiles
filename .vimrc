@@ -91,21 +91,21 @@ autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd FileType votl setlocal wrap linebreak breakindent breakindentopt+=shift:3 colorcolumn=0 foldlevel=0 textwidth=100 tabstop=2 shiftwidth=2
 
 " Rust cmds
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
-au FileType rust setlocal colorcolumn=101
-au FileType rust nmap <F5> :CargoRun --release<cr>
+autocmd FileType rust nmap gd <Plug>(rust-def)
+autocmd FileType rust nmap gs <Plug>(rust-def-split)
+autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
+autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
+autocmd FileType rust setlocal colorcolumn=101
+autocmd FileType rust nmap <F5> :CargoRun --release<cr>
 
 " Save manual folds
-au BufWinLeave *.* mkview
-au BufWinEnter *.* silent loadview
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
 
-autocmd BufRead,BufNewFile *.py setl noexpandtab softtabstop=0 shiftwidth=0
+autocmd FileType python setl noexpandtab softtabstop=0 shiftwidth=0 tabstop=4
 
 autocmd BufRead,BufNewFile *.yaml setl softtabstop=2 shiftwidth=2
 
