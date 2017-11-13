@@ -15,239 +15,253 @@ AVG_MINUTES = 45
 
 LOG_FILE = os.getenv('T_LOG_FILE', '%s/my-activity.log' % os.getenv('HOME', './'))
 
-DATE_FMT = "%Y-%m-%dT%H:%M:%S%z"
+def date_str(unixtime):
+	tz = datetime.now(timezone.utc).astimezone().tzinfo
+	return datetime.fromtimestamp(unixtime, tz).strftime("%Y-%m-%d %H:%M")
 
-def parse_date(date_str):
-	return int(datetime.strptime(date_str.strip(), DATE_FMT).timestamp())
+class Entry:
+	DATE_FMT = "%Y-%m-%dT%H:%M:%S%z"
 
-def emit_date(unix_time):
-	tz = datetime.now(timezone.utc).astimezone().tzinfo # XXX: Any better way to do this pre-Python 3.6?
-	return datetime.fromtimestamp(unix_time, tz).astimezone().strftime(DATE_FMT)
+	@classmethod
+	def parse(cls, s):
+		parts = s.split()
+		# Must have time stamp as first item
+		t = datetime.strptime(parts[0], Entry.DATE_FMT)
+		unixtime = int(t.timestamp())
+		tz = t.tzinfo
 
-def unix_day(unix_time):
-	return int(unix_time / 86400)
+		# Must have tag as second item
+		tag = parts[1]
+		sample_interval = None
+		# Sample intervals are encoded as 'working.45'
+		if '.' in tag:
+			tag, sample_interval = tag.split('.')
+			sample_interval = int(sample_interval)
+
+		parts = parts[2:]
+		# If the first word of the remaining line parses as integer, that's the count
+		count = 1
+		try:
+			count = float(parts[0])
+			parts = parts[1:]
+		except:
+			pass
+
+		comment = ' '.join(parts)
+		if not comment:
+			comment = None
+
+		return cls(
+				tag,
+				count=count,
+				comment=comment,
+				sample_interval=sample_interval,
+				unixtime=unixtime,
+				tz=tz)
+
+	def __init__(self, tag, count=1.0, comment=None, sample_interval=None, unixtime=None, tz=None):
+		# XXX: Somewhat unintuitive constraint that comment can't start with a
+		# whitespace separated integer. Otherwise it might get confused if the
+		# count value is missing.
+		try:
+			x = float(comment.split()[0])
+			print("Error: First word of message parses into number, will cause ambiguity with count element");
+			assert(False)
+		except:
+			# Either there was no comment or the first word doesn't parse as integer, all is good
+			pass
+
+		if not tz:
+			# XXX: Any better way to do this pre-Python 3.6?
+			# FIXME: This seems to be broken on Windows
+			tz = datetime.now(timezone.utc).astimezone().tzinfo
+		if not unixtime:
+			unixtime = int(time.time())
+		self.tag = tag
+		self.count = count
+		self.comment = comment
+		self.time = unixtime
+		self.tz = tz
+		# If this is a time use tag, the interval must be set as the used sampling interval in minutes.
+		self.sample_interval = sample_interval
+
+	def __str__(self):
+		date = datetime.fromtimestamp(self.time, self.tz).strftime(Entry.DATE_FMT)
+		tag = self.tag
+		if self.sample_interval:
+			tag += ".%d" % self.sample_interval
+		ret = "%s %s" % (date, tag)
+
+		if float(self.count) != 1.0:
+			ret += " %g" % self.count
+
+		if self.comment:
+			ret += " %s" % self.comment
+
+		return ret
+
+	def __lt__(self, other):
+		return self.time < other.time
 
 NOISE_MAX = 0x7fffffff
 def noise(x):
 	x = (x >> 13) ^ x;
 	return (x * (x * x * 60493 + 19990303) + 1376312589) & NOISE_MAX
 
-def day_schedule(day):
-	# Ping can hit once every minute.
-	day = range(day * 1440, day * 1440 + 1440)
-	return [t * 60 for t in day if noise(t) < NOISE_MAX / AVG_MINUTES]
+def pings(sample_interval, start_time):
+	minute = int((start_time + 59) // 60)
+	while True:
+		if noise(minute) < NOISE_MAX / sample_interval:
+			yield minute * 60
+		minute += 1
 
-def next_ping_time(unix_time):
-	unix_time = int(unix_time)
-	day = unix_day(unix_time)
-	sched = day_schedule(day)
-	sched.extend(day_schedule(day + 1))
+def backpings(sample_interval, start_time):
+	minute = int((start_time + 59) // 60)
+	while True:
+		minute -= 1
+		if noise(minute) < NOISE_MAX / sample_interval:
+			yield minute * 60
 
-	while sched[0] <= unix_time:
-		sched = sched[1:]
+class Log:
+	def __init__(self, logpath):
+		self.entries = []
+		self.clocked = set()
+		# Sampling minutes used for new time entries
+		self.sample_interval = AVG_MINUTES
 
-	return sched[0]
+		self.logpath = logpath
+		try:
+			with open(logpath) as f:
+				for line in f.readlines():
+					line = line.split('#')[0]
+					line = line.strip()
+					if line:
+						self._register_entry(Entry.parse(line))
+		except FileNotFoundError:
+			pass
 
-def prev_ping_time(unix_time):
-	unix_time = int(unix_time)
-	day = unix_day(unix_time)
-	sched = day_schedule(day - 1)
-	sched.extend(day_schedule(day))
+	def _register_entry(self, entry):
+		self.entries.append(entry)
 
-	while sched[-1] > unix_time:
-		sched = sched[:-1]
+		# Time points that have been covered by the time tracker already.
+		if entry.sample_interval:
+			self.clocked.add((entry.time, entry.sample_interval))
 
-	return sched[-1]
+	def append(self, entry):
+		self._register_entry(entry)
+		with open(self.logpath, 'a+') as f:
+			print("%s" % entry, file=f)
 
-def last_entry(logfile):
-	try:
-		with open(logfile) as f:
-			lines = f.readlines()
-			if len(lines) == 0:
-				return (None, None)
-			items = lines[-1].split(' ')
-			assert(len(items) > 0 and len(items) <= 2)
-			if len(items) == 2:
-				tag = items[1]
+	def next_ping(self):
+		next(pings(self.sample_interval, time_time()))
+
+	def missed_pings(self, max_seconds=24*60*60):
+		now = time.time()
+		for t in backpings(self.sample_interval, now):
+			if (t, self.sample_interval) not in self.clocked and now - t < max_seconds:
+				yield t
 			else:
-				tag = None
-			date = parse_date(items[0])
-			return (date, tag)
-	except FileNotFoundError:
-		return (None, None)
+				return
 
-def add_entry(time, tag, logfile):
-	with open(logfile, 'a+') as f:
-		date = emit_date(time)
-		if tag:
-			assert(' ' not in tag)
-			print("%s %s" % (date, tag), file=f)
-		else:
-			print("%s" % (date,), file=f)
+	def catch_up(self):
+		misses = list(self.missed_pings())
+		entries = []
+		while misses:
+			if len(misses) > 1:
+				print("Missing %d tags, write tag in UPPERCASE to mark remaining as that tag" % len(misses))
+			print("Enter tag for %s" % date_str(misses[0]))
+			tag = input("> ").strip()
+			tag = tag.split()
+			comment = ' '.join(tag[1:]) or None
+			fill = False
+			if len(tag) == 0:
+				fill=True
+				tag = 'n/a'
+			else:
+				tag = tag[0]
+			if tag.isupper():
+				fill = True
+				tag = tag.lower()
+			entries.append(Entry(tag, comment=comment, unixtime=misses[0], sample_interval=self.sample_interval))
+			if fill:
+				for t in misses[1:]:
+					entries.append(Entry(tag, comment=comment, unixtime=t, sample_interval=self.sample_interval))
+				break
+			else:
+				misses = misses[1:]
+		entries.sort()
+		for e in entries:
+			self.append(e)
+		print("All caught up.")
 
-def catch_up(time_now, logfile, max_seconds=24*60*60, fill_tag=None):
-	"""Fill missed entries to logfile."""
-	date, tag = last_entry(logfile)
-	filled = 0
-	if not date:
-		return filled
-	if time_now - date >= max_seconds:
-		return filled
-	date = next_ping_time(date)
-	prev = prev_ping_time(time_now)
-	while date < prev:
-		add_entry(date, fill_tag, logfile)
-		date = next_ping_time(date)
-		filled += 1
-	return filled
+	def file_last(self, tag):
+		try:
+			t = next(self.missed_pings())
+			self.append(Entry(tag, unixtime=t, sample_interval=self.sample_interval))
+			print("Logged %s for %s" % (tag, date_str(t)))
+		except StopIteration:
+			print("Already filed latest time item")
 
-def missed_entries(time_now, logfile, max_seconds=24*60*60):
-	"""Count number of missing entries between last entry and current one"""
-	# XXX: Repeats a lot of logic with catch_up
-	date, tag = last_entry(logfile)
-	if not date:
-		return 0
-	if time_now - date >= max_seconds:
-		return 0
-	date = next_ping_time(date)
-	prev = prev_ping_time(time_now)
-	ret = 0
-	while date < prev:
-		date = next_ping_time(date)
-		ret += 1
-	return ret
+	def summary(self):
+		result = collections.defaultdict(int)
+		for e in self.entries:
+			if e.sample_interval:
+				# Hours for time items
+				result[e.tag] += e.sample_interval / 60.0
+			else:
+				result[e.tag] += e.count
+		return result
 
-def input_or_die(prompt, timeout=60):
-	t = threading.Timer(timeout, sys.exit, "timed out")
-	t.start()
-	ret = input(prompt)
-	t.cancel()
-	return ret
+def run(sample_interval):
+	pings = pings(sample_interval, time.time())
 
-def run():
-	next = next_ping_time(time.time())
+	next_ping = next(pings)
 	while True:
 		t = time.time()
-		if t > next:
-			msg("log status for %s" % emit_date(next))
-			next = next_ping_time(t)
+		if t > next_ping:
+			msg("log status for %s" % date_str(next_ping))
+			next_ping = next(pings)
 		else:
 			# Don't sleep more than a minute at a time so as to recover
 			# better from daemon machine suspend
-			time.sleep(max(next - t + 1, 60))
-
-def on_windows():
-	return os.name == 'nt'
+			time.sleep(min(next_ping - t + 1, 60))
 
 def msg(text, show_secs=2):
-	if on_windows():
+	if os.name == 'nt':
 		os.system('%%SystemRoot%%/Sysnative/msg /time:%s "%%username%%" %s' % (show_secs, text))
 	else:
 		os.system('xmessage -timeout %s %s' % (show_secs, text))
 
-def save_tag(tag, logfile):
-	t = time.time()
-	fill_missed = None
-	# Hidden feature, use capitalized TAG to fill up all the missed features
-	# Eg. do `t SLEEP` when waking up.
-	if tag.isupper():
-		tag = tag.lower()
-		fill_missed = tag
-	date, oldtag = last_entry(logfile)
-	prev = prev_ping_time(t)
-	if date and date >= prev:
-		print("Log already covers time up to %s, please edit manually" % emit_date(prev))
-		return
-	fill = catch_up(t, logfile, fill_tag=fill_missed)
-	if fill:
-		print("Caught up with %s missing entries" % fill)
-		if fill_missed:
-			print("Filed all missing entires as %s" % tag)
-	add_entry(prev, tag, logfile)
-	print("Filed %s %s" % (emit_date(prev), tag))
-
-def show_status(logfile):
-	t = time.time()
-	date, oldtag = last_entry(logfile)
-	prev = prev_ping_time(t)
-	prev_str = emit_date(prev)
-	if date and date >= prev:
-		if oldtag:
-			print("Last sample %s already logged as %s" % (prev_str, oldtag))
-		else:
-			print("Last sample %s logged, but has no tag, please edit the log" % prev_str)
-		return
-	print("Last sample %s is unlogged, please enter tag" % prev_str)
-	missed = missed_entries(t, logfile)
-	if missed > 0:
-		print("Also missing %d entries before that, enter tag CAPITALIZED to fill all with it" % missed)
-	print("Press Ctrl-C to abort")
-	try:
-		tag = input("> ").strip()
-	except KeyboardInterrupt:
-		print("")
-		return
-	if tag == None or ' ' in tag:
-		print("Invalid tag, aborting")
-		return
-	if tag == '':
-		print("Logging empty timestamp")
-	save_tag(tag, logfile)
-
-def parse_log(logfile):
-	ret = []
-	with open(logfile) as f:
-		for line in f.readlines():
-			line = line.split('#')[0].strip() # Remove comments
-			if not line:
-				continue
-			items = line.split(' ')
-			assert(len(items) > 0 and len(items) <= 2)
-			if len(items) == 2:
-				tag = items[1]
-			else:
-				tag = None
-			# Get rich time data, we may want time zone knowledge
-			timedata = datetime.strptime(items[0].strip(), DATE_FMT)
-			ret.append((timedata, tag))
-	return ret
-
-def summarize(days):
-	freqs = collections.Counter([tag for day in days for tag in days[day]])
-	hours_c = AVG_MINUTES / len(days) / 60
-	for (tag, count) in freqs.items():
-		# The magic analysis formula, just assume that each tag averages out to
-		# the sampling interval when the tag count increases.
-		#
-		# (This does assume that all the data has been generated using the same
-		# average formula...)
-		print("%s: %.1f h" % (tag, (count * hours_c)))
-
-def analyze(data):
-	dates = [x[0] for x in data]
-	days = collections.defaultdict(list)
-	for (date, tag) in data:
-		if tag:
-			days[(date.year, date.month, date.day)].append(tag)
-	workdays = dict([(day, tags) for day, tags in days.items() if "work" in tags])
-	print("Workday stats: ")
-	summarize(workdays)
-	print()
-	print("Global stats: ")
-	summarize(days)
-
 if __name__ == '__main__':
 	if len(sys.argv) == 1:
-		show_status(LOG_FILE)
+		log = Log(LOG_FILE)
+		log.catch_up()
 	elif sys.argv[1] == '--daemon':
 		# Wait a little bit in case we're starting from .xinit
 		time.sleep(2)
 		msg("Starting time tracking daemon")
-		run()
+		run(AVG_MINUTES)
 	elif sys.argv[1] == '--summary':
-		# Summarize your day
-		analyze(parse_log(LOG_FILE))
+		log = Log(LOG_FILE)
+		for (k, v) in log.summary().items():
+			if k == 'n/a': continue
+			print("%s: %g" % (k, v))
 	elif len(sys.argv) == 2:
-		save_tag(sys.argv[1], LOG_FILE)
+		log = Log(LOG_FILE)
+		log.file_last(sys.argv[1])
+	elif len(sys.argv) > 2 and not sys.argv[1].startswith('-'):
+		# Log a non-time-tracking accomplishment, must have either count or commetn
+		log = Log(LOG_FILE)
+		tag = sys.argv[1]
+		assert('.' not in tag)
+		tail = sys.argv[2:]
+		count = 1
+		try:
+			count = float(tail[0])
+			tail = tail[1:]
+		except:
+			pass
+		comment = ' '.join(tail) or None
+		log.append(Entry(tag, count=count, comment=comment))
 	else:
-		print("Usage %s (--daemon | [last_tag])" % sys.argv[0])
+		print("Usage %s (--daemon | [tag [[count] comment]])" % sys.argv[0])
