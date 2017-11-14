@@ -213,14 +213,14 @@ class Log:
 		return result
 
 def run(sample_interval):
-	pings = pings(sample_interval, time.time())
+	ping = pings(sample_interval, time.time())
 
-	next_ping = next(pings)
+	next_ping = next(ping)
 	while True:
 		t = time.time()
 		if t > next_ping:
 			msg("log status for %s" % date_str(next_ping))
-			next_ping = next(pings)
+			next_ping = next(ping)
 		else:
 			# Don't sleep more than a minute at a time so as to recover
 			# better from daemon machine suspend
