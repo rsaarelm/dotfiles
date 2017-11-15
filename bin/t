@@ -2,7 +2,7 @@
 # Time logger
 # Inspired by http://messymatters.com/tagtime/
 
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import collections
 import math
 import os
@@ -38,6 +38,12 @@ class Entry:
 			tag, sample_interval = tag.split('.')
 			sample_interval = int(sample_interval)
 
+		# Parse marking the event for previous day
+		day_offset = 0
+		while tag.startswith('^'):
+			day_offset -= 1
+			tag = tag[1:]
+
 		parts = parts[2:]
 		# If the first word of the remaining line parses as integer, that's the count
 		count = 1
@@ -57,9 +63,10 @@ class Entry:
 				comment=comment,
 				sample_interval=sample_interval,
 				unixtime=unixtime,
-				tz=tz)
+				tz=tz,
+				day_offset=day_offset)
 
-	def __init__(self, tag, count=1.0, comment=None, sample_interval=None, unixtime=None, tz=None):
+	def __init__(self, tag, count=1.0, comment=None, sample_interval=None, unixtime=None, tz=None, day_offset=0):
 		# XXX: Somewhat unintuitive constraint that comment can't start with a
 		# whitespace separated integer. Otherwise it might get confused if the
 		# count value is missing.
@@ -84,6 +91,9 @@ class Entry:
 		self.tz = tz
 		# If this is a time use tag, the interval must be set as the used sampling interval in minutes.
 		self.sample_interval = sample_interval
+
+		# The date for which this item is filed
+		self.date = datetime.fromtimestamp(self.time, self.tz).date() + timedelta(days=day_offset)
 
 	def __str__(self):
 		date = datetime.fromtimestamp(self.time, self.tz).strftime(Entry.DATE_FMT)
@@ -202,15 +212,25 @@ class Log:
 		except StopIteration:
 			print("Already filed latest time item")
 
-	def summary(self):
-		result = collections.defaultdict(int)
+	def item_summary(self):
+		"""Summarize non-time-tracking entries."""
+		result = collections.defaultdict(float)
 		for e in self.entries:
-			if e.sample_interval:
-				# Hours for time items
-				result[e.tag] += e.sample_interval / 60.0
-			else:
+			if not e.sample_interval:
 				result[e.tag] += e.count
 		return result
+
+	def time_summary(self):
+		"""Time use per day."""
+		days = set()
+		result = collections.defaultdict(float)
+		for e in self.entries:
+			if e.sample_interval:
+				result[e.tag] += e.sample_interval / 60.0
+				days.add(e.date)
+		for k in result:
+			result[k] /= len(days)
+		return sorted(list(result.items()), key=lambda x:-x[1])
 
 def run(sample_interval):
 	ping = pings(sample_interval, time.time())
@@ -246,9 +266,14 @@ if __name__ == '__main__':
 		run(AVG_MINUTES)
 	elif sys.argv[1] == '--summary':
 		log = Log(LOG_FILE)
-		for (k, v) in log.summary().items():
+		for (k, v) in log.item_summary().items():
 			if k == 'n/a': continue
-			print("%s: %g" % (k, v))
+			print("%s %g" % (k.ljust(14), v))
+	elif sys.argv[1] == '--time-use':
+		log = Log(LOG_FILE)
+		for k, v in log.time_summary():
+			if k == 'n/a': continue
+			print("%s %.02g h" % (k.ljust(14), v))
 	elif len(sys.argv) == 2:
 		log = Log(LOG_FILE)
 		log.file_last(sys.argv[1])
