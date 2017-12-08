@@ -9,7 +9,7 @@ SSH_ASKPASS=/usr/lib/ssh/ssh-askpass keychain ~/.ssh/id_rsa
 [ -f ~/.keychain/$HOSTNAME-sh ] && . ~/.keychain/$HOSTNAME-sh 2>/dev/null
 [ -f ~/.keychain/$HOSTNAME-sh-gpg ] && . ~/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
 
-redshift -l 60:25 &
+redshift -l 0:25 &
 
 dropbox &
 

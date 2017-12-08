@@ -1,2 +1,6 @@
 # Redshift screen temperature daemon for Helsinki timezone
-/usr/bin/redshift -l 60:25
+#/usr/bin/redshift -l 60:25
+
+# Try putting it on the equator instead, arcic latitude might make redshift
+# compound SAD
+/usr/bin/redshift -l 0:25
