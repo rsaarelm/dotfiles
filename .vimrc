@@ -79,8 +79,12 @@ set wildmenu
 filetype off
 filetype plugin indent on
 
-" Match trailing whitespace and indent mixing spaces with physical tabs.
-autocmd BufRead,BufNewFile * match Error /\s\+$\| \+\zs\t\+\|\t\+\zs \+/
+" Show trailing whitespace and physical tabs.
+set encoding=utf-8
+set listchars=tab:›…,trail:·
+set list
+" Highlight trailing whitespace.
+match Error '\s\+$'
 
 set colorcolumn=81
 
@@ -164,6 +168,22 @@ endif
 
 " Fzf fuzzy find
 nmap <Leader>b :Buffers<cr>
+
+" More useful enter and backspace
+nnoremap <BS> {
+onoremap <BS> {
+vnoremap <BS> {
+
+nnoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
+onoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
+vnoremap <CR> }
+
+" Easymotion navigation
+nmap F <Plug>(easymotion-prefix)s
+
+" Retain selection when indenting
+vnoremap < <gv
+vnoremap > >gv
 
 """""""""""""""""""""""""""""""" Color settings
 
