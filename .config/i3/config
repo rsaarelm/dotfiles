@@ -113,8 +113,8 @@ bindsym $mod+Shift+p restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+f exec "i3-msg exit"
 
-bindsym $mod+Shift+j exec "i3lock"
-bindsym $mod+Shift+k exec "sudo systemctl suspend & i3lock"
+bindsym $mod+Shift+semicolon exec "i3lock"
+bindsym $mod+Shift+slash exec "sudo systemctl suspend & i3lock"
 
 # Quick-launch a one-off browser instance.
 bindsym $mod+F2 exec "chromium --incognito"
