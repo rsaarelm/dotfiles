@@ -1,29 +1,21 @@
 ! terminal colors ------------------------------------------------------------
 
-! "black"
-*color0:  #222
-*color8:  #555
-! red
-*color1:  #901
-*color9:  #F57
-! green
-*color2:  #180
-*color10: #6E5
-! yellow
-*color3:  #B80
-*color11: #FF7
-! blue
-*color4:  #34D
-*color12: #9AF
-! magenta
-*color5:  #80F
-*color13: #C9F
-! cyan
-*color6:  #09A
-*color14: #6FE
-! "white"
-*color7:  #EDE
-*color15: #FFF
+*color0: #2e3436
+*color1: #cc0000
+*color9: #ee3030
+*color2: #4e9a06
+*color3: #c4a000
+*color4: #3465a4
+*color5: #ff00e4
+*color6: #00fbff
+*color7: #d3d7cf
+*color8: #565654
+*color10: #8ae234
+*color11: #fce94f
+*color12: #729fcf
+*color13: #b292af
+*color14: #a2ffff
+*color15: #eeeeec
 
 URxvt.background: Gray10
 URxvt.foreground: Gray
