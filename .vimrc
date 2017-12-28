@@ -35,7 +35,7 @@ Plug 'timonv/vim-cargo'
 Plug 'dhruvasagar/vim-table-mode'
 
 " Misc
-Plug 'freitass/todo.txt-vim'
+Plug 'dbeniamine/todo.txt-vim'
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vimoutliner/vimoutliner'
@@ -102,6 +102,9 @@ autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 autocmd FileType rust setlocal colorcolumn=101
 autocmd FileType rust nmap <F5> :CargoRun --release<cr>
 
+" Fix for nightly rustfmt
+let g:rustfmt_command = "cargo fmt -- "
+
 " Save manual folds
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
@@ -123,7 +126,7 @@ iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 
 " Red error message
-iabbr ansired \33[31;1m\33[0m<Left><Left><Left><Left><Left><Left>
+iabbr ansired \x1b[31;1m\x1b[0m<Left><Left><Left><Left><Left><Left><Left>
 
 " Up and down are used a lot, bind them to Colemak N and E.
 " Also make the default behavior move by visual, not logical line,
