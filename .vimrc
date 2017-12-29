@@ -94,6 +94,8 @@ autocmd BufNewFile,BufRead *.md set filetype=markdown
 " Set up nice wrapping for long lines
 autocmd FileType votl setlocal wrap linebreak breakindent breakindentopt+=shift:3 colorcolumn=0 foldlevel=0 textwidth=100 tabstop=2 shiftwidth=2
 
+autocmd FileType todo setlocal wrap linebreak colorcolumn=0 breakindent breakindentopt+=shift:2
+
 " Rust cmds
 autocmd FileType rust nmap gd <Plug>(rust-def)
 autocmd FileType rust nmap gs <Plug>(rust-def-split)
