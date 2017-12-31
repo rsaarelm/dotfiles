@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Clock in to the given project
+_clock_in() {
+  echo x `date +"%Y-%m-%d %H:%M:%S"` i $* >>$donefile
+}
+
+# Clock out
+_clock_out() {
+  echo x `date +"%Y-%m-%d %H:%M:%S"` o >>$donefile
+}
+
+action=$1; shift
+[ "$DONEFILE" ] && donefile="$DONEFILE" || donefile="${HOME}/done.txt"
+
+case "${action}" in
+  in)   _clock_in "$@";;
+  out)  _clock_out "$@";;
+  *)    exit 1;;
+esac
+
+exit 0
