@@ -94,7 +94,8 @@ autocmd BufNewFile,BufRead *.md set filetype=markdown
 " Set up nice wrapping for long lines
 autocmd FileType votl setlocal wrap linebreak breakindent breakindentopt+=shift:3 colorcolumn=0 foldlevel=0 textwidth=100 tabstop=2 shiftwidth=2
 
-autocmd FileType todo setlocal wrap linebreak colorcolumn=0 breakindent breakindentopt+=shift:2
+" todo.txt file niceties
+autocmd FileType todo setlocal wrap linebreak colorcolumn=0 breakindent breakindentopt+=shift:2 formatoptions-=t
 
 " Rust cmds
 autocmd FileType rust nmap gd <Plug>(rust-def)
@@ -108,8 +109,9 @@ autocmd FileType rust nmap <F5> :CargoRun --release<cr>
 let g:rustfmt_command = "cargo fmt -- "
 
 " Save manual folds
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
+" (Disabled, seems to cause more trouble than it's worth)
+" autocmd BufWinLeave *.* mkview
+" autocmd BufWinEnter *.* silent loadview
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
@@ -126,6 +128,7 @@ autocmd FileType make setl noexpandtab
 " Timestamp abbreviation
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
+iabbr wsp <C-r>=strftime("%G%V.%u")<cr>
 
 " Red error message
 iabbr ansired \x1b[31;1m\x1b[0m<Left><Left><Left><Left><Left><Left><Left>
