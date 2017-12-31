@@ -16,3 +16,5 @@
         recent = branch --sort=-committerdate
 [rebase]
 	autosquash = true
+[diff]
+	wsErrorHighlight = all
