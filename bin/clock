@@ -1,17 +1,31 @@
 #!/bin/bash
 
+# This is basically the emacs timeclock format, but meant to be used in the
+# done.txt archive files of a todo.txt style system. Since todo.txt files have
+# their lines lexically sorted, I'm using s/e (start/end) instead of i/o for
+# clocking in and clocking out. This means that changing clock at the exact
+# same second will cause the end and start lines sort correctly:
+#
+# x 2012-12-22 12:32:45 i new-project
+# x 2012-12-22 12:32:45 o Did stuff
+#
+# vs
+#
+# x 2012-12-22 12:32:45 e Did stuff
+# x 2012-12-22 12:32:45 s new-project
+
 # Clock in to the given project
 _clock_in() {
-  echo x `date +"%Y-%m-%d %H:%M:%S"` i $* >>$donefile
+  echo x `date +"%Y-%m-%d %H:%M:%S"` s $* >>$todofile
 }
 
 # Clock out
 _clock_out() {
-  echo x `date +"%Y-%m-%d %H:%M:%S"` o >>$donefile
+  echo x `date +"%Y-%m-%d %H:%M:%S"` e $* >>$todofile
 }
 
 action=$1; shift
-[ "$DONEFILE" ] && donefile="$DONEFILE" || donefile="${HOME}/done.txt"
+[ "$TODOFILE" ] && todofile="$TODOFILE" || todofile="${HOME}/todo.txt"
 
 case "${action}" in
   in)   _clock_in "$@";;
