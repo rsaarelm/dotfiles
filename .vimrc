@@ -35,7 +35,7 @@ Plug 'timonv/vim-cargo'
 Plug 'dhruvasagar/vim-table-mode'
 
 " Misc
-Plug 'dbeniamine/todo.txt-vim'
+Plug 'freitass/todo.txt-vim'
 Plug 'tpope/vim-sensible'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vimoutliner/vimoutliner'
