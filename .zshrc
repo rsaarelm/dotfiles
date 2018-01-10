@@ -1,8 +1,9 @@
 alias homegit="GIT_DIR=~/.homegit GIT_WORK_TREE=~ git"
 alias ls="ls --color=auto"
 alias R="R --no-save" # Used as quick calculator, make it easy to exit.
-alias arst="setxkbmap us -variant intl"
-alias asdf="xset b off;setxkbmap us -variant colemak;xmodmap -e 'remove Control = Control_L' -e 'keycode 66 = Control_L Control_L Control_L Control_L' -e 'keycode 37 = BackSpace BackSpace BackSpace BackSpace' -e 'add Control = Control_L'"
+# Keyboard togglers
+alias arst="setxkbmap us -variant intl -option ctrl:nocaps"
+alias asdf="setxkbmap us -variant colemak -option ctrl:nocaps"
 
 export PATH="$HOME/bin:$HOME/local/bin:$PATH:/usr/local/games:$HOME/.cargo/bin:$HOME/.local/bin"
 export EDITOR=vim
