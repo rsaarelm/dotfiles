@@ -83,6 +83,8 @@ if is_cygwin; then
     alias p4='PWD=$(cygpath --windows --absolute .) p4'
 fi
 
-eval $(thefuck --alias)
+if command -v thefuck > /dev/null; then
+    eval $(thefuck --alias)
+fi
 
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
