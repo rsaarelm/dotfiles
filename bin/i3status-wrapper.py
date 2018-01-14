@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # This script is a simple wrapper which prefixes each i3status line with custom
@@ -24,18 +24,33 @@
 # 2, as published by Sam Hocevar. See http://sam.zoy.org/wtfpl/COPYING for more
 # details.
 
-import sys
 import json
+import os
+import subprocess
+import sys
 
 def get_governor():
     """ Get the current governor for cpu0, assuming all CPUs use the same. """
     with open('/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor') as fp:
         return fp.readlines()[0].strip()
 
+def tt_current():
+    """Get tt current task"""
+    ret = ""
+    try:
+        ret = subprocess.run(['tt', 'current'], stdout=subprocess.PIPE)
+    except e:
+        return ""
+    return str(ret.stdout, 'utf-8').strip()
+
 def print_line(message):
     """ Non-buffered printing to stdout. """
     sys.stdout.write(message + '\n')
     sys.stdout.flush()
+
+def insert(json, text, **kwargs):
+    kwargs['full_text'] = text
+    json.insert(0, kwargs)
 
 def read_line():
     """ Interrupted respecting reader for stdin. """
@@ -64,8 +79,15 @@ if __name__ == '__main__':
             line, prefix = line[1:], ','
 
         j = json.loads(line)
-        # insert information into the start of the json, but could be anywhere
-        # CHANGE THIS LINE TO INSERT SOMETHING ELSE
-        j.insert(0, {'full_text' : '%s' % get_governor(), 'name' : 'gov'})
+
+        # The set of custom stuff.
+
+        #insert(j, '%s' % get_governor(), name='gov')
+        task = tt_current()
+        if task:
+            insert(j, task, name='tt')
+        elif os.environ.get('IS_WORK_PC'):
+            insert(j, " WORK HOURS ARE NOT BEING CLOCKED ", name='tt', background='#ff0000', color='#000000')
+
         # and echo back new encoded json
         print_line(prefix+json.dumps(j))
