@@ -175,7 +175,7 @@ if has("win32")
 endif
 
 " Fzf fuzzy find
-nmap <Leader>b :Buffers<cr>
+nmap <Leader>B :Buffers<cr>
 
 " More useful enter and backspace
 nnoremap <BS> {
