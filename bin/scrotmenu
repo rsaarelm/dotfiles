@@ -1,0 +1,25 @@
+#!/bin/bash
+
+EXT=.png
+
+PREV_SCROT_NAME=`cat /tmp/prev-scrot-name.txt`
+
+NAME=`dmenu -nb orange -nf black -p "$1" << EOF
+$PREV_SCROT_NAME
+EOF`
+
+echo "$NAME" > /tmp/prev-scrot-name.txt
+
+TODAY=`date +%Y-%m-%d`
+mkdir -p ~/notes/$TODAY
+
+BASENAME=~/notes/$TODAY/"$NAME"
+NAME="$BASENAME"$EXT
+
+i=0
+while [[ -e $NAME ]]; do
+    let i++
+    NAME="$BASENAME"-$i$EXT
+done
+
+echo "$NAME"
