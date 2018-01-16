@@ -116,6 +116,9 @@ let g:rustfmt_command = "cargo fmt -- "
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
 
+" Expression-based folding in jrnl files
+command! JrnlFold set foldexpr=getline(v:lnum)=~'^\\d\\d\\d\\d-\\d\\d-\\d\\d\\s\\d\\d:\\d\\d\\s.*'?'>1':1 foldmethod=expr
+
 autocmd FileType python setl noexpandtab softtabstop=0 shiftwidth=0 tabstop=4
 
 autocmd BufRead,BufNewFile *.yaml setl softtabstop=2 shiftwidth=2
