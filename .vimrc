@@ -97,6 +97,8 @@ autocmd FileType votl setlocal wrap linebreak breakindent breakindentopt+=shift:
 " todo.txt file niceties
 autocmd FileType todo setlocal wrap linebreak colorcolumn=0 breakindent breakindentopt+=shift:2 formatoptions-=t
 
+autocmd FileType text setlocal spell
+
 " Rust cmds
 autocmd FileType rust nmap gd <Plug>(rust-def)
 autocmd FileType rust nmap gs <Plug>(rust-def-split)
