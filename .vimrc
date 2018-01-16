@@ -117,7 +117,7 @@ let g:rustfmt_command = "cargo fmt -- "
 command! WhiteClean retab | %s/\s\+$
 
 " Expression-based folding in jrnl files
-command! JrnlFold set foldexpr=getline(v:lnum)=~'^\\d\\d\\d\\d-\\d\\d-\\d\\d\\s\\d\\d:\\d\\d\\s.*'?'>1':1 foldmethod=expr
+command! JrnlFold setlocal foldexpr=getline(v:lnum)=~'^\\d\\d\\d\\d-\\d\\d-\\d\\d\\s\\d\\d:\\d\\d\\s.*'?'>1':1 foldmethod=expr
 
 autocmd FileType python setl noexpandtab softtabstop=0 shiftwidth=0 tabstop=4
 
