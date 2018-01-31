@@ -1,77 +1,79 @@
-" 2015-06-29: Migrating to Neovim, starting vimrc from scratch.
+let g:mapleader = "\<Space>"
 
-" Use ~/.vim subdirectory even when on Windows
-" TODO: Fix this for nvim
-"if has('win32') || has('win64')
-"    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-"endif
+" Plugin Manager
+" ================================
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+call plug#begin('~/.nvim/plugged')
 
-call plug#begin()
+" Plugins
+" ================================
 
-" Needed for changing font in Neovim-QT.
-Plug 'equalsraf/neovim-gui-shim'
-
-" Ergonomics
-Plug 'easymotion/vim-easymotion'
-Plug 'tpope/vim-unimpaired'
-
-" Files and stuff
+" NerdTree
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
+map <TAB> :call NERDTreeToggleAndFind()<cr>
+"map <C-TAB> :NERDTreeToggle<cr>
+function! NERDTreeToggleAndFind()
+  if (exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1)
+    execute ':NERDTreeClose'
+  else
+    execute ':NERDTreeFind'
+  endif
+endfunction
+let NERDTreeMapOpenExpl='j'  " Enable using Coleman vertical navigation
 
-" Rust
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
-Plug 'timonv/vim-cargo'
-
-" Misc
+" todo.txt
 Plug 'freitass/todo.txt-vim'
+
+" Fuzzy Finder
+if has('win32') || has('win64')
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+else
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+endif
+Plug 'junegunn/fzf.vim'
+nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader>a :Buffers<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <leader>o :BTags<CR>
+nnoremap <silent> <leader>O :Tags<CR>
 
 call plug#end()
 
-" TODO: Get this right somehow for both terminal-based and GUI nvim.
-"colorscheme blue
 
-let mapleader=" "
+" Settings
+" ================================
+set virtualedit=block  " Free block placement in visual mode
 
-set relativenumber
+set ignorecase      " Default search is case-insensitive
+set smartcase       " ...except when you write caps in the search expression
 
-set expandtab
-set softtabstop=4
+set nojoinspaces    " Two spaces after a period is an abomination
+set colorcolumn=81  " Show show the forbidden zone
+set nowrap          " Show long lines by default
+
+set number          " Line numbering
+set lazyredraw      " Don't update screen when running macros
+
+set expandtab       " Don't use physical tabs as a rule
+set softtabstop=-1  " Use shiftwidth everywhere
 set shiftwidth=4
+set shiftround      " Snap to shiftwidth
 
-set nojoinspaces
-set ruler
-set hidden
+set noswapfile      " Don't create swap files
+set hidden          " Don't close buffers when leaving them
 
-set ignorecase
-set smartcase
-
-filetype plugin indent on
-
-autocmd FileType text setlocal textwidth=78
-
-" Unify tabs and remove trailing whitespace.
-command! WhiteClean retab | %s/\s\+$
-
-" Timestamp abbreviation
-iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
-iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
-
-" Colemak navigation hack
-" (Only remap vertical movement keys, there are smarter ways to move
-" horizontally.)
-set langmap=ki,ik,KI,IK,ej,je
+" Key mapping
+" ================================
 
 " Faster window navigation
-nnoremap <C-e> <C-W>e
-nnoremap <C-i> <C-W>i
-nnoremap <C-l> <C-W>l
-nnoremap <C-h> <C-W>h
-
-" Faster tab navigation
-nnoremap <C-k> :tabp<cr>
-nnoremap <C-m> :tabn<cr>
+noremap <C-h> <C-W>h
+noremap <C-l> <C-W>l
+noremap <C-n> <C-W>j
+noremap <C-e> <C-W>k
 
 " No shift for command-line
 map ; :
@@ -79,3 +81,41 @@ map ; :
 " Make the visual block mode the default
 nnoremap v <C-v>|xnoremap v <C-v>
 nnoremap <C-v> v|xnoremap <C-v> v
+nnoremap <C-q> v|xnoremap <C-q> v
+
+" Retain selection when indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Colemak navigation
+"
+" Up and down are used a lot, bind them to Colemak N and E.
+" Also make the default behavior move by visual, not logical line,
+" require the g modifier for logical lines (the opposite of the regular
+" setting).
+nnoremap gn j|xnoremap gn j|onoremap gn j|
+nnoremap n gj|xnoremap n gj|onoremap n gj|
+" Force fold opening with zv to reproduce behavior of unmapped n
+nnoremap k nzv|xnoremap k nzv|onoremap k nzv|
+nnoremap K Nzv|xnoremap K Nzv|onoremap K Nzv|
+nnoremap ge k|xnoremap ge k|onoremap ge k|
+nnoremap e gk|xnoremap e gk|onoremap e gk|
+nnoremap j e|xnoremap j e|onoremap j e|
+
+
+" Abbreviations
+" ================================
+
+" Timestamp abbreviation
+iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
+iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
+
+
+" Commands
+" ================================
+
+" Unify tabs and remove trailing whitespace.
+command! WhiteClean retab | %s/\s\+$
+
+" Expression-based folding in jrnl files
+command! JrnlFold setlocal foldexpr=getline(v:lnum)=~'^\\d\\d\\d\\d-\\d\\d-\\d\\d\\s\\d\\d:\\d\\d\\s.*'?'>1':1 foldmethod=expr
