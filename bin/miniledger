@@ -7,21 +7,44 @@
 #
 # And two types of data lines:
 #
-#     Add integer amount of `FOO` that comes from nowhere
-#     > FOO 123
-#     Buy 15 FOO with 30 BAR
-#     > FOO 15  BAR 30
+#     Add integer amount of `foo` that comes from nowhere
+#     > foo  123
+#     Buy 15 foo with 30 bar
+#     > foo  15  bar  30
 #
 # After the ledger is run, balances of all items will be printed.
+#
+# Tokens are separated with double spaces so that you can have spaces in
+# tokens.
+#
+# By convention lowercase letter names are stats and capital names are
+# inventory items. Inventory items are displayed in a different way.
 
 from collections import defaultdict
 import sys
+import re
+
+def is_item(name):
+    return name and name.istitle()
 
 def fmt(name, credit, debit):
-    if debit:
-        return "%s: %s (%s)" % (name, credit + debit, credit)
+    if is_item(name):
+        count = credit + debit
+        if count < 1:
+            return None
+        elif count == 1:
+            return name
+        else:
+            plural = 's'
+            if name.endswith('s'):
+                plural = 'es'
+            return "%d %s%s" % (count, name, plural)
     else:
-        return "%s: %s" % (name, credit + debit)
+        if debit:
+            return "%-36s %s (%s)" % (name, credit + debit, credit)
+        else:
+            return "%-36s %s" % (name, credit + debit)
+
 
 class Ledger:
     def __init__(self, text):
@@ -34,7 +57,7 @@ class Ledger:
                 continue
             # Remove comments
             line = line.split('#')[0]
-            elts = line[2:].split()
+            elts = re.split(r"\s\s+", line[2:])
             if len(elts) == 0:
                 continue
             elif len(elts) in (2, 3, 4):
@@ -60,7 +83,11 @@ class Ledger:
                 print("*** WARNING *** %s goes to %s at '%s'" %
                         (account, balance, line), file=sys.stderr)
         # XXX: Accounts with only debit actions will not be shown.
-        return('\n'.join([fmt(account, credits[account], debits[account]) for account in credits]))
+        ret = []
+        stats = '\n'.join([s for s in [fmt(account, credits[account], debits[account]) for account in credits] if s is not None and not is_item(s)])
+        inv = '\n'.join([s for s in [fmt(account, credits[account], debits[account]) for account in credits] if s is not None and is_item(s)])
+
+        return (stats + "\n"+42*"-"+"\n" + inv)
 
 if __name__ == '__main__':
     print(Ledger(sys.stdin.read()))
