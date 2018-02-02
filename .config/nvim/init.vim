@@ -41,6 +41,9 @@ nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 
+" Vimoutliner
+Plug 'vimoutliner/vimoutliner'
+
 " Haskell Plugins
 " --------------------------------
 
@@ -59,8 +62,11 @@ set smartcase       " ...except when you write caps in the search expression
 
 set nojoinspaces    " Two spaces after a period is an abomination
 set colorcolumn=81  " Show show the forbidden zone
-set nowrap          " Show long lines by default
+set wrap            " Show long lines by default
 set textwidth=78
+
+set listchars=tab:›…,trail:·  " Show trailing whitespace
+set list
 
 set number          " Line numbering
 set lazyredraw      " Don't update screen when running macros
@@ -129,6 +135,10 @@ filetype plugin on
 filetype indent on
 
 autocmd FileType text setlocal textwidth=78
+
+autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent colorcolumn=0 foldlevel=0 textwidth=100 tabstop=2 shiftwidth=2
+
+autocmd FileType todo setlocal linebreak breakindentopt+=shift:2 breakindent colorcolumn=0 formatoptions-=t
 
 
 " Commands
