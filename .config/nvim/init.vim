@@ -23,7 +23,7 @@ function! NERDTreeToggleAndFind()
     execute ':NERDTreeFind'
   endif
 endfunction
-let NERDTreeMapOpenExpl='j'  " Enable using Coleman vertical navigation
+let NERDTreeMapOpenExpl='j'  " Enable using Colemak vertical navigation
 
 " todo.txt
 Plug 'freitass/todo.txt-vim'
@@ -41,6 +41,12 @@ nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 
+" Haskell Plugins
+" --------------------------------
+
+" Source code formatter
+Plug 'nbouscal/vim-stylish-haskell'
+
 call plug#end()
 
 
@@ -54,9 +60,11 @@ set smartcase       " ...except when you write caps in the search expression
 set nojoinspaces    " Two spaces after a period is an abomination
 set colorcolumn=81  " Show show the forbidden zone
 set nowrap          " Show long lines by default
+set textwidth=78
 
 set number          " Line numbering
 set lazyredraw      " Don't update screen when running macros
+set hlsearch        " Highlight search results
 
 set expandtab       " Don't use physical tabs as a rule
 set softtabstop=-1  " Use shiftwidth everywhere
@@ -65,6 +73,9 @@ set shiftround      " Snap to shiftwidth
 
 set noswapfile      " Don't create swap files
 set hidden          " Don't close buffers when leaving them
+
+set guioptions=ac   " Minimize GUI cruft
+set guicursor+=a:blinkon0
 
 " Key mapping
 " ================================
@@ -109,6 +120,15 @@ nnoremap j e|xnoremap j e|onoremap j e|
 " Timestamp abbreviation
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
+
+
+" Filetype settings
+" ================================
+
+filetype plugin on
+filetype indent on
+
+autocmd FileType text setlocal textwidth=78
 
 
 " Commands
