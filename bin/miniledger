@@ -60,6 +60,8 @@ class Ledger:
             elts = re.split(r"\s\s+", line[2:])
             if len(elts) == 0:
                 continue
+            elif len(elts) == 1 and is_item(elts[0]):
+                self.events.append((elts[0], 1, line))
             elif len(elts) in (2, 3, 4):
                 self.events.append((elts[0], int(elts[1]), line))
                 if len(elts) == 3:
