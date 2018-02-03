@@ -17,12 +17,16 @@ Plug 'scrooloose/nerdtree'
 map <TAB> :call NERDTreeToggleAndFind()<cr>
 "map <C-TAB> :NERDTreeToggle<cr>
 function! NERDTreeToggleAndFind()
-  if (exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1)
-    execute ':NERDTreeClose'
-  else
-    execute ':NERDTreeFind'
-  endif
-endfunction
+    if (exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1)
+        execute ':NERDTreeClose'
+    else
+        if (exists('%.p'))
+            execute ':NERDTreeFind'
+        else
+            execute ':NERDTree'
+        endif
+    endif
+    endfunction
 let NERDTreeMapOpenExpl='j'  " Enable using Colemak vertical navigation
 
 " todo.txt
@@ -35,6 +39,8 @@ else
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 endif
 Plug 'junegunn/fzf.vim'
+" Use FZF to change directory.
+command! -nargs=* -complete=dir Cd call fzf#run(fzf#wrap({'source': 'find '.(empty(<q-args>) ? '.' : <q-args>).' -type d', 'sink': 'cd'}))
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
 nnoremap <silent> <leader>; :BLines<CR>
