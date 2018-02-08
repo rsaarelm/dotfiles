@@ -20,7 +20,7 @@ function! NERDTreeToggleAndFind()
     if (exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1)
         execute ':NERDTreeClose'
     else
-        if (exists('%.p'))
+        if filereadable(expand('%:p'))
             execute ':NERDTreeFind'
         else
             execute ':NERDTree'
@@ -28,6 +28,9 @@ function! NERDTreeToggleAndFind()
     endif
     endfunction
 let NERDTreeMapOpenExpl='j'  " Enable using Colemak vertical navigation
+
+" Fugitive for Git
+Plug 'tpope/vim-fugitive'
 
 " todo.txt
 Plug 'freitass/todo.txt-vim'
@@ -142,9 +145,11 @@ filetype indent on
 
 autocmd FileType text setlocal textwidth=78
 
-autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent colorcolumn=0 foldlevel=0 textwidth=100 tabstop=2 shiftwidth=2
+autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent colorcolumn=0 foldlevel=0 textwidth=100 tabstop=2 shiftwidth=2 nolist
 
 autocmd FileType todo setlocal linebreak breakindentopt+=shift:2 breakindent colorcolumn=0 formatoptions-=t
+
+autocmd FileType haskell setlocal shiftwidth=2
 
 
 " Commands
