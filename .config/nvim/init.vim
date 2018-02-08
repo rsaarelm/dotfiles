@@ -87,7 +87,6 @@ set shiftwidth=4
 set shiftround      " Snap to shiftwidth
 
 set noswapfile      " Don't create swap files
-set hidden          " Don't close buffers when leaving them
 
 set guioptions=ac   " Minimize GUI cruft
 set guicursor+=a:blinkon0
