@@ -89,7 +89,7 @@ class Ledger:
         stats = '\n'.join([s for s in [fmt(account, credits[account], debits[account]) for account in credits] if s is not None and not is_item(s)])
         inv = '\n'.join([s for s in [fmt(account, credits[account], debits[account]) for account in credits] if s is not None and is_item(s)])
 
-        return (stats + "\n"+42*"-"+"\n" + inv)
+        return (stats + "\n"+52*"-"+"\n" + inv)
 
 if __name__ == '__main__':
     print(Ledger(sys.stdin.read()))
