@@ -14,8 +14,8 @@ call plug#begin('~/.nvim/plugged')
 
 " NerdTree
 Plug 'scrooloose/nerdtree'
+map <S-TAB> :NERDTreeFind<cr><c-w><c-p>
 map <TAB> :call NERDTreeToggleAndFind()<cr>
-"map <C-TAB> :NERDTreeToggle<cr>
 function! NERDTreeToggleAndFind()
     if (exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1)
         execute ':NERDTreeClose'
@@ -25,6 +25,7 @@ function! NERDTreeToggleAndFind()
         else
             execute ':NERDTree'
         endif
+        execute ':wincmd p'
     endif
     endfunction
 let NERDTreeMapOpenExpl='j'  " Enable using Colemak vertical navigation
@@ -159,3 +160,7 @@ command! WhiteClean retab | %s/\s\+$
 
 " Expression-based folding in jrnl files
 command! JrnlFold setlocal foldexpr=getline(v:lnum)=~'^\\d\\d\\d\\d-\\d\\d-\\d\\d\\s\\d\\d:\\d\\d\\s.*'?'>1':1 foldmethod=expr
+
+if has('nvim')
+    colorscheme industry
+endif
