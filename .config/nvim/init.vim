@@ -71,7 +71,7 @@ set ignorecase      " Default search is case-insensitive
 set smartcase       " ...except when you write caps in the search expression
 
 set nojoinspaces    " Two spaces after a period is an abomination
-set colorcolumn=81  " Show show the forbidden zone
+set colorcolumn=81  " Show the forbidden zone
 set wrap            " Show long lines by default
 set textwidth=78
 
