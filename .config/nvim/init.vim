@@ -33,6 +33,10 @@ let NERDTreeMapOpenExpl='j'  " Enable using Colemak vertical navigation
 " Fugitive for Git
 Plug 'tpope/vim-fugitive'
 
+" gitgutter
+Plug 'airblade/vim-gitgutter'
+set updatetime=100           " Update gitgutter quickly
+
 " todo.txt
 Plug 'freitass/todo.txt-vim'
 " Make it recognize the third file in my todo workflow.
@@ -115,6 +119,9 @@ nnoremap <C-q> v|xnoremap <C-q> v
 vnoremap < <gv
 vnoremap > >gv
 
+" Fast buffer switching
+nnoremap <BS> <C-^>
+
 " Colemak navigation
 "
 " Up and down are used a lot, bind them to Colemak N and E.
@@ -151,7 +158,7 @@ autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent col
 
 autocmd FileType todo setlocal linebreak breakindentopt+=shift:2 breakindent colorcolumn=0 formatoptions-=t
 
-autocmd FileType haskell setlocal shiftwidth=2
+autocmd FileType haskell setlocal shiftwidth=2 cursorcolumn
 
 
 " Commands
