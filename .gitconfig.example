@@ -5,7 +5,7 @@
 	ui = true
 [alias]
         lg = !"git lg1"
-        lg1 = !"git lg1-specific --all"
+        lg1 = !"git lg1-specific"
         lg2 = !"git lg2-specific --all"
         lg3 = !"git lg3-specific --all"
 
