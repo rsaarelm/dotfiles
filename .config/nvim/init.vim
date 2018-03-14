@@ -60,11 +60,11 @@ nnoremap <silent> <leader>O :Tags<CR>
 " Vimoutliner
 Plug 'vimoutliner/vimoutliner'
 
-" Haskell Plugins
-" --------------------------------
-
-" Source code formatter
+" Haskell Source code formatter
 Plug 'nbouscal/vim-stylish-haskell'
+
+" Rust code completer
+Plug 'racer-rust/vim-racer'
 
 call plug#end()
 
@@ -158,8 +158,12 @@ autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent col
 
 autocmd FileType todo setlocal linebreak breakindentopt+=shift:2 breakindent colorcolumn=0 formatoptions-=t
 
-autocmd FileType haskell setlocal shiftwidth=2 cursorcolumn
+" Haskell is indentation-sensitive, so set up the vertical sight-line. And the
+" horizontal line too because otherwise it gets hard to see where the cursor
+" is.
+autocmd FileType haskell setlocal shiftwidth=2 cursorcolumn cursorline
 
+autocmd FileType rust setlocal colorcolumn=100
 
 " Commands
 " ================================
