@@ -87,4 +87,8 @@ if command -v thefuck > /dev/null; then
     eval $(thefuck --alias)
 fi
 
+if command -v tt > /dev/null; then
+    tt goals
+fi
+
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
