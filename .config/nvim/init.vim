@@ -165,6 +165,8 @@ autocmd FileType haskell setlocal shiftwidth=2 cursorcolumn cursorline
 
 autocmd FileType rust setlocal colorcolumn=100
 
+autocmd FileType python setlocal shiftwidth=2 formatoptions-=t
+
 " Commands
 " ================================
 
