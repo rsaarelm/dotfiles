@@ -64,6 +64,7 @@ Plug 'vimoutliner/vimoutliner'
 Plug 'nbouscal/vim-stylish-haskell'
 
 " Rust code completer
+Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 
 call plug#end()
