@@ -29,6 +29,7 @@ function! NERDTreeToggleAndFind()
     endif
     endfunction
 let NERDTreeMapOpenExpl='j'  " Enable using Colemak vertical navigation
+let NERDTreeIgnore = ['\.pyc$'] " Don't show junk files
 
 " Fugitive for Git
 Plug 'tpope/vim-fugitive'
