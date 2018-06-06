@@ -29,14 +29,13 @@ function! NERDTreeToggleAndFind()
     endif
     endfunction
 let NERDTreeMapOpenExpl='j'  " Enable using Colemak vertical navigation
-let NERDTreeIgnore = ['\.pyc$'] " Don't show junk files
+let NERDTreeIgnore = ['\.pyc$', '__pycache__'] " Don't show junk files
 
 " Fugitive for Git
 Plug 'tpope/vim-fugitive'
 
-" gitgutter
-Plug 'airblade/vim-gitgutter'
-set updatetime=100           " Update gitgutter quickly
+" Table mode
+Plug 'dhruvasagar/vim-table-mode'
 
 " todo.txt
 Plug 'freitass/todo.txt-vim'
@@ -68,6 +67,10 @@ Plug 'nbouscal/vim-stylish-haskell'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 
+" Linter
+Plug 'w0rp/ale'
+let g:ale_lint_on_text_changed = 'always'
+
 call plug#end()
 
 
@@ -86,7 +89,6 @@ set textwidth=78
 set listchars=tab:›…,trail:·  " Show trailing whitespace
 set list
 
-set number          " Line numbering
 set lazyredraw      " Don't update screen when running macros
 set hlsearch        " Highlight search results
 
@@ -167,7 +169,7 @@ autocmd FileType haskell setlocal shiftwidth=2 cursorcolumn cursorline
 
 autocmd FileType rust setlocal colorcolumn=100
 
-autocmd FileType python setlocal shiftwidth=2 formatoptions-=t
+autocmd FileType python setlocal shiftwidth=2 softtabstop=-1 formatoptions-=t colorcolumn=100
 
 " Commands
 " ================================
