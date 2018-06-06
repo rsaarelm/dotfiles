@@ -2,7 +2,6 @@
 
 *color0: #2e3436
 *color1: #cc0000
-*color9: #ee3030
 *color2: #4e9a06
 *color3: #c4a000
 *color4: #3465a4
@@ -10,6 +9,7 @@
 *color6: #00fbff
 *color7: #d3d7cf
 *color8: #565654
+*color9: #ee3030
 *color10: #8ae234
 *color11: #fce94f
 *color12: #729fcf
@@ -23,8 +23,9 @@ URxvt.foreground: Gray
 !URxvt.font: 8x13
 !URxvt.font: xft:DejaVu Sans Mono:pixelsize=24:antialias=true:hinting=true
 !URxvt.font: xft:bitstream vera sans mono:size=10:antialias=true
-URxvt.font: xft:hack:size=10:antialias=true:hinting=true,xft:bitstream vera sans mono:size=10:antialias=true:hinting=true,9x15
-!URxvt.font: xft:Go Mono:size=10:antialias=true:hinting=true
+!URxvt.font: xft:unscii-16,xft:hack:size=10:antialias=true:hinting=true,xft:bitstream vera sans mono:size=10:antialias=true:hinting=true,9x15
+URxvt.font: xft:Go Mono:size=11:antialias=true:hinting=true
+
 URxvt.scrollBar: off
 URxvt.perl-ext:      default,url-select
 URxvt.keysym.M-u:    perl:url-select:select_next
