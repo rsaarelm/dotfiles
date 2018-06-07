@@ -165,7 +165,7 @@ autocmd FileType text setlocal textwidth=78
 
 autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent colorcolumn=0 foldlevel=0 textwidth=100 tabstop=2 shiftwidth=2 nolist
 
-autocmd FileType todo setlocal linebreak breakindentopt+=shift:2 breakindent colorcolumn=0 formatoptions-=t
+autocmd FileType todo setlocal linebreak breakindentopt+=shift:2 breakindent colorcolumn=0 formatoptions-=t foldexpr=getline(v:lnum)=~'^\|\\s.*'?'1':0 foldmethod=expr
 
 " Haskell is indentation-sensitive, so set up the vertical sight-line. And the
 " horizontal line too because otherwise it gets hard to see where the cursor
