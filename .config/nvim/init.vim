@@ -56,6 +56,11 @@ nnoremap <silent> <leader>a :Buffers<CR>
 nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
+" Use git file list in git projects
+let $FZF_DEFAULT_COMMAND = '
+ \ (git ls-tree -r --name-only HEAD ||
+ \ find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+    \ sed s/^..//) 2> /dev/null'
 
 " Vimoutliner
 Plug 'vimoutliner/vimoutliner'
