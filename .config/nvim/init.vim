@@ -76,6 +76,9 @@ Plug 'racer-rust/vim-racer'
 Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'always'
 
+" Box diagrams
+Plug 'gyim/vim-boxdraw'
+
 call plug#end()
 
 
