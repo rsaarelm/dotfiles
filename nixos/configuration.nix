@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
@@ -10,39 +6,177 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # BOOT
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Use GRUB to boot
+  boot.loader.grub.device = "/dev/sda";
+
+  # NETWORK
+
+  networking.hostName = "tungsten"; # Define your hostname.
+
+  # LOCALIZATION
 
   # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "Lat2-Terminus16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
+  i18n = {
+    consoleFont = "Lat2-Terminus16";
+    consoleKeyMap = "colemak/en-latin9";
+    defaultLocale = "en_US.UTF-8";
+  };
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "Europe/Helsinki";
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   wget vim
-  # ];
+  # HARDWARE
+  hardware = {
+    opengl.driSupport32Bit = true;
+    pulseaudio.support32Bit = true;
+  };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.bash.enableCompletion = true;
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+  # PACKAGES
+
+  security.sudo.wheelNeedsPassword = false;
+
+  environment = {
+    systemPackages = with pkgs;
+    let
+      neovim = pkgs.neovim.override { vimAlias = true; };
+    in
+    [
+      # Terminal
+      coreutils
+      git
+      links
+      mosh
+      ncdu
+      neovim
+      psmisc
+      stow
+      tmux
+      wget
+
+      # X11
+      chromium
+      feh
+      gimp
+      grafx2
+      mpv
+      neovim-qt
+      pavucontrol
+      rxvt_unicode
+      scrot
+      zathura
+
+      # vidya
+      #steam
+      #wesnoth
+    ];
+
+    variables.EDITOR = pkgs.lib.mkOverride 0 "nvim";
+  };
+
+  nixpkgs.config = {
+    allowUnfree = true;
+
+    rxvt_unicode = {
+      perlSupport = true;
+    };
+  };
+
+  programs = {
+    ssh.startAgent = true;
+
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+    };
+  };
 
   # List services that you want to enable:
+  services = {
+    openssh.enable = true;
+    locate.enable = true;
+    printing.enable = true;
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+    redshift = {
+      enable = true;
+      latitude = "25";
+      longitude = "60";
+      temperature.day = 6500;
+      temperature.night = 2700;
+    };
+
+    xserver = {
+      enable = true;
+      windowManager = {
+        default = "i3";
+        i3.enable = true;
+      };
+
+      layout = "us(colemak)";
+
+      displayManager.slim.defaultUser = "rsaarelm";
+
+      displayManager.sessionCommands = ''
+        xrdb "${pkgs.writeText "xrdb.conf" ''
+          URxvt.font: xft:Monospace:size=12
+          URxvt.scrollBar: false
+          URxvt.perl-ext: default,url-select
+          URxvt.keysym.M-u: perl:url-select:select_next
+          URxvt.url-select.launcher: chromium --incognito
+          URxvt.url-select.underline: true
+          URxvt.saveLines: 32000
+
+          *color0: #2e3436
+          *color1: #cc0000
+          *color2: #4e9a06
+          *color3: #c4a000
+          *color4: #3465a4
+          *color5: #ff00e4
+          *color6: #00fbff
+          *color7: #d3d7cf
+          *color8: #565654
+          *color9: #ee3030
+          *color10: #8ae234
+          *color11: #fce94f
+          *color12: #729fcf
+          *color13: #b292af
+          *color14: #a2ffff
+          *color15: #eeeeec
+
+          *background: Gray10
+          *foreground: Gray
+        ''}"
+      '';
+    };
+  };
+
+  # Tungsten's dual monitor setup
+  services.xserver.xrandrHeads = [
+    {
+      output = "DP-1";
+      primary = true;
+      monitorConfig = ''
+        Option "PreferredMode" "1920x1080"
+      '';
+    }
+    {
+      output = "DVI-I-1";
+      monitorConfig = ''
+        Option "PreferredMode" "1920x1200"
+        Option "Rotate" "left"
+      '';
+    }
+  ];
+
+  fonts.fonts = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    dina-font
+    proggyfonts
+  ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -54,31 +188,23 @@
   # services.printing.enable = true;
 
   # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
 
   # Enable touchpad support.
   # services.xserver.libinput.enable = true;
 
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.extraUsers.guest = {
-  #   isNormalUser = true;
-  #   uid = 1000;
-  # };
+  users.extraUsers.rsaarelm = {
+    isNormalUser = true;
+    home = "/home/rsaarelm";
+    extraGroups = [ "wheel" ];
+    uid = 1000;
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
   system.stateVersion = "18.03"; # Did you read the comment?
-
 }
