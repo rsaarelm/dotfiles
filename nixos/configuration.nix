@@ -119,7 +119,14 @@
 
   # List services that you want to enable:
   services = {
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+
+      # No password guessing
+      passwordAuthentication = false;
+      challengeResponseAuthentication = false;
+    };
+
     locate.enable = true;
     printing.enable = true;
 
@@ -226,6 +233,7 @@
     extraGroups = [ "wheel" ];
     uid = 1000;
     shell = pkgs.zsh;
+    initialPassword = "1234";
   };
 
 
