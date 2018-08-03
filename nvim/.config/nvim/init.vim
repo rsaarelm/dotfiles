@@ -77,9 +77,6 @@ let g:rustfmt_command = 'cargo fmt --'
 Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'always'
 
-" Box diagrams
-Plug 'gyim/vim-boxdraw'
-
 " Nix files
 Plug 'LnL7/vim-nix'
 
