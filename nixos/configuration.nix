@@ -73,7 +73,6 @@
       rxvt_unicode_with-plugins
       scrot
       sxiv
-      unclutter
       zathura
 
       discord
@@ -208,19 +207,6 @@
     extraGroups = [ "wheel" ];
     uid = 1000;
     shell = pkgs.zsh;
-  };
-
-  # SYSTEMD
-
-  systemd.user.services = {
-    "unclutter" = {
-      enable = true;
-      description = "Hide unmoving mouse cursor";
-      wantedBy = [ "default.target" ];
-      serviceConfig.Restart = "always";
-      serviceConfig.RestartSec = 2;
-      serviceConfig.ExecStart = "${pkgs.unclutter}/bin/unclutter";
-    };
   };
 
 
