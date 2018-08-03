@@ -1,20 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
-  # BOOT
-
-  # Use GRUB to boot
-  boot.loader.grub.device = "/dev/sda";
-
-  # NETWORK
-
-  networking.hostName = "tungsten"; # Define your hostname.
-
   # LOCALIZATION
 
   # Select internationalisation properties.
@@ -26,14 +12,6 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Helsinki";
-
-  # HARDWARE
-
-  # Steam games want this.
-  hardware = {
-    opengl.driSupport32Bit = true;
-    pulseaudio.support32Bit = true;
-  };
 
   # PACKAGES
 
@@ -91,10 +69,6 @@
       scrot
       sxiv
       zathura
-
-      # Nonfree
-      discord
-      steam
     ];
 
     variables.EDITOR = pkgs.lib.mkOverride 0 "nvim";
@@ -103,6 +77,7 @@
   nixpkgs.config = {
     allowUnfree = true;
 
+    # TODO: Can this be removed?
     rxvt_unicode = {
       perlSupport = true;
     };
@@ -183,24 +158,6 @@
     };
   };
 
-  # Tungsten's dual monitor setup
-  services.xserver.xrandrHeads = [
-    {
-      output = "DP-1";
-      primary = true;
-      monitorConfig = ''
-        Option "PreferredMode" "1920x1080"
-      '';
-    }
-    {
-      output = "DVI-I-1";
-      monitorConfig = ''
-        Option "PreferredMode" "1920x1200"
-        Option "Rotate" "left"
-      '';
-    }
-  ];
-
   fonts.fonts = with pkgs; [
     noto-fonts
     noto-fonts-cjk
@@ -236,6 +193,8 @@
     initialPassword = "1234";
   };
 
+  # Cleanup the nix store
+  nix.gc.automatic = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

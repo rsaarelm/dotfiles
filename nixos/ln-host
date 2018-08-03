@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Hardlink the files for a host in hosts/ as local machine configuration
+
+HOST=`hostname`
+if [[ ! -z "$1" ]]; then
+  HOST=$1
+fi
+
+if [[ ! -e "hosts/$HOST.nix" ]] || [[ ! -e "hosts/$HOST-hardware.nix" ]]; then
+  echo "missing $HOST.nix or $HOST-hardware.nix" >&2
+  exit 1
+fi
+
+echo "Activating host $HOST."
+
+ln -f "hosts/$HOST.nix"          configuration.nix
+ln -f "hosts/$HOST-hardware.nix" hardware-configuration.nix

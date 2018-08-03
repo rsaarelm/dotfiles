@@ -1,3 +1,5 @@
 autoload/
-# Generated file
+
+# Host-specific hardlinks
 nixos/hardware-configuration.nix
+nixos/configuration.nix
