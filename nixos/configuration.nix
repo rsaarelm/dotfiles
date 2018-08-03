@@ -72,6 +72,7 @@
       rxvt_unicode
       scrot
       sxiv
+      unclutter
       zathura
     ];
 
@@ -205,6 +206,20 @@
     uid = 1000;
     shell = pkgs.zsh;
   };
+
+  # SYSTEMD
+
+  systemd.user.services = {
+    "unclutter" = {
+      enable = true;
+      description = "Hide unmoving mouse cursor";
+      wantedBy = [ "default.target" ];
+      serviceConfig.Restart = "always";
+      serviceConfig.RestartSec = 2;
+      serviceConfig.ExecStart = "${pkgs.unclutter}/bin/unclutter";
+    };
+  };
+
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
