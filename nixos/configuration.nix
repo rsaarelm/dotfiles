@@ -75,6 +75,8 @@
       sxiv
       unclutter
       zathura
+
+      discord
     ];
 
     variables.EDITOR = pkgs.lib.mkOverride 0 "nvim";

@@ -163,3 +163,5 @@ workspace_layout tabbed
 bindsym $mod+Tab workspace back_and_forth
 
 mouse_warping none
+
+hide_edge_borders smart
