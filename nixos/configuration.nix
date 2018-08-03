@@ -28,6 +28,8 @@
   time.timeZone = "Europe/Helsinki";
 
   # HARDWARE
+
+  # Steam games want this.
   hardware = {
     opengl.driSupport32Bit = true;
     pulseaudio.support32Bit = true;
@@ -46,18 +48,22 @@
       # Terminal
       coreutils
       git
+      gitAndTools.git-annex
+      hledger
+      imagemagick
       links
       mosh
       ncdu
       neovim
+      pandoc
       psmisc
+      sshfs
       stow
       tmux
       wget
 
       # X11
       chromium
-      feh
       gimp
       grafx2
       mpv
@@ -65,11 +71,8 @@
       pavucontrol
       rxvt_unicode
       scrot
+      sxiv
       zathura
-
-      # vidya
-      #steam
-      #wesnoth
     ];
 
     variables.EDITOR = pkgs.lib.mkOverride 0 "nvim";
@@ -200,6 +203,7 @@
     home = "/home/rsaarelm";
     extraGroups = [ "wheel" ];
     uid = 1000;
+    shell = pkgs.zsh;
   };
 
   # This value determines the NixOS release with which your system is to be
