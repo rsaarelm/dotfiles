@@ -14,8 +14,6 @@ setopt hist_ignore_space
 autoload -U colors && colors # Enable colors in prompt
 setopt prompt_subst
 
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-
 git_prompt() {
   local git_where="$(timeout 0.1 git name-rev --name-only --no-undefined --always HEAD 2> /dev/null)"
   if [[ ! -n $git_where ]]; then return; fi
