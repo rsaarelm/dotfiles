@@ -69,7 +69,7 @@
       mpv
       neovim-qt
       pavucontrol
-      rxvt_unicode
+      rxvt_unicode_with-plugins
       scrot
       sxiv
       unclutter
