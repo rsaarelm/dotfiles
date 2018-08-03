@@ -45,9 +45,18 @@
       neovim = pkgs.neovim.override { vimAlias = true; };
     in
     [
-      # Terminal
+      # System
+      acpi
+      acpitool
       coreutils
-      git
+      file
+      lsof
+      psmisc
+      sshfs
+
+      # Utils
+      aspell
+      aspellDicts.en
       gitAndTools.git-annex
       hledger
       imagemagick
@@ -55,12 +64,20 @@
       mosh
       ncdu
       neovim
+      p7zip
       pandoc
-      psmisc
-      sshfs
+      pwgen
+      restic
       stow
       tmux
+      unzip
       wget
+
+      # Dev
+      binutils
+      clang
+      git
+      rustup
 
       # X11
       chromium
@@ -75,7 +92,9 @@
       sxiv
       zathura
 
+      # Nonfree
       discord
+      steam
     ];
 
     variables.EDITOR = pkgs.lib.mkOverride 0 "nvim";
