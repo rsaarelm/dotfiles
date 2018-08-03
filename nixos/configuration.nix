@@ -69,6 +69,7 @@
       mpv
       neovim-qt
       pavucontrol
+      rofi
       rxvt_unicode_with-plugins
       scrot
       sxiv
