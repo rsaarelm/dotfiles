@@ -26,15 +26,19 @@
       # System
       acpi
       acpitool
+      bluez
       coreutils
       file
       lsof
+      pciutils
       psmisc
       sshfs
+      usbutils
 
       # Utils
       aspell
       aspellDicts.en
+      fdupes
       gitAndTools.git-annex
       hledger
       imagemagick
@@ -45,11 +49,14 @@
       p7zip
       pandoc
       pwgen
+      ranger
       restic
       stow
       tmux
       unzip
       wget
+      xxd
+      youtubeDL
 
       # Dev
       binutils
@@ -61,6 +68,7 @@
       chromium
       gimp
       grafx2
+      keepass
       mpv
       neovim-qt
       pavucontrol
@@ -76,11 +84,6 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-
-    # TODO: Can this be removed?
-    rxvt_unicode = {
-      perlSupport = true;
-    };
   };
 
   programs = {

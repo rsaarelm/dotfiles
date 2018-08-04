@@ -4,6 +4,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./common.nix
+      ./home-network.nix
       ./hardware-configuration.nix
     ];
 
@@ -14,14 +15,22 @@
 
   # NETWORK
 
-  networking.hostName = "tungsten"; # Define your hostname.
+  networking.hostName = "tungsten";
 
   # HARDWARE
 
-  # Steam games want this.
   hardware = {
+    # Steam games want this.
     opengl.driSupport32Bit = true;
     pulseaudio.support32Bit = true;
+
+    bluetooth = {
+      enable = true;
+      extraConfig = ''
+        [General]
+        Enable=Source,Sink,Media,Socket
+      '';
+    };
   };
 
   # PACKAGES
