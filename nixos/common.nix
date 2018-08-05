@@ -46,6 +46,7 @@
       mosh
       ncdu
       neovim
+      optipng
       p7zip
       pandoc
       pwgen
@@ -62,6 +63,7 @@
       binutils
       clang
       git
+      python3
       rustup
 
       # X11
@@ -168,6 +170,7 @@
     liberation_ttf
     dina-font
     proggyfonts
+    unscii
   ];
 
   # Open ports in the firewall.
