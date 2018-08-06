@@ -53,6 +53,7 @@
       ranger
       restic
       stow
+      thefuck
       tmux
       unzip
       wget
@@ -63,6 +64,7 @@
       binutils
       clang
       git
+      gnumake
       python3
       rustup
 

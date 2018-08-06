@@ -55,6 +55,5 @@
   environment.systemPackages = with pkgs; [
     discord
     steam
-    dropbox
   ];
 }
