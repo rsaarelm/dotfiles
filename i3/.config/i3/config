@@ -113,7 +113,7 @@ bindsym $mod+Shift+p restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+f exec "i3-msg exit"
 
-bindsym $mod+Shift+semicolon exec "i3lock"
+bindsym $mod+Shift+semicolon exec "i3lock -i $HOME/.config/i3/ms-dos.png -c '#000000'"
 # Disabling this, suspends fail too often on tungsten, might be corrupting
 # disk
 bindsym $mod+Shift+slash exec "i3lock & sleep 2; systemctl suspend"
