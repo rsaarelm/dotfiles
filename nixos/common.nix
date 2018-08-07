@@ -166,11 +166,13 @@
   };
 
   fonts.fonts = with pkgs; [
+    dina-font
+    hack-font
+    iosevka
+    liberation_ttf
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
-    liberation_ttf
-    dina-font
     proggyfonts
     unscii
   ];
