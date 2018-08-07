@@ -22,7 +22,6 @@
   hardware = {
     # Steam games want this.
     opengl.driSupport32Bit = true;
-    pulseaudio.support32Bit = true;
 
     bluetooth = {
       enable = true;

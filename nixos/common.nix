@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  boot.kernelModules = [ "snd-seq" "snd-rawmidi" ];
+
   # LOCALIZATION
 
   # Select internationalisation properties.
@@ -44,6 +46,7 @@
       imagemagick
       links
       mosh
+      mpc_cli
       ncdu
       neovim
       optipng
@@ -120,6 +123,20 @@
       temperature.night = 3500;
     };
 
+    mpd = {
+      enable = true;
+      user = "rsaarelm";
+      group = "users";
+      musicDirectory = "/home/rsaarelm/Music";
+      dataDir = "/home/rsaarelm/.config/mpd";
+      extraConfig = ''
+        audio_output {
+          name    "MPD"
+          type    "pulse"
+        }
+      '';
+    };
+
     xserver = {
       enable = true;
       windowManager = {
@@ -188,7 +205,10 @@
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    support32Bit = true;
+  };
 
   # Enable touchpad support.
   # services.xserver.libinput.enable = true;
@@ -197,7 +217,7 @@
   users.extraUsers.rsaarelm = {
     isNormalUser = true;
     home = "/home/rsaarelm";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "audio" ];
     uid = 1000;
     shell = pkgs.zsh;
     initialPassword = "1234";

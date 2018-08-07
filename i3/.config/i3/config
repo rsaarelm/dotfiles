@@ -121,6 +121,10 @@ bindsym $mod+Shift+slash exec "i3lock & sleep 2; systemctl suspend"
 # Quick-launch a one-off browser instance.
 bindsym $mod+F2 exec "chromium --incognito"
 
+# Music player control
+bindsym $mod+F9 exec "mpc toggle"
+bindsym $mod+F10 exec "mpc next"
+
 #bindsym $mod+Print exec "docscrot"
 ## Screenshot selected region
 #bindsym $mod+Shift+Print exec "docscrot -s"
