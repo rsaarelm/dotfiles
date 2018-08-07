@@ -47,12 +47,16 @@
 
       displayManager.slim.theme = ./slim-theme;
     };
+
+    autorandr.enable = true;
   };
 
 
   # PACKAGES
 
   environment.systemPackages = with pkgs; [
+    autorandr
+
     discord
     steam
   ];
