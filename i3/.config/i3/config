@@ -1,6 +1,3 @@
-# Colemak with Caps as Ctrl
-exec "setxkbmap us -variant colemak -option ctrl:nocaps"
-
 # Win key as modifier
 set $mod Mod4
 

@@ -83,6 +83,7 @@
       rxvt_unicode_with-plugins
       scrot
       sxiv
+      xcape
       zathura
     ];
 
@@ -145,6 +146,7 @@
       };
 
       layout = "us(colemak)";
+      xkbOptions = "ctrl:nocaps";
 
       displayManager.slim.defaultUser = "rsaarelm";
 
@@ -180,6 +182,16 @@
         ''}"
       '';
     };
+  };
+
+  systemd.user.services.xcape = {
+    enable = true;
+    description = "xcape to use CTRL as ESC when pressed alone";
+    wantedBy = [ "default.target" ];
+    serviceConfig.Type = "forking";
+    serviceConfig.Restart = "always";
+    serviceConfig.RestartSec = 2;
+    serviceConfig.ExecStart = "${pkgs.xcape}/bin/xcape";
   };
 
   fonts.fonts = with pkgs; [
