@@ -1,12 +1,7 @@
-alias ls="ls --color=auto"
-alias R="R --no-save" # Used as quick calculator, make it easy to exit.
 # Keyboard togglers
-alias arst="setxkbmap us -variant intl -option ctrl:nocaps"
-alias asdf="setxkbmap us -variant colemak -option ctrl:nocaps"
+alias arst="setxkbmap us -variant intl"
+alias asdf="setxkbmap us -variant colemak"
 
-export PATH="$HOME/bin:$HOME/local/bin:$PATH:/usr/local/games:$HOME/.cargo/bin:$HOME/.local/bin"
-export EDITOR=vim
-export VISUAL=vim
 export RUST_SRC_PATH=/home/rsaarelm/rustc-nightly/src
 
 setopt hist_ignore_space
