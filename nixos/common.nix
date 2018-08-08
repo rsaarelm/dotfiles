@@ -42,6 +42,7 @@
       # Utils
       aspell
       aspellDicts.en
+      bc
       fdupes
       gitAndTools.git-annex
       hledger
@@ -73,6 +74,7 @@
       python3
 
       # X11
+      lemonbar-xft
       chromium
       gimp
       grafx2
@@ -210,6 +212,7 @@
 
   fonts.fonts = with pkgs; [
     dina-font
+    font-awesome-ttf
     hack-font
     (iosevka.override {
       # See https://github.com/be5invis/Iosevka for variant documentation.
