@@ -43,13 +43,10 @@
         enable = true;
         disableWhileTyping = true;
       };
-
-      displayManager.slim.theme = ./slim-theme;
     };
 
     autorandr.enable = true;
   };
-
 
   # PACKAGES
 
