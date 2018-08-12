@@ -183,6 +183,8 @@
         ''}"
       '';
     };
+
+    unclutter-xfixes.enable = true;
   };
 
   systemd.user.services.xcape = {
