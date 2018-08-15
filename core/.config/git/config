@@ -1,12 +1,12 @@
 [user]
-	name = Risto Saarelma
-	email = risto.saarelma@iki.fi
+    name = Risto Saarelma
+    email = risto.saarelma@iki.fi
 [color]
-	ui = true
+    ui = true
 [alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-        recent = branch --sort=-committerdate
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    recent = branch --sort=-committerdate
 [rebase]
-	autosquash = true
+    autosquash = true
 [diff]
-	wsErrorHighlight = all
+    wsErrorHighlight = all
