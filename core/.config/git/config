@@ -4,8 +4,22 @@
 [color]
     ui = true
 [alias]
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # Terse log of current branch
+    lg = log --graph --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
+    # Logs of all branches
+    hist = log --all --graph --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
+    # Branches sorted by last commit date
     recent = branch --sort=-committerdate
+    # Fap
+    fap = fetch --all --prune
+    # Short-form status
+    s = status -sb
+    # Show diff in index but not in working tree
+    ix = diff --cached
+    # Show diff of both index and working tree
+    d = diff HEAD
+    # Set date of top commit to now
+    redate = commit --amend --no-edit --date='now'
 [rebase]
     autosquash = true
 [diff]
