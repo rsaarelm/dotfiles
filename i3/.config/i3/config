@@ -167,3 +167,7 @@ bindsym $mod+Tab workspace back_and_forth
 mouse_warping none
 
 hide_edge_borders smart
+
+# XXX: Temporary setting for my Rust game under development,
+# Doesn't belong in the completely general part of the config file.
+for_window [class="magog"] floating enable
