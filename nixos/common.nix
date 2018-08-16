@@ -25,6 +25,7 @@
     systemPackages = with pkgs;
     let
       neovim = pkgs.neovim.override { vimAlias = true; };
+      myPythonPackages = pythonPackages: with pythonPackages; [ i3ipc ];
     in
     [
       # System
@@ -42,7 +43,6 @@
       # Utils
       aspell
       aspellDicts.en
-      bc
       fdupes
       gitAndTools.git-annex
       hledger
@@ -71,7 +71,7 @@
       clang
       git
       gnumake
-      python3
+      (python3.withPackages myPythonPackages)
 
       # X11
       lemonbar-xft
