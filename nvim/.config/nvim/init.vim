@@ -69,16 +69,41 @@ Plug 'vimoutliner/vimoutliner'
 " Haskell Source code formatter
 Plug 'nbouscal/vim-stylish-haskell'
 
-" Rust code completer
+" Rust support
 Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
+let g:rustfmt_command = 'rustfmt +nightly'
 
 " Linter
+" TODO: LanguageClient provides similar live linting as ALE, plus other
+" services. Currently using ALE for Python2 dev that I don't have working
+" LanguageClient for. Would be ideal to be able to drop ALE and only use
+" LanguageClient in the future.
 Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'always'
+" Disable for Rust, handled by LanguageClient
+let g:ale_linters = {
+\   'rust': [],
+\}
 
-" Nix files
+" Nix file format
 Plug 'LnL7/vim-nix'
+
+" Language Client
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['env', 'rustup', 'run', 'stable', 'rls'],
+    \ 'python': ['env', 'pyls'],
+    \ }
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" Asynchronous completion framework
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
@@ -110,6 +135,8 @@ set noswapfile      " Don't create swap files
 
 set guioptions=ac   " Minimize GUI cruft
 set guicursor+=a:blinkon0
+
+set hidden          " Allow unsaved stuff in background buffers
 
 " Key mapping
 " ================================
