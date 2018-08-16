@@ -69,7 +69,6 @@
       git
       gnumake
       python3
-      rustup
 
       # X11
       chromium
