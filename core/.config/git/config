@@ -20,6 +20,10 @@
     d = diff HEAD
     # Set date of top commit to now
     redate = commit --amend --no-edit --date='now'
+    # Update submodules
+    subu = submodule update --recursive
+    # Rebase-pull
+    purr = pull --rebase
 [rebase]
     autosquash = true
 [diff]
