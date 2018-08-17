@@ -9,3 +9,5 @@ stow i3
 stow autorandr
 stow mplayer
 stow nvim
+
+stow factorio
