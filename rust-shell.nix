@@ -5,10 +5,8 @@ stdenv.mkDerivation {
   buildInputs = [
     rustup
 
-    # Example Additional Dependencies
-    pkgconfig openssl
-
-    cmake gcc zlib
+    # Dev stuff cargo dependencies might need
+    cmake gcc zlib pkgconfig openssl
   ];
 
   # XXX: Not doing stuff in proper Nix way and just running the Nix spells.
@@ -16,6 +14,7 @@ stdenv.mkDerivation {
     rustup install stable
     rustup install nightly
     rustup update
+    rustup default stable
 
     rustup component add rls-preview rust-analysis rust-src
     rustup component add rustfmt-preview clippy-preview --toolchain nightly
@@ -29,5 +28,11 @@ stdenv.mkDerivation {
   RUST_BACKTRACE = 1;
 
   # Stuff needed to run Glium programs.
-  LD_LIBRARY_PATH = with pkgs.xlibs; "${pkgs.mesa}/lib:${libX11}/lib:${libXcursor}/lib:${libXxf86vm}/lib:${libXi}/lib:${libXrandr}/lib";
+  LD_LIBRARY_PATH = with pkgs.xlibs;
+     "${pkgs.mesa}/lib:"
+    +"${libX11}/lib:"
+    +"${libXcursor}/lib:"
+    +"${libXxf86vm}/lib:"
+    +"${libXi}/lib:"
+    +"${libXrandr}/lib";
 }
