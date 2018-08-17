@@ -1,0 +1,11 @@
+{
+  "name": "a-better-start",
+  "version": "0.3.0",
+  "title": "A Better Start (Quick Start)",
+  "author": "koolwalky",
+  "contact": "",
+  "homepage": "",
+  "factorio_version": "0.16",
+  "dependencies": ["base >= 0.15"],
+  "description": "A remake & update of the Quick Start mod for 0.16 and above, hover over the 'Better Start Supplies' in mod settings or read the description on Factorio's official mods website for details about what each pack contains."
+}
