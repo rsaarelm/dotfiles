@@ -232,6 +232,9 @@
   hardware.pulseaudio = {
     enable = true;
     support32Bit = true;
+
+    # Bluetooth support
+    package = pkgs.pulseaudioFull;
   };
 
   # Enable touchpad support.
