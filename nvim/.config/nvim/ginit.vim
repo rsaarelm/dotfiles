@@ -1,3 +1,3 @@
 set mouse=a
-colorscheme morning
+colorscheme desert
 Guifont! Iosevka:h12
