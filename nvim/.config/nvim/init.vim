@@ -101,6 +101,7 @@ nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <leader>s :call LanguageClient#workspace_symbol()<CR>
 
 " Asynchronous completion framework
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
