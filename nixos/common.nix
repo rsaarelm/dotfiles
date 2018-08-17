@@ -83,6 +83,7 @@
       scrot
       sxiv
       xcape
+      xorg.xmessage
       xorg.xrefresh
       zathura
     ];
