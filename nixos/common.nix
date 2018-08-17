@@ -151,6 +151,15 @@
       displayManager.slim.defaultUser = "rsaarelm";
 
       displayManager.sessionCommands = ''
+        # The touchpad emits random signals when laptop is closed. Have it
+        # disabled by default. You can enable it manually with
+        #
+        #     xinput enable "Elan Touchpad"
+        #
+        # (This would be nicer if stored in tantalum's hostfile but didn't
+        # figure out how to split it off from sessionCommands)
+        if [ `hostname` = tantalum ]; then xinput disable "Elan Touchpad"; fi
+
         xrdb "${pkgs.writeText "xrdb.conf" ''
           URxvt.font: xft:Iosevka:size=12
           URxvt.scrollBar: false
