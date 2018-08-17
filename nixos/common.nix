@@ -152,7 +152,7 @@
 
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
-          URxvt.font: xft:Monospace:size=12
+          URxvt.font: xft:Iosevka:size=12
           URxvt.scrollBar: false
           URxvt.perl-ext: default,url-select
           URxvt.keysym.M-u: perl:url-select:select_next
