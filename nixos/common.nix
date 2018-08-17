@@ -209,7 +209,13 @@
   fonts.fonts = with pkgs; [
     dina-font
     hack-font
-    iosevka
+    (iosevka.override {
+      design = [
+        "cv02" "cv04" "cv08" "cv12" "cv14" "cv17" "cv19" "cv26" "cv31" "cv36"
+        "cv38" "cv53"
+      ];
+      set = "custom-iosevka";
+    })
     liberation_ttf
     noto-fonts
     noto-fonts-cjk
