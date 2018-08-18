@@ -5,7 +5,7 @@
     ui = true
 [alias]
     # Terse log of current branch
-    lg = log --graph --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s %C(bold blue)(%cr)%Creset %C(blue)<%an>%Creset'
+    lg = log --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s %C(bold blue)(%cr)%Creset %C(blue)<%an>%Creset'
     # Logs of all branches
     hist = log --all --graph --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s %C(bold blue)(%ci)%Creset %C(blue)<%an>%Creset'
     # Branches sorted by last commit date
