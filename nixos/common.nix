@@ -210,9 +210,10 @@
     dina-font
     hack-font
     (iosevka.override {
+      # See https://github.com/be5invis/Iosevka for variant documentation.
       design = [
-        "cv02" "cv04" "cv08" "cv12" "cv14" "cv17" "cv19" "cv26" "cv31" "cv36"
-        "cv38" "cv53"
+        "cv04" "cv08" "cv12" "cv14" "cv17" "cv19" "cv26"
+        "cv31" "cv36" "cv38" "cv53"
       ];
       set = "custom-iosevka";
     })
