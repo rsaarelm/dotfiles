@@ -1,0 +1,4 @@
+#!/bin/sh
+
+xrandr --dpi 144
+i3-msg restart
