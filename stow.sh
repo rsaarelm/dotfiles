@@ -6,7 +6,6 @@ stow core
 stow nix
 stow i3
 
-stow autorandr
 stow mplayer
 stow nvim
 
