@@ -17,6 +17,7 @@ stdenv.mkDerivation {
     rustup default stable
 
     rustup component add rls-preview rust-analysis rust-src
+    rustup component add rls-preview rust-analysis rust-src --toolchain nightly
     rustup component add rustfmt-preview clippy-preview --toolchain nightly
 
     # FIXME: These run into some linker problem when run from shellHook
