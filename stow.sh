@@ -14,3 +14,4 @@ if [ -e $AUTORANDR ]; then
 fi
 
 stow factorio
+stow dungeon-crawl-stone-soup

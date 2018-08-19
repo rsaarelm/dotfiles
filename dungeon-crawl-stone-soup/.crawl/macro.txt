@@ -1,0 +1,73 @@
+# Dungeon Crawl Stone Soup 0.21.1 macro file
+# WARNING: This file is entirely auto-generated.
+
+# Key Mappings:
+
+# Movement block
+K:l
+A:y
+
+K:L
+A:Y
+
+K:n
+A:h
+
+K:N
+A:H
+
+K:u
+A:k
+
+K:U
+A:K
+
+K:y
+A:u
+
+K:Y
+A:U
+
+K:i
+A:l
+
+K:I
+A:L
+
+K:m
+A:b
+
+K:M
+A:B
+
+K:,
+A:j
+
+K:>
+A:J
+
+K:.
+A:n
+
+K:>
+A:N
+
+K:e
+A:.
+
+K:E
+A:5
+
+# Replace clobbered keys
+K:h
+A:i
+
+K:H
+A:I
+
+K:b
+A:e
+
+K:k
+A:m
+# Command Macros:
