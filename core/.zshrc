@@ -82,3 +82,10 @@ if command -v thefuck > /dev/null; then
 fi
 
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
+
+# Clean up old files from tmp dir. Move them to trash/ instead of deleting
+# outright in case things go wrong.
+# XXX: This should be a daily cronjob instead.
+mkdir -p $HOME/trash
+mkdir -p $HOME/tmp
+find $HOME/tmp/ -mtime +30 -exec echo "Moving {} to trash/" \; -exec mv {} $HOME/trash \;
