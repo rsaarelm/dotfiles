@@ -48,6 +48,8 @@
     autorandr.enable = true;
   };
 
+  services.xserver.dpi = 120;
+
   # PACKAGES
 
   environment.systemPackages = with pkgs; [
