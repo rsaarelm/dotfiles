@@ -178,6 +178,18 @@ nnoremap ge k|xnoremap ge k|onoremap ge k|
 nnoremap e gk|xnoremap e gk|onoremap e gk|
 nnoremap j e|xnoremap j e|onoremap j e|
 
+" Buffer navigation hotkeys
+noremap <unique> <M-1> 1gt
+noremap <unique> <M-2> 2gt
+noremap <unique> <M-3> 3gt
+noremap <unique> <M-4> 4gt
+noremap <unique> <M-5> 5gt
+noremap <unique> <M-6> 6gt
+noremap <unique> <M-7> 7gt
+noremap <unique> <M-8> 8gt
+noremap <unique> <M-9> 9gt
+noremap <unique> <M-0> 10gt
+
 
 " Abbreviations
 " ================================
