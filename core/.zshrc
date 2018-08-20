@@ -78,7 +78,7 @@ if is_cygwin; then
 fi
 
 if command -v thefuck > /dev/null; then
-    eval $(thefuck --alias)
+    eval $(PYTHONPATH='' thefuck --alias)
 fi
 
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
