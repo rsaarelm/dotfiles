@@ -15,3 +15,4 @@ fi
 
 stow factorio
 stow dungeon-crawl-stone-soup
+stow caves-of-qud
