@@ -33,6 +33,7 @@
       bluez
       coreutils
       file
+      jmtpfs
       lsof
       pciutils
       psmisc
