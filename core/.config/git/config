@@ -24,6 +24,8 @@
     subu = submodule update --recursive
     # Rebase-pull
     purr = pull --rebase
+    # Make a messageless snapshot commit when using git as a backup system
+    snap = commit --allow-empty-message -am ''
 [rebase]
     autosquash = true
 [diff]
