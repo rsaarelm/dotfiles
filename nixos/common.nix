@@ -3,6 +3,8 @@
 {
   boot.kernelModules = [ "snd-seq" "snd-rawmidi" ];
 
+  boot.cleanTmpDir = true;
+
   # LOCALIZATION
 
   # Select internationalisation properties.
