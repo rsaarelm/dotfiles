@@ -96,6 +96,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['env', 'rustup', 'run', 'stable', 'rls'],
     \ 'python': ['env', 'pyls'],
+    \ 'haskell': ['env', 'hie-wrapper'],
     \ }
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
