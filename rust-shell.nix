@@ -9,7 +9,8 @@ stdenv.mkDerivation {
     cmake gcc zlib pkgconfig openssl
   ];
 
-  # XXX: Not doing stuff in proper Nix way and just running the Nix spells.
+  # XXX: This isn't the proper Nix way to do setup
+  # TODO: Support cross-compilation to target x86_64-pc-windows-gnu
   shellHook = ''
     rustup install stable
     rustup install nightly
