@@ -10,6 +10,18 @@ A:y
 K:L
 A:Y
 
+K:u
+A:k
+
+K:U
+A:K
+
+K:y
+A:u
+
+K:Y
+A:U
+
 K:n
 A:h
 
@@ -17,21 +29,15 @@ K:N
 A:H
 
 K:e
-A:j
+A:.
 
 K:E
-A:J
+A:5
 
 K:i
-A:k
-
-K:I
-A:K
-
-K:o
 A:l
 
-K:O
+K:I
 A:L
 
 K:m
@@ -41,22 +47,16 @@ K:M
 A:B
 
 K:,
+A:j
+
+K:<
+A:J
+
+K:.
 A:n
 
 K:>
 A:N
-
-K:.
-A:>
-
-K:>
-A:<
-
-K:e
-A:j
-
-K:E
-A:J
 
 # Replace clobbered keys
 K:h
@@ -68,10 +68,15 @@ A:I
 K:b
 A:e
 
+K:B
+A:E
+
 K:k
 A:m
 
-K:y
-A:o
+K:;
+A:<
 
+K:/
+A:>
 # Command Macros:
