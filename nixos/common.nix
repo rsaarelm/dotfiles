@@ -74,6 +74,7 @@
       python3
 
       # X11
+      autorandr
       chromium
       gimp
       grafx2

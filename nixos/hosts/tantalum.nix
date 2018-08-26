@@ -53,8 +53,6 @@
   # PACKAGES
 
   environment.systemPackages = with pkgs; [
-    autorandr
-
     discord
     steam
   ];
