@@ -66,9 +66,6 @@ let $FZF_DEFAULT_COMMAND = '
 " Vimoutliner
 Plug 'vimoutliner/vimoutliner'
 
-" Haskell Source code formatter
-Plug 'nbouscal/vim-stylish-haskell'
-
 " Rust support
 Plug 'rust-lang/rust.vim'
 let g:rustfmt_command = 'rustfmt +nightly'
