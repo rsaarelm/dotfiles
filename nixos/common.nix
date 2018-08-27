@@ -43,13 +43,13 @@
       # Utils
       aspell
       aspellDicts.en
+      cmus
       fdupes
       gitAndTools.git-annex
       hledger
       imagemagick
       links
       mosh
-      mpc_cli
       ncdu
       neovim
       optipng
@@ -127,20 +127,6 @@
       longitude = "60";
       temperature.day = 6500;
       temperature.night = 3500;
-    };
-
-    mpd = {
-      enable = true;
-      user = "rsaarelm";
-      group = "users";
-      musicDirectory = "/home/rsaarelm/Music";
-      dataDir = "/home/rsaarelm/.config/mpd";
-      extraConfig = ''
-        audio_output {
-          name    "MPD"
-          type    "pulse"
-        }
-      '';
     };
 
     xserver = {

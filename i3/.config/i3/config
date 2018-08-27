@@ -119,8 +119,8 @@ bindsym $mod+Shift+slash exec "i3lock & sleep 2; systemctl suspend"
 bindsym $mod+F2 exec "chromium --incognito"
 
 # Music player control
-bindsym $mod+F9 exec "mpc toggle"
-bindsym $mod+F10 exec "mpc next"
+bindsym $mod+F9 exec "if ! pgrep -x cmus; then urxvt -e cmus& sleep 0.5; fi; cmus-remote -u"
+bindsym $mod+F10 exec "cmus-remote -n"
 
 bindsym $mod+Print exec "mkdir -p $HOME/Screenshots; scrot $HOME/Screenshots/`date +%Y%m%dT%H%M%S`.png; xrefresh -solid orange"
 #bindsym $mod+Print exec "docscrot"
