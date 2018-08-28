@@ -26,6 +26,8 @@
     purr = pull --rebase
     # Make a messageless snapshot commit when using git as a backup system
     snap = commit --allow-empty-message -am ''
+    # Amend a snap commit
+    snapa = commit --amend --no-edit --allow-empty-message
 [rebase]
     autosquash = true
 [diff]
