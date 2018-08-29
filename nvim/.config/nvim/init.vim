@@ -77,7 +77,7 @@ let g:rustfmt_command = 'rustfmt +nightly'
 " LanguageClient in the future.
 Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'always'
-" Disable for Rust, handled by LanguageClient
+" Disable ALE for things we want to handle with LanguageClient
 let g:ale_linters = {
 \   'rust': [],
 \}
@@ -93,7 +93,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['env', 'rustup', 'run', 'stable', 'rls'],
     \ 'python': ['env', 'pyls'],
-    \ 'haskell': ['env', 'hie-wrapper'],
     \ }
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
