@@ -143,7 +143,7 @@
 
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
-          URxvt.font: xft:Hack:size=10:style=bold
+          URxvt.font: xft:Dina:style=bold
           URxvt.scrollBar: false
           URxvt.perl-ext: default,url-select
           URxvt.keysym.M-u: perl:url-select:select_next
@@ -188,7 +188,7 @@
   };
 
   fonts.fonts = with pkgs; [
-    hack-font
+    dina-font-pcf
     noto-fonts
     noto-fonts-emoji
   ];
