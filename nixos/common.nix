@@ -143,7 +143,7 @@
 
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
-          URxvt.font: xft:Iosevka:size=12
+          URxvt.font: xft:Hack:size=10
           URxvt.scrollBar: false
           URxvt.perl-ext: default,url-select
           URxvt.keysym.M-u: perl:url-select:select_next
@@ -188,21 +188,8 @@
   };
 
   fonts.fonts = with pkgs; [
-    dina-font
     hack-font
-    (iosevka.override {
-      # See https://github.com/be5invis/Iosevka for variant documentation.
-      design = [
-        "cv04" "cv08" "cv12" "cv14" "cv17" "cv19" "cv26" "cv31" "cv36" "cv38"
-      ];
-      set = "custom-iosevka";
-    })
-    liberation_ttf
     noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    proggyfonts
-    unscii
   ];
 
   # Open ports in the firewall.
