@@ -1,6 +1,6 @@
 set mouse=a
 colorscheme desert
-Guifont! Dina:b
+Guifont! Monoid:h10
 
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv
