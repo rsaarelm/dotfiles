@@ -1,6 +1,6 @@
 set mouse=a
 colorscheme jellybeans
-Guifont! Go\ Mono:h10
+Guifont! Monoid:h10
 
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv
