@@ -1,5 +1,5 @@
 set mouse=a
-colorscheme desert
+colorscheme jellybeans
 Guifont! Hack:h10:b
 
 " Copy selections to clipboard automatically
