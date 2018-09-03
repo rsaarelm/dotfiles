@@ -143,7 +143,7 @@
 
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
-          URxvt.font: xft:Hack-10:style=bold
+          URxvt.font: xft:GohuFont
           URxvt.scrollBar: false
           URxvt.perl-ext: default,url-select
           URxvt.keysym.M-u: perl:url-select:select_next
@@ -168,8 +168,8 @@
           *color14: #a2ffff
           *color15: #eeeeec
 
-          *background: Gray10
-          *foreground: Gray
+          *background: #111111
+          *foreground: #dddddd
         ''}"
       '';
     };
@@ -188,7 +188,8 @@
   };
 
   fonts.fonts = with pkgs; [
-    dina-font-pcf
+    gohufont
+
     hack-font
     monoid
     noto-fonts
