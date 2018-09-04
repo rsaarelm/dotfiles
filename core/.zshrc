@@ -88,4 +88,4 @@ fi
 # XXX: This should be a daily cronjob instead.
 mkdir -p $HOME/trash
 mkdir -p $HOME/tmp
-find $HOME/tmp/ -mtime +30 -exec echo "Moving {} to trash/" \; -exec mv {} $HOME/trash \;
+find $HOME/tmp/ -mtime +30 -exec echo "Scheduled cleanup: Moving {} to ~/trash/" \; -exec mv {} $HOME/trash \;
