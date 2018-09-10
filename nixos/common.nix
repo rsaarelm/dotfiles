@@ -192,6 +192,7 @@
 
     hack-font
     monoid
+    go-font
     noto-fonts
     noto-fonts-emoji
   ];
