@@ -12,3 +12,7 @@ highlight ALEErrorSign guifg=#883333 guibg=#333333 gui=bold
 
 highlight ALEError guibg=#401515
 highlight ALEWarning guibg=#153030
+
+" Quick-switching commands for color modes
+command! LightTheme colorscheme PaperColor | set background=light
+command! DarkTheme colorscheme jellybeans | set background=dark
