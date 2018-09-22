@@ -3,80 +3,81 @@
 
 # Key Mappings:
 
+# Command Macros:
+
 # Movement block
-K:l
+M:l
 A:y
 
-K:L
+M:L
 A:Y
 
-K:u
+M:u
 A:k
 
-K:U
+M:U
 A:K
 
-K:y
+M:y
 A:u
 
-K:Y
+M:Y
 A:U
 
-K:n
+M:n
 A:h
 
-K:N
+M:N
 A:H
 
-K:e
+M:e
 A:.
 
-K:E
+M:E
 A:5
 
-K:i
+M:i
 A:l
 
-K:I
+M:I
 A:L
 
-K:m
+M:m
 A:b
 
-K:M
+M:M
 A:B
 
-K:,
+M:,
 A:j
 
-K:<
+M:<
 A:J
 
-K:.
+M:.
 A:n
 
-K:>
+M:>
 A:N
 
 # Replace clobbered keys
-K:h
+M:h
 A:i
 
-K:H
+M:H
 A:I
 
-K:b
+M:b
 A:e
 
-K:B
+M:B
 A:E
 
-K:k
+M:k
 A:m
 
-K:;
+M:;
 A:<
 
-K:/
+M:/
 A:>
-# Command Macros:
