@@ -1,6 +1,5 @@
 set mouse=a
-colorscheme jellybeans
-Guifont! Monoid:h10
+Guifont! Monoid:h9
 
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv
@@ -16,3 +15,4 @@ highlight ALEWarning guibg=#153030
 " Quick-switching commands for color modes
 command! LightTheme colorscheme PaperColor | set background=light
 command! DarkTheme colorscheme jellybeans | set background=dark
+colorscheme jellybeans

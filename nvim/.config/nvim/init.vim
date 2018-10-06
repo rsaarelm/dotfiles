@@ -215,7 +215,9 @@ autocmd FileType haskell setlocal shiftwidth=2 cursorcolumn cursorline
 
 autocmd FileType rust setlocal colorcolumn=100
 
-autocmd FileType python setlocal shiftwidth=2 softtabstop=-1 formatoptions-=t colorcolumn=100
+autocmd FileType python setlocal shiftwidth=4 softtabstop=-1 formatoptions-=t colorcolumn=100
+
+autocmd FileType go setlocal tabstop=4 listchars=tab:\ \ ,trail:· formatoptions-=t
 
 " Commands
 " ================================
