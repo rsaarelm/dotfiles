@@ -71,4 +71,6 @@
     discord
     steam
   ];
+
+  system.stateVersion = "18.03";
 }
