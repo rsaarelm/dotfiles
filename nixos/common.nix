@@ -160,7 +160,7 @@
       layout = "us(colemak)";
       xkbOptions = "ctrl:nocaps";
 
-      displayManager.slim.defaultUser = "rsaarelm";
+      desktopManager.xterm.enable = false;
 
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
