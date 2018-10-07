@@ -94,6 +94,7 @@
       python3
 
       # X11
+      anki
       autorandr
       chromium
       gimp
