@@ -70,18 +70,6 @@ Plug 'vimoutliner/vimoutliner'
 Plug 'rust-lang/rust.vim'
 let g:rustfmt_command = 'rustfmt +nightly'
 
-" Linter
-" TODO: LanguageClient provides similar live linting as ALE, plus other
-" services. Currently using ALE for Python2 dev that I don't have working
-" LanguageClient for. Would be ideal to be able to drop ALE and only use
-" LanguageClient in the future.
-Plug 'w0rp/ale'
-let g:ale_lint_on_text_changed = 'always'
-" Disable ALE for things we want to handle with LanguageClient
-let g:ale_linters = {
-\   'rust': [],
-\}
-
 " Nix file format
 Plug 'LnL7/vim-nix'
 
