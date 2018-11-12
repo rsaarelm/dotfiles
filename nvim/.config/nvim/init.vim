@@ -130,6 +130,8 @@ set guicursor+=a:blinkon0
 
 set hidden          " Allow unsaved stuff in background buffers
 
+set wildmode=longest,list,full  " Don't tab complete wrong options
+
 " Key mapping
 " ================================
 
