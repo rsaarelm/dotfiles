@@ -92,3 +92,6 @@ find $HOME/tmp/ -mtime +30 -exec echo "Scheduled cleanup: Moving {} to ~/trash/"
 
 # Convenience hour tracking using tt
 alias tthr="tt timeclock | hledger -f - balance -p 'daily this week'"
+
+# Download video into ogg file
+alias audio-dl='youtube-dl -x --audio-format vorbis'
