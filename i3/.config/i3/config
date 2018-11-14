@@ -119,7 +119,7 @@ bindsym $mod+Shift+slash exec "i3lock & sleep 2; systemctl suspend"
 bindsym $mod+F2 exec "chromium --incognito"
 
 # Music player control
-bindsym $mod+F9 exec "if ! pgrep -x cmus; then urxvt -e cmus& sleep 0.5; fi; cmus-remote -u"
+bindsym $mod+F9 exec "if ! pgrep -x cmus; then urxvt -name cmus -e cmus& sleep 0.5; fi; cmus-remote -u"
 bindsym $mod+F10 exec "cmus-remote -n"
 
 bindsym $mod+Print exec "mkdir -p $HOME/Screenshots; scrot $HOME/Screenshots/`date +%Y%m%dT%H%M%S`.png; xrefresh -solid orange"
@@ -173,3 +173,8 @@ hide_edge_borders smart
 for_window [class="magog"] floating enable
 
 for_window [class="Xmessage"] floating enable
+
+assign [class="nvim-qt"] 1
+assign [class="Chromium-browser"] 3
+assign [class="Zathura"] 4
+assign [class="URxvt" instance="cmus"] 10
