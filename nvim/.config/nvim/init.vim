@@ -79,7 +79,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['env', 'rustup', 'run', 'stable', 'rls'],
+    \ 'rust': ['env', 'rustup', 'run', 'nightly', 'rls'],
     \ 'python': ['env', 'pyls'],
     \ 'c': ['/home/rsaarelm/local/cquery/build/release/bin/cquery',
     \ '--log-file=/tmp/cq.log',
@@ -87,6 +87,7 @@ let g:LanguageClient_serverCommands = {
     \ 'cpp': ['/home/rsaarelm/local/cquery/build/release/bin/cquery',
     \ '--log-file=/tmp/cq.log',
     \ '--init={"cacheDirectory":"/var/cquery/"}'],
+    \ 'go': ['env', 'go-langserver'],
     \ }
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
