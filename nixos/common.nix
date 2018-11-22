@@ -32,7 +32,9 @@
       acpitool
       bluez
       coreutils
+      exfat-utils
       file
+      fuse_exfat
       jmtpfs
       lsof
       pciutils
