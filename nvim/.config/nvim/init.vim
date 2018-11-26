@@ -224,16 +224,3 @@ command! WhiteClean retab | %s/\s\+$
 
 " Expression-based folding in jrnl files
 command! JrnlFold setlocal foldexpr=getline(v:lnum)=~'^\\d\\d\\d\\d-\\d\\d-\\d\\d\\s\\d\\d:\\d\\d\\s.*'?'>1':1 foldmethod=expr
-
-" Conceal
-" ================================
-
-function! ToggleConcealLevel()
-    if &conceallevel == 0
-        setlocal conceallevel=2
-    else
-        setlocal conceallevel=0
-    endif
-endfunction
-
-nnoremap <silent> <C-c><C-y> :call ToggleConcealLevel()<CR>
