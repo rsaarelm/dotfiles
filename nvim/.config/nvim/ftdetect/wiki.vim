@@ -1,9 +1,5 @@
-autocmd BufRead,BufNewFile *.wiki setlocal filetype=wiki sts=2 tw=78 fo+=tr fo-=r
+autocmd BufRead,BufNewFile *.wiki set filetype=wiki
 
-autocmd BufRead,BufNewFile *.wiki setlocal foldexpr=getline(v:lnum)=~'\\C\\v^([A-Z][a-z0-9]+){2,}$'?'>1':1 foldmethod=expr
-
-" Go to local file wiki definition of WikiWord with gd
-autocmd BufRead,BufNewFile *.wiki map <buffer> gd yiw/^\<<C-f>pa\>$<cr>
-
-" Open external file WikiWord.wiki with gf
-autocmd BufRead,BufNewFile *.wiki setlocal suffixesadd=.wiki
+" Extension .wiki.html is for files using the HTML transforming shim that need
+" to advertise a text/html MIME type to a static web server.
+autocmd BufRead,BufNewFile *.wiki.html set filetype=wiki
