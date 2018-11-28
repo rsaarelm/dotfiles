@@ -14,6 +14,7 @@ setlocal suffixesadd=.wiki,.wiki.html
 " Use backslash in LaTeX style abbrevs
 setlocal iskeyword+=\
 
+" Big list of math writing abbrevs
 iabbrev <buffer> \Gamma Γ
 iabbrev <buffer> \Delta Δ
 iabbrev <buffer> \Theta Θ
