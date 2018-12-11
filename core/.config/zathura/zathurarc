@@ -1,0 +1,2 @@
+map <Space> feedkeys "<PageDown>"
+map <S-Space> feedkeys "<PageUp>"
