@@ -88,7 +88,7 @@ fi
 # XXX: This should be a daily cronjob instead.
 mkdir -p $HOME/trash
 mkdir -p $HOME/tmp
-find $HOME/tmp/ -mtime +30 -exec echo "Scheduled cleanup: Moving {} to ~/trash/" \; -exec mv {} $HOME/trash \;
+find $HOME/tmp/ -maxdepth 1 -mtime +30 -exec echo "Scheduled cleanup: Moving {} to ~/trash/" \; -exec mv {} $HOME/trash \;
 
 # Convenience hour tracking using tt
 alias tthr="tt timeclock | hledger -f - balance -p 'daily this week'"
