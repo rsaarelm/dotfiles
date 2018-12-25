@@ -3,7 +3,7 @@ setlocal textwidth=78
 setlocal formatoptions+=t
 
 " Fold on titles
-setlocal foldexpr=getline(v:lnum)=~'\\C\\v^([A-Z][a-z0-9]+){2,}$'?'>1':1 foldmethod=expr
+setlocal foldexpr=getline(v:lnum)=~'\\C\\v^([A-Z][a-z0-9]+){2,}$'?'>1':1
 
 " Go to local file wiki definition of WikiWord with gd
 map <buffer> gd yiw/^\<<C-f>pa\>$<cr>zo
