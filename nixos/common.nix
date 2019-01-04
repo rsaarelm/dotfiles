@@ -32,6 +32,7 @@
       acpitool
       bluez
       coreutils
+      docker
       exfat-utils
       file
       fuse_exfat
@@ -130,6 +131,8 @@
       enableCompletion = true;
     };
   };
+
+  virtualisation.docker.enable = true;
 
   # List services that you want to enable:
   services = {
@@ -246,7 +249,7 @@
   users.extraUsers.rsaarelm = {
     isNormalUser = true;
     home = "/home/rsaarelm";
-    extraGroups = [ "wheel" "audio" ];
+    extraGroups = [ "wheel" "audio" "docker" ];
     uid = 1000;
     shell = pkgs.zsh;
     initialPassword = "1234";
