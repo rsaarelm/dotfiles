@@ -10,7 +10,7 @@
   # Select internationalisation properties.
   i18n = {
     consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "colemak/en-latin9";
+    consoleKeyMap = "colemak/colemak";
     defaultLocale = "en_US.UTF-8";
   };
 
