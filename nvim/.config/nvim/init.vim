@@ -221,6 +221,3 @@ autocmd FileType go setlocal tabstop=4 listchars=tab:\ \ ,trail:· formatoptions
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
-
-" Expression-based folding in jrnl files
-command! JrnlFold setlocal foldexpr=getline(v:lnum)=~'^\\d\\d\\d\\d-\\d\\d-\\d\\d\\s\\d\\d:\\d\\d\\s.*'?'>1':1 foldmethod=expr
