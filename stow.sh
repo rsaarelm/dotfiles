@@ -13,6 +13,4 @@ if [ -e $AUTORANDR ]; then
     stow $AUTORANDR
 fi
 
-stow factorio
-stow dungeon-crawl-stone-soup
-stow caves-of-qud
+stow games
