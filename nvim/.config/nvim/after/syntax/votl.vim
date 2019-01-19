@@ -27,4 +27,15 @@ syntax match otlImportant /\C\v^\t{5}(\I|\w).* \*$/ contained containedin=OL6
 syntax match otlImportant /\C\v^\t{6}(\I|\w).* \*$/ contained containedin=OL7
 syntax match otlImportant /\C\v^\t{7}(\I|\w).* \*$/ contained containedin=OL8
 syntax match otlImportant /\C\v^\t{8}(\I|\w).* \*$/ contained containedin=OL9
-highlight def link otlImportant Todo
+highlight def otlImportant cterm=bold
+
+" Underlined is not a good look
+hi link UB1 Constant
+hi link UB2 Constant
+hi link UB3 Constant
+hi link UB4 Constant
+hi link UB5 Constant
+hi link UB6 Constant
+hi link UB7 Constant
+hi link UB8 Constant
+hi link UB9 Constant
