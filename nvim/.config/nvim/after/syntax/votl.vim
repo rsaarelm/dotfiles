@@ -29,13 +29,14 @@ syntax match otlImportant /\C\v^\t{7}(\I|\w).* \*$/ contained containedin=OL8
 syntax match otlImportant /\C\v^\t{8}(\I|\w).* \*$/ contained containedin=OL9
 highlight def otlImportant cterm=bold
 
-" Underlined is not a good look
-hi link UB1 Constant
-hi link UB2 Constant
-hi link UB3 Constant
-hi link UB4 Constant
-hi link UB5 Constant
-hi link UB6 Constant
-hi link UB7 Constant
-hi link UB8 Constant
-hi link UB9 Constant
+" Use the same style as with non-user preformatted text, the default underline
+" is ugly.
+hi link UB1 Special
+hi link UB2 Special
+hi link UB3 Special
+hi link UB4 Special
+hi link UB5 Special
+hi link UB6 Special
+hi link UB7 Special
+hi link UB8 Special
+hi link UB9 Special
