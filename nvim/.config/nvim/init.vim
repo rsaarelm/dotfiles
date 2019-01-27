@@ -73,6 +73,8 @@ let g:rustfmt_command = 'rustfmt +nightly'
 " Nix file format
 Plug 'LnL7/vim-nix'
 
+Plug 'w0rp/ale'
+
 " Language Client
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -215,6 +217,8 @@ autocmd FileType rust setlocal colorcolumn=100
 autocmd FileType python setlocal shiftwidth=4 softtabstop=-1 formatoptions-=t colorcolumn=100
 
 autocmd FileType go setlocal tabstop=4 listchars=tab:\ \ ,trail:· formatoptions-=t
+
+autocmd FileType javascript setlocal shiftwidth=2
 
 " Commands
 " ================================

@@ -8,7 +8,7 @@ noremap <buffer> gF :e %:h/<cfile>.otl<CR>
 
 " Search for local definition of word under cursor (word is only thing on
 " line)
-noremap <buffer> gd /^\s*<C-r>=expand("<cword>")<CR>\s*$<CR>
+noremap <buffer> gd /^\s*<C-r>=expand("<cword>")<CR>\s*$<CR>zv
 
 " Remove - from keyword so that WikiWord-s hyphenation pattern works
 setlocal iskeyword-=45
