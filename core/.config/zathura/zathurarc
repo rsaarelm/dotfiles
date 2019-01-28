@@ -1,2 +1,4 @@
 map <Space> feedkeys "<PageDown>"
 map <S-Space> feedkeys "<PageUp>"
+map j feedkeys "<C-d>"
+map k feedkeys "<C-u>"
