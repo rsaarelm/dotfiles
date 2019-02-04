@@ -18,15 +18,15 @@ syntax match otlWikiHeading /\C\v^\t{8}([A-Z][a-z0-9]+){2,}$/ contained containe
 highlight def link otlWikiHeading Title
 
 " Convention: Mark important entries with trailing asterisk
-syntax match otlImportant      /\C\v^(\I|\w).* \*$/ contained containedin=OL1
-syntax match otlImportant    /\C\v^\t(\I|\w).* \*$/ contained containedin=OL2
-syntax match otlImportant /\C\v^\t{2}(\I|\w).* \*$/ contained containedin=OL3
-syntax match otlImportant /\C\v^\t{3}(\I|\w).* \*$/ contained containedin=OL4
-syntax match otlImportant /\C\v^\t{4}(\I|\w).* \*$/ contained containedin=OL5
-syntax match otlImportant /\C\v^\t{5}(\I|\w).* \*$/ contained containedin=OL6
-syntax match otlImportant /\C\v^\t{6}(\I|\w).* \*$/ contained containedin=OL7
-syntax match otlImportant /\C\v^\t{7}(\I|\w).* \*$/ contained containedin=OL8
-syntax match otlImportant /\C\v^\t{8}(\I|\w).* \*$/ contained containedin=OL9
+syntax match otlImportant      /\C\v^(\I|\w|\[).* \*$/ contained containedin=OL1
+syntax match otlImportant    /\C\v^\t(\I|\w|\[).* \*$/ contained containedin=OL2
+syntax match otlImportant /\C\v^\t{2}(\I|\w|\[).* \*$/ contained containedin=OL3
+syntax match otlImportant /\C\v^\t{3}(\I|\w|\[).* \*$/ contained containedin=OL4
+syntax match otlImportant /\C\v^\t{4}(\I|\w|\[).* \*$/ contained containedin=OL5
+syntax match otlImportant /\C\v^\t{5}(\I|\w|\[).* \*$/ contained containedin=OL6
+syntax match otlImportant /\C\v^\t{6}(\I|\w|\[).* \*$/ contained containedin=OL7
+syntax match otlImportant /\C\v^\t{7}(\I|\w|\[).* \*$/ contained containedin=OL8
+syntax match otlImportant /\C\v^\t{8}(\I|\w|\[).* \*$/ contained containedin=OL9
 highlight def otlImportant cterm=bold
 
 " Use the same style as with non-user preformatted text, the default underline
