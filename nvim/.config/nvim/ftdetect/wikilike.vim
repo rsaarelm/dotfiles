@@ -4,4 +4,4 @@ autocmd BufRead,BufNewFile *.wiki set filetype=wikilike
 " to advertise a text/html MIME type to a static web server.
 autocmd BufRead,BufNewFile *.wiki.html set filetype=wikilike
 
-autocmd BufNewFile *.wiki.html r ~/.vim/skeleton.wiki.html
+autocmd BufNewFile *.wiki.html 0r ~/.vim/skeleton.wiki.html
