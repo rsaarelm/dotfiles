@@ -158,6 +158,8 @@ vnoremap > >gv
 
 " Fast buffer switching
 nnoremap <BS> <C-^>
+nnoremap <left> :bp<cr>
+nnoremap <right> :bn<cr>
 
 " Colemak navigation
 "
