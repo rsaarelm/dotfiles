@@ -38,10 +38,10 @@ Plug 'tpope/vim-fugitive'
 " Table mode
 Plug 'dhruvasagar/vim-table-mode'
 
-" todo.txt
-Plug 'freitass/todo.txt-vim'
-" Make it recognize the third file in my todo workflow.
-autocmd BufNewFile,BufRead [Ss]omeday.txt set filetype=todo
+" todo.txt (use the fork for done.txt renaming)
+Plug 'dbeniamine/todo.txt-vim'
+let g:TodoTxtForceDoneName='done.txt'
+let g:TodoTxtStripDoneItemPriority=1
 
 " Fuzzy Finder
 if has('win32') || has('win64')
