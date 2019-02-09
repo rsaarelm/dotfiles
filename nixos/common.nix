@@ -97,7 +97,8 @@
       python3
 
       # X11
-      anki
+      # Stable is bitrotted, use local install for now
+      #anki
       autorandr
       chromium
       gimp
