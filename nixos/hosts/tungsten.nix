@@ -32,13 +32,6 @@
     };
   };
 
-  # PACKAGES
-
-  environment.systemPackages = with pkgs; [
-    discord
-    steam
-  ];
-
   # Dual monitor setup
   services.xserver.xrandrHeads = [
     {

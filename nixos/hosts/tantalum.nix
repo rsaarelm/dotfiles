@@ -65,12 +65,5 @@
 
   services.xserver.dpi = 120;
 
-  # PACKAGES
-
-  environment.systemPackages = with pkgs; [
-    discord
-    steam
-  ];
-
   system.stateVersion = "18.03";
 }
