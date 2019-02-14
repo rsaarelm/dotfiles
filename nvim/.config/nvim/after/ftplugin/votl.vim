@@ -12,3 +12,10 @@ noremap <buffer> gd /^\s*<C-r>=expand("<cword>")<CR>\s*$<CR>zv
 
 " Remove - from keyword so that WikiWord-s hyphenation pattern works
 setlocal iskeyword-=45
+
+" Don't wrap lines when cursor is on a table
+autocmd CursorMoved,CursorMovedI <buffer> if IsVimOutlinerTable() | setlocal nowrap | else | setlocal wrap | endif
+
+function IsVimOutlinerTable()
+    return getline('.') =~# '^\t*|'
+endfunction
