@@ -16,6 +16,6 @@ setlocal iskeyword-=45
 " Don't wrap lines when cursor is on a table
 autocmd CursorMoved,CursorMovedI <buffer> if IsVimOutlinerTable() | setlocal nowrap | else | setlocal wrap | endif
 
-function IsVimOutlinerTable()
+function! IsVimOutlinerTable()
     return getline('.') =~# '^\t*|'
 endfunction
