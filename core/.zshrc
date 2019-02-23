@@ -93,6 +93,7 @@ find $HOME/tmp/ -maxdepth 1 -mtime +30 -exec echo "Scheduled cleanup: Moving {} 
 # Work stuff, symlink ~/dayjob to work folder with its own todo.txt
 alias wtt="tt --prefix ~/dayjob"
 alias workhours="wtt timeclock | hledger -f - balance -p 'daily this week'"
+alias pomodoro="cmus-remote -p; sleep 48m; cmus-remote -u; sleep 12m"
 
 # Download video into ogg file
 alias audio-dl='youtube-dl -x --audio-format vorbis'
