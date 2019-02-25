@@ -93,7 +93,21 @@ find $HOME/tmp/ -maxdepth 1 -mtime +30 -exec echo "Scheduled cleanup: Moving {} 
 # Work stuff, symlink ~/dayjob to work folder with its own todo.txt
 alias wtt="tt --prefix ~/dayjob"
 alias workhours="wtt timeclock | hledger -f - balance -p 'daily this week'"
-alias pomodoro="cmus-remote -p; sleep 48m; cmus-remote -u; sleep 12m"
+
+# 48 min + 12 min work cycle. Put this in a loop for repeated work.
+function pomodoro() {
+    # Start cmus if needed
+    if ! pgrep -x cmus > /dev/null; then
+        urxvt -name cmus -e cmus&
+        sleep 0.5
+    fi
+    # Catch Ctrl-C and turn off the music
+    trap "{ cmus-remote -s; return; }" SIGINT
+    cmus-remote -p
+    sleep 48m
+    cmus-remote -s
+    sleep 12m
+}
 
 # Download video into ogg file
 alias audio-dl='youtube-dl -x --audio-format vorbis'
