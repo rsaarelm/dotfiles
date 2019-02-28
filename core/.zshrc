@@ -81,8 +81,6 @@ if command -v thefuck > /dev/null; then
     eval $(PYTHONPATH='' thefuck --alias)
 fi
 
-[[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
-
 # Clean up old files from tmp dir. Move them to trash/ instead of deleting
 # outright in case things go wrong.
 # XXX: This should be a daily cronjob instead.
@@ -111,3 +109,16 @@ function pomodoro() {
 
 # Download video into ogg file
 alias audio-dl='youtube-dl -x --audio-format vorbis'
+
+
+# Extra environment variables can be listed in ~/.env-settings in
+# VAR=value
+# lines
+if [[ -s $HOME/.env-settings ]]; then
+    set -o allexport
+    source $HOME/.env-settings
+    set +o allexport
+fi
+
+# Optional file for local configuration
+[[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
