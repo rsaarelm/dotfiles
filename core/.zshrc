@@ -103,7 +103,7 @@ function pomodoro() {
     trap "{ cmus-remote -s; return; }" SIGINT
     cmus-remote -p
     sleep 48m
-    cmus-remote -s
+    cmus-remote -u
     sleep 12m
 }
 
