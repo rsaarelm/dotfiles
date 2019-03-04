@@ -188,6 +188,14 @@ noremap <unique> <M-8> 8gt
 noremap <unique> <M-9> 9gt
 noremap <unique> <M-0> 10gt
 
+" Semantic linebreaks
+" https://sembr.org/
+
+" Shortcuts for ending a sentence and doing a newline.
+inoremap <C-.> .<cr>
+" Remap ?-key without shift (/) to ?-and-newline. Only there's some weirdness
+" with mapping /, you need to map _ instead, https://stackoverflow.com/q/9051837
+inoremap <C-_> ?<cr>
 
 " Abbreviations
 " ================================
