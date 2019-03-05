@@ -235,3 +235,7 @@ autocmd FileType javascript setlocal shiftwidth=2
 
 " Unify tabs and remove trailing whitespace.
 command! WhiteClean retab | %s/\s\+$
+
+" Epilog
+" ================================
+colorscheme jellybeans
