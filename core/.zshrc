@@ -101,8 +101,10 @@ function pomodoro() {
     fi
     # Catch Ctrl-C and turn off the music
     trap "{ cmus-remote -s; return; }" SIGINT
+    echo "48 minutes of work starting `date +%H:%M`"
     cmus-remote -p
     sleep 48m
+    echo "12 minutes of break starting `date +%H:%M`"
     cmus-remote -u
     sleep 12m
 }
