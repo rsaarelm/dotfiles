@@ -191,11 +191,13 @@ noremap <unique> <M-0> 10gt
 " Semantic linebreaks
 " https://sembr.org/
 
-" Shortcuts for ending a sentence and doing a newline.
-inoremap <C-.> .<cr>
-" Remap ?-key without shift (/) to ?-and-newline. Only there's some weirdness
-" with mapping /, you need to map _ instead, https://stackoverflow.com/q/9051837
-inoremap <C-_> ?<cr>
+" In Sembr mode, period and question mark newline by default, and you press
+" ctrl to inhibit this.
+" Remap ?-key without shift (/) to ?-and-newline.
+" Only there's some weirdness with mapping /,
+" you need to map _ instead, https://stackoverflow.com/q/9051837
+command! Sembr inoremap <buffer> . .<cr>|inoremap <buffer> <C-.> .|inoremap <buffer> ? ?<cr>|inoremap <buffer> <C-_> ?|setl fo-=tc
+command! NoSembr iunmap <buffer> .|iunmap <buffer> <C-.>|iunmap <buffer> ?|iunmap <buffer> <C-_>|setl fo+=tc
 
 " Abbreviations
 " ================================
