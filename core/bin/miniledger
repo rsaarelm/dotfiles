@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+
+# Extremely simple ledger parser
+# Reads a text file with a line syntax that can have:
+#
+#     Regular lines are comments
+#
+# And two types of data lines:
+#
+#     Add integer amount of `foo` that comes from nowhere
+#     > foo  123
+#     Buy 15 foo with 30 bar
+#     > foo  15  bar  30
+#
+# After the ledger is run, balances of all items will be printed.
+#
+# Tokens are separated with double spaces so that you can have spaces in
+# tokens.
+#
+# By convention lowercase letter names are stats and capital names are
+# inventory items. Inventory items are displayed in a different way.
+
+from collections import defaultdict
+import sys
+import re
+
+def is_item(name):
+    return name and all(not word[0].islower() for word in name.split())
+
+def fmt(name, credit, debit):
+    if is_item(name):
+        count = credit + debit
+        if count < 1:
+            return None
+        elif count == 1:
+            return name
+        else:
+            plural = 's'
+            if name.endswith('s'):
+                plural = 'es'
+            return "%d %s%s" % (count, name, plural)
+    else:
+        # Point pools get removed when exhausted.
+        if name.endswith('$'):
+            if credit + debit <= 0:
+                return None
+            name = name[-1:]
+        if debit:
+            return "%-36s %s (%s)" % (name, credit + debit, credit)
+        else:
+            return "%-36s %s" % (name, credit + debit)
+
+
+class Ledger:
+    def __init__(self, text):
+        self.events = []
+
+        for line in text.splitlines():
+            line = line.strip()
+            # Ledger lines must start with '> '
+            if not line.startswith('> '):
+                continue
+            # Remove comments
+            line = line.split('#')[0]
+            elts = re.split(r"\s\s+", line[2:])
+            if len(elts) == 0:
+                continue
+            elif len(elts) == 1 and is_item(elts[0]):
+                self.events.append((elts[0], 1, line))
+            elif len(elts) in (2, 3, 4):
+                self.events.append((elts[0], int(elts[1]), line))
+                if len(elts) == 3:
+                    self.events.append((elts[2], -int(elts[1]), line))
+                elif len(elts) == 4:
+                    self.events.append((elts[2], -int(elts[3]), line))
+            else:
+                assert False, "Syntax error: %s" % line
+
+    def __str__(self):
+        credits = defaultdict(int)
+        debits = defaultdict(int)
+        for (account, change, line) in self.events:
+            if change > 0:
+                credits[account] += change
+            else:
+                debits[account] += change
+            # Print warning if account goes to negative
+            balance = credits[account] + debits[account]
+            if balance < 0:
+                print("*** WARNING *** %s goes to %s at '%s'" %
+                        (account, balance, line), file=sys.stderr)
+        # XXX: Accounts with only debit actions will not be shown.
+        ret = []
+        stats = '\n'.join([s for s in [fmt(account, credits[account], debits[account]) for account in credits] if s is not None and not is_item(s)])
+        inv = '\n'.join([s for s in [fmt(account, credits[account], debits[account]) for account in credits] if s is not None and is_item(s)])
+
+        return (stats + "\n"+52*"-"+"\n" + inv)
+
+if __name__ == '__main__':
+    print(Ledger(sys.stdin.read()))
