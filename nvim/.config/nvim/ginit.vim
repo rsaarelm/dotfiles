@@ -1,5 +1,5 @@
 set mouse=a
-Guifont! Monoid:h9
+Guifont! Hack:h10
 
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv
