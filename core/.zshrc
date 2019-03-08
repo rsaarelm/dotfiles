@@ -109,6 +109,13 @@ function pomodoro() {
     sleep 12m
 }
 
+# Sleep until exact time
+function sleepuntil () {
+    SECONDS=$(expr `date -d "$1" +%s` - `date -d "now" +%s`)
+    echo "Sleeping for $SECONDS s"
+    sleep $SECONDS
+}
+
 # Download video into ogg file
 alias audio-dl='youtube-dl -x --audio-format vorbis'
 
