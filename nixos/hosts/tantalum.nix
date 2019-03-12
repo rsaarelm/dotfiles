@@ -63,7 +63,7 @@
     };
   };
 
-  services.xserver.dpi = 120;
+  services.xserver.dpi = 144;
 
   system.stateVersion = "18.03";
 }
