@@ -119,6 +119,8 @@ function sleepuntil () {
 # Download video into ogg file
 alias audio-dl='youtube-dl -x --audio-format vorbis'
 
+# Personal wiki speed dial
+alias wiki="pushd -q ~/notes/wiki; vim FrontPage.otl; popd -q"
 
 # Extra environment variables can be listed in ~/.env-settings in
 # VAR=value
