@@ -7,6 +7,7 @@ import os
 import os.path
 import re
 import subprocess
+import sys
 
 def istext(path):
     return (re.search(r':.* text',
@@ -23,15 +24,14 @@ for (dirpath, dirnames, filenames) in os.walk('.'):
         seen.add(dirpath)
         depth = dirpath.count('/') - 1
         print('%s%s' % ('\t' * depth, dirpath[2:]))
-    for filename in filenames:
+    for filename in sorted(filenames):
         path = os.path.join(dirpath, filename)
         if not istext(path):
             continue
         depth = path.count('/') - 1
 
-        print('%s%s' % ('\t' * depth, path[2:]))
 
-        text = subprocess.Popen(['nl', '-b', 'a', path], 
+        text = subprocess.Popen(['nl', '-b', 'a', path],
             stdout=subprocess.PIPE).stdout.read()
         try:
             text = text.decode('utf-8')
@@ -40,5 +40,10 @@ for (dirpath, dirnames, filenames) in os.walk('.'):
                 text = text.decode('ascii')
             except:
                 continue
-        for line in text.splitlines():
-            print('%s;%s' % ('\t' * (depth+1), line))
+        lines = list(text.splitlines())
+        print('%s%s' % ('\t' * depth, path[2:]))
+        if len(lines) > 1023 or (lines and len(lines[0]) > 1023):
+            print('%s (Omitted long file)' % ('\t' * (depth+1)))
+        else:
+            for line in lines:
+                print('%s;%s' % ('\t' * (depth+1), line))
