@@ -15,4 +15,3 @@ highlight ALEWarning guibg=#153030
 " Quick-switching commands for color modes
 command! LightTheme colorscheme PaperColor | set background=light
 command! DarkTheme colorscheme jellybeans | set background=dark
-colorscheme jellybeans

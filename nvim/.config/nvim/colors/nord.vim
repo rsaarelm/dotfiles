@@ -16,22 +16,22 @@ let g:colors_name = "nord"
 let s:nord_vim_version="0.9.0"
 set background=dark
 
-let s:nord0_gui = "#2E3440"
-let s:nord1_gui = "#3B4252"
-let s:nord2_gui = "#434C5E"
-let s:nord3_gui = "#4C566A"
-let s:nord4_gui = "#D8DEE9"
-let s:nord5_gui = "#E5E9F0"
-let s:nord6_gui = "#ECEFF4"
-let s:nord7_gui = "#8FBCBB"
-let s:nord8_gui = "#88C0D0"
-let s:nord9_gui = "#81A1C1"
-let s:nord10_gui = "#5E81AC"
-let s:nord11_gui = "#BF616A"
-let s:nord12_gui = "#D08770"
-let s:nord13_gui = "#EBCB8B"
-let s:nord14_gui = "#A3BE8C"
-let s:nord15_gui = "#B48EAD"
+let s:nord0_gui = "#2E3440"  " night 0
+let s:nord1_gui = "#3B4252"  " night 1
+let s:nord2_gui = "#434C5E"  " night 2
+let s:nord3_gui = "#4C566A"  " night 3
+let s:nord4_gui = "#D8DEE9"  " storm 0
+let s:nord5_gui = "#E5E9F0"  " storm 1
+let s:nord6_gui = "#ECEFF4"  " storm 2
+let s:nord7_gui = "#8FBCBB"  " frost 0
+let s:nord8_gui = "#88C0D0"  " frost 1
+let s:nord9_gui = "#81A1C1"  " frost 2
+let s:nord10_gui = "#5E81AC" " frost 3
+let s:nord11_gui = "#BF616A" " aurora 0
+let s:nord12_gui = "#D08770" " aurora 1
+let s:nord13_gui = "#EBCB8B" " aurora 2
+let s:nord14_gui = "#A3BE8C" " aurora 3
+let s:nord15_gui = "#B48EAD" " aurora 4
 
 let s:nord1_term = "0"
 let s:nord3_term = "8"
@@ -595,3 +595,22 @@ hi! link VimwikiList markdownListMarker
 " YAML
 " > stephpy/vim-yaml
 call s:hi("yamlKey", s:nord7_gui, "", s:nord7_term, "", "", "")
+
+" VimOutliner
+" > vimoutliner/vimoutliner
+call s:hi("OL1", s:nord7_gui, "", s:nord7_term, "", "", "")
+call s:hi("OL2", s:nord8_gui, "", s:nord8_term, "", "", "")
+call s:hi("OL3", s:nord9_gui, "", s:nord9_term, "", "", "")
+call s:hi("OL4", s:nord10_gui, "", s:nord10_term, "", "", "")
+call s:hi("OL5", s:nord7_gui, "", s:nord7_term, "", "", "")
+call s:hi("OL6", s:nord8_gui, "", s:nord8_term, "", "", "")
+call s:hi("OL7", s:nord9_gui, "", s:nord9_term, "", "", "")
+call s:hi("OL8", s:nord10_gui, "", s:nord10_term, "", "", "")
+call s:hi("OL9", s:nord7_gui, "", s:nord7_term, "", "", "")
+
+" My custom stuff, not in the official VimOutliner
+
+" Wiki title
+call s:hi("Title", s:nord14_gui, "", s:nord14_term, "", "", "")
+" Highlighted item
+call s:hi("otlImportant", s:nord13_gui, "", s:nord13_term, "", "", "")

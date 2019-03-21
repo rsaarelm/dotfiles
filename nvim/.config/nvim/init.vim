@@ -240,4 +240,4 @@ command! WhiteClean retab | %s/\s\+$
 
 " Epilog
 " ================================
-colorscheme jellybeans
+colorscheme nord
