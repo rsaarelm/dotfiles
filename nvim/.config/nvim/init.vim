@@ -243,4 +243,5 @@ command! WhiteClean retab | %s/\s\+$
 
 " Epilog
 " ================================
-colorscheme nord
+set background=dark
+colorscheme PaperColor
