@@ -65,10 +65,10 @@ fun! s:register_default_theme()
         \       'popupmenu_bg' : ['#d0d0d0', '252'],
         \       'search_fg' : ['#444444', '238'],
         \       'search_bg' : ['#ffff5f', '227'],
-        \       'linenumber_fg' : ['#b2b2b2', '249'],
-        \       'linenumber_bg' : ['#eeeeee', '255'],
+        \       'linenumber_fg' : ['#444444', '238'],
+        \       'linenumber_bg' : ['#bcbcbc', '250'],
         \       'vertsplit_fg' : ['#005f87', '24'],
-        \       'vertsplit_bg' : ['#eeeeee', '255'],
+        \       'vertsplit_bg' : ['#bcbcbc', '250'],
         \       'statusline_active_fg' : ['#e4e4e4', '254'],
         \       'statusline_active_bg' : ['#005f87', '24'],
         \       'statusline_inactive_fg' : ['#444444', '238'],
@@ -155,10 +155,10 @@ fun! s:register_default_theme()
         \       'popupmenu_bg' : ['#303030', '236'],
         \       'search_fg' : ['#000000', '16'],
         \       'search_bg' : ['#00875f', '29'],
-        \       'linenumber_fg' : ['#585858', '240'],
-        \       'linenumber_bg' : ['#1c1c1c', '234'],
+        \       'linenumber_fg' : ['#d0d0d0', '252'],
+        \       'linenumber_bg' : ['#585858', '240'],
         \       'vertsplit_fg' : ['#5f8787', '66'],
-        \       'vertsplit_bg' : ['#1c1c1c', '234'],
+        \       'vertsplit_bg' : ['#585858', '240'],
         \       'statusline_active_fg' : ['#1c1c1c', '234'],
         \       'statusline_active_bg' : ['#5f8787', '66'],
         \       'statusline_inactive_fg' : ['#bcbcbc', '250'],
@@ -1138,7 +1138,7 @@ fun! s:apply_syntax_highlightings()
     exec 'hi LineNr' . s:fg_linenumber_fg . s:bg_linenumber_bg
     exec 'hi Conceal' . s:fg_linenumber_fg . s:bg_linenumber_bg
     exec 'hi VertSplit' . s:fg_vertsplit_bg . s:bg_vertsplit_fg
-    exec 'hi FoldColumn' . s:fg_folded_fg . s:bg_background . s:ft_none
+    exec 'hi FoldColumn' . s:fg_folded_fg . s:bg_linenumber_bg . s:ft_none
   endif
 
   exec 'hi Cursor' . s:fg_cursor_fg . s:bg_cursor_bg
@@ -1169,7 +1169,7 @@ fun! s:apply_syntax_highlightings()
     if s:themeOpt_transparent_background
       exec 'hi SignColumn' . s:fg_green . s:ft_none
     else
-      exec 'hi SignColumn' . s:fg_green . s:bg_background . s:ft_none
+      exec 'hi SignColumn' . s:fg_green . s:bg_linenumber_bg . s:ft_none
     endif
   end
   if version >= 703
