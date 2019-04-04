@@ -36,6 +36,7 @@
       exfat-utils
       file
       fuse_exfat
+      inotifyTools
       jmtpfs
       lsof
       pciutils
