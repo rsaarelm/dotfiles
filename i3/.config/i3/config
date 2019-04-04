@@ -110,10 +110,10 @@ bindsym $mod+Shift+p restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+f exec "i3-msg exit"
 
-bindsym $mod+Shift+semicolon exec "i3lock -c '#111111'"
+bindsym $mod+Shift+semicolon exec "i3lock -c '#5f9ea0'"
 # Disabling this, suspends fail too often on tungsten, might be corrupting
 # disk
-bindsym $mod+Shift+slash exec "i3lock & sleep 2; systemctl suspend"
+bindsym $mod+Shift+slash exec "i3lock -c '#5f9ea0' & sleep 2; systemctl suspend"
 
 # Quick-launch a one-off browser instance.
 bindsym $mod+F2 exec "chromium --incognito"
