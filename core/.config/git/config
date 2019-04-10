@@ -8,8 +8,6 @@
     lg = log --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s %C(bold blue)(%cr)%Creset %C(blue)<%an>%Creset'
     # Logs of all branches
     hist = log --all --graph --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s %C(bold blue)(%ci)%Creset %C(blue)<%an>%Creset'
-    # Branches sorted by last commit date
-    recent = branch --sort=-committerdate
     # Fap
     fap = fetch --all --prune
     # Short-form status
@@ -32,3 +30,5 @@
     autosquash = true
 [diff]
     wsErrorHighlight = all
+[branch]
+    sort = -authordate
