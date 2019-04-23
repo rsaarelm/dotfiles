@@ -238,8 +238,8 @@ autocmd FileType javascript setlocal shiftwidth=2
 " Commands
 " ================================
 
-" Unify tabs and remove trailing whitespace.
-command! WhiteClean retab | %s/\s\+$
+" Remove trailing whitespace.
+command! WhiteClean %s/\s\+$
 
 " Epilog
 " ================================
