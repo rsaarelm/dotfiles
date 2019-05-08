@@ -1,0 +1,57 @@
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=# begin Dump keymaps
+# *Warning!*  The lines below are an automatic dump.
+# Don't edit them; changes will be deleted and replaced automatically.
+
+# *Warning!*  The lines above are an automatic dump.
+# Don't edit them; changes will be deleted and replaced automatically.
+#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=# end Dump keymaps
+
+# Walking
+keymap-act:;1
+keymap-input:1:m
+
+keymap-act:;2
+keymap-input:1:,
+
+keymap-act:;3
+keymap-input:1:.
+
+keymap-act:;4
+keymap-input:1:n
+
+keymap-act:;6
+keymap-input:1:i
+
+keymap-act:;7
+keymap-input:1:l
+
+keymap-act:;8
+keymap-input:1:u
+
+keymap-act:;9
+keymap-input:1:y
+
+# Running
+keymap-act:,1
+keymap-input:1:M
+
+keymap-act:,2
+keymap-input:1:<
+
+keymap-act:,3
+keymap-input:1:>
+
+keymap-act:,4
+keymap-input:1:N
+
+keymap-act:,6
+keymap-input:1:I
+
+keymap-act:,7
+keymap-input:1:L
+
+keymap-act:,8
+keymap-input:1:U
+
+keymap-act:,9
+keymap-input:1:Y
