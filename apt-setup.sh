@@ -4,12 +4,15 @@
 
 sudo apt install \
     autorandr \
+    ccache \
     chromium-browser \
     ctags \
     curl \
     docker \
     fonts-hack \
     git \
+    haskell-stack \
+    hledger \
     i3 \
     imagemagick \
     mesa-utils \
@@ -24,6 +27,11 @@ sudo apt install \
     xcape \
     zathura \
     zsh
+
+# Installs a ghc that can build my tt tool.
+if [ ! -f ~/.local/bin/stack ]; then
+    stack upgrade
+fi
 
 # Tap caps for escape:
 #   xcape -e 'Control_L=Escape'
