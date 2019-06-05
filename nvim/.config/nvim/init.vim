@@ -27,7 +27,7 @@ function! NERDTreeToggleAndFind()
         endif
         execute ':wincmd p'
     endif
-    endfunction
+endfunction
 let NERDTreeMapOpenExpl = 'j'  " Enable using Colemak vertical navigation
 let NERDTreeIgnore = ['\.pyc$', '__pycache__'] " Don't show junk files
 let NERDTreeShowHidden = 1  " Show dotfiles
@@ -235,6 +235,72 @@ autocmd FileType javascript setlocal shiftwidth=2
 
 " Remove trailing whitespace.
 command! WhiteClean %s/\s\+$
+
+function! AsciiMathAbbrevs()
+    iabbrev <buffer> cdot ⋅
+    iabbrev <buffer> circ ∘
+    iabbrev <buffer> degree °
+    iabbrev <buffer> oplus ⊕
+    iabbrev <buffer> otimes ⊗
+    iabbrev <buffer> odot ⊙
+    iabbrev <buffer> sum ∑
+    iabbrev <buffer> prod ∏
+    iabbrev <buffer> wedge ∧
+    iabbrev <buffer> vee ∨
+    iabbrev <buffer> cap ∩
+    iabbrev <buffer> cup ∪
+    iabbrev <buffer> int ∫
+    iabbrev <buffer> oint ∮
+    iabbrev <buffer> sqrt √
+    iabbrev <buffer> del ∂
+    iabbrev <buffer> grad ∇
+    iabbrev <buffer> oo ∞
+    iabbrev <buffer> O/ ∅
+    iabbrev <buffer> aleph ℵ
+    iabbrev <buffer> != ≠
+    iabbrev <buffer> <= ≤
+    iabbrev <buffer> >= ≥
+    iabbrev <buffer> in ∈
+    iabbrev <buffer> notin ∉
+    iabbrev <buffer> sub ⊂
+    iabbrev <buffer> sup ⊃
+    iabbrev <buffer> sube ⊆
+    iabbrev <buffer> supe ⊇
+    iabbrev <buffer> -= ≡
+    iabbrev <buffer> ~= ≅
+    iabbrev <buffer> ~~ ≈
+    iabbrev <buffer> neg ¬
+    iabbrev <buffer> AA ∀
+    iabbrev <buffer> EE ∃
+    iabbrev <buffer> bot ⊥
+    iabbrev <buffer> top ⊤
+    iabbrev <buffer> Gamma Γ
+    iabbrev <buffer> Delta Δ
+    iabbrev <buffer> Theta Θ
+    iabbrev <buffer> Pi Π
+    iabbrev <buffer> Sigma Σ
+    iabbrev <buffer> Phi Φ
+    iabbrev <buffer> Psi Ψ
+    iabbrev <buffer> Omega Ω
+    iabbrev <buffer> alpha α
+    iabbrev <buffer> beta β
+    iabbrev <buffer> gamma γ
+    iabbrev <buffer> delta δ
+    iabbrev <buffer> epsilon ε
+    iabbrev <buffer> eta η
+    iabbrev <buffer> theta θ
+    iabbrev <buffer> kappa κ
+    iabbrev <buffer> lambda λ
+    iabbrev <buffer> mu μ
+    iabbrev <buffer> pi π
+    iabbrev <buffer> rho ρ
+    iabbrev <buffer> sigma σ
+    iabbrev <buffer> tau τ
+    iabbrev <buffer> phi φ
+    iabbrev <buffer> psi ψ
+    iabbrev <buffer> omega ω
+endfunction
+command! MathAbbrev :call AsciiMathAbbrevs()
 
 " Epilog
 " ================================
