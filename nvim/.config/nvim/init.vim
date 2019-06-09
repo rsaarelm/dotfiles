@@ -246,7 +246,7 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> oplus ⊕
     iabbrev <buffer> otimes ⊗
     iabbrev <buffer> odot ⊙
-    iabbrev <buffer> sum ∑
+    iabbrev <buffer> sgm ∑
     iabbrev <buffer> prod ∏
     iabbrev <buffer> wedge ∧
     iabbrev <buffer> vee ∨
@@ -258,15 +258,17 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> del ∂
     iabbrev <buffer> grad ∇
     iabbrev <buffer> oo ∞
-    iabbrev <buffer> O/ ∅
+    iabbrev <buffer> emptyset ∅
     iabbrev <buffer> aleph ℵ
+    iabbrev <buffer> ^-1 ⁻¹
+    iabbrev <buffer> ^-2 ⁻²
     iabbrev <buffer> != ≠
     iabbrev <buffer> <= ≤
     iabbrev <buffer> >= ≥
-    iabbrev <buffer> in ∈
+    iabbrev <buffer> inset ∈
     iabbrev <buffer> notin ∉
-    iabbrev <buffer> sub ⊂
-    iabbrev <buffer> sup ⊃
+    iabbrev <buffer> subs ⊂
+    iabbrev <buffer> sups ⊃
     iabbrev <buffer> sube ⊆
     iabbrev <buffer> supe ⊇
     iabbrev <buffer> -= ≡
@@ -276,7 +278,7 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> AA ∀
     iabbrev <buffer> EE ∃
     iabbrev <buffer> bot ⊥
-    iabbrev <buffer> top ⊤
+    iabbrev <buffer> ttop ⊤
     iabbrev <buffer> Gamma Γ
     iabbrev <buffer> Delta Δ
     iabbrev <buffer> Theta Θ
@@ -302,6 +304,7 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> phi φ
     iabbrev <buffer> psi ψ
     iabbrev <buffer> omega ω
+    iabbrev <buffer> qed ∎
 endfunction
 command! MathAbbrev :call AsciiMathAbbrevs()
 
