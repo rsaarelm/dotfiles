@@ -130,6 +130,8 @@ set hidden          " Allow unsaved stuff in background buffers
 
 set wildmode=longest,list,full  " Don't tab complete wrong options
 
+set formatoptions-=t " Don't word wrap by default in eg. config files
+
 " Key mapping
 " ================================
 
@@ -211,7 +213,8 @@ iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 filetype plugin on
 filetype indent on
 
-autocmd FileType text setlocal textwidth=78
+autocmd FileType text setlocal fo+=t
+autocmd FileType markdown setlocal fo+=t
 
 autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent colorcolumn=0 foldlevel=0 textwidth=80 tabstop=2 shiftwidth=2 listchars=tab:\ \ ,trail:·
 
