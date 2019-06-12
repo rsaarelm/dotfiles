@@ -73,8 +73,6 @@ let g:rustfmt_command = 'rustfmt +nightly'
 " Nix file format
 Plug 'LnL7/vim-nix'
 
-Plug 'w0rp/ale'
-
 " Language Client
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -206,6 +204,9 @@ command! NoSembr iunmap <buffer> .|iunmap <buffer> <C-.>|iunmap <buffer> ?|iunma
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 
+iabbrev ansired \033[0;31m\033[0m<esc>7ha
+iabbrev ansigreen \033[0;32m\033[0m<esc>7ha
+iabbrev ansiyellow \033[1;33m\033[0m<esc>7ha
 
 " Filetype settings
 " ================================
@@ -240,6 +241,9 @@ autocmd FileType javascript setlocal shiftwidth=2
 command! WhiteClean %s/\s\+$
 
 function! AsciiMathAbbrevs()
+    " Remove _ from set so you can write x_i and have the _i part contract
+    setlocal iskeyword=@,48-57,192-255
+
     iabbrev <buffer> cdot ⋅
     iabbrev <buffer> circ ∘
     iabbrev <buffer> degree °
@@ -262,6 +266,9 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> aleph ℵ
     iabbrev <buffer> ^-1 ⁻¹
     iabbrev <buffer> ^-2 ⁻²
+    iabbrev <buffer> ^T ᵀ
+    iabbrev <buffer> _i ᵢ
+    iabbrev <buffer> _j ⱼ
     iabbrev <buffer> != ≠
     iabbrev <buffer> <= ≤
     iabbrev <buffer> >= ≥
