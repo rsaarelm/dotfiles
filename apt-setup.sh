@@ -6,6 +6,7 @@ sudo apt install \
     autorandr \
     ccache \
     chromium-browser \
+    cmus \
     ctags \
     curl \
     docker \
@@ -20,11 +21,14 @@ sudo apt install \
     ncdu \
     neovim \
     neovim-qt \
+    pavucontrol \
+    rlwrap \
     rofi \
     rxvt-unicode \
     stow \
     sxiv \
     xcape \
+    youtube-dl \
     zathura \
     zsh
 
