@@ -266,6 +266,8 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> aleph ℵ
     iabbrev <buffer> ^-1 ⁻¹
     iabbrev <buffer> ^-2 ⁻²
+    iabbrev <buffer> ^2 ²
+    iabbrev <buffer> ^3 ³
     iabbrev <buffer> ^T ᵀ
     iabbrev <buffer> _i ᵢ
     iabbrev <buffer> _j ⱼ
