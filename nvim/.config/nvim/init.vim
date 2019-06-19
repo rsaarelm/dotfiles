@@ -12,6 +12,13 @@ call plug#begin('~/.nvim/plugged')
 " Plugins
 " ================================
 
+" Debugging
+" XXX: May need to do 'pip3 install pynvim' before UpdateRemotePlugins works
+" FIXME: The proposed do-format is wrong, you can't bar-append to shell command
+" Instead, you need to manually call :UpdateRemotePlugins after install
+"Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+
 " NerdTree
 Plug 'scrooloose/nerdtree'
 map <S-TAB> :NERDTreeFind<cr><c-w><c-p>
