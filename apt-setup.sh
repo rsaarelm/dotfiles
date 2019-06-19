@@ -16,12 +16,14 @@ sudo apt install \
     hledger \
     i3 \
     imagemagick \
+    lldb \
     mesa-utils \
     mosh \
     ncdu \
     neovim \
     neovim-qt \
     pavucontrol \
+    python3-pip \
     rlwrap \
     rofi \
     rxvt-unicode \
