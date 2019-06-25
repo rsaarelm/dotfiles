@@ -2,8 +2,15 @@
 
 # Initial setup for apt-based system
 
+sudo apt update
+
+# XXX: Package thefuck is broken on Ubuntu until you install
+# python-pkg-resources.
 sudo apt install \
+    aspell \
+    aspell-en \
     autorandr \
+    bluez \
     ccache \
     chromium-browser \
     cmus \
@@ -11,28 +18,40 @@ sudo apt install \
     curl \
     docker \
     fonts-hack \
+    gimp \
     git \
     haskell-stack \
     hledger \
     i3 \
     imagemagick \
+    keepassx \
+    links \
     lldb \
     mesa-utils \
     mosh \
     ncdu \
     neovim \
     neovim-qt \
+    pandoc \
     pavucontrol \
+    pwgen \
     python3-pip \
+    restic \
     rlwrap \
     rofi \
     rxvt-unicode \
+    scrot \
+    sshfs \
     stow \
     sxiv \
+    thefuck \
+    tmux \
     xcape \
     youtube-dl \
     zathura \
     zsh
+
+sudo apt upgrade
 
 # Installs a ghc that can build my tt tool.
 if [ ! -f ~/.local/bin/stack ]; then
