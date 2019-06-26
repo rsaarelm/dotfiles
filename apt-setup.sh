@@ -67,6 +67,16 @@ if ! grep -q "ctrl:" /etc/default/keyboard; then
     echo 'add XKBOPTIONS="ctrl:nocaps"'
 fi
 
+# Semi-automatically start xcape to treat Control (and Caps after fix) tap as
+# Esc.
+#
+# Xcape has a bug where it occasionally crashes and stops working, so this
+# setup makes it restart every time you open a terminal.
+if ! grep -q "killall xcape" ~/.zshrc.local; then
+    echo "Adding xcape runner to ~/.zshrc.local"
+    echo "bash -c \"killall xcape -q; xcape -e 'Control_L=Escape'\"" >> ~/.zshrc.local
+fi
+
 if ! update-alternatives --display editor | grep -q "currently.*vim"; then
     echo "Vim isn't set as the default editor, updating..."
     sudo update-alternatives --config editor
