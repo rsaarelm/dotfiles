@@ -17,6 +17,7 @@ sudo apt install \
     ctags \
     curl \
     docker \
+    fonts-go \
     fonts-hack \
     gimp \
     git \
