@@ -279,8 +279,10 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> ^2 ²
     iabbrev <buffer> ^3 ³
     iabbrev <buffer> ^T ᵀ
-    iabbrev <buffer> _i ᵢ
-    iabbrev <buffer> _j ⱼ
+    " Bit too tiny on regular terminal, in particular hard to tell _i and _1
+    " apart.
+    "iabbrev <buffer> _i ᵢ
+    "iabbrev <buffer> _j ⱼ
     iabbrev <buffer> != ≠
     iabbrev <buffer> <= ≤
     iabbrev <buffer> >= ≥
