@@ -292,7 +292,7 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> sups ⊃
     iabbrev <buffer> sube ⊆
     iabbrev <buffer> supe ⊇
-    iabbrev <buffer> -= ≡
+    iabbrev <buffer> =- ≡
     iabbrev <buffer> ~= ≅
     iabbrev <buffer> ~~ ≈
     iabbrev <buffer> neg ¬
