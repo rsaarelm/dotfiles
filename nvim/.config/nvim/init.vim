@@ -331,5 +331,3 @@ command! MathAbbrev :call AsciiMathAbbrevs()
 
 " Epilog
 " ================================
-set background=dark
-colorscheme PaperColor
