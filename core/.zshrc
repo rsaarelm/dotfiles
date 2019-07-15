@@ -94,6 +94,12 @@ alias workhours="wtt timeclock | hledger -f - balance -p 'daily this week'"
 
 # 48 min + 12 min work cycle. Put this in a loop for repeated work.
 function pomodoro() {
+    # Optionally specify duration and break using arguments, eg.
+    #   pomodoro 25 5
+    # for the classic half-hour cycle
+    if [ "$1" != "" ]; then DURATION="$1" else DURATION=48 fi
+    if [ "$2" != "" ]; then BREAK="$2" else BREAK=12 fi
+
     # Start cmus if needed
     if ! pgrep -x cmus > /dev/null; then
         urxvt -name cmus -e cmus&
@@ -101,12 +107,12 @@ function pomodoro() {
     fi
     # Catch Ctrl-C and turn off the music
     trap "{ cmus-remote -s; return; }" SIGINT
-    echo "48 minutes of work starting `date +%H:%M`"
+    echo "$DURATION minutes of work starting `date +%H:%M`"
     cmus-remote -p
-    sleep 48m
-    echo "12 minutes of break starting `date +%H:%M`"
+    sleep "$DURATION"m
+    echo "$BREAK minutes of break starting `date +%H:%M`"
     cmus-remote -u
-    sleep 12m
+    sleep "$BREAK"m
 }
 
 # Sleep until exact time
