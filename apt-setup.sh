@@ -7,6 +7,7 @@ sudo apt update
 # XXX: Package thefuck is broken on Ubuntu until you install
 # python-pkg-resources.
 sudo apt install \
+    a2ps \
     aspell \
     aspell-en \
     autorandr \
@@ -25,6 +26,7 @@ sudo apt install \
     hledger \
     i3 \
     imagemagick \
+    ipython3 \
     keepassx \
     links \
     lldb \
