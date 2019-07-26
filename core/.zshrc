@@ -115,6 +115,13 @@ function pomodoro() {
     sleep "$BREAK"m
 }
 
+function pomodoros() {
+    while [ 1 ]
+    do
+        pomodoro $1 $2
+    done
+}
+
 # Sleep until exact time
 function sleepuntil () {
     SECONDS=$(expr `date -d "$1" +%s` - `date -d "now" +%s`)
