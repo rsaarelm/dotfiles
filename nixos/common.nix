@@ -148,6 +148,7 @@
 
     locate.enable = true;
     printing.enable = true;
+    earlyoom.enable = true;
 
     redshift = {
       enable = true;
