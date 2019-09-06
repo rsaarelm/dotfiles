@@ -51,7 +51,7 @@ let s:background = &background
 
 if &background == "dark"
   let s:bg              = s:black
-  let s:bg_subtle       = s:lighter_black
+  let s:bg_subtle       = s:medium_gray
   let s:bg_very_subtle  = s:subtle_black
   let s:norm            = s:lighter_gray
   let s:norm_subtle     = s:medium_gray
