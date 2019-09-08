@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+
+# Graph flattener for C/C++ file dependencies.
+#
+# Uses gcc -M
+#
+# Put all necessary include path dependencies (-I[path]) in $CFLAGS before
+# running
+
+from collections import defaultdict
+import functools
+import mimetypes
+import os
+import os.path
+import re
+import subprocess
+import sys
+
+def istext(path):
+    return (re.search(r':.* text',
+        subprocess.Popen(['file', '-L', path],
+            stdout=subprocess.PIPE).stdout.read().decode('utf-8'))
+        is not None)
+
+def read_if_text(path):
+    """If path is text file, return its contents in string, otherwise throw exception."""
+    if not istext(path):
+        raise "Not text"
+    text = subprocess.Popen(['nl', '-b', 'a', path], stdout=subprocess.PIPE).stdout.read()
+    try:
+        return text.decode('utf-8')
+    except:
+        return text.decode('ascii')
+
+# Glob source and header into one file
+# XXX: Currently hardcoded to a specific project that uses the subdir pattern.
+def simplify(path):
+    path = re.sub(r'source/(.*)\.cpp', r'\1', path)
+    path = re.sub(r'include/(.*)\.hpp', r'\1', path)
+    return path
+
+def read_deps(path):
+    text = subprocess.check_output("gcc $CFLAGS -M %s" % path, shell=True)
+    ret = []
+    try:
+        text = text.decode('utf-8')
+    except:
+        text = text.decode('ascii')
+    for line in text.splitlines():
+        # First line is for the benefit of Makefiles, "foo.o: foo.cpp \".
+        # It has no info we need, so throw it away.
+        if ':' in line:
+            continue
+        # Get rid of the trailing backslashes, also for Makefiles
+        if line.endswith('\\'): line = line[:-1]
+        # Put in local dependencies but not external ones. External
+        # dependencies have absolute paths that start with /.
+        for elt in [p for p in line.strip().split() if not p.startswith('/')]: ret.append(elt)
+    return ret
+
+def saturate(g):
+    """Make new graph where each key has all (most) dependencies.
+
+    Detect cyclic dependencies and omit those, result is arbitrarily pruned DAG."""
+    dag_dep = defaultdict(set)
+    for m in list(g.keys()):
+        dag_dep[m] = set()
+        open = set(g[m])
+        closed = set()
+
+        while open:
+            node = open.pop()
+            closed.add(node)
+            if m in dag_dep[node]:
+                # Cycle detected, abandon arc
+                continue
+            dag_dep[m].add(node)
+            try:
+                for n in g[node]:
+                    if not n in closed:
+                        open.add(n)
+            except KeyError:
+                pass
+    return dag_dep
+
+def sort_graph_keys(g):
+    def cmp(a, b):
+        # Ungraphed are at the end
+        if not a in g:
+            return 1
+        if not b in g:
+            return -1
+        # Things later on depend on things earlier on
+        if b in g[a]:
+            return -1
+        if a in g[b]:
+            return 1
+        # Things with more dependencies are earlier.
+        return len(g[b]) - len(g[a])
+    return sorted(g.keys(), key=functools.cmp_to_key(cmp))
+
+# Dependency graph
+graph = defaultdict(set)
+
+# List of modules (combined header and source)
+modules = defaultdict(set)
+
+for (dirpath, dirnames, filenames) in os.walk('.'):
+    for filename in [f for f in filenames if f.endswith('.cpp') or f.endswith('.c') or f.endswith('.cxx')]:
+        path = os.path.join(dirpath, filename)
+
+        modules[simplify(path)].add(path)
+        print(simplify(path), file=sys.stderr)
+        # Ignore unit test code
+        if 'unit_test' in path:
+            continue
+
+        if path.startswith('./'): path = path[2:]
+        deps = read_deps(path)
+        for dep in deps:
+            modules[simplify(dep)].add(dep)
+
+        # Filter out the ubiquitous source/Foo.cpp dep on include/Foo.hpp.
+        deps = {simplify(dep) for dep in read_deps(path) if simplify(dep) != simplify(path)}
+        graph[simplify(path)].update(deps)
+
+for module in sort_graph_keys(saturate(graph)):
+    print(module)
