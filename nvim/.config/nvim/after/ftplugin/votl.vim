@@ -10,7 +10,8 @@ noremap <buffer> gF :e %:h/<cfile>.otl<CR>
 " line)
 noremap <buffer> gd /^\s*(\?<C-r>=expand("<cword>")<CR>)\?\s*$<CR>zv
 
-" Remove - from keyword so that WikiWord-s hyphenation pattern works
+" Remove ', - from keyword so that WikiWord's and WikiWord-s patterns work
+setlocal iskeyword-=39
 setlocal iskeyword-=45
 
 " Don't wrap lines when cursor is on a table
