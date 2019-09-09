@@ -24,6 +24,7 @@ sudo apt install \
     git \
     haskell-stack \
     hledger \
+    htop \
     i3 \
     imagemagick \
     ipython3 \

@@ -51,6 +51,7 @@
       fdupes
       gitAndTools.git-annex
       hledger
+      htop
       imagemagick
       links
       mosh
@@ -98,7 +99,7 @@
       python3
 
       # X11
-      # Stable is bitrotted, use local install for now
+      # Stable Anki is bitrotted, use local install for now
       #anki
       autorandr
       chromium
