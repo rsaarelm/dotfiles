@@ -7,6 +7,9 @@
 # Put all necessary include path dependencies (-I[path]) in $CFLAGS before
 # running
 
+# Handy CFLAGS generation command:
+#     for dir in `find -name '*.hpp' -or -name '*.h' -printf '%h\n' | sort -u`; do export CFLAGS="$CFLAGS -I$dir"; done
+
 from collections import defaultdict
 import functools
 import mimetypes
@@ -15,22 +18,6 @@ import os.path
 import re
 import subprocess
 import sys
-
-def istext(path):
-    return (re.search(r':.* text',
-        subprocess.Popen(['file', '-L', path],
-            stdout=subprocess.PIPE).stdout.read().decode('utf-8'))
-        is not None)
-
-def read_if_text(path):
-    """If path is text file, return its contents in string, otherwise throw exception."""
-    if not istext(path):
-        raise "Not text"
-    text = subprocess.Popen(['nl', '-b', 'a', path], stdout=subprocess.PIPE).stdout.read()
-    try:
-        return text.decode('utf-8')
-    except:
-        return text.decode('ascii')
 
 # Glob source and header into one file
 # XXX: Currently hardcoded to a specific project that uses the subdir pattern.
@@ -56,6 +43,26 @@ def read_deps(path):
         # Put in local dependencies but not external ones. External
         # dependencies have absolute paths that start with /.
         for elt in [p for p in line.strip().split() if not p.startswith('/')]: ret.append(elt)
+    return ret
+
+def deps_to_dict(path, deps_list):
+    """Turn path and dependencies list into dict fragment.
+
+    Recognize a probable self-header and make it depend on the main file so
+    it'll show up earlier on the list."""
+    def module_name(path):
+        return os.path.splitext(os.path.basename(path))[0]
+
+    deps_list = deps_list[:] # Local clone
+
+    mod = module_name(path)
+    ret = {}
+    same_name_header = [(idx, p) for (idx, p) in enumerate(deps_list) if module_name(p) == mod]
+    if same_name_header:
+        idx, header_path = same_name_header[0]
+        del deps_list[idx]
+        ret[header_path] = [path]
+    ret[path] = deps_list
     return ret
 
 def saturate(g):
@@ -100,29 +107,24 @@ def sort_graph_keys(g):
     return sorted(g.keys(), key=functools.cmp_to_key(cmp))
 
 # Dependency graph
-graph = defaultdict(set)
+graph = {}
 
 # List of modules (combined header and source)
 modules = defaultdict(set)
 
 for (dirpath, dirnames, filenames) in os.walk('.'):
-    for filename in [f for f in filenames if f.endswith('.cpp') or f.endswith('.c') or f.endswith('.cxx')]:
+    for filename in [f for f in filenames if
+            any(f.endswith(x) for x in ('.cpp', '.c', '.cxx', '.C'))]:
         path = os.path.join(dirpath, filename)
 
-        modules[simplify(path)].add(path)
-        print(simplify(path), file=sys.stderr)
-        # Ignore unit test code
-        if 'unit_test' in path:
-            continue
+        print("Processing %s..." % path, file=sys.stderr)
 
         if path.startswith('./'): path = path[2:]
         deps = read_deps(path)
-        for dep in deps:
-            modules[simplify(dep)].add(dep)
-
-        # Filter out the ubiquitous source/Foo.cpp dep on include/Foo.hpp.
-        deps = {simplify(dep) for dep in read_deps(path) if simplify(dep) != simplify(path)}
-        graph[simplify(path)].update(deps)
+        graph.update(deps_to_dict(path, deps))
+        for header in deps:
+            if not header in graph:
+                graph[header] = []
 
 for module in sort_graph_keys(saturate(graph)):
     print(module)
