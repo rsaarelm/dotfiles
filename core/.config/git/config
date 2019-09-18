@@ -23,14 +23,24 @@
     d = diff HEAD
     # Set date of top commit to now
     redate = commit --amend --no-edit --date='now'
+    # Amend commit, keep message
+    cam = commit --amend --no-edit --allow-empty-message
     # Update submodules
     subu = submodule update --recursive
     # Rebase-pull
     purr = pull --rebase
     # Make a messageless snapshot commit when using git as a backup system
-    snap = commit --allow-empty-message -am ''
-    # Amend a snap commit
-    snapa = commit --amend --no-edit --allow-empty-message
+    snap = commit -am .
+    # Commit with inline message
+    cm = commit -m
+    # Non-annoying merging
+    mer = merge --ff-only
+    pul = pull --ff-only
+    # Words
+    wd = diff --word-diff
+    wshow = show --word-diff
+    # Safer force
+    fpush = push --force-with-lease
 [rebase]
     autosquash = true
 [diff]
