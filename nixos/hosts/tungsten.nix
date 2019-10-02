@@ -32,6 +32,8 @@
     };
   };
 
+  services.xserver.videoDrivers = ["nvidiaBeta"];
+
   # Dual monitor setup
   services.xserver.xrandrHeads = [
     {
