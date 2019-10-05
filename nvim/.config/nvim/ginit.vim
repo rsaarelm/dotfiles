@@ -5,4 +5,4 @@ Guifont! Hack:h10
 vmap <LeftRelease> "*ygv
 
 set background=dark
-colorscheme paramount
+colorscheme PaperColor

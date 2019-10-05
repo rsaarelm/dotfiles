@@ -86,7 +86,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['env', 'rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['env', 'rustup', 'run', 'stable', 'rls'],
     \ 'python': ['env', 'pyls'],
     \ 'cpp': ['clangd-7'],
     \ 'go': ['env', 'go-langserver'],
