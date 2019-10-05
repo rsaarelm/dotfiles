@@ -137,6 +137,9 @@
 
   virtualisation.docker.enable = true;
 
+  location.latitude = 25.;
+  location.longitude = 60.;
+
   # List services that you want to enable:
   services = {
     openssh = {
@@ -153,8 +156,6 @@
 
     redshift = {
       enable = true;
-      latitude = "25";
-      longitude = "60";
       temperature.day = 6500;
       temperature.night = 3500;
     };
