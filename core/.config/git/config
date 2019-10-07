@@ -4,6 +4,7 @@
 [color]
     ui = true
 [alias]
+    ap = add --patch
     # Terse log of current branch
     #
     # The default version only shows the recent commits for rebase ops on the
