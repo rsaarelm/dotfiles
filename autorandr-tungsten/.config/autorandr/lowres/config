@@ -6,15 +6,11 @@ output DP-0
 off
 output DVI-D-0
 off
+output DVI-I-1
+off
 output DP-1
-gamma 1.562:1.0:0.667
 mode 1920x1080
+panning 1920x1080
 pos 0x0
 primary
 rate 60.00
-output DVI-I-1
-gamma 1.562:1.0:0.667
-mode 1920x1200
-pos 1920x0
-rate 59.95
-rotate left
