@@ -86,7 +86,7 @@ fi
 # XXX: This should be a daily cronjob instead.
 mkdir -p $HOME/trash
 mkdir -p $HOME/tmp
-find $HOME/tmp/ -maxdepth 1 -mtime +30 -exec echo "Scheduled cleanup: Moving {} to ~/trash/" \; -exec mv {} $HOME/trash \;
+find $HOME/tmp/ -mindepth 1 -maxdepth 1 -mtime +30 -exec echo "Scheduled cleanup: Moving {} to ~/trash/" \; -exec mv {} $HOME/trash \;
 
 # Work stuff, symlink ~/dayjob to work folder with its own todo.txt
 alias wtt="tt --prefix ~/dayjob"
