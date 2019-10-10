@@ -34,6 +34,7 @@ sudo apt install \
     mesa-utils \
     mosh \
     ncdu \
+    net-tools \
     neovim \
     neovim-qt \
     pandoc \
