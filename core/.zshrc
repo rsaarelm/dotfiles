@@ -106,19 +106,51 @@ function pomodoro() {
         sleep 0.5
     fi
     # Catch Ctrl-C and turn off the music
-    trap "{ cmus-remote -s; return; }" SIGINT
+    trap "{ cmus-remote -U; return; }" SIGINT
     echo "$DURATION minutes of work starting `date +%H:%M`"
     cmus-remote -p
     sleep "$DURATION"m
     echo "$BREAK minutes of break starting `date +%H:%M`"
-    cmus-remote -u
+    cmus-remote -U
     sleep "$BREAK"m
 }
 
+# Do repeating by-the-clock pomodoro cycle from https://guzey.com/productivity/
 function pomodoros() {
+    # Start cmus if needed
+    if ! pgrep -x cmus > /dev/null; then
+        urxvt -name cmus -e cmus&
+        sleep 0.5
+    fi
+    # Catch Ctrl-C and turn off the music
+    trap "{ cmus-remote -U; return; }" SIGINT
+
     while [ 1 ]
     do
-        pomodoro $1 $2
+        # Seconds from midnight
+        (( seconds = `date -d "1970-01-01 UTC $(date +%T)" +%s` ))
+        (( seconds_in_pomodoro = $seconds % 1800 ))
+        # Long break at start of every 3 hour block starting from midnight
+        if (( ($seconds / 1800) % 6 == 0 ))
+        then
+            (( sleep_time = 2100 - $seconds_in_pomodoro ))
+            echo "Long break for $(date -d@$sleep_time -u +%M:%S)"
+            cmus-remote -U
+            sleep $sleep_time
+        else
+            if (( $seconds_in_pomodoro < 300 ))
+            then
+                (( sleep_time = 300 - $seconds_in_pomodoro ))
+                echo "Break for $(date -d@$sleep_time -u +%M:%S)"
+                cmus-remote -U
+                sleep $sleep_time
+            else
+                (( work_time = 1800 - $seconds_in_pomodoro ))
+                echo "Work for $(date -d@$work_time -u +%M:%S)"
+                cmus-remote -p
+                sleep $work_time
+            fi
+        fi
     done
 }
 
