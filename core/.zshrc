@@ -116,6 +116,8 @@ function pomodoro() {
 }
 
 # Do repeating by-the-clock pomodoro cycle from https://guzey.com/productivity/
+#
+# Using 48/12 minutes instead of 25/5, breaks aren't specified.
 function pomodoros() {
     # Start cmus if needed
     if ! pgrep -x cmus > /dev/null; then
@@ -129,27 +131,20 @@ function pomodoros() {
     do
         # Seconds from midnight
         (( seconds = `date -d "1970-01-01 UTC $(date +%T)" +%s` ))
-        (( seconds_in_pomodoro = $seconds % 1800 ))
-        # Long break at start of every 3 hour block starting from midnight
-        if (( ($seconds / 1800) % 6 == 0 ))
+        (( seconds_in_pomodoro = $seconds % 3600 ))
+        if (( $seconds_in_pomodoro < 720 ))
         then
-            (( sleep_time = 2100 - $seconds_in_pomodoro ))
-            echo "Long break for $(date -d@$sleep_time -u +%M:%S)"
+            (( break_time = 720 - $seconds_in_pomodoro ))
+            echo "Break for $(date -d@$break_time -u +%M:%S)"
+            (( break_time = $break_time + 1 )) # Go past threshold time
             cmus-remote -U
-            sleep $sleep_time
+            sleep $break_time
         else
-            if (( $seconds_in_pomodoro < 300 ))
-            then
-                (( sleep_time = 300 - $seconds_in_pomodoro ))
-                echo "Break for $(date -d@$sleep_time -u +%M:%S)"
-                cmus-remote -U
-                sleep $sleep_time
-            else
-                (( work_time = 1800 - $seconds_in_pomodoro ))
-                echo "Work for $(date -d@$work_time -u +%M:%S)"
-                cmus-remote -p
-                sleep $work_time
-            fi
+            (( work_time = 3600 - $seconds_in_pomodoro ))
+            echo "Work for $(date -d@$work_time -u +%M:%S)"
+            (( work_time = $work_time + 1 )) # Go past threshold time
+            cmus-remote -p
+            sleep $work_time
         fi
     done
 }
