@@ -170,6 +170,6 @@ hide_edge_borders smart
 # Doesn't belong in the completely general part of the config file.
 for_window [class="magog"] floating enable
 
-for_window [class="Xmessage"] floating enable
+for_window [class="Xmessage"] floating enable move position center
 
 assign [class="URxvt" instance="cmus"] 10
