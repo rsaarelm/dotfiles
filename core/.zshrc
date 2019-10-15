@@ -92,33 +92,16 @@ find $HOME/tmp/ -mindepth 1 -maxdepth 1 -mtime +30 -exec echo "Scheduled cleanup
 alias wtt="tt --prefix ~/dayjob"
 alias workhours="wtt timeclock | hledger -f - balance -p 'daily this week'"
 
-# 48 min + 12 min work cycle. Put this in a loop for repeated work.
-function pomodoro() {
-    # Optionally specify duration and break using arguments, eg.
-    #   pomodoro 25 5
-    # for the classic half-hour cycle
-    if [ "$1" != "" ]; then DURATION="$1" else DURATION=48 fi
-    if [ "$2" != "" ]; then BREAK="$2" else BREAK=12 fi
-
-    # Start cmus if needed
-    if ! pgrep -x cmus > /dev/null; then
-        urxvt -name cmus -e cmus&
-        sleep 0.5
-    fi
-    # Catch Ctrl-C and turn off the music
-    trap "{ cmus-remote -U; return; }" SIGINT
-    echo "$DURATION minutes of work starting `date +%H:%M`"
-    cmus-remote -p
-    sleep "$DURATION"m
-    echo "$BREAK minutes of break starting `date +%H:%M`"
-    cmus-remote -U
-    sleep "$BREAK"m
-}
-
 # Do repeating by-the-clock pomodoro cycle from https://guzey.com/productivity/
-#
-# Using 48/12 minutes instead of 25/5, breaks aren't specified.
 function pomodoros() {
+    # Optionally specify duration and break using arguments, eg.
+    #   pomodoros 48 12
+    # for a hour-long cycle
+    if [ "$1" != "" ]; then (( DURATION=$1*60 )) else (( DURATION=25*60 )) fi
+    if [ "$2" != "" ]; then (( BREAK=$2*60 )) else (( BREAK=5*60 )) fi
+
+    (( POMODORO_LENGTH = $DURATION + $BREAK ))
+
     # Start cmus if needed
     if ! pgrep -x cmus > /dev/null; then
         urxvt -name cmus -e cmus&
@@ -131,18 +114,18 @@ function pomodoros() {
     do
         # Seconds from midnight
         (( seconds = `date -d "1970-01-01 UTC $(date +%T)" +%s` ))
-        (( seconds_in_pomodoro = $seconds % 3600 ))
-        if (( $seconds_in_pomodoro < 720 ))
+        (( seconds_in_pomodoro = $seconds % $POMODORO_LENGTH ))
+        if (( $seconds_in_pomodoro < $BREAK ))
         then
-            (( break_time = 720 - $seconds_in_pomodoro ))
+            (( break_time = $BREAK - $seconds_in_pomodoro ))
             echo "Break for $(date -d@$break_time -u +%M:%S)"
-            (( break_time = $break_time + 1 )) # Go past threshold time
+            (( break_time = $break_time + 0.1 )) # Go past threshold time
             cmus-remote -U
             sleep $break_time
         else
-            (( work_time = 3600 - $seconds_in_pomodoro ))
+            (( work_time = $POMODORO_LENGTH - $seconds_in_pomodoro ))
             echo "Work for $(date -d@$work_time -u +%M:%S)"
-            (( work_time = $work_time + 1 )) # Go past threshold time
+            (( work_time = $work_time + 0.1 )) # Go past threshold time
             cmus-remote -p
             sleep $work_time
         fi
