@@ -2,8 +2,6 @@
 alias arst="setxkbmap us -variant intl"
 alias asdf="setxkbmap us -variant colemak"
 
-export RUST_SRC_PATH=/home/rsaarelm/rustc-nightly/src
-
 setopt hist_ignore_space
 
 autoload -U colors && colors # Enable colors in prompt
