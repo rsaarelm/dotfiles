@@ -4,6 +4,7 @@ alias asdf="setxkbmap us -variant colemak"
 
 setopt hist_ignore_space
 
+eval "`dircolors`"  # Nice ls colors
 autoload -U colors && colors # Enable colors in prompt
 setopt prompt_subst
 
