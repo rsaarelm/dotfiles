@@ -1,0 +1,9 @@
+OPTIONS=autopickup,pickup_types:$"?+!=/
+
+OPTIONS=DECgraphics
+OPTIONS=number_pad:1
+
+OPTIONS=hilite_pet,lit_corridor,boulder:0
+SYMBOLS=S_litcorr: \xe1
+
+OPTIONS=hitpointbar,showexp
