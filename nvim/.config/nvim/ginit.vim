@@ -1,6 +1,5 @@
 set mouse=a
-Guifont! Hack:h10
-
+Guifont terminus:h11
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv
 

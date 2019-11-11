@@ -53,6 +53,7 @@ sudo apt install \
     tmux \
     xcape \
     youtube-dl \
+    xfonts-terminus \
     zathura \
     zsh
 
@@ -101,7 +102,9 @@ fi
 # XXX: Duplicated file from NixOS conf
 if [ ! -f ~/.Xdefaults ]; then
     cat <<EOF > ~/.Xdefaults
-URxvt.font: xft:Hack-10
+URxvt.font: terminus-16
+URxvt.keysym.Mod4-minus: command:\033]50;terminus-16\007
+URxvt.keysym.Mod4-equal: command:\033]50;terminus-24\007
 URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select
 URxvt.keysym.M-u: perl:url-select:select_next
