@@ -10,6 +10,7 @@
     # The default version only shows the recent commits for rebase ops on the
     # same terminal session
     lg = log --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s %C(bold blue)(%cr)%Creset %C(blue)<%an>%Creset' -n 10
+    lgg = log --graph --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s %C(bold blue)(%cr)%Creset %C(blue)<%an>%Creset'
     # The full version
     lga = log --color=always --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s %C(bold blue)(%cr)%Creset %C(blue)<%an>%Creset'
     # Logs of all branches
