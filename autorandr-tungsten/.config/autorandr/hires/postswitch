@@ -2,3 +2,6 @@
 
 xrandr --dpi 192
 i3-msg restart
+
+# Mouse speed
+xset mouse 2 2

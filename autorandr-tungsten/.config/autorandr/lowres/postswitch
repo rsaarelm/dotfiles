@@ -6,3 +6,6 @@ i3-msg restart
 # XXX: Base autorandr isn't getting this right for whatever reason, putting it
 # here.
 xrandr --output DVI-I-1 --right-of DP-1 --rotate left --auto
+
+# Mouse speed
+xset mouse 1 0
