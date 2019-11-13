@@ -174,9 +174,9 @@
 
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
-          URxvt.font: -*-terminus-medium-*-*-*-22-*-*-*-*-*-*-*
-          URxvt.keysym.Mod4-minus: command:\033]50;-*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*\007
-          URxvt.keysym.Mod4-equal: command:\033]50;-*-terminus-medium-*-*-*-22-*-*-*-*-*-*-*\007
+          URxvt.font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
+          URxvt.keysym.Mod4-minus: command:\033]50;-gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1\007
+          URxvt.keysym.Mod4-equal: command:\033]50;-gohu-gohufont-medium-r-normal--28-100-100-100-c-80-iso8859-1\007
           URxvt.scrollBar: false
           URxvt.perl-ext: default,url-select
           URxvt.keysym.M-u: perl:url-select:select_next

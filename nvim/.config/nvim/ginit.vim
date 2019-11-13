@@ -1,5 +1,5 @@
 set mouse=a
-Guifont terminus:h11
+Guifont GohuFont:h10
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv
 
