@@ -3,9 +3,9 @@
 # List all subdirectories that should be stowed to $HOME here.
 
 stow core
+stow config-`hostname`
 stow i3
 
-stow mplayer
 stow nvim
 
 AUTORANDR=autorandr-`hostname`
