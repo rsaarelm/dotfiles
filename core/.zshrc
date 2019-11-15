@@ -144,6 +144,9 @@ alias audio-dl='youtube-dl -x --audio-format vorbis'
 # Personal wiki speed dial
 alias wiki="pushd -q ~/notes/wiki; vim FrontPage.otl; popd -q"
 
+# Launch pdf viewer in separate process
+function v () { zathura $* 2> /dev/null &! }
+
 # Extra environment variables can be listed in ~/.env-settings in
 # VAR=value
 # lines
