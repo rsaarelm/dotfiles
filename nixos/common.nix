@@ -172,6 +172,17 @@
 
       desktopManager.xterm.enable = false;
 
+      xautolock = {
+        enable = true;
+        time = 3;       # minutes
+        locker = "${pkgs.i3lock}/bin/i3lock";
+        notify = 10;    # seconds
+        notifier = "${pkgs.libnotify}/bin/notify-send 'Locking machine in 10 seconds'";
+        killtime = 20;  # minutes
+        killer = "${pkgs.systemd}/bin/systemctl suspend";
+        extraOptions = [ "-secure" ];
+      };
+
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
           URxvt.font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1

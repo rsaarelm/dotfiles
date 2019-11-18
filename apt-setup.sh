@@ -53,6 +53,7 @@ sudo apt install \
     tmux \
     xcape \
     youtube-dl \
+    xautolock \
     xfonts-terminus \
     zathura \
     zsh
@@ -96,6 +97,11 @@ fi
 if [ ! -f ~/.ssh/id_rsa ]; then
     echo "SSH key does not exist, generating..."
     ssh-keygen
+fi
+
+if ! grep -q "xautolock" ~/.xprofile.local; then
+    echo "Activating xautolock"
+    echo "xautolock -secure -detectsleep -time 3 -locker 'i3lock'" >> ~/.xprofile.local
 fi
 
 # Setup nice terminal colors.
