@@ -106,8 +106,10 @@
       gimp
       grafx2
       keepass
+      libnotify
       mpv
       neovim-qt
+      notify-osd
       pavucontrol
       rofi
       rxvt_unicode_with-plugins
