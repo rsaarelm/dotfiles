@@ -51,6 +51,7 @@ sudo apt install \
     sxiv \
     thefuck \
     tmux \
+    unclutter \
     xcape \
     youtube-dl \
     xautolock \
@@ -101,7 +102,12 @@ fi
 
 if ! grep -q "xautolock" ~/.xprofile.local; then
     echo "Activating xautolock"
-    echo "xautolock -secure -detectsleep -time 3 -locker 'i3lock'" >> ~/.xprofile.local
+    echo "xautolock -detectsleep -time 3 -locker 'i3lock' &" >> ~/.xprofile.local
+fi
+
+if ! grep -q "unclutter" ~/.xprofile.local; then
+    echo "Activating unclutter"
+    echo "unclutter &" >> ~/.xprofile.local
 fi
 
 # Setup nice terminal colors.
