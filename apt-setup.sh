@@ -19,7 +19,7 @@ sudo apt install \
     curl \
     docker \
     fonts-go \
-    fonts-hack \
+    fonts-mononoki \
     gimp \
     git \
     haskell-stack \
@@ -114,9 +114,9 @@ fi
 # XXX: Duplicated file from NixOS conf
 if [ ! -f ~/.Xdefaults ]; then
     cat <<EOF > ~/.Xdefaults
-URxvt.font: terminus-16
-URxvt.keysym.Mod4-minus: command:\033]50;terminus-16\007
-URxvt.keysym.Mod4-equal: command:\033]50;terminus-24\007
+URxvt.font: xft:mononoki
+URxvt.keysym.Mod4-minus: command:\033]50;xft:mononoki\007
+URxvt.keysym.Mod4-equal: command:\033]50;xft:mononoki:size=24\007
 URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select
 URxvt.keysym.M-u: perl:url-select:select_next
@@ -124,24 +124,33 @@ URxvt.url-select.launcher: chromium --incognito
 URxvt.url-select.underline: true
 URxvt.saveLines: 32000
 
-*color0: #2e3436
-*color1: #cc0000
-*color2: #4e9a06
-*color3: #c4a000
-*color4: #3465a4
-*color5: #ff00e4
-*color6: #00fbff
-*color7: #d3d7cf
-*color8: #565654
-*color9: #ee3030
-*color10: #8ae234
-*color11: #fce94f
-*color12: #729fcf
-*color13: #b292af
-*color14: #a2ffff
-*color15: #eeeeec
-
-*background: #111111
-*foreground: #dddddd
+! special
+*.foreground:   #262626
+*.background:   #e0e0e0
+*.cursorColor:  #262626
+! black
+*.color0:       #1b1b1b
+*.color8:       #6d6d6d
+! red
+*.color1:       #7d1e1e
+*.color9:       #ee3030
+! green
+*.color2:       #356C00
+*.color10:      #61be07
+! yellow
+*.color3:       #7f702d
+*.color11:      #beb03c
+! blue
+*.color4:       #254d80
+*.color12:      #3f7ec1
+! magenta
+*.color5:       #802576
+*.color13:      #c546ba
+! cyan
+*.color6:       #00787a
+*.color14:      #76baba
+! white
+*.color7:       #c2c2c2
+*.color15:      #ffffff
 EOF
 fi
