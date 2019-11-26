@@ -160,6 +160,9 @@
       enable = true;
       temperature.day = 6500;
       temperature.night = 3500;
+
+      brightness.day = "1";
+      brightness.night = "0.5";
     };
 
     xserver = {
