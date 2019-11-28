@@ -76,8 +76,8 @@ A:E
 M:k
 A:m
 
-M:;
+M:J
 A:<
 
-M:/
+M:j
 A:>
