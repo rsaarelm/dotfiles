@@ -144,6 +144,8 @@ alias audio-dl='youtube-dl -x --audio-format vorbis'
 # Personal wiki speed dial
 alias wiki="pushd -q ~/notes/wiki; vim FrontPage.otl; popd -q"
 
+alias urxvt-dark="urxvt -bg black -fg #e0e0e0 &!"
+
 # Launch pdf viewer in separate process
 function v () { zathura $* 2> /dev/null &! }
 

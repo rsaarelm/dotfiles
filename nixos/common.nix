@@ -203,7 +203,6 @@
           ! special
           *.foreground:   #262626
           *.background:   #e0e0e0
-          *.cursorColor:  #262626
           ! black
           *.color0:       #1b1b1b
           *.color8:       #6d6d6d
