@@ -1,11 +1,3 @@
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=# begin Dump keymaps
-# *Warning!*  The lines below are an automatic dump.
-# Don't edit them; changes will be deleted and replaced automatically.
-
-# *Warning!*  The lines above are an automatic dump.
-# Don't edit them; changes will be deleted and replaced automatically.
-#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=# end Dump keymaps
-
 # Walking
 keymap-act:;1
 keymap-input:1:m
@@ -55,3 +47,16 @@ keymap-input:1:U
 
 keymap-act:,9
 keymap-input:1:Y
+
+# Remap clobbered keys
+keymap-act:.
+keymap-input:1:e
+
+keymap-act:>
+keymap-input:1:j
+
+keymap-act:<
+keymap-input:1:J
+
+keymap-act:i
+keymap-input:1:h
