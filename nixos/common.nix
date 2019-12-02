@@ -190,9 +190,9 @@
 
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
-          URxvt.font: xft:mononoki
-          URxvt.keysym.Mod4-minus: command:\033]50;xft:mononoki\007
-          URxvt.keysym.Mod4-equal: command:\033]50;xft:mononoki:size=24\007
+          URxvt.font: xft:mononoki,xft:Symbola
+          URxvt.keysym.Mod4-minus: command:\033]50;xft:mononoki,xft:Symbola\007
+          URxvt.keysym.Mod4-equal: command:\033]50;xft:mononoki:size=24,xft:Symbola\007
           URxvt.scrollBar: false
           URxvt.perl-ext: default,url-select
           URxvt.keysym.M-u: perl:url-select:select_next
@@ -251,6 +251,7 @@
     go-font
     hack-font
     mononoki
+    symbola
   ];
 
   # Open ports in the firewall.
