@@ -18,6 +18,7 @@ sudo apt install \
     ctags \
     curl \
     docker \
+    fonts-symbola \
     fonts-go \
     fonts-mononoki \
     gimp \
@@ -114,9 +115,9 @@ fi
 # XXX: Duplicated file from NixOS conf
 if [ ! -f ~/.Xdefaults ]; then
     cat <<EOF > ~/.Xdefaults
-URxvt.font: xft:mononoki
-URxvt.keysym.Mod4-minus: command:\033]50;xft:mononoki\007
-URxvt.keysym.Mod4-equal: command:\033]50;xft:mononoki:size=24\007
+URxvt.font: xft:mononoki,xft:Symbola
+URxvt.keysym.Mod4-minus: command:\033]50;xft:mononoki,xft:Symbola\007
+URxvt.keysym.Mod4-equal: command:\033]50;xft:mononoki:size=24,xft:Symbola\007
 URxvt.scrollBar: false
 URxvt.perl-ext: default,url-select
 URxvt.keysym.M-u: perl:url-select:select_next
