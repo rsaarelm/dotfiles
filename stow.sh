@@ -1,4 +1,4 @@
 #!/bin/sh
 
-stow stow-*
-stow $(hostname)-stow
+stow -v stow-*
+[ -d $(hostname)-stow ] && stow -v $(hostname)-stow
