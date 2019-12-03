@@ -18,9 +18,9 @@ sudo apt install \
     ctags \
     curl \
     docker \
-    fonts-symbola \
     fonts-go \
     fonts-mononoki \
+    fonts-symbola \
     gimp \
     git \
     haskell-stack \
@@ -29,15 +29,16 @@ sudo apt install \
     i3 \
     imagemagick \
     ipython3 \
+    k2pdfopt \
     keepassx \
     links \
     lldb \
     mesa-utils \
     mosh \
     ncdu \
-    net-tools \
     neovim \
     neovim-qt \
+    net-tools \
     pandoc \
     pavucontrol \
     pwgen \
@@ -53,10 +54,10 @@ sudo apt install \
     thefuck \
     tmux \
     unclutter \
-    xcape \
-    youtube-dl \
     xautolock \
+    xcape \
     xfonts-terminus \
+    youtube-dl \
     zathura \
     zsh
 
