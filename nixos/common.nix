@@ -53,6 +53,7 @@
       hledger
       htop
       imagemagick
+      k2pdfopt
       links
       mosh
       ncdu
