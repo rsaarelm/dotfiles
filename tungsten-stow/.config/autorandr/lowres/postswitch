@@ -8,4 +8,4 @@ i3-msg restart
 xrandr --output DVI-I-1 --right-of DP-1 --rotate left --auto
 
 # Mouse speed
-xset mouse 1 0
+xset mouse 2 2
