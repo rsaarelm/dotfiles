@@ -39,6 +39,7 @@ sudo apt install \
     neovim \
     neovim-qt \
     net-tools \
+    nitrogen \
     pandoc \
     pavucontrol \
     pwgen \

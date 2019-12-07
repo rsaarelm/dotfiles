@@ -110,6 +110,7 @@
       libnotify
       mpv
       neovim-qt
+      nitrogen
       notify-osd
       pavucontrol
       rofi

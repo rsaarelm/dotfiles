@@ -1,3 +1,6 @@
+# Desktop wallpaper display
+exec --no-startup-id nitrogen --restore
+
 # Win key as modifier
 set $mod Mod4
 
