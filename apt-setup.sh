@@ -105,7 +105,7 @@ fi
 
 if ! grep -q "xautolock" ~/.xprofile.local; then
     echo "Activating xautolock"
-    echo "xautolock -detectsleep -time 3 -locker 'i3lock' &" >> ~/.xprofile.local
+    echo "xautolock -detectsleep -lockaftersleep -time 3 -locker 'i3lock' &" >> ~/.xprofile.local
 fi
 
 if ! grep -q "unclutter" ~/.xprofile.local; then
