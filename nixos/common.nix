@@ -192,15 +192,14 @@
 
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
-          URxvt.font: xft:mononoki,xft:Symbola
-          URxvt.keysym.Mod4-minus: command:\033]50;xft:mononoki,xft:Symbola\007
-          URxvt.keysym.Mod4-equal: command:\033]50;xft:mononoki:size=24,xft:Symbola\007
+          URxvt.font: xft:mononoki:size=12,xft:Symbola
           URxvt.scrollBar: false
-          URxvt.perl-ext: default,url-select
+          URxvt.saveLines: 32000
+          URxvt.perl-ext-common: default,url-select,resize-font
           URxvt.keysym.M-u: perl:url-select:select_next
           URxvt.url-select.launcher: chromium --incognito
           URxvt.url-select.underline: true
-          URxvt.saveLines: 32000
+          URxvt.resize-font.step: 2
 
           ! special
           *.foreground:   #262626
