@@ -67,6 +67,7 @@
       stow
       thefuck
       tmux
+      tree
       unzip
       wget
       xxd

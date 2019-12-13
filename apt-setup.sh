@@ -54,6 +54,7 @@ sudo apt install \
     sxiv \
     thefuck \
     tmux \
+    tree \
     unclutter \
     xautolock \
     xcape \
