@@ -118,14 +118,16 @@ fi
 # XXX: Duplicated file from NixOS conf
 if [ ! -f ~/.Xdefaults ]; then
     cat <<EOF > ~/.Xdefaults
-URxvt.font: xft:mononoki:size=12,xft:Symbola
-URxvt.scrollBar: false
-URxvt.saveLines: 32000
-URxvt.perl-ext-common: default,url-select,resize-font
-URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.url-select.launcher: chromium --incognito
+URxvt.font:                 xft:mononoki:size=12,xft:Symbola
+URxvt.scrollBar:            false
+URxvt.saveLines:            32000
+URxvt.perl-ext-common:      default,url-select,resize-font
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.url-select.launcher:  chromium --incognito
 URxvt.url-select.underline: true
-URxvt.resize-font.step: 2
+URxvt.resize-font.step:     2
+URxvt.keysym.C-equal:       font-size:increase
+URxvt.keysym.C-minus:       font-size:decrease
 
 ! special
 *.foreground:   #262626
