@@ -12,6 +12,12 @@ call plug#begin('~/.nvim/plugged')
 " Plugins
 " ================================
 
+" Airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+
 " Debugging
 " XXX: May need to do 'pip3 install pynvim' before UpdateRemotePlugins works
 " FIXME: The proposed do-format is wrong, you can't bar-append to shell command
