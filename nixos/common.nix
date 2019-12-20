@@ -186,8 +186,6 @@
         locker = "${pkgs.i3lock}/bin/i3lock --color 002222";
         notify = 10;       # seconds
         notifier = "${pkgs.libnotify}/bin/notify-send 'Locking machine in 10 seconds'";
-        killtime = 120;    # minutes
-        killer = "${pkgs.systemd}/bin/systemctl suspend";
         extraOptions = [ "-secure -detectsleep" ];
       };
 
