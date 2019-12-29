@@ -35,6 +35,7 @@ C:1:<
 A:.3
 C:1:>
 
+# XXX: Some of these don't work right.
 A:/7
 C:1:^l
 A:/8
@@ -72,6 +73,9 @@ C:1:h
 
 A:u
 C:1:a
+
+A:^i
+C:1:k
 
 # Color defs
 
