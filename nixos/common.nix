@@ -191,7 +191,7 @@
 
       displayManager.sessionCommands = ''
         xrdb "${pkgs.writeText "xrdb.conf" ''
-          URxvt.font:                 xft:mononoki:size=12,xft:Symbola
+          URxvt.font:                 xft:mononoki:size=12,xft:Noto Sans Mono CJK JP,xft:Symbola
           URxvt.scrollBar:            false
           URxvt.saveLines:            32000
           URxvt.perl-ext-common:      default,url-select,resize-font
@@ -255,6 +255,7 @@
     hack-font
     mononoki
     symbola
+    noto-fonts-cjk
   ];
 
   # Open ports in the firewall.
