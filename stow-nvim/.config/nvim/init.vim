@@ -223,12 +223,12 @@ command! NoSembr iunmap <buffer> .|iunmap <buffer> <C-.>|iunmap <buffer> ?|iunma
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
 
-iabbrev ansired \033[1;31m\033[0m<esc>7ha
-iabbrev ansigreen \033[1;32m\033[0m<esc>7ha
-iabbrev ansiyellow \033[1;33m\033[0m<esc>7ha
-iabbrev ansiblue \033[1;34m\033[0m<esc>7ha
-iabbrev ansimagenta \033[1;35m\033[0m<esc>7ha
-iabbrev ansicyan \033[1;36m\033[0m<esc>7ha
+iabbrev ansired \x1b[1;31m\x1b[0m<esc>7ha
+iabbrev ansigreen \x1b[1;32m\x1b[0m<esc>7ha
+iabbrev ansiyellow \x1b[1;33m\x1b[0m<esc>7ha
+iabbrev ansiblue \x1b[1;34m\x1b[0m<esc>7ha
+iabbrev ansimagenta \x1b[1;35m\x1b[0m<esc>7ha
+iabbrev ansicyan \x1b[1;36m\x1b[0m<esc>7ha
 
 " Filetype settings
 " ================================
