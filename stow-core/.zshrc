@@ -160,3 +160,7 @@ fi
 
 # Optional file for local configuration
 [[ -s $HOME/.zshrc.local ]] && source "$HOME/.zshrc.local"
+
+# Stochastic time tracking
+alias t="tt log-ping 45"
+alias tp="tt missed-pings 45"

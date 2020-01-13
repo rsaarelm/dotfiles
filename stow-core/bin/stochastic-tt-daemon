@@ -1,0 +1,7 @@
+#!/bin/sh
+while [ true ]
+do
+    sleep $(tt next-ping 45)
+    date
+    notify-send ping
+done
