@@ -20,6 +20,7 @@ sudo apt install \
     docker \
     fonts-go \
     fonts-mononoki \
+    fonts-noto-cjk \
     fonts-symbola \
     gimp \
     git \
@@ -118,7 +119,7 @@ fi
 # XXX: Duplicated file from NixOS conf
 if [ ! -f ~/.Xdefaults ]; then
     cat <<EOF > ~/.Xdefaults
-URxvt.font:                 xft:mononoki:size=12,xft:Symbola
+URxvt.font:                 xft:Go Mono:size=11,xft:mononoki,xft:Symbola,xft:Noto Sans Mono CJK JP
 URxvt.scrollBar:            false
 URxvt.saveLines:            32000
 URxvt.perl-ext-common:      default,url-select,resize-font
