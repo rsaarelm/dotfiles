@@ -106,9 +106,6 @@ nnoremap <silent> <leader>s :call LanguageClient#workspace_symbol()<CR>
 " Asynchronous completion framework
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-" Color string colorizer
-Plug 'gko/vim-coloresque'
-
 call plug#end()
 
 
