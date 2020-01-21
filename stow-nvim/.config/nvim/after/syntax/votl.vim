@@ -2,6 +2,8 @@
 
 " Highlight WikiWord-s inside lines as links
 syntax match otlWikiWord /\C\v<([0-9]*[A-Z][a-z0-9]+){2,}>/ contained containedin=OL1,OL2,OL3,OL4,OL5,OL6,OL7,OL8,OL9,otlImportant
+" Also highlight wikiword aliases that are marked up as links
+syntax match otlWikiWord /\C\v\[[A-Za-z0-9._/-]+\]/ contained containedin=OL1,OL2,OL3,OL4,OL5,OL6,OL7,OL8,OL9,otlImportant
 highlight def link otlWikiWord Tag
 
 " WikiWord as the only thing on a line gets highlighted as the wiki section
