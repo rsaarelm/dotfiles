@@ -89,7 +89,8 @@ find $HOME/tmp/ -mindepth 1 -maxdepth 1 -mtime +30 -exec echo "Scheduled cleanup
 
 # Work stuff, symlink ~/dayjob to work folder with its own todo.txt
 alias wtt="tt --prefix ~/dayjob"
-alias workhours="wtt timeclock | hledger -f - balance -p 'daily this week'"
+alias weekhours="wtt timeclock | hledger -f - balance -p 'daily this week'"
+alias lastweekhours="wtt timeclock | hledger -f - balance -p 'daily last week'"
 
 # Do repeating by-the-clock pomodoro cycle from https://guzey.com/productivity/
 function pomodoros() {
