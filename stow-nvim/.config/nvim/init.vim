@@ -1,3 +1,6 @@
+colorscheme PaperColor
+set background=light
+
 let g:mapleader = "\<Space>"
 
 " Plugin Manager
@@ -142,9 +145,6 @@ set hidden          " Allow unsaved stuff in background buffers
 set wildmode=longest,list,full  " Don't tab complete wrong options
 
 set formatoptions-=t " Don't word wrap by default in eg. config files
-
-colorscheme PaperColor
-set background=light
 
 " Key mapping
 " ================================
