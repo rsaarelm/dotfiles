@@ -117,12 +117,14 @@ function pomodoros() {
         (( seconds_in_pomodoro = $seconds % $POMODORO_LENGTH ))
         if (( $seconds_in_pomodoro < $BREAK ))
         then
+            notify-send break
             (( break_time = $BREAK - $seconds_in_pomodoro ))
             echo "Break for $(date -d@$break_time -u +%M:%S)"
             (( break_time = $break_time + 0.1 )) # Go past threshold time
             cmus-remote -U
             sleep $break_time
         else
+            notify-send work
             (( work_time = $POMODORO_LENGTH - $seconds_in_pomodoro ))
             echo "Work for $(date -d@$work_time -u +%M:%S)"
             (( work_time = $work_time + 0.1 )) # Go past threshold time
