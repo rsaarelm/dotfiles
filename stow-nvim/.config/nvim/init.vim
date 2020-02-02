@@ -80,7 +80,8 @@ let $FZF_DEFAULT_COMMAND = '
     \ sed s/^..//) 2> /dev/null'
 
 " Vimoutliner
-Plug 'vimoutliner/vimoutliner'
+" (Use my fork to get the empty line fix in)
+Plug 'rsaarelm/vimoutliner'
 
 " Rust support
 Plug 'rust-lang/rust.vim'
