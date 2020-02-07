@@ -1,6 +1,6 @@
 set mouse=a
 
-Guifont Go Mono
+Guifont! mononoki
 
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv
