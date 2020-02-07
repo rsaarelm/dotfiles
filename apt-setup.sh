@@ -24,6 +24,7 @@ sudo apt install \
     fonts-symbola \
     gimp \
     git \
+    gnupg2 \
     haskell-stack \
     hledger \
     htop \
@@ -69,6 +70,21 @@ sudo apt upgrade
 # Installs a ghc that can build my tt tool.
 if [ ! -f ~/.local/bin/stack ]; then
     stack upgrade
+fi
+
+if ! hash nix 2>/dev/null; then
+    echo Installing Nix
+    pushd /tmp/
+    # From https://nixos.org/nix/download.html
+    curl -o install-nix-2.3.2 https://nixos.org/nix/install
+    curl -o install-nix-2.3.2.sig https://nixos.org/nix/install.sig
+    gpg2 --recv-keys B541D55301270E0BCF15CA5D8170B4726D7198DE
+    gpg2 --verify ./install-nix-2.3.2.sig
+    if [ $? -eq 0 ]; then
+        echo Signature is good
+        sh ./install-nix-2.3.2
+    fi
+    popd
 fi
 
 # Tap caps for escape:
