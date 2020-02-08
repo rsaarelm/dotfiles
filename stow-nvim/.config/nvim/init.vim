@@ -267,6 +267,7 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> cdot ⋅
     iabbrev <buffer> circ ∘
     iabbrev <buffer> degree °
+    iabbrev <buffer> dagger †
     iabbrev <buffer> oplus ⊕
     iabbrev <buffer> otimes ⊗
     iabbrev <buffer> odot ⊙

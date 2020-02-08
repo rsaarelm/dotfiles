@@ -23,6 +23,17 @@ syntax match otlWikiHeading /\C\v^\t{6}([0-9]*[A-Z][a-z0-9]+){2,}$/ contained co
 syntax match otlWikiHeading /\C\v^\t{7}([0-9]*[A-Z][a-z0-9]+){2,}$/ contained containedin=OL8
 syntax match otlWikiHeading /\C\v^\t{8}([0-9]*[A-Z][a-z0-9]+){2,}$/ contained containedin=OL9
 
+" Also match *Topic* for directly using more flexible alias-style title
+syntax match otlWikiHeading      /\C\v^(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL1
+syntax match otlWikiHeading    /\C\v^\t(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL2
+syntax match otlWikiHeading /\C\v^\t{2}(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL3
+syntax match otlWikiHeading /\C\v^\t{3}(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL4
+syntax match otlWikiHeading /\C\v^\t{4}(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL5
+syntax match otlWikiHeading /\C\v^\t{5}(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL6
+syntax match otlWikiHeading /\C\v^\t{6}(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL7
+syntax match otlWikiHeading /\C\v^\t{7}(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL8
+syntax match otlWikiHeading /\C\v^\t{8}(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL9
+
 
 " Convention: Mark important entries with trailing asterisk
 highlight def otlImportant ctermfg=none guifg=none cterm=bold gui=bold
