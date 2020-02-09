@@ -3,5 +3,6 @@ while [ true ]
 do
     sleep $(tt next-ping 45)
     date
+    xrefresh -solid orange
     notify-send ping
 done
