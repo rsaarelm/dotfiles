@@ -30,6 +30,7 @@ sudo apt install \
     htop \
     i3 \
     imagemagick \
+    inotify-tools \
     ipython3 \
     k2pdfopt \
     keepassx \
