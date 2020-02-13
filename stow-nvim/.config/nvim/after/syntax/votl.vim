@@ -59,3 +59,8 @@ hi link UB6 Special
 hi link UB7 Special
 hi link UB8 Special
 hi link UB9 Special
+
+
+" Conceal the extra markup
+syntax match otlWikiHeadingStar contained "*" conceal containedin=otlWikiHeading
+syntax match otlWikiAliasBar contained "|" conceal containedin=otlWikiAliasBlock

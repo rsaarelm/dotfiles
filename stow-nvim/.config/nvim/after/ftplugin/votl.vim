@@ -20,3 +20,7 @@ autocmd CursorMoved,CursorMovedI <buffer> if IsVimOutlinerTable() | setlocal now
 function! IsVimOutlinerTable()
     return getline('.') =~# '^\t*|'
 endfunction
+
+if has("conceal")
+  setlocal conceallevel=2 concealcursor=nc
+endif
