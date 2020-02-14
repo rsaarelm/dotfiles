@@ -1,5 +1,9 @@
 " Extra votl stuff
 
+" Quoted text, not formatted
+syntax match otlWikiVerbatim /\C\v`[^`]+`/ contained containedin=OL1,OL2,OL3,OL4,OL5,OL6,OL7,OL8,OL9,otlImportant
+highlight def link otlWikiEscaped String
+
 " Highlight WikiWord-s inside lines as links
 syntax match otlWikiWord /\C\v<([0-9]*[A-Z][a-z0-9]+){2,}>/ contained containedin=OL1,OL2,OL3,OL4,OL5,OL6,OL7,OL8,OL9,otlImportant
 " Also highlight wikiword aliases that are marked up as links
