@@ -18,7 +18,7 @@ setlocal iskeyword-=45
 autocmd CursorMoved,CursorMovedI <buffer> if IsVimOutlinerTable() | setlocal nowrap | else | setlocal wrap | endif
 
 function! IsVimOutlinerTable()
-    return getline('.') =~# '^\t*|'
+    return getline('.') =~# '^\t*| '
 endfunction
 
 if has("conceal")
