@@ -2,7 +2,7 @@
 
 " Quoted text, not formatted
 syntax match otlWikiVerbatim /\C\v`[^`]+`/ contained containedin=OL1,OL2,OL3,OL4,OL5,OL6,OL7,OL8,OL9,otlImportant
-highlight def link otlWikiEscaped String
+highlight def link otlWikiVerbatim String
 
 " Highlight WikiWord-s inside lines as links
 syntax match otlWikiWord /\C\v<([A-Z][a-z]+){2,}>/ contained containedin=OL1,OL2,OL3,OL4,OL5,OL6,OL7,OL8,OL9,otlImportant
@@ -38,6 +38,8 @@ syntax match otlWikiHeading /\C\v^\t{6}(\*[A-Za-z0-9._/-]+\*)$/ contained contai
 syntax match otlWikiHeading /\C\v^\t{7}(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL8
 syntax match otlWikiHeading /\C\v^\t{8}(\*[A-Za-z0-9._/-]+\*)$/ contained containedin=OL9
 
+syntax match otlWikiHeadingStar contained "*" containedin=otlWikiHeading
+highlight def link otlWikiHeadingStar Comment
 
 " Convention: Mark important entries with trailing asterisk
 highlight def otlImportant ctermfg=none guifg=none cterm=bold gui=bold
@@ -63,7 +65,3 @@ hi link UB6 Special
 hi link UB7 Special
 hi link UB8 Special
 hi link UB9 Special
-
-
-" Conceal the extra markup
-syntax match otlWikiHeadingStar contained "*" conceal containedin=otlWikiHeading
