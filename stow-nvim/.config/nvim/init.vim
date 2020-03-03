@@ -1,5 +1,4 @@
 colorscheme PaperColor
-set background=light
 
 let g:mapleader = "\<Space>"
 
