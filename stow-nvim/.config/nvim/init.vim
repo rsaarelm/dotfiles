@@ -109,6 +109,9 @@ nnoremap <silent> <leader>s :call LanguageClient#workspace_symbol()<CR>
 " Asynchronous completion framework
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" Register preview
+Plug 'junegunn/vim-peekaboo'
+
 call plug#end()
 
 
