@@ -1,4 +1,4 @@
-colorscheme PaperColor
+colorscheme jellybeans
 
 let g:mapleader = "\<Space>"
 
