@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Initial setup for apt-based system
 
 sudo apt update
@@ -32,7 +34,6 @@ sudo apt install \
     imagemagick \
     inotify-tools \
     ipython3 \
-    k2pdfopt \
     keepassx \
     links \
     lldb \
@@ -43,10 +44,14 @@ sudo apt install \
     neovim-qt \
     net-tools \
     nitrogen \
+    openssh-server \
+    openvpn \
     pandoc \
     pavucontrol \
+    pkg-config \
     pwgen \
     python3-pip \
+    redshift \
     restic \
     rlwrap \
     rofi \
@@ -67,26 +72,6 @@ sudo apt install \
     zsh
 
 sudo apt upgrade
-
-# Installs a ghc that can build my tt tool.
-if [ ! -f ~/.local/bin/stack ]; then
-    stack upgrade
-fi
-
-if ! hash nix 2>/dev/null; then
-    echo Installing Nix
-    pushd /tmp/
-    # From https://nixos.org/nix/download.html
-    curl -o install-nix-2.3.2 https://nixos.org/nix/install
-    curl -o install-nix-2.3.2.sig https://nixos.org/nix/install.sig
-    gpg2 --recv-keys B541D55301270E0BCF15CA5D8170B4726D7198DE
-    gpg2 --verify ./install-nix-2.3.2.sig
-    if [ $? -eq 0 ]; then
-        echo Signature is good
-        sh ./install-nix-2.3.2
-    fi
-    popd
-fi
 
 # Tap caps for escape:
 #   xcape -e 'Control_L=Escape'
@@ -132,6 +117,22 @@ if ! grep -q "unclutter" ~/.xprofile.local; then
     echo "unclutter &" >> ~/.xprofile.local
 fi
 
+# Redshift setup
+if [ ! -f ~/.config/redshift.conf ]; then
+    mkdir -p ~/.config
+    cat <<EOF > ~/.config/redshift.conf
+[redshift]
+temp-day=6500
+temp-night=3500
+brightness-day=1
+brightness-night=0.5
+location-provider=manual
+[manual]
+lat=25
+lon=60
+EOF
+fi
+
 # Setup nice terminal colors.
 # XXX: Duplicated file from NixOS conf
 if [ ! -f ~/.Xdefaults ]; then
@@ -167,4 +168,24 @@ URxvt.keysym.C-minus:       font-size:decrease
 *background: #111111
 *foreground: #dddddd
 EOF
+fi
+
+# Installs a ghc that can build my tt tool.
+if [ ! -f ~/.local/bin/stack ]; then
+    stack upgrade
+fi
+
+if ! hash nix 2>/dev/null; then
+    echo Installing Nix
+    pushd /tmp/
+    # From https://nixos.org/nix/download.html
+    curl -o install-nix-2.3.2 https://nixos.org/nix/install
+    curl -o install-nix-2.3.2.sig https://nixos.org/nix/install.sig
+    gpg2 --recv-keys B541D55301270E0BCF15CA5D8170B4726D7198DE
+    gpg2 --verify ./install-nix-2.3.2.sig
+    if [ $? -eq 0 ]; then
+        echo Signature is good
+        sh ./install-nix-2.3.2
+    fi
+    popd
 fi
