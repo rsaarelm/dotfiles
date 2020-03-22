@@ -1,0 +1,5 @@
+# Hardlink decay
+
+The configuration.nix and hardware-configuration.nix should be hardlinked to
+files in the hosts dir. Git operations tend to turn hardlinks into copies.
+Remember to re-run ./ln-host after editing files under hosts/
