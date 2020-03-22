@@ -39,6 +39,7 @@
       inotifyTools
       jmtpfs
       lsof
+      openvpn
       pciutils
       psmisc
       sshfs

@@ -28,6 +28,11 @@
     [ { device = "/dev/disk/by-uuid/edc60911-01ae-4544-b077-cacd499f6328"; }
     ];
 
+  fileSystems."/media/data0" =
+    { device = "/dev/disk/by-uuid/d88fc96a-743d-44c4-a1aa-52e3245a2036";
+      fsType = "ext4";
+    };
+
   nix.maxJobs = lib.mkDefault 4;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
