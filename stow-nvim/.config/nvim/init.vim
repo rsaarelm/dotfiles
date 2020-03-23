@@ -174,6 +174,9 @@ vnoremap > >gv
 nnoremap <BS> <C-^>
 nnoremap <left> :bp<cr>
 nnoremap <right> :bn<cr>
+" And since we're overwriting the arrow keys anyway, make up and down scrolly
+nnoremap <up> <C-y>k
+nnoremap <down> <C-e>j
 
 " Fast macro repeat
 nnoremap <F4> @@
