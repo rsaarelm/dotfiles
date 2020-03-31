@@ -100,6 +100,7 @@
       git
       gnumake
       python3
+      python37Packages.ipython
 
       # X11
       # Stable Anki is bitrotted, use local install for now
@@ -107,7 +108,6 @@
       autorandr
       chromium
       gimp
-      grafx2
       keepass
       libnotify
       mpv
