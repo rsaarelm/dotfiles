@@ -95,10 +95,10 @@ alias lastweekhours="wtt timeclock | hledger -f - balance -p 'daily last week'"
 # Do repeating by-the-clock pomodoro cycle from https://guzey.com/productivity/
 function pomodoros() {
     # Optionally specify duration and break using arguments, eg.
-    #   pomodoros 48 12
-    # for a hour-long cycle
-    if [ "$1" != "" ]; then (( DURATION=$1*60 )) else (( DURATION=25*60 )) fi
-    if [ "$2" != "" ]; then (( BREAK=$2*60 )) else (( BREAK=5*60 )) fi
+    #   pomodoros 25 5
+    # for a half-hour cycle
+    if [ "$1" != "" ]; then (( DURATION=$1*60 )) else (( DURATION=45*60 )) fi
+    if [ "$2" != "" ]; then (( BREAK=$2*60 )) else (( BREAK=15*60 )) fi
 
     (( POMODORO_LENGTH = $DURATION + $BREAK ))
 
