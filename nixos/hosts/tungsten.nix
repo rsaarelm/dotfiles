@@ -55,6 +55,26 @@
 
     # Wacom tablet setup
     wacom.enable = true;
+
+    # Needed for trackball config.
+    libinput.enable = true;
+  };
+
+  environment.etc = {
+    "X11/xorg.conf.d/15-evdev.conf".text = ''
+      Section "InputClass"
+        Identifier   "Marble Mouse"
+        MatchProduct "Logitech USB Trackball"
+        Driver       "libinput"
+        Option       "ScrollMethod"        "button"
+        # Left small button scrolls
+        Option       "ScrollButton"        "9"
+        Option       "MiddleEmulation"     "true"
+        Option       "HorizontalScrolling" "false"
+        # Right small button is middle-click
+        Option       "ButtonMapping"       "1 2 3 4 5 6 7 8 2"
+      EndSection
+    '';
   };
 
   system.stateVersion = "18.03";
