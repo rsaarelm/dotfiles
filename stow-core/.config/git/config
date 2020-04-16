@@ -43,6 +43,8 @@
     wshow = show --word-diff
     # Safer force
     fpush = push --force-with-lease
+    # Clone without history
+    fastclone = clone --depth 1
 [rebase]
     autosquash = true
 [diff]
