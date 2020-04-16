@@ -8,10 +8,11 @@
   # LOCALIZATION
 
   # Select internationalisation properties.
-  i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "colemak/colemak";
-    defaultLocale = "en_US.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "colemak/colemak";
   };
 
   # Set your time zone.
@@ -171,10 +172,18 @@
 
     xserver = {
       enable = true;
-      windowManager = {
-        default = "i3";
-        i3.enable = true;
+
+      displayManager = {
+        defaultSession = "none+i3";
+
+        lightdm = {
+          enable = true;
+          autoLogin.enable = true;
+          autoLogin.user = "rsaarelm";
+        };
       };
+
+      windowManager.i3.enable = true;
 
       layout = "us(colemak)";
       xkbOptions = "ctrl:nocaps";
