@@ -50,6 +50,7 @@
       aspell
       aspellDicts.en
       cmus
+      direnv
       fdupes
       gitAndTools.git-annex
       hledger
@@ -57,9 +58,11 @@
       imagemagick
       k2pdfopt
       links
+      lorri
       mosh
       ncdu
       neovim
+      niv
       optipng
       p7zip
       pandoc
@@ -160,6 +163,7 @@
     locate.enable = true;
     printing.enable = true;
     earlyoom.enable = true;
+    lorri.enable = true;
 
     redshift = {
       enable = true;

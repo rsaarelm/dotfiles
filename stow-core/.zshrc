@@ -167,3 +167,5 @@ fi
 # Stochastic time tracking
 alias t="tt log-ping 45"
 alias tp="tt missed-pings 45"
+
+eval "$(direnv hook zsh)"
