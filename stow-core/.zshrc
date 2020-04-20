@@ -141,6 +141,10 @@ function sleepuntil () {
     sleep $SECONDS
 }
 
+# Notify when a long-running task is done, type in terminal when task is
+# running
+alias d='notify-send "Task '\''$(tail -2 ~/.zsh_history | head -1 | cut -c 16-)'\'' Finished"'
+
 # Download video into ogg file
 alias audio-dl='youtube-dl -x --audio-format vorbis'
 
