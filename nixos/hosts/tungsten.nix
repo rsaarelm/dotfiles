@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./common.nix
-      ./home-network.nix
-      ./hardware-configuration.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./common.nix
+    ./home-network.nix
+    ./hardware-configuration.nix
+  ];
 
   # BOOT
 
@@ -25,14 +24,12 @@
 
     bluetooth = {
       enable = true;
-      config = {
-        General.Enable = "Source,Sink,Media,Socket";
-      };
+      config = { General.Enable = "Source,Sink,Media,Socket"; };
     };
   };
 
   services.xserver = {
-    videoDrivers = ["nvidiaBeta"];
+    videoDrivers = [ "nvidiaBeta" ];
 
     # Dual monitor setup
     xrandrHeads = [

@@ -24,117 +24,103 @@
 
   environment = {
     systemPackages = with pkgs;
-    let
-      neovim = pkgs.neovim.override { vimAlias = true; };
-    in
-    [
-      # System
-      acpi
-      acpitool
-      bluez
-      coreutils
-      docker
-      exfat-utils
-      file
-      fuse_exfat
-      inotifyTools
-      jmtpfs
-      lsof
-      openvpn
-      pciutils
-      psmisc
-      sshfs
-      usbutils
+      let neovim = pkgs.neovim.override { vimAlias = true; };
+      in [
+        # System
+        acpi
+        acpitool
+        bluez
+        coreutils
+        docker
+        exfat-utils
+        file
+        fuse_exfat
+        inotifyTools
+        jmtpfs
+        lsof
+        openvpn
+        pciutils
+        psmisc
+        sshfs
+        usbutils
 
-      # Utils
-      aspell
-      aspellDicts.en
-      cmus
-      direnv
-      fdupes
-      gitAndTools.git-annex
-      hledger
-      htop
-      imagemagick
-      k2pdfopt
-      links
-      lorri
-      mosh
-      ncdu
-      neovim
-      niv
-      optipng
-      p7zip
-      pandoc
-      pwgen
-      ranger
-      restic
-      stow
-      thefuck
-      tmux
-      tree
-      unzip
-      wget
-      xxd
-      youtubeDL
+        # Utils
+        aspell
+        aspellDicts.en
+        cmus
+        direnv
+        fdupes
+        gitAndTools.git-annex
+        hledger
+        htop
+        imagemagick
+        k2pdfopt
+        links
+        lorri
+        mosh
+        ncdu
+        neovim
+        niv
+        optipng
+        p7zip
+        pandoc
+        pwgen
+        ranger
+        restic
+        stow
+        thefuck
+        tmux
+        tree
+        unzip
+        wget
+        xxd
+        youtubeDL
 
-      # LaTeX
-      (texlive.combine {
-        inherit (texlive)
-          collection-basic
-          metafont
-          xits
-          collection-bibtexextra
-          collection-binextra
-          collection-context
-          collection-formatsextra
-          collection-fontutils
-          collection-langenglish
-          collection-latex
-          collection-latexextra
-          collection-latexrecommended
-          collection-pictures
-          collection-pstricks
-          collection-xetex;
-      })
+        # LaTeX
+        (texlive.combine {
+          inherit (texlive)
+            collection-basic metafont xits collection-bibtexextra
+            collection-binextra collection-context collection-formatsextra
+            collection-fontutils collection-langenglish collection-latex
+            collection-latexextra collection-latexrecommended
+            collection-pictures collection-pstricks collection-xetex;
+        })
 
-      # Dev
-      binutils
-      clang
-      git
-      gnumake
-      python3
-      python37Packages.ipython
+        # Dev
+        binutils
+        clang
+        git
+        gnumake
+        python3
+        python37Packages.ipython
 
-      # X11
-      # Stable Anki is bitrotted, use local install for now
-      #anki
-      autorandr
-      chromium
-      gimp
-      keepass
-      libnotify
-      mpv
-      neovim-qt
-      nitrogen
-      notify-osd
-      pavucontrol
-      rofi
-      rxvt_unicode-with-plugins
-      scrot
-      sxiv
-      xcape
-      xorg.xmessage
-      xorg.xrefresh
-      zathura
-    ];
+        # X11
+        # Stable Anki is bitrotted, use local install for now
+        #anki
+        autorandr
+        chromium
+        gimp
+        keepass
+        libnotify
+        mpv
+        neovim-qt
+        nitrogen
+        notify-osd
+        pavucontrol
+        rofi
+        rxvt_unicode-with-plugins
+        scrot
+        sxiv
+        xcape
+        xorg.xmessage
+        xorg.xrefresh
+        zathura
+      ];
 
     variables.EDITOR = pkgs.lib.mkOverride 0 "nvim";
   };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+  nixpkgs.config = { allowUnfree = true; };
 
   programs = {
     ssh.startAgent = true;
@@ -147,8 +133,8 @@
 
   virtualisation.docker.enable = true;
 
-  location.latitude = 25.;
-  location.longitude = 60.;
+  location.latitude = 25.0;
+  location.longitude = 60.0;
 
   # List services that you want to enable:
   services = {
@@ -196,45 +182,48 @@
 
       xautolock = {
         enable = true;
-        time = 10;         # minutes
+        time = 10; # minutes
         locker = "${pkgs.i3lock}/bin/i3lock --color 002222";
-        notify = 10;       # seconds
-        notifier = "${pkgs.libnotify}/bin/notify-send 'Locking machine in 10 seconds'";
+        notify = 10; # seconds
+        notifier =
+          "${pkgs.libnotify}/bin/notify-send 'Locking machine in 10 seconds'";
         extraOptions = [ "-detectsleep" ];
       };
 
       displayManager.sessionCommands = ''
-        xrdb "${pkgs.writeText "xrdb.conf" ''
-          URxvt.font:                 xft:Go Mono:size=12,xft:mononoki,xft:Noto Sans Mono CJK JP,xft:Symbola
-          URxvt.scrollBar:            false
-          URxvt.saveLines:            32000
-          URxvt.perl-ext-common:      default,url-select,resize-font
-          URxvt.keysym.M-u:           perl:url-select:select_next
-          URxvt.url-select.launcher:  chromium --incognito
-          URxvt.url-select.underline: true
-          URxvt.resize-font.step:     2
-          URxvt.keysym.C-equal:       font-size:increase
-          URxvt.keysym.C-minus:       font-size:decrease
+        xrdb "${
+          pkgs.writeText "xrdb.conf" ''
+            URxvt.font:                 xft:Go Mono:size=12,xft:mononoki,xft:Noto Sans Mono CJK JP,xft:Symbola
+            URxvt.scrollBar:            false
+            URxvt.saveLines:            32000
+            URxvt.perl-ext-common:      default,url-select,resize-font
+            URxvt.keysym.M-u:           perl:url-select:select_next
+            URxvt.url-select.launcher:  chromium --incognito
+            URxvt.url-select.underline: true
+            URxvt.resize-font.step:     2
+            URxvt.keysym.C-equal:       font-size:increase
+            URxvt.keysym.C-minus:       font-size:decrease
 
-          *background: #111111
-          *foreground: #dddddd
-          *color0: #2e3436
-          *color1: #cc0000
-          *color2: #4e9a06
-          *color3: #c4a000
-          *color4: #3465a4
-          *color5: #ff00e4
-          *color6: #00fbff
-          *color7: #d3d7cf
-          *color8: #565654
-          *color9: #ee3030
-          *color10: #8ae234
-          *color11: #fce94f
-          *color12: #729fcf
-          *color13: #b292af
-          *color14: #a2ffff
-          *color15: #eeeeec
-        ''}"
+            *background: #111111
+            *foreground: #dddddd
+            *color0: #2e3436
+            *color1: #cc0000
+            *color2: #4e9a06
+            *color3: #c4a000
+            *color4: #3465a4
+            *color5: #ff00e4
+            *color6: #00fbff
+            *color7: #d3d7cf
+            *color8: #565654
+            *color9: #ee3030
+            *color10: #8ae234
+            *color11: #fce94f
+            *color12: #729fcf
+            *color13: #b292af
+            *color14: #a2ffff
+            *color15: #eeeeec
+          ''
+        }"
       '';
     };
 
@@ -292,7 +281,9 @@
     uid = 1000;
     shell = pkgs.zsh;
     initialPassword = "1234";
-    openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ2yWs8ZtckDHk/e/ryrnfLbOTLP5C4ngGnnDP49d4PLJmXoUlHTi2ZMrGGISdyQsklqxeMIxpN2JWF/OsliiDzqwd8PiqvTHWcBIXOqqQRnRAXsiVbHcyx/iD/c2kxxfK4Hg6yhOZTzQe93agMeAQPILx20W7Y1vXtn9lQhJ2RuA9Zf5XVVbtVFvdRDIRDrmNM3nZMyko+C5E75Y5i+JJOJ0ORnl3fkimv/k8PmzU9W9gvzjL1aQqEpLjsTEPyD7/LdKSLQIyqYTWrZuVLZ2ROzO2ftsDswpIgTuyavWKAOON/HU11SBAbwalbPp9Q5VJDLfKe6fCE5iYgOtXlKmB" ];
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ2yWs8ZtckDHk/e/ryrnfLbOTLP5C4ngGnnDP49d4PLJmXoUlHTi2ZMrGGISdyQsklqxeMIxpN2JWF/OsliiDzqwd8PiqvTHWcBIXOqqQRnRAXsiVbHcyx/iD/c2kxxfK4Hg6yhOZTzQe93agMeAQPILx20W7Y1vXtn9lQhJ2RuA9Zf5XVVbtVFvdRDIRDrmNM3nZMyko+C5E75Y5i+JJOJ0ORnl3fkimv/k8PmzU9W9gvzjL1aQqEpLjsTEPyD7/LdKSLQIyqYTWrZuVLZ2ROzO2ftsDswpIgTuyavWKAOON/HU11SBAbwalbPp9Q5VJDLfKe6fCE5iYgOtXlKmB"
+    ];
   };
 
   # Cleanup the nix store
