@@ -1,0 +1,5 @@
+Generate the home.nix symlink to the current host's nixfile ($(hostname).nix)
+by running make. If the file is missing, make will complain.
+
+New vimfiles that go in programs/neovim/ must be manually added to the list in
+programs/neovim.nix.

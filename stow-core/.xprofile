@@ -1,3 +1,0 @@
-xset +fp $HOME/.local/share/fonts
-
-[[ -s $HOME/.xprofile.local ]] && source "$HOME/.xprofile.local"

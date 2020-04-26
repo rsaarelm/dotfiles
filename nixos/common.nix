@@ -33,88 +33,20 @@
         coreutils
         docker
         exfat-utils
-        file
         fuse_exfat
         inotifyTools
-        jmtpfs
-        lsof
         openvpn
         pciutils
         psmisc
-        sshfs
         usbutils
 
-        # Utils
-        aspell
-        aspellDicts.en
-        cmus
-        direnv
-        fdupes
-        gitAndTools.git-annex
-        hledger
-        htop
-        imagemagick
-        k2pdfopt
-        links
-        lorri
-        mosh
-        ncdu
-        neovim
-        niv
-        optipng
-        p7zip
-        pandoc
-        pwgen
-        ranger
-        restic
-        stow
-        thefuck
-        tmux
-        tree
-        unzip
-        wget
-        xxd
-        youtubeDL
-
-        # LaTeX
-        (texlive.combine {
-          inherit (texlive)
-            collection-basic metafont xits collection-bibtexextra
-            collection-binextra collection-context collection-formatsextra
-            collection-fontutils collection-langenglish collection-latex
-            collection-latexextra collection-latexrecommended
-            collection-pictures collection-pstricks collection-xetex;
-        })
-
-        # Dev
-        binutils
-        clang
-        git
-        gnumake
-        python3
-        python37Packages.ipython
+        home-manager
 
         # X11
-        # Stable Anki is bitrotted, use local install for now
-        #anki
-        autorandr
         chromium
-        gimp
-        keepass
+        i3lock
         libnotify
-        mpv
-        neovim-qt
-        nitrogen
-        notify-osd
-        pavucontrol
-        rofi
         rxvt_unicode-with-plugins
-        scrot
-        sxiv
-        xcape
-        xorg.xmessage
-        xorg.xrefresh
-        zathura
       ];
 
     variables.EDITOR = pkgs.lib.mkOverride 0 "nvim";
@@ -133,9 +65,6 @@
 
   virtualisation.docker.enable = true;
 
-  location.latitude = 25.0;
-  location.longitude = 60.0;
-
   # List services that you want to enable:
   services = {
     openssh = {
@@ -149,16 +78,6 @@
     locate.enable = true;
     printing.enable = true;
     earlyoom.enable = true;
-    lorri.enable = true;
-
-    redshift = {
-      enable = true;
-      temperature.day = 6500;
-      temperature.night = 3500;
-
-      brightness.day = "1";
-      brightness.night = "0.8";
-    };
 
     xserver = {
       enable = true;
@@ -182,61 +101,16 @@
 
       xautolock = {
         enable = true;
-        time = 60;         # minutes
+        time = 60; # minutes
         locker = "${pkgs.i3lock}/bin/i3lock --color 002222";
-        notify = 20;       # seconds
-        notifier = "${pkgs.libnotify}/bin/notify-send 'Locking machine in 20 seconds'";
+        notify = 20; # seconds
+        notifier =
+          "${pkgs.libnotify}/bin/notify-send 'Locking machine in 20 seconds'";
         extraOptions = [ "-detectsleep" ];
       };
-
-      displayManager.sessionCommands = ''
-        xrdb "${
-          pkgs.writeText "xrdb.conf" ''
-            URxvt.font:                 xft:Go Mono:size=12,xft:mononoki,xft:Noto Sans Mono CJK JP,xft:Symbola
-            URxvt.scrollBar:            false
-            URxvt.saveLines:            32000
-            URxvt.perl-ext-common:      default,url-select,resize-font
-            URxvt.keysym.M-u:           perl:url-select:select_next
-            URxvt.url-select.launcher:  chromium --incognito
-            URxvt.url-select.underline: true
-            URxvt.resize-font.step:     2
-            URxvt.keysym.C-equal:       font-size:increase
-            URxvt.keysym.C-minus:       font-size:decrease
-
-            *background: #111111
-            *foreground: #dddddd
-            *color0: #2e3436
-            *color1: #cc0000
-            *color2: #4e9a06
-            *color3: #c4a000
-            *color4: #3465a4
-            *color5: #ff00e4
-            *color6: #00fbff
-            *color7: #d3d7cf
-            *color8: #565654
-            *color9: #ee3030
-            *color10: #8ae234
-            *color11: #fce94f
-            *color12: #729fcf
-            *color13: #b292af
-            *color14: #a2ffff
-            *color15: #eeeeec
-          ''
-        }"
-      '';
     };
 
     unclutter-xfixes.enable = true;
-  };
-
-  systemd.user.services.xcape = {
-    enable = true;
-    description = "xcape to use CTRL as ESC when pressed alone";
-    wantedBy = [ "default.target" ];
-    serviceConfig.Type = "forking";
-    serviceConfig.Restart = "always";
-    serviceConfig.RestartSec = 2;
-    serviceConfig.ExecStart = "${pkgs.xcape}/bin/xcape";
   };
 
   fonts.fonts = with pkgs; [
