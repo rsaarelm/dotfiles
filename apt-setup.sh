@@ -19,6 +19,7 @@ sudo apt install \
     cmus \
     ctags \
     curl \
+    direnv \
     docker \
     fonts-go \
     fonts-mononoki \
@@ -175,17 +176,32 @@ if [ ! -f ~/.local/bin/stack ]; then
     stack upgrade
 fi
 
-if ! hash nix 2>/dev/null; then
-    echo Installing Nix
-    pushd /tmp/
-    # From https://nixos.org/nix/download.html
-    curl -o install-nix-2.3.2 https://nixos.org/nix/install
-    curl -o install-nix-2.3.2.sig https://nixos.org/nix/install.sig
-    gpg2 --recv-keys B541D55301270E0BCF15CA5D8170B4726D7198DE
-    gpg2 --verify ./install-nix-2.3.2.sig
-    if [ $? -eq 0 ]; then
-        echo Signature is good
-        sh ./install-nix-2.3.2
+if [ -n "$INSTALL_NIX" ]; then
+    if ! hash nix 2>/dev/null; then
+        echo Installing Nix
+        pushd /tmp/
+        # From https://nixos.org/nix/download.html
+        curl -o install-nix-2.3.4 https://releases.nixos.org/nix/nix-2.3.4/install
+        curl -o install-nix-2.3.4.asc https://releases.nixos.org/nix/nix-2.3.4/install.asc
+        gpg2 --recv-keys B541D55301270E0BCF15CA5D8170B4726D7198DE
+        gpg2 --verify ./install-nix-2.3.4.asc
+        if [ $? -eq 0 ]; then
+            echo Signature is good
+            sh ./install-nix-2.3.4
+        fi
+        popd
+
+        # The installer patches ~/.profile, but zsh wants ~/.zprofile...
+        if [ ! -f ~/.zprofile ] || ! grep -q "nix.sh" ~/.zprofile; then
+            echo "Patching ~/.zprofile"
+            cat <<EOF >> ~/.zprofile
+if [ -e /home/rsaarelm/.nix-profile/etc/profile.d/nix.sh ]; then . /home/rsaarelm/.nix-profile/etc/profile.d/nix.sh; fi
+EOF
+        fi
+
+    else
+        echo Nix already installed
     fi
-    popd
+else
+    echo run INSTALL_NIX=1 ./apt-setup.sh to install nix
 fi
