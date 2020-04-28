@@ -5,7 +5,7 @@
     ./common.nix
     ./wifi.nix
     ./home-network.nix
-    ./hardware-configuration.nix
+    ./hardware-configuration/tantalum.nix
   ];
 
   # BOOT

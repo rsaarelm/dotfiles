@@ -2,9 +2,9 @@
 
 # Hardlink the files for a host in hosts/ as local machine configuration
 
-HOST=`hostname`
+HOST="`hostname`"
 if [[ ! -z "$1" ]]; then
-  HOST=$1
+  HOST="$1"
 fi
 
 if [[ ! -f wifi.nix ]]; then
@@ -24,12 +24,12 @@ if [[ ! -f wifi.nix ]]; then
 EOF
 fi
 
-if [[ ! -e "hosts/$HOST.nix" ]] || [[ ! -e "hosts/$HOST-hardware.nix" ]]; then
-  echo "missing $HOST.nix or $HOST-hardware.nix" >&2
-  exit 1
+if [[ ! -f configuration.nix ]]; then
+  if [[ ! -e "$HOST.nix" ]] || [[ ! -e "hardware-configuration/$HOST.nix" ]]; then
+    echo "missing $HOST.nix or hardware-configuration/$HOST.nix" >&2
+    exit 1
+  fi
+
+  echo "Activating host $HOST."
+  echo "{ ... }: { imports = [ ./$HOST.nix ]; }" > configuration.nix
 fi
-
-echo "Activating host $HOST."
-
-ln -f "hosts/$HOST.nix"          configuration.nix
-ln -f "hosts/$HOST-hardware.nix" hardware-configuration.nix
