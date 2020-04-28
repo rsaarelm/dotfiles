@@ -28,7 +28,7 @@
       wet = "curl wttr.in";
 
       # Training for new commands
-      ls = "echo try exa";
+      ls = "exa";
       find = "echo try fd";
       grep = "echo try rg";
       cat = "echo try bat";
