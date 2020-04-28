@@ -35,6 +35,7 @@
       wc = "echo try tokei";
     };
     initExtra = ''
+      function v () { zathura $* 2> /dev/null &! }
     '';
   };
 }
