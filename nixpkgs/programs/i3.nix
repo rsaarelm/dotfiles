@@ -41,8 +41,6 @@
           "${modifier}+Print" =
             "exec \"mkdir -p $HOME/Screenshots; scrot $HOME/Screenshots/`date +%Y%m%dT%H%M%S`.png; xrefresh -solid orange\"";
         };
-
-        floating.criteria = [ { "class" = "Steam"; } { "class" = "magog"; } ];
       };
     };
   };

@@ -7,7 +7,8 @@
     ./programs/i3.nix
     ./programs/neovim.nix
     ./programs/zsh.nix
-  ];
+  ] ++ (if builtins.pathExists ./local.nix then [ ./local.nix ] else [ ]);
+  # Extra settings can be added in non-version-controlled local.nix
 
   programs.direnv = {
     enable = true;
@@ -92,8 +93,6 @@
 
   services.xcape = {
     enable = true;
-    mapExpression = {
-      Control_L = "Control_L|Escape";
-    };
+    mapExpression = { Control_L = "Control_L|Escape"; };
   };
 }
