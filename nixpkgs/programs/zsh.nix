@@ -26,10 +26,15 @@
 
       # Misc
       wet = "curl wttr.in";
+
+      # Training for new commands
+      ls = "echo try exa";
+      find = "echo try fd";
+      grep = "echo try rg";
+      cat = "echo try bat";
+      wc = "echo try tokei";
     };
     initExtra = ''
-      eval "`dircolors`"  # Nice ls colors
-      autoload -U colors && colors # Enable colors in prompt
     '';
   };
 }
