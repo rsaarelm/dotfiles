@@ -26,6 +26,7 @@
   imports = [
     ./common.nix
     ./autorandr/tantalum.nix
+    ./programs/nethack-colemak.nix
 
     ./style/dark-theme.nix
   ];
