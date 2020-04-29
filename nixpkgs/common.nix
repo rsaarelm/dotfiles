@@ -31,10 +31,8 @@
       "xft:Go Mono:size=12"
       # CJK support
       "xft:Noto Sans Mono CJK JP"
-      # Emoji support
+      # Icons
       "xft:Symbola"
-      # Fallback in case the fonts aren't installed
-      "9x15"
     ];
     scroll.bar.enable = false;
     scroll.lines = 32000;

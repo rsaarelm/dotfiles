@@ -126,6 +126,7 @@
     mononoki
     symbola
     noto-fonts-cjk
+    font-awesome_4
   ];
 
   # Open ports in the firewall.

@@ -63,8 +63,9 @@
     # X11
     anki
     autorandr
-    grafx2
     gimp
+    grafx2
+    i3status-rust
     keepass
     mpv
     neovim-qt

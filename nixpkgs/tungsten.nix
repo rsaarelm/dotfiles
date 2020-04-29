@@ -1,6 +1,18 @@
 { pkgs, ... }:
 
 {
+  xdg.configFile."i3/status.toml".text = ''
+    theme = "plain"
+    icons = "awesome"
+
+    [[block]]
+    block = "net"
+    device = "enp3s0"
+    ip = true
+    speed_up = false
+    speed_down = false
+  '';
+
   imports = [
     ./common.nix
     ./autorandr/tungsten.nix
