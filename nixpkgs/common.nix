@@ -91,8 +91,5 @@
     brightness.night = "0.8";
   };
 
-  services.xcape = {
-    enable = true;
-    mapExpression = { Control_L = "Control_L|Escape"; };
-  };
+  services.xcape.enable = true;
 }
