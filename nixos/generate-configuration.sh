@@ -14,5 +14,5 @@ if [[ ! -f configuration.nix ]]; then
   fi
 
   echo "Activating host $HOST."
-  echo "{ ... }: { imports = [ ./$HOST/configuration.nix ]; }" > configuration.nix
+  echo "{ ... }: { imports = [ ./common.nix ./$HOST/configuration.nix ]; }" > configuration.nix
 fi

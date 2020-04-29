@@ -2,7 +2,8 @@
 
 {
   # Import the non-version-controlled wifi config file if present.
-  imports = (if builtins.pathExists ./wifi.nix then [ ./wifi.nix ] else []);
+  imports = [ ./home-network.nix ]
+    ++ (if builtins.pathExists ./wifi.nix then [ ./wifi.nix ] else [ ]);
 
   boot.kernelModules = [ "snd-seq" "snd-rawmidi" ];
 
