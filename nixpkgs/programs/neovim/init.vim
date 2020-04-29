@@ -97,7 +97,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['env', 'rls'],
     \ 'python': ['env', 'pyls'],
-    \ 'cpp': ['clangd-7'],
+    \ 'cpp': ['clangd-8'],
     \ 'go': ['env', 'go-langserver'],
     \ }
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
