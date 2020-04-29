@@ -11,7 +11,6 @@
     fd
     fdupes
     gitAndTools.git-annex
-    hexyl
     hledger
     htop
     imagemagick
@@ -40,6 +39,7 @@
     wget
     wtf
     youtubeDL
+    xxd
 
     # LaTeX
     (texlive.combine {
