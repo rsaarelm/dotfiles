@@ -35,9 +35,9 @@
           "${modifier}+Shift+l" = "move right";
 
           # Lock / suspend
-          "${modifier}+Shift+semicolon" = "exec i3lock -c '#f59ea0'";
+          "${modifier}+Shift+semicolon" = "exec i3lock -c '#5f9ea0'";
           "${modifier}+Shift+slash" =
-            "exec \"i3lock -c '#f59ea0' & sleep 2; systemctl suspend\"";
+            "exec \"i3lock -c '#5f9ea0' & sleep 2; systemctl suspend\"";
 
           # Take screenshot
           "${modifier}+Print" =
