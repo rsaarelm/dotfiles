@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  adom = pkgs.callPackage ./pkgs/adom { };
+in
 {
   xdg.configFile."i3/status.toml".text = ''
     theme = "plain"
@@ -33,5 +36,6 @@
 
   home.packages = with pkgs; [
     steam
+    adom
   ];
 }

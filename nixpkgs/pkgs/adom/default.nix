@@ -1,21 +1,18 @@
-{ stdenv, fetchurl, patchelf, zlib, libmad, libpng12, libcaca, libGLU, libGL, alsaLib, libpulseaudio
-, xorg }:
+{ stdenv, fetchurl, patchelf, zlib, ncurses5 }:
 
 let
 
-  inherit (xorg) libXext libX11;
+  lpath = "${stdenv.cc.cc.lib}/lib64:"
+    + stdenv.lib.makeLibraryPath [ zlib ncurses5 ];
 
-  lpath = "${stdenv.cc.cc.lib}/lib64:" + stdenv.lib.makeLibraryPath [
-      zlib libmad libpng12 libcaca libXext libX11 libGLU libGL alsaLib libpulseaudio];
-
-in
-stdenv.mkDerivation rec {
-  name = "adom-${version}-noteye";
-  version = "1.2.0_pre23";
+in stdenv.mkDerivation rec {
+  name = "adom-${version}";
+  version = "3.3.3";
 
   src = fetchurl {
-    url = "http://ancardia.uk.to/download/adom_noteye_linux_ubuntu_64_${version}.tar.gz";
-    sha256 = "0sbn0csaqb9cqi0z5fdwvnymkf84g64csg0s9mm6fzh0sm2mi0hz";
+    url =
+      "https://www.adom.de/home/download/current/adom_linux_debian_64_${version}.tar.gz";
+    sha256 = "1pa8dpllrvljqk326h9a4msv8qb2g4rjjx16xxsksqw084732jmp";
   };
 
   buildCommand = ''
@@ -26,17 +23,9 @@ stdenv.mkDerivation rec {
     mkdir -pv $out
     cp -r -t $out adom/*
 
-    chmod u+w $out/lib
-    for l in $out/lib/*so* ; do
-      chmod u+w $l
-      ${patchelf}/bin/patchelf \
-        --set-rpath "$out/lib:${lpath}" \
-        $l
-    done
-
     ${patchelf}/bin/patchelf \
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "$out/lib:${lpath}" \
+      --set-rpath "${lpath}" \
       $out/adom
 
     mkdir $out/bin
@@ -51,9 +40,9 @@ stdenv.mkDerivation rec {
     description = "A rogue-like game with nice graphical interface";
     homepage = "http://adom.de/";
     license = licenses.unfreeRedistributable;
-    maintainers = [maintainers.smironov];
+    maintainers = [ maintainers.smironov ];
 
     # Please, notify me (smironov) if you need the x86 version
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
   };
 }
