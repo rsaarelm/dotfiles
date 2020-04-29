@@ -14,6 +14,8 @@
 
         modifier = "Mod4";
 
+        workspaceLayout = "tabbed";
+
         keybindings = pkgs.lib.mkOptionDefault {
           "${modifier}+s" = "exec rofi -show run";
           "${modifier}+F2" = "exec chromium --incognito";
