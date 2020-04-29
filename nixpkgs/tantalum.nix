@@ -8,4 +8,7 @@
     ./style/dark-theme.nix
   ];
 
+  home.packages = with pkgs; [
+    steam
+  ];
 }

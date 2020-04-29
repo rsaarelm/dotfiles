@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -7,4 +7,12 @@
 
     ./style/dark-theme.nix
   ];
+
+  home.packages = with pkgs; [
+    steam
+  ];
+
+  xsession.profileExtra = ''
+    autorandr lowres
+  '';
 }
