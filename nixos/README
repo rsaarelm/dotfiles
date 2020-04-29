@@ -1,0 +1,12 @@
+# Setting up a new host
+
+Make a `$(hostname)` subdirectory in `nixos/` for the new host. Move your
+generated configuration.nix and hardware-configuration.nix there.
+
+Run `./generate-configuration.sh` to generate the unversioned stub
+`configuration.nix` for your machine.
+
+# Setting up wifi
+
+Copy `wifi.nix.example` into `wifi.nix` and add wifi PSKs. File `wifi.nix`
+will not be version controlled.

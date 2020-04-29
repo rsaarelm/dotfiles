@@ -2,9 +2,9 @@
 
 {
   imports = [ # Include the results of the hardware scan.
-    ./common.nix
-    ./home-network.nix
-    ./hardware-configuration/tungsten.nix
+    ../common.nix
+    ../home-network.nix
+    ./hardware-configuration.nix
   ];
 
   # BOOT
