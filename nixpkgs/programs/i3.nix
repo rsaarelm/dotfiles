@@ -61,16 +61,6 @@
     alert = 10.0
 
     [[block]]
-    block = "memory"
-    display_type = "memory"
-    format_mem = "{Mup}%"
-    format_swap = "{SUp}%"
-
-    [[block]]
-    block = "cpu"
-    interval = 1
-
-    [[block]]
     block = "load"
     interval = 1
     format = "{1m}"
