@@ -36,7 +36,12 @@
       wc = "echo try tokei";
     };
     initExtra = ''
+      # Convenience viewer function, does not lock shell
       function v () { zathura $* 2> /dev/null &! }
+
+      # Nice simple prompt
+      PROMPT='%(?..%F{yellow}%?%f )%~ > '
+      RPROMPT='%n@%m %F{cyan}%D{%H:%M:%S}%f'
     '';
   };
 }
