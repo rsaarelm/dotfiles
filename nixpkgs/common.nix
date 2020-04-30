@@ -11,6 +11,10 @@
   ] ++ (if builtins.pathExists ./local.nix then [ ./local.nix ] else [ ]);
   # Extra settings can be added in non-version-controlled local.nix
 
+  programs.bat = {
+    enable = true;
+  };
+
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;

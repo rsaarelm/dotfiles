@@ -26,4 +26,6 @@
     colorscheme gruvbox
     set background=light
   '';
+
+  programs.bat.config.theme = "ansi-light";
 }

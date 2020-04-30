@@ -26,6 +26,7 @@
 
       # Misc
       wet = "curl wttr.in";
+      d = "notify-send done";
 
       # Training for new commands
       ls = "exa";

@@ -5,7 +5,6 @@
     # Utils
     aspell
     aspellDicts.en
-    bat
     direnv
     exa
     fd
