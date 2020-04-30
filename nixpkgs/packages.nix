@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
-{
+let
+ tt = pkgs.callPackage ./pkgs/tt { };
+in {
   home.packages = with pkgs; [
     # Utils
     aspell
@@ -38,6 +40,8 @@
     wget
     youtubeDL
     xxd
+
+    tt
 
     # LaTeX
     (texlive.combine {

@@ -1,0 +1,3 @@
+[submodule "nixpkgs/pkgs/tt"]
+	path = nixpkgs/pkgs/tt
+	url = https://github.com/rsaarelm/tt
