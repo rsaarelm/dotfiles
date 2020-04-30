@@ -37,7 +37,6 @@
     tree
     unzip
     wget
-    wtf
     youtubeDL
     xxd
 
