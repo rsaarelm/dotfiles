@@ -21,4 +21,8 @@
     "*color14" = "#a2ffff";
     "*color15" = "#eeeeec";
   };
+
+  xdg.configFile."nvim/init.vim".text = ''
+    colorscheme jellybeans
+  '';
 }

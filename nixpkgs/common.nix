@@ -29,7 +29,7 @@
     package = pkgs.rxvt_unicode-with-plugins;
     fonts = [
       # Main font
-      "xft:Go Mono:size=12"
+      "xft:Go Mono:size=10"
       # CJK support
       "xft:Noto Sans Mono CJK JP"
       # Icons

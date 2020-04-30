@@ -1,5 +1,3 @@
-colorscheme jellybeans
-
 let g:mapleader = "\<Space>"
 
 " Plugin Manager
