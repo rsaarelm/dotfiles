@@ -11,6 +11,7 @@ in {
     exa
     fd
     fdupes
+    fortune
     gitAndTools.git-annex
     hledger
     htop

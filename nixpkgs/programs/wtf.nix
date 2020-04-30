@@ -104,6 +104,19 @@ in
             height: 2
             width: 1
           refreshInterval: 15
+        fortune:
+          cmd: "fortune"
+          enabled: true
+          type: "cmdrunner"
+          position:
+            top: 6
+            left: 2
+            height: 2
+            width: 2
+          refreshInterval: 15
+          focusable: false
+
+
         weather:
           title: "weather"
           cmd: "sh"
@@ -111,8 +124,8 @@ in
           enabled: true
           type: "cmdrunner"
           position:
-            top: 6
-            left: 2
+            top: 0
+            left: 3
             height: 2
             width: 1
           refreshInterval: 300
@@ -131,12 +144,10 @@ in
           type: cmdrunner
           focusable: false
 
-        todo:
+        textfile:
           title: todo
           enabled: true
-          type: textfile
-          filePaths:
-          - "~/todo.txt"
+          filePath: "~/todo.txt"
           wrapText: false
           position:
             top: 8
