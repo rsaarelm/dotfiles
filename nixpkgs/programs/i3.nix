@@ -24,6 +24,12 @@
           "${modifier}+F9" = "exec mpc toggle";
           "${modifier}+F10" = "exec mpc next";
 
+          "${modifier}+w" = "layout tabbed";
+          "${modifier}+f" = "layout toggle split";
+          "${modifier}+r" = "layout stacking";
+          "${modifier}+p" = ''mode "resize"'';
+          "${modifier}+t" = "fullscreen";
+
           # Colemak-friendly navigation
 
           "${modifier}+h" = "focus left";
