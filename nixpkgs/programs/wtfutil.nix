@@ -1,7 +1,13 @@
 { pkgs, ... }:
 
+let
+  # FIXME: This is a bugfix, remove it when upstrean wtf gets updated.
+  wtf = pkgs.wtf.overrideAttrs(attr: {
+    patches = [./wtf.patch];
+  });
+in
 {
-  home.packages = with pkgs; [
+  home.packages = [
     wtf
   ];
 
