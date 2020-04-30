@@ -76,7 +76,6 @@
 
     [[block]]
     block = "time"
-    interval = 60
-    format = "%V.%u/%m-%d %R:%S"
+    format = "%V.%u/%m-%d %R"
   '';
 }
