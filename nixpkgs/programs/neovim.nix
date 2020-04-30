@@ -11,6 +11,7 @@
   xdg.configFile = {
     "nvim/after/ftplugin/votl.vim".source = ./neovim/after/ftplugin/votl.vim;
     "nvim/after/syntax/votl.vim".source = ./neovim/after/syntax/votl.vim;
+    "nvim/colors/gruvbox.vim".source = ./neovim/colors/gruvbox.vim;
     "nvim/colors/jellybeans.vim".source = ./neovim/colors/jellybeans.vim;
     "nvim/ftdetect/jrnl.vim".source = ./neovim/ftdetect/jrnl.vim;
     "nvim/ftdetect/votl.vim".source = ./neovim/ftdetect/votl.vim;
