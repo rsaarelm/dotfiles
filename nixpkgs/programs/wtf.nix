@@ -24,43 +24,22 @@ in
           position:
             top: 0
             left: 0
-            height: 8
-            width: 1
+            height: 4
+            width: 2
           refreshInterval: 10
           type: cmdrunner
+        feedreader:
+          enabled: true
+          feeds:
+          - https://lobste.rs/rss
+          - https://news.ycombinator.com/rss
+          - https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET
+          position:
+            top: 4
+            left: 0
+            width: 1
+            height: 4
 
-        clocks:
-          title: "Time"
-          type: clocks
-          colors:
-            rows:
-              even: "lightblue"
-              odd: "white"
-          enabled: true
-          locations:
-            GMT: "Etc/GMT"
-            Helsinki: "Europe/Helsinki"
-            "New York": "America/New_York"
-            "Los Angeles": "America/Los_Angeles"
-          position:
-            top: 0
-            left: 1
-            height: 2
-            width: 1
-          refreshInterval: 15
-        weather:
-          title: "weather"
-          cmd: "sh"
-          args: ["-c", "curl -s wttr.in | head -n 7"]
-          enabled: true
-          type: "cmdrunner"
-          position:
-            top: 2
-            left: 1
-            height: 2
-            width: 1
-          refreshInterval: 300
-          focusable: false
         ipinfo:
           colors:
             name: "lightblue"
@@ -93,6 +72,51 @@ in
           showCPU: true
           showMem: true
           showSwp: true
+        goals:
+          title: "goals"
+          cmd: "tt"
+          args: ["goals"]
+          enabled: true
+          type: "cmdrunner"
+          position:
+            top: 2
+            left: 2
+            height: 2
+            width: 1
+          refreshInterval: 3600
+          focusable: false
+        clocks:
+          title: "Time"
+          type: clocks
+          colors:
+            rows:
+              even: "lightblue"
+              odd: "white"
+          enabled: true
+          locations:
+            GMT: "Etc/GMT"
+            Helsinki: "Europe/Helsinki"
+            "New York": "America/New_York"
+            "Los Angeles": "America/Los_Angeles"
+          position:
+            top: 4
+            left: 2
+            height: 2
+            width: 1
+          refreshInterval: 15
+        weather:
+          title: "weather"
+          cmd: "sh"
+          args: ["-c", "curl -s wttr.in | head -n 7"]
+          enabled: true
+          type: "cmdrunner"
+          position:
+            top: 6
+            left: 2
+            height: 2
+            width: 1
+          refreshInterval: 300
+          focusable: false
 
         uptime:
           cmd: "uptime"
@@ -107,16 +131,19 @@ in
           type: cmdrunner
           focusable: false
 
-        feedreader:
+        todo:
+          title: todo
           enabled: true
-          feeds:
-          - https://lobste.rs/rss
-          - https://news.ycombinator.com/rss
-          - https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET
+          type: textfile
+          filePaths:
+          - "~/todo.txt"
+          wrapText: false
           position:
-            top: 0
-            left: 3
-            width: 1
-            height: 8
+            top: 8
+            left: 2
+            height: 1
+            width: 2
+          refreshInterval: 30
+
   '';
 }
