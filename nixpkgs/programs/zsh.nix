@@ -46,6 +46,8 @@
 
       #        [- username   -] [- clock            -]
       RPROMPT='%F{green}%n@%m%f %F{cyan}%D{%H:%M:%S}%f'
+
+      eval $(thefuck --alias)
     '';
   };
 }

@@ -11,36 +11,37 @@ in {
     exa
     fd
     fdupes
+    file
     fortune
     gitAndTools.git-annex
     hledger
     htop
     imagemagick
+    jmtpfs
     k2pdfopt
     links
+    lsof
     mosh
     mpc_cli
     mpd
     ncdu
     neofetch
-    file
-    jmtpfs
-    lsof
     optipng
-    sshfs
     p7zip
     pandoc
     pwgen
     ranger
     restic
     ripgrep
+    sshfs
+    thefuck
     tmux
     tokei
     tree
     unzip
     wget
-    youtubeDL
     xxd
+    youtubeDL
 
     tt
 
