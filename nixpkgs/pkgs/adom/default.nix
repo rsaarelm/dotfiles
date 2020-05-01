@@ -20,20 +20,13 @@ in stdenv.mkDerivation rec {
 
     unpackPhase
 
-    mkdir -pv $out
-    cp -r -t $out adom/*
+    mkdir -pv $out/bin
+    cp adom/adom $out/bin/adom
 
     ${patchelf}/bin/patchelf \
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "${lpath}" \
-      $out/adom
-
-    mkdir $out/bin
-    cat >$out/bin/adom <<EOF
-    #! ${stdenv.shell}
-    (cd $out; exec $out/adom ; )
-    EOF
-    chmod +x $out/bin/adom
+      $out/bin/adom
   '';
 
   meta = with stdenv.lib; {
