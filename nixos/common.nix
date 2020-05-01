@@ -50,6 +50,7 @@
         chromium
         i3lock
         libnotify
+        pavucontrol
         rxvt_unicode-with-plugins
       ];
 
