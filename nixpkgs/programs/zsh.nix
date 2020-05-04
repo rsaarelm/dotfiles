@@ -1,5 +1,6 @@
 { ... }:
 
+# FIXME: use `history.ignoreSpace = true;` instead of setopt in initExtra
 {
   programs.zsh = {
     enable = true;
@@ -48,6 +49,8 @@
       RPROMPT='%F{green}%n@%m%f %F{cyan}%D{%H:%M:%S}%f'
 
       eval $(thefuck --alias)
+
+      setopt histignorespace
     '';
   };
 }
