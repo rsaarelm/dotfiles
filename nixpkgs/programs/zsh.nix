@@ -43,7 +43,7 @@
       # Nice simple prompt
 
       #       [- path    -][- error code -]
-      PROMPT='%F{green}%~%f%(?.. %F{red}%?%f) > '
+      PROMPT='%F{green}%~%f%(?.. %F{red}%?%f) %F{green}%%%f '
 
       #        [- username   -] [- clock            -]
       RPROMPT='%F{green}%n@%m%f %F{cyan}%D{%H:%M:%S}%f'
