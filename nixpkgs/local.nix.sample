@@ -1,0 +1,10 @@
+{ ... }:
+
+{
+  xsession.windowManager.i3.config.floating.criteria =
+    [ { "class" = "magog"; } ];
+
+  programs.zsh.initExtra = ''
+    tt goals
+  '';
+}
