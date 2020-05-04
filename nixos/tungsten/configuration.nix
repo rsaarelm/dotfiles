@@ -26,6 +26,8 @@
     };
   };
 
+  # X11
+
   services.xserver = {
     videoDrivers = [ "nvidiaBeta" ];
 
