@@ -1,14 +1,8 @@
 { pkgs, ... }:
 
-let
-  # FIXME: This is a bugfix, remove it when upstrean wtf gets updated.
-  wtf = pkgs.wtf.overrideAttrs(attr: {
-    patches = [./wtf.patch];
-  });
-in
 {
   home.packages = [
-    wtf
+    pkgs.wtf
   ];
 
   # Don't specify a grid, it'll adapt to terminal dimensions
@@ -155,6 +149,5 @@ in
             height: 1
             width: 2
           refreshInterval: 30
-
   '';
 }
