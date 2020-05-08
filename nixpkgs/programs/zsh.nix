@@ -28,13 +28,6 @@
       # Misc
       wet = "curl wttr.in";
       d = "notify-send done";
-
-      # Training for new commands
-      ls = "exa";
-      find = "echo try fd";
-      grep = "echo try rg";
-      cat = "echo try bat";
-      wc = "echo try tokei";
     };
     initExtra = ''
       # Convenience viewer function, does not lock shell
