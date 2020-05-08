@@ -21,6 +21,8 @@ in {
     k2pdfopt
     links
     lsof
+    # TODO: Activate monolith once it's available in stable channel
+    #monolith
     mosh
     mpc_cli
     mpd
