@@ -82,7 +82,7 @@ Plug 'rsaarelm/vimoutliner'
 
 " Rust support
 Plug 'rust-lang/rust.vim'
-let g:rustfmt_command = 'rustfmt --edition 2018'
+let g:rustfmt_command = 'rustfmt'
 
 " Nix file format
 Plug 'LnL7/vim-nix'
