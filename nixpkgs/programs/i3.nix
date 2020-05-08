@@ -43,6 +43,9 @@
           "${modifier}+Shift+e" = "move up";
           "${modifier}+Shift+l" = "move right";
 
+          # Move workspaces between monitors
+          "${modifier}+y" = "move workspace to output left";
+
           # Lock / suspend
           "${modifier}+Shift+semicolon" = "exec i3lock -c '#5f9ea0'";
           "${modifier}+Shift+slash" =
