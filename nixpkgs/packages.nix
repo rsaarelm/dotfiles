@@ -45,8 +45,6 @@ in {
     xxd
     youtubeDL
 
-    tt
-
     # LaTeX
     (texlive.combine {
       inherit (texlive)
