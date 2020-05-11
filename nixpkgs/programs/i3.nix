@@ -85,6 +85,7 @@
 
     [[block]]
     block = "time"
-    format = "%V.%u/%m-%d %R"
+    interval = 1
+    format = "%g%V.%u/%m-%d %R:%S"
   '';
 }
