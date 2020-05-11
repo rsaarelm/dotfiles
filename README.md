@@ -1,11 +1,20 @@
-Dotfiles managed with GNU Stow
+Dotfiles managed with [home-manager](https://github.com/rycee/home-manager)
 
-The dotfiles project directory should be at the toplevel home directory for
-stow to work right. To install dotfiles,
+For dotfiles repo cloned to your home directory root,
 
-    cd ~/dotfiles
-    stow [package]
+Generate config file for host, you need to have `$(HOSTNAME).nix` in `nixpkgs`
+directory:
 
-For a NixOS box, make /etc/nixos a symlink to ~/dotfiles/nixos and run
-`ln-host` in the nixos dir with the current host's name to link the
-host-specific configurations as the system configurations.
+    cd ~/dotfiles/nixpkgs
+    ln -s $(HOSTNAME).nix home.nix   # Must have a setup file for current host
+
+Activate home-managed configs:
+
+    ln -s ~/dotfiles/nixpkgs ~/.local/nixpkgs
+    home-manager switch
+
+## NixOS setup
+
+    cd ~/dotfiles/nixos
+    ./generate-configuration.sh  # Builds host-specific configuration.nix
+    sudo ln -s ~/dotfiles/nixos /etc/nixos
