@@ -28,6 +28,9 @@
       # Misc
       wet = "curl wttr.in";
       d = "notify-send done";
+
+      # Enable nix stuff on non-NixOS machine
+      local-nix = ". $HOME/.nix-profile/etc/profile.d/nix.sh";
     };
     initExtra = ''
       # Convenience viewer function, does not lock shell
@@ -44,6 +47,46 @@
       eval $(thefuck --alias)
 
       setopt histignorespace
+
+      # Do repeating by-the-clock pomodoro cycle from https://guzey.com/productivity/
+      #
+      # Toggles play state for both work and break, manually set play state to
+      # choose between music-when-working and music-on-break.
+      function pomodoros() {
+          # Optionally specify duration and break using arguments, eg.
+          #   pomodoros 25 5
+          # for a half-hour cycle
+          if [ "$1" != "" ]; then (( DURATION=$1*60 )) else (( DURATION=25*60 )) fi
+          if [ "$2" != "" ]; then (( BREAK=$2*60 )) else (( BREAK=5*60 )) fi
+
+          (( POMODORO_LENGTH = $DURATION + $BREAK ))
+
+          # Catch Ctrl-C and turn off the music
+          trap "{ mpc pause; return; }" SIGINT
+
+          while [ 1 ]
+          do
+              # Seconds from midnight
+              (( seconds = `date -d "1970-01-01 UTC $(date +%T)" +%s` ))
+              (( seconds_in_pomodoro = $seconds % $POMODORO_LENGTH ))
+              if (( $seconds_in_pomodoro < $BREAK ))
+              then
+                  notify-send break
+                  (( break_time = $BREAK - $seconds_in_pomodoro ))
+                  echo "Break for $(date -d@$break_time -u +%M:%S)"
+                  (( break_time = $break_time + 0.1 )) # Go past threshold time
+                  mpc toggle
+                  sleep $break_time
+              else
+                  notify-send work
+                  (( work_time = $POMODORO_LENGTH - $seconds_in_pomodoro ))
+                  echo "Work for $(date -d@$work_time -u +%M:%S)"
+                  (( work_time = $work_time + 0.1 )) # Go past threshold time
+                  mpc toggle
+                  sleep $work_time
+              fi
+          done
+      }
     '';
   };
 }
