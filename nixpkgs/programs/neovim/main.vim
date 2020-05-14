@@ -179,6 +179,10 @@ nnoremap <down> <C-e>j
 " Fast macro repeat
 nnoremap <F4> @@
 
+" Result navigation
+nnoremap <silent> <C-N> :cn<CR>zv
+nnoremap <silent> <C-P> :cp<CR>zv
+
 " Colemak navigation
 "
 " Up and down are used a lot, bind them to Colemak N and E.
