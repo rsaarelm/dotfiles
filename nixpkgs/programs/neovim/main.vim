@@ -104,6 +104,10 @@ nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <leader>s :call LanguageClient#workspace_symbol()<CR>
 
+" Don't clobber quickfix buffer, language client is always running so it will
+" chew up grep results, compile errors etc. if writing to quickfix.
+let g:LanguageClient_diagnosticsList = "Location"
+
 " Asynchronous completion framework
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -180,8 +184,10 @@ nnoremap <down> <C-e>j
 nnoremap <F4> @@
 
 " Result navigation
-nnoremap <silent> <C-N> :cn<CR>zv
-nnoremap <silent> <C-P> :cp<CR>zv
+nnoremap <silent> <M-k> :lne<CR>zv
+nnoremap <silent> g<M-k> :lp<CR>zv
+nnoremap <silent> <C-k> :cn<CR>zv
+nnoremap <silent> g<C-k> :cp<CR>zv
 
 " Colemak navigation
 "
