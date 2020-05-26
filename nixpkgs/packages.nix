@@ -11,6 +11,7 @@ in {
     exa
     fd
     fdupes
+    figlet
     file
     fortune
     gitAndTools.git-annex
