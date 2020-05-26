@@ -65,6 +65,9 @@ in {
     python3
     python37Packages.ipython
 
+    # Extra fonts
+    apl385
+
     # X11
     anki
     autorandr

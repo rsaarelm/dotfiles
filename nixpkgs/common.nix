@@ -32,6 +32,8 @@
     fonts = [
       # Main font
       "xft:Go Mono:size=10"
+      # APL font
+      "xft:APL385 Unicode"
       # CJK support
       "xft:Noto Sans Mono CJK JP"
       # Icons
