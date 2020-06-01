@@ -76,7 +76,7 @@
                   echo "Break for $(date -d@$break_time -u +%M:%S)"
                   (( break_time = $break_time + 0.1 )) # Go past threshold time
                   # mpc toggle
-                  mpv ~/Music/noise/bell.wav &
+                  mpv ~/Music/noise/whistle.wav &
                   sleep $break_time
               else
                   notify-send work
