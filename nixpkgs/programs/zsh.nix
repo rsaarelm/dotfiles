@@ -62,7 +62,7 @@
           (( POMODORO_LENGTH = $DURATION + $BREAK ))
 
           # Catch Ctrl-C and turn off the music
-          trap "{ mpc pause; return; }" SIGINT
+          # trap "{ mpc pause; return; }" SIGINT
 
           while [ 1 ]
           do
@@ -75,14 +75,16 @@
                   (( break_time = $BREAK - $seconds_in_pomodoro ))
                   echo "Break for $(date -d@$break_time -u +%M:%S)"
                   (( break_time = $break_time + 0.1 )) # Go past threshold time
-                  mpc toggle
+                  # mpc toggle
+                  mpv ~/Music/noise/bell.wav &
                   sleep $break_time
               else
                   notify-send work
                   (( work_time = $POMODORO_LENGTH - $seconds_in_pomodoro ))
                   echo "Work for $(date -d@$work_time -u +%M:%S)"
                   (( work_time = $work_time + 0.1 )) # Go past threshold time
-                  mpc toggle
+                  # mpc toggle
+                  mpv ~/Music/noise/bell.wav &
                   sleep $work_time
               fi
           done
