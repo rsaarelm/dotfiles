@@ -48,6 +48,11 @@
 
       setopt histignorespace
 
+      # Shortcut for running a nix-shell installed program
+      function n() {
+        nix-shell -p $1 --run "$*"
+      }
+
       # Do repeating by-the-clock pomodoro cycle from https://guzey.com/productivity/
       #
       # Toggles play state for both work and break, manually set play state to
