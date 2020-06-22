@@ -65,6 +65,7 @@
       map <Down> feedkeys "<C-d>"
       map <S-Up> feedkeys "k"
       map <S-Down> feedkeys "j"
+      map <Button3> navigate next
     '';
   };
 
