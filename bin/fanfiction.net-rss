@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Usage: ./fanfiction.net-rss 6829556
+# Generates a RSS feed URL for that story ID
+
+echo "http://createfeed.wprssaggregator.com/extract.php?url=https%3A%2F%2Fm.fanfiction.net%2Fs%2F${1}%2F&in_id_or_class=&url_contains=%2Fs%2F"
