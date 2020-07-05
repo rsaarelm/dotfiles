@@ -31,6 +31,8 @@
 
       # Enable nix stuff on non-NixOS machine
       local-nix = ". $HOME/.nix-profile/etc/profile.d/nix.sh";
+
+      burner-chromium = "chromium-browser --user-data-dir=`mktemp -d`";
     };
     initExtra = ''
       # Convenience viewer function, does not lock shell

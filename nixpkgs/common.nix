@@ -45,7 +45,7 @@
     extraConfig = {
       "perl-ext-common" = "default,url-select,resize-font";
       "keysym.M-u" = "perl:url-select:select_next";
-      "url-select.launcher" = "chromium --incognito";
+      "url-select.launcher" = "chromium-browser --incognito";
       "url-select.underline" = "true";
       "resize-font.step" = "2";
       "keysym.C-equal" = "font-size:increase";
