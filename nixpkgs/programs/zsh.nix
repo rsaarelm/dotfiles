@@ -36,7 +36,7 @@
     };
     initExtra = ''
       # Convenience viewer function, does not lock shell
-      function v () { zathura $* 2> /dev/null &! }
+      function v () { xdg-open $* 2> /dev/null &! }
 
       # Nice simple prompt
 
