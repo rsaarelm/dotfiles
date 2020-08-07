@@ -36,7 +36,18 @@
     };
     initExtra = ''
       # Convenience viewer function, does not lock shell
-      function v () { xdg-open $* 2> /dev/null &! }
+      function v () {
+        if [ -f $1 ]; then
+          xdg-open "`realpath $1`" 2> /dev/null &!
+
+          # Keep track of files opened last to get a "recently read" queue
+          mkdir -p ~/recently-read
+          FILE="`realpath $1`"
+          rm -f ~/recently-read/"`basename $1`"
+          ln -s $FILE ~/recently-read/"`basename $1`"
+          echo "Tagged `basename $1` as recently read"
+        fi
+      }
 
       # Nice simple prompt
 
