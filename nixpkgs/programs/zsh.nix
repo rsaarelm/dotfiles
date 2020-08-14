@@ -45,6 +45,11 @@
           FILE="`realpath $1`"
           rm -f ~/recently-read/"`basename $1`"
           ln -s $FILE ~/recently-read/"`basename $1`"
+
+          # Also log them so we retain earlier read times when a document is
+          # re-read.
+          echo "`basename $1`\t`date -Imin`\t`sha1sum $1 | cut -d ' ' -f 1`" >> ~/recently-read/log.txt
+
           echo "Tagged `basename $1` as recently read"
         fi
       }
