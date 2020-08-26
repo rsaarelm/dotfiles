@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Usage: ./archiveofourown-rss 11478249
+# Generates a RSS feed URL for that story ID
+
+echo "http://createfeed.wprssaggregator.com/extract.php?url=https%3A%2F%2Farchiveofourown.org%2Fworks%2F${1}%2Fnavigate&in_id_or_class=&url_contains=%2Fchapters%2F&order=reverse"
