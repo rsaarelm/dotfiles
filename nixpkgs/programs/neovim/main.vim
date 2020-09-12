@@ -97,6 +97,7 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['env', 'pyls'],
     \ 'cpp': ['clangd-8'],
     \ 'go': ['env', 'go-langserver'],
+    \ 'clojure': ['env', 'clojure-lsp'],
     \ }
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
