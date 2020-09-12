@@ -43,6 +43,10 @@
           "${modifier}+Shift+e" = "move up";
           "${modifier}+Shift+l" = "move right";
 
+          # Scratchpad
+          "${modifier}+m" = "scratchpad show";
+          "${modifier}+Shift+m" = "move scratchpad";
+
           # Move workspaces between monitors
           "${modifier}+y" = "move workspace to output left";
 
