@@ -1,8 +1,14 @@
 { ... }:
 
 {
-  xsession.windowManager.i3.config.floating.criteria =
-    [ { "class" = "magog"; } ];
+  xsession.windowManager.i3.config = {
+    floating.criteria =
+        [ { "class" = "magog"; } ];
+
+    assigns = {
+      "10" = [ { "class" = "magog"; } ];
+    };
+  };
 
   programs.zsh.initExtra = ''
     tt goals
