@@ -90,11 +90,10 @@
       displayManager = {
         defaultSession = "none+i3";
 
-        lightdm = {
-          enable = true;
-          autoLogin.enable = true;
-          autoLogin.user = "rsaarelm";
-        };
+        autoLogin.enable = true;
+        autoLogin.user = "rsaarelm";
+
+        lightdm.enable = true;
       };
 
       windowManager.i3.enable = true;
