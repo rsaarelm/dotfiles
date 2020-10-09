@@ -102,6 +102,7 @@ let g:LanguageClient_serverCommands = {
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <leader>s :call LanguageClient#workspace_symbol()<CR>
 
@@ -114,6 +115,9 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Register preview
 Plug 'junegunn/vim-peekaboo'
+
+" Clojure REPL
+Plug 'tpope/vim-fireplace'
 
 call plug#end()
 
