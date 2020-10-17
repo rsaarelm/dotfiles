@@ -59,6 +59,7 @@
       rebase.autosquash = "true";
       diff.wsErrorHighlight = "all";
       branch.sort = "-authordate";
+      pull.rebase = "true";
     };
   };
 }
