@@ -31,7 +31,7 @@
     package = pkgs.rxvt_unicode-with-plugins;
     fonts = [
       # Main font
-      "xft:Go Mono:size=10"
+      "xft:Hack:size=8"
       # APL font
       "xft:APL385 Unicode"
       # CJK support

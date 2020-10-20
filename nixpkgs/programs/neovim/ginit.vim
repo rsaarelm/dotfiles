@@ -1,6 +1,6 @@
 set mouse=a
 
-Guifont! mononoki
+Guifont! Hack:h8
 
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv

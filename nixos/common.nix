@@ -118,9 +118,11 @@
   };
 
   fonts.fonts = with pkgs; [
+    # Bitmap
     gohufont
     terminus_font
 
+    # TTF
     go-font
     hack-font
     mononoki

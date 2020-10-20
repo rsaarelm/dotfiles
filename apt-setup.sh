@@ -22,6 +22,7 @@ sudo apt install \
     direnv \
     docker \
     fonts-go \
+    fonts-hack \
     fonts-mononoki \
     fonts-noto-cjk \
     fonts-symbola \
