@@ -129,6 +129,7 @@
     symbola
     noto-fonts-cjk
     font-awesome_4
+    source-code-pro
   ];
 
   # Open ports in the firewall.

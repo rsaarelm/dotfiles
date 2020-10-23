@@ -1,6 +1,7 @@
 set mouse=a
 
-Guifont! Hack:h8
+Guifont! Source\ Code\ Pro:h8
+set linespace=1
 
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv
