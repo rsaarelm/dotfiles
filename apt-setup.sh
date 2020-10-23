@@ -177,6 +177,25 @@ if [ ! -f ~/.local/bin/stack ]; then
     stack upgrade
 fi
 
+# Install Source Code Pro font that isn't Debian-packaged
+if [ ! -f ~/.local/share/fonts/SourceCodePro-Medium.otf ]; then
+    pushd /tmp/
+    wget -q --show-progress -O source-code-pro.zip https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip
+
+    echo "If we crash here, something was wrong with Source Code Pro package..."
+    sha256sum source-code-pro.zip | grep da2ac159497d31b0c6d9daa8fc390fb8252e75b4a9805ace6a2c9cccaed4932e
+    echo "Looks like the package was okay, proceeding."
+
+    unzip -q source-code-pro.zip -d source-code-pro
+
+    mkdir -p ~/.local/share/fonts
+    cp -v source-code-pro/*/OTF/*.otf ~/.local/share/fonts
+    fc-cache -f
+
+    popd
+fi
+
+# Install Nix
 if [ -n "$INSTALL_NIX" ]; then
     if ! hash nix 2>/dev/null; then
         echo Installing Nix
