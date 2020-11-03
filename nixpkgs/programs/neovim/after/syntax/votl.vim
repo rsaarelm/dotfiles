@@ -14,6 +14,10 @@ highlight def link otlWikiAliasBlock Comment
 syntax match otlWikiAlias /\C\v[A-Za-z0-9._/-]+/ contained containedin=otlWikiAliasBlock
 highlight def link otlWikiAlias Tag
 
+" attributename: Attribute Value
+syntax match otlWikiAttribute /\C\v^\s*[a-z][a-z0-9-]*: .*/ contained containedin=OL1,OL2,OL3,OL4,OL5,OL6,OL7,OL8,OL9,otlImportant
+highlight def link otlWikiAttribute Label
+
 " WikiWord as the only thing on a line gets highlighted as the wiki section
 " title. (Yes, it looks like votl syntax matching gets this boilerplatey...)
 highlight def otlWikiHeading ctermfg=none guifg=none cterm=bold,underline gui=bold,underline
