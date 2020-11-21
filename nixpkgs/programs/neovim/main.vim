@@ -42,7 +42,10 @@ function! NERDTreeToggleAndFind()
     endif
 endfunction
 let NERDTreeMapOpenExpl = 'j'  " Enable using Colemak vertical navigation
-let NERDTreeIgnore = ['\.pyc$', '__pycache__'] " Don't show junk files
+" Don't show random cache files.
+let NERDTreeIgnore = [
+            \'\.git$', '\.cpcache$', '\.lsp$',
+            \'\.pyc$', '__pycache__', '\.clj-kondo$' ]
 let NERDTreeShowHidden = 1  " Show dotfiles
 
 " Fugitive for Git
