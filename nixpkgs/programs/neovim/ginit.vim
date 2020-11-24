@@ -1,6 +1,6 @@
 set mouse=a
 
-Guifont! Source\ Code\ Pro:h8
+Guifont! Source\ Code\ Pro:h10
 set linespace=1
 
 " Copy selections to clipboard automatically
