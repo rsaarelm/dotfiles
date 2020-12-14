@@ -19,7 +19,8 @@ in {
     htop
     imagemagick
     jmtpfs
-    k2pdfopt
+    # FIXME mupdf dependency bitrotted
+    # k2pdfopt
     links
     lsof
     monolith
