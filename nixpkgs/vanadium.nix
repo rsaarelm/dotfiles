@@ -5,6 +5,7 @@
 {
   imports = [
     ./common.nix
+    ./autorandr/vanadium.nix
 
     ./style/light-theme.nix
   ];
