@@ -102,7 +102,7 @@ let g:LanguageClient_serverCommands = {
     \ 'go': ['env', 'go-langserver'],
     \ 'clojure': ['env', 'clojure-lsp'],
     \ }
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <F8> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
@@ -278,6 +278,9 @@ autocmd FileType python setlocal shiftwidth=4 softtabstop=-1 formatoptions-=t co
 autocmd FileType go setlocal tabstop=4 listchars=tab:\ \ ,trail:· formatoptions-=t
 
 autocmd FileType javascript setlocal shiftwidth=2
+
+" Run REPL eval for current buffer with F5 in Clojure
+autocmd FileType clojure nnoremap <F5> :%Eval<CR>
 
 " Commands
 " ================================
