@@ -33,6 +33,9 @@
       local-nix = ". $HOME/.nix-profile/etc/profile.d/nix.sh";
 
       burner-chromium = "chromium-browser --user-data-dir=`mktemp -d`";
+
+      # Start week on Monday even on US locale.
+      cal = "cal -m";
     };
     initExtra = ''
       # Convenience viewer function, does not lock shell
