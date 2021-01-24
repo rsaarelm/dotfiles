@@ -159,6 +159,8 @@ set wildmode=longest,list,full  " Don't tab complete wrong options
 
 set formatoptions-=t " Don't word wrap by default in eg. config files
 
+let g:netrw_silent=1 " Don't prompt for ENTER when saving over scp
+
 " Key mapping
 " ================================
 
