@@ -47,6 +47,10 @@ let NERDTreeIgnore = [
             \'\.git$', '\.cpcache$', '\.lsp$',
             \'\.pyc$', '__pycache__', '\.clj-kondo$' ]
 let NERDTreeShowHidden = 1  " Show dotfiles
+" Have a more manageable navigation bar for narrow spaces.
+if (winwidth(0) < 120)
+    let NERDTreeWinSize = 16
+endif
 
 " Fugitive for Git
 Plug 'tpope/vim-fugitive'
