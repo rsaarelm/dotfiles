@@ -3,7 +3,7 @@
 {
   programs.git = {
     enable = true;
-    userName = "rsaarelm";
+    userName = "Risto Saarelma";
     userEmail = "risto.saarelma@iki.fi";
 
     aliases = {
