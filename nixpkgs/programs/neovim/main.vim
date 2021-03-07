@@ -277,7 +277,7 @@ autocmd FileType todo setlocal linebreak breakindentopt+=shift:2 breakindent col
 " is.
 autocmd FileType haskell setlocal shiftwidth=2 cursorcolumn cursorline
 
-autocmd FileType rust setlocal colorcolumn=100
+autocmd FileType rust setlocal textwidth=78
 
 autocmd FileType python setlocal shiftwidth=4 softtabstop=-1 formatoptions-=t colorcolumn=100
 
