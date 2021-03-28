@@ -106,6 +106,7 @@ let g:LanguageClient_serverCommands = {
     \ 'go': ['env', 'go-langserver'],
     \ 'clojure': ['env', 'clojure-lsp'],
     \ }
+nnoremap <F5> :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <F8> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
