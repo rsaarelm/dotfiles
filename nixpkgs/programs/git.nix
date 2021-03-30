@@ -60,6 +60,13 @@
       diff.wsErrorHighlight = "all";
       branch.sort = "-authordate";
       pull.rebase = "true";
+
+      fetch.fsckObjects = "true";
+      transfer.fsckObjects = "true";
+      receive.fsckObjects = "true";
+
+      "protocol \"http\"".allow = "never";
+      "protocol \"git\"".allow = "never";
     };
   };
 }
