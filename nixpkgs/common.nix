@@ -59,11 +59,12 @@
       map <S-Space> feedkeys "<PageUp>"
       map <Left> feedkeys "<S-Space>"
       map <Right> feedkeys "<Space>"
-      map <Up> feedkeys "<C-u>"
-      map <Down> feedkeys "<C-d>"
+      map <Up> feedkeys "<C-b>"
+      map <Down> feedkeys "<C-f>"
       map <S-Up> feedkeys "k"
       map <S-Down> feedkeys "j"
       map <Button3> navigate next
+      set guioptions ""  # Don't show status bar by default
     '';
   };
 
