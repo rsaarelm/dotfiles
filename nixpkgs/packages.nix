@@ -19,6 +19,7 @@ in {
     htop
     imagemagick
     jmtpfs
+    jq
     # FIXME mupdf dependency bitrotted
     # k2pdfopt
     links
