@@ -24,4 +24,8 @@
     "nvim/syntax/jrnl.vim".source = ./neovim/syntax/jrnl.vim;
     "nvim/syntax/wikilike.vim".source = ./neovim/syntax/wikilike.vim;
   };
+
+  home.file.".vimoutlinerrc".text = ''
+    let g:vo_modules_load = 'checkbox:tags:smart_paste:clock'
+  '';
 }
