@@ -55,14 +55,10 @@
     enable = true;
 
     extraConfig = ''
-      map <Space> feedkeys "<PageDown>"
-      map <S-Space> feedkeys "<PageUp>"
-      map <Left> feedkeys "<S-Space>"
-      map <Right> feedkeys "<Space>"
-      map <Up> feedkeys "<C-b>"
-      map <Down> feedkeys "<C-f>"
-      map <S-Up> feedkeys "k"
-      map <S-Down> feedkeys "j"
+      map <Space> feedkeys "<C-f>"
+      map <S-Space> feedkeys "<C-b>"
+      map <Left> feedkeys "<PageUp>"
+      map <Right> feedkeys "<PageDown>"
       map <Button3> navigate next
       set guioptions ""  # Don't show status bar by default
     '';
