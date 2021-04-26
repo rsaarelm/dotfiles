@@ -9,6 +9,9 @@
 
   boot.cleanTmpDir = true;
 
+  # Link identical store files together.
+  nix.autoOptimiseStore = true;
+
   # LOCALIZATION
 
   # Select internationalisation properties.
