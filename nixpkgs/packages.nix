@@ -20,6 +20,7 @@ in {
     imagemagick
     jmtpfs
     jq
+    just
     # FIXME mupdf dependency bitrotted
     # k2pdfopt
     links
