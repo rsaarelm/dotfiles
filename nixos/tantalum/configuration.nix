@@ -23,7 +23,7 @@
 
     bluetooth = {
       enable = true;
-      config = { General.Enable = "Source,Sink,Media,Socket"; };
+      settings = { General.Enable = "Source,Sink,Media,Socket"; };
     };
   };
 
@@ -34,7 +34,7 @@
       # Touchpad
       libinput = {
         enable = true;
-        disableWhileTyping = true;
+        touchpad.disableWhileTyping = true;
       };
     };
 

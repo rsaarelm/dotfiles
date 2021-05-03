@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, patchelf, zlib, ncurses5 }:
+{ lib, stdenv, fetchurl, patchelf, zlib, ncurses5 }:
 
 let
 
   lpath = "${stdenv.cc.cc.lib}/lib64:"
-    + stdenv.lib.makeLibraryPath [ zlib ncurses5 ];
+    + lib.makeLibraryPath [ zlib ncurses5 ];
 
 in stdenv.mkDerivation rec {
   name = "adom-${version}";
@@ -29,7 +29,7 @@ in stdenv.mkDerivation rec {
       $out/bin/adom
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A rogue-like game with nice graphical interface";
     homepage = "http://adom.de/";
     license = licenses.unfreeRedistributable;

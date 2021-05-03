@@ -18,12 +18,7 @@ in
     [[block]]
     block = "net"
     device = "wlp1s0"
-    ip = true
-    speed_up = false
-    speed_down = false
-
-    ssid = true
-    signal_strength = true
+    format = "{ssid} {signal_strength} {ip}"
   '';
 
   imports = [

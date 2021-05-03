@@ -22,15 +22,14 @@
 
     bluetooth = {
       enable = true;
-      config = { General.Enable = "Source,Sink,Media,Socket"; };
+      settings = { General.Enable = "Source,Sink,Media,Socket"; };
     };
   };
 
   # X11
 
   services.xserver = {
-    videoDrivers = [ "nvidiaBeta" ];
-
+    videoDrivers = [ "nvidia" ];
     # Dual monitor setup
     xrandrHeads = [
       {
