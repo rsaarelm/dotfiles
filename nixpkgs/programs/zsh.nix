@@ -72,12 +72,15 @@
       # Shortcut for running a nix-shell installed program
       function n() {
         case $1 in
+          # FIXME: $@ as opposed to $* arguments pattern is broken somehow.
+          # Figure out how to fix this if adding more custom packages.
+
           # Handle packages where the binary name differs from package name.
           # (Just manually add things I find myself using here)
           "discord") nix-shell -p $1 --run "Discord ''${@:2}" ;;
 
           # Default case.
-          *) nix-shell -p $1 --run "$@" ;;
+          *) nix-shell -p $1 --run "$*" ;;
         esac
       }
     '';
