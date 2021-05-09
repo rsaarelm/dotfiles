@@ -7,7 +7,7 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " Plugins
 " ================================
@@ -167,6 +167,9 @@ set wildmode=longest,list,full  " Don't tab complete wrong options
 set formatoptions-=t " Don't word wrap by default in eg. config files
 
 let g:netrw_silent=1 " Don't prompt for ENTER when saving over scp
+
+set spelllang=en_us
+set spellfile=~/.config/nvim/spell/en.utf-8.add
 
 " Key mapping
 " ================================
