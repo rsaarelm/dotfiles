@@ -94,6 +94,9 @@ let g:rustfmt_command = 'rustfmt'
 " Nix file format
 Plug 'LnL7/vim-nix'
 
+" Godot support
+Plug 'habamax/vim-godot'
+
 " Language Client
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -288,6 +291,8 @@ autocmd FileType rust setlocal textwidth=78
 autocmd FileType python setlocal shiftwidth=4 softtabstop=-1 formatoptions-=t colorcolumn=100
 
 autocmd FileType go setlocal tabstop=4 listchars=tab:\ \ ,trail:· formatoptions-=t
+
+autocmd FileType gdscript setlocal tabstop=4
 
 autocmd FileType javascript setlocal shiftwidth=2
 
