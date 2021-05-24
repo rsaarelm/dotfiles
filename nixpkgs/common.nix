@@ -56,6 +56,7 @@
 
     extraConfig = ''
       map <Space> feedkeys "<PageDown>"
+      map <BackSpace> feedkeys "<PageUp>"
       map <S-Space> feedkeys "<PageUp>"
       map <Right> feedkeys "<C-f>"
       map <Left> feedkeys "<C-b>"

@@ -77,7 +77,8 @@
 
           # Handle packages where the binary name differs from package name.
           # (Just manually add things I find myself using here)
-          "discord") nix-shell -p $1 --run "Discord ''${@:2}" ;;
+          "Discord") nix-shell -p discord --run "$*" ;;
+          "x64") nix-shell -p vice --run "$*" ;;
 
           # Default case.
           *) nix-shell -p $1 --run "$*" ;;
