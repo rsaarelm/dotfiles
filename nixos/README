@@ -8,5 +8,7 @@ Run `./generate-configuration.sh` to generate the unversioned stub
 
 # Setting up wifi
 
+Set `networking.wireless.enable = true`.
+
 Copy `wifi.nix.example` into `wifi.nix` and add wifi PSKs. File `wifi.nix`
 will not be version controlled.

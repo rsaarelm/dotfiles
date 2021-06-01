@@ -15,6 +15,11 @@
 
   networking.hostName = "tantalum";
 
+  networking.wireless = {
+    enable = true;
+    userControlled.enable = true;
+  };
+
   # HARDWARE
 
   hardware = {

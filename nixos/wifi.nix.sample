@@ -2,7 +2,6 @@
 
 {
   networking.wireless = {
-    enable = true;
     # Add wifi network keys here
     networks = {
       # the-gibson.psk = "hunter2";
