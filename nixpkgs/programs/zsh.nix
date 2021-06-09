@@ -79,6 +79,7 @@
           # (Just manually add things I find myself using here)
           "Discord") nix-shell -p discord --run "$*" ;;
           "x64") nix-shell -p vice --run "$*" ;;
+          "wtfutil") nix-shell -p wtf --run "$*" ;;
 
           # Default case.
           *) nix-shell -p $1 --run "$*" ;;

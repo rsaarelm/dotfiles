@@ -209,7 +209,7 @@ nnoremap <F4> @@
 " Exit terminal mode easily
 tnoremap <S-Esc> <C-\><C-n>
 
-" Result navigation
+" Quickfix error site navigation
 nnoremap <silent> <M-k> :lne<CR>zv
 nnoremap <silent> g<M-k> :lp<CR>zv
 nnoremap <silent> <C-k> :cn<CR>zv
