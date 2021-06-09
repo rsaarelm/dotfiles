@@ -65,6 +65,8 @@
       transfer.fsckObjects = "true";
       receive.fsckObjects = "true";
 
+      init.defaultBranch = "master";
+
       "protocol \"http\"".allow = "never";
       "protocol \"git\"".allow = "never";
     };
