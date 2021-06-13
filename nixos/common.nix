@@ -58,6 +58,7 @@
         links
         lsof
         mosh
+        neovim
         p7zip
         pwgen
         sshfs
@@ -86,12 +87,6 @@
     zsh = {
       enable = true;
       enableCompletion = true;
-    };
-
-    neovim = {
-      enable = true;
-      vimAlias = true;
-      viAlias = true;
     };
   };
 
