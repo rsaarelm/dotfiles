@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./programs/chromium.nix
     ./programs/git.nix
     ./programs/i3.nix
     ./programs/neovim.nix

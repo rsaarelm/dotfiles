@@ -46,7 +46,6 @@ in {
     # X11
     anki
     autorandr
-    chromium
     gimp
     keepass
     mpv
