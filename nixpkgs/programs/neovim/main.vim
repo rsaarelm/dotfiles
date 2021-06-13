@@ -116,6 +116,7 @@ nnoremap <F8> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> gf :call LanguageClient#textDocument_formatting()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <leader>s :call LanguageClient#workspace_symbol()<CR>
 
@@ -288,7 +289,7 @@ autocmd FileType haskell setlocal shiftwidth=2 cursorcolumn cursorline
 
 autocmd FileType rust setlocal textwidth=78
 
-autocmd FileType python setlocal shiftwidth=4 softtabstop=-1 formatoptions-=t colorcolumn=100
+autocmd FileType python setlocal shiftwidth=4 softtabstop=-1 formatoptions-=t colorcolumn=81
 
 autocmd FileType go setlocal tabstop=4 listchars=tab:\ \ ,trail:· formatoptions-=t
 
