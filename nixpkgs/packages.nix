@@ -7,61 +7,34 @@ in {
     # Utils
     aspell
     aspellDicts.en
-    direnv
     exa
     fd
     fdupes
     figlet
-    file
     fortune
     gitAndTools.git-annex
     hledger
-    htop
     imagemagick
     jmtpfs
-    jq
-    just
-    # FIXME mupdf dependency bitrotted
-    # k2pdfopt
-    links
-    lsof
     monolith
-    mosh
     mpc_cli
     mpd
     ncdu
     neofetch
     optipng
-    p7zip
     pandoc
-    pwgen
     ranger
     restic
     ripgrep
-    sshfs
     thefuck
-    tmux
     tokei
     tree
-    unzip
-    wget
-    xxd
     youtubeDL
-
-    # LaTeX
-    (texlive.combine {
-      inherit (texlive)
-        collection-basic metafont xits collection-bibtexextra
-        collection-binextra collection-context collection-formatsextra
-        collection-fontutils collection-langenglish collection-latex
-        collection-latexextra collection-latexrecommended collection-pictures
-        collection-pstricks collection-xetex;
-    })
 
     # Dev
     binutils
     clang
-    git
+    docker
     gnumake
     nixfmt
     python3
@@ -73,15 +46,13 @@ in {
     # X11
     anki
     autorandr
+    chromium
     gimp
-    grafx2
-    i3status-rust
     keepass
     mpv
     neovim-qt
     nitrogen
     notify-osd
-    rofi
     scrot
     sxiv
     xorg.xrefresh

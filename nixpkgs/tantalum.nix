@@ -24,6 +24,7 @@ in
   imports = [
     ./common.nix
     ./packages.nix
+    ./latex.nix
     ./autorandr/tantalum.nix
     ./programs/nethack-colemak.nix
 

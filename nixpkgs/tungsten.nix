@@ -14,6 +14,7 @@
   imports = [
     ./common.nix
     ./packages.nix
+    ./latex.nix
     ./autorandr/tungsten.nix
 
     ./style/dark-theme.nix

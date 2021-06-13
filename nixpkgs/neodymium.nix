@@ -6,6 +6,10 @@
     icons = "awesome"
 
     [[block]]
+    block = "temperature"
+    collapsed = false
+
+    [[block]]
     block = "net"
     device = "wlp1s0"
     format = "{ip}"

@@ -1,12 +1,6 @@
 { ... }:
 
 {
-  programs.neovim = {
-    enable = true;
-    vimAlias = true;
-    viAlias = true;
-  };
-
   # Manually all my custom cruft that isn't nicely packaged in packages.
   xdg.configFile = {
     "nvim/after/ftplugin/votl.vim".source = ./neovim/after/ftplugin/votl.vim;

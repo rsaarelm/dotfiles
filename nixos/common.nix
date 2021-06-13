@@ -38,22 +38,40 @@
         acpitool
         bluez
         coreutils
-        docker
         exfat-utils
         fuse_exfat
         inotifyTools
+        lm_sensors
         openvpn
         pciutils
         psmisc
         usbutils
 
+        # Basic tools
+        direnv
+        file
+        git
         home-manager
+        htop
+        jq
+        just
+        links
+        lsof
+        mosh
+        p7zip
+        pwgen
+        sshfs
+        tmux
+        unzip
+        wget
+        xxd
 
         # X11
-        chromium
         i3lock
+        i3status-rust
         libnotify
         pavucontrol
+        rofi
         rxvt_unicode-with-plugins
       ];
 
@@ -68,6 +86,12 @@
     zsh = {
       enable = true;
       enableCompletion = true;
+    };
+
+    neovim = {
+      enable = true;
+      vimAlias = true;
+      viAlias = true;
     };
   };
 
