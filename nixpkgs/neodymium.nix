@@ -11,7 +11,7 @@
 
     [[block]]
     block = "net"
-    device = "wlp1s0"
+    device = "wlan0"
     format = "{ip}"
   '';
 
