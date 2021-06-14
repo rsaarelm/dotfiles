@@ -33,6 +33,11 @@
 
   hardware.raspberry-pi."4".fkms-3d.enable = true;
 
+  services.xserver = {
+    # Emulate3Buttons won't work without this.
+    libinput.enable = true;
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
