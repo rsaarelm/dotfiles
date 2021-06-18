@@ -150,8 +150,10 @@
     mononoki
     symbola
     noto-fonts-cjk
-    font-awesome_4
+    font-awesome_5
+    material-design-icons
     source-code-pro
+    powerline-fonts
   ];
 
   # Open ports in the firewall.

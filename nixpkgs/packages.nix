@@ -8,6 +8,10 @@ in {
     aspell
     aspellDicts.en
     exa
+    cheat
+    delta
+    du-dust
+    duf
     fd
     fdupes
     figlet
