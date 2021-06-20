@@ -27,5 +27,12 @@
     set background=light
   '';
 
-  programs.bat.config.theme = "ansi-light";
+  programs.bat.config.theme = "ansi";
+
+  programs.git.extraConfig = {
+    delta = {
+      syntax-theme = "GitHub";
+      navigate = "true";
+    };
+  };
 }

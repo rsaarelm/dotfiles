@@ -74,13 +74,6 @@
         show = "delta";
       };
 
-      delta = {
-        plus-style = "syntax #012800";
-        minus-style = "syntax #340001";
-        syntax-theme = "Monokai Extended";
-        navigate = "true";
-      };
-
       "protocol \"http\"".allow = "never";
       "protocol \"git\"".allow = "never";
     };
