@@ -90,8 +90,6 @@
     };
   };
 
-  virtualisation.docker.enable = true;
-
   # List services that you want to enable:
   services = {
     openssh = {
@@ -103,7 +101,6 @@
     };
 
     locate.enable = true;
-    printing.enable = true;
     earlyoom.enable = true;
 
     xserver = {
@@ -141,13 +138,10 @@
 
   fonts.fonts = with pkgs; [
     # Bitmap
-    gohufont
     terminus_font
 
     # TTF
     go-font
-    hack-font
-    mononoki
     symbola
     noto-fonts-cjk
     font-awesome_5

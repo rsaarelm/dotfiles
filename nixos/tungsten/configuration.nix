@@ -27,7 +27,9 @@
     };
   };
 
-  # X11
+  # SERVICES
+
+  virtualisation.docker.enable = true;
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
