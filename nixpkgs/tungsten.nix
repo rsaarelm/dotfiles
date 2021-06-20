@@ -17,7 +17,7 @@
     ./latex.nix
     ./autorandr/tungsten.nix
 
-    ./style/dark-theme.nix
+    ./style/light-theme.nix
   ];
 
   home.packages = with pkgs; [

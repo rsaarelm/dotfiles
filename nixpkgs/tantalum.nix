@@ -28,7 +28,7 @@ in
     ./autorandr/tantalum.nix
     ./programs/nethack-colemak.nix
 
-    ./style/dark-theme.nix
+    ./style/light-theme.nix
   ];
 
   home.packages = with pkgs; [
