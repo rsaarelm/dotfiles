@@ -14,6 +14,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e7a6a3c4-3ffd-463a-a4e8-4e27cd195dd8";
     fsType = "ext4";
+    options = [ "noatime" ];
   };
 
   boot.initrd.luks.devices."cryptroot".device =
