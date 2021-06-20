@@ -12,7 +12,7 @@ init-nixos host=`hostname`:
         fi
 
         echo "Activating host {{host}}."
-        echo "{ ... }: { imports = [ ./nixos/common.nix ./wifi.nix ./nixos/{{host}}/configuration.nix ]; }" > configuration.nix
+        echo "{ ... }: { imports = [ ./wifi.nix ./nixos/{{host}}/configuration.nix ]; }" > configuration.nix
     else
         echo "configuration.nix already exists."
     fi

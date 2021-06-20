@@ -9,6 +9,7 @@
       # sudo nix-channel --update
       <nixos-hardware/raspberry-pi/4>
       ./hardware-configuration.nix
+      ../common.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
