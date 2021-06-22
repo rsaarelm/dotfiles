@@ -67,13 +67,6 @@
 
       init.defaultBranch = "master";
 
-      pager = {
-        diff = "delta";
-        log = "delta";
-        reflog = "delta";
-        show = "delta";
-      };
-
       "protocol \"http\"".allow = "never";
       "protocol \"git\"".allow = "never";
     };
