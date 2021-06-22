@@ -1,22 +1,14 @@
 { pkgs, ... }:
 
 {
-  xdg.configFile."i3/status.toml".text = ''
-    theme = "plain"
-    icons = "awesome"
-
-    [[block]]
-    block = "net"
-    device = "enp3s0"
-    format = "{ip}"
-  '';
-
   imports = [
-    ./common.nix
-    ./packages.nix
-    ./latex.nix
-    ./autorandr/tungsten.nix
+    ./gui-core.nix
+    ./extras.nix
+    ./programs/chromium.nix
+    ./programs/texlive.nix
+    ./programs/zathura.nix
 
+    ./autorandr/tungsten.nix
     ./style/light-theme.nix
   ];
 
@@ -27,5 +19,15 @@
 
   xsession.profileExtra = ''
     autorandr lowres
+  '';
+
+  xdg.configFile."i3/status.toml".text = ''
+    theme = "plain"
+    icons = "awesome"
+
+    [[block]]
+    block = "net"
+    device = "enp3s0"
+    format = "{ip}"
   '';
 }

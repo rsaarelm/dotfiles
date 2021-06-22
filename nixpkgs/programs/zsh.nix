@@ -9,9 +9,6 @@
     defaultKeymap = "emacs";
 
     shellAliases = {
-      arst = "setxkbmap us -variant intl";
-      asdf = "setxkbmap us -variant colemak";
-
       # tt aliases
       wtt = "tt --prefix ~/dayjob";
       weekhours = "wtt timeclock | hledger -f - balance -p 'daily this week'";
@@ -33,9 +30,6 @@
       local-nix = ". $HOME/.nix-profile/etc/profile.d/nix.sh";
 
       burner-chromium = "chromium-browser --user-data-dir=`mktemp -d`";
-
-      # Start week on Monday even on US locale.
-      cal = "cal -m";
     };
     initExtra = ''
       # Convenience viewer function, does not lock shell
@@ -56,14 +50,6 @@
           echo "Tagged `basename $1` as recently read"
         fi
       }
-
-      # Nice simple prompt
-
-      #       [- path    -][- error code -]
-      PROMPT='%F{green}%~%f%(?.. %F{red}%?%f) %F{green}%%%f '
-
-      #        [- username   -] [- clock            -]
-      RPROMPT='%F{green}%n@%m%f %F{cyan}%D{%H:%M:%S}%f'
 
       eval $(thefuck --alias)
 

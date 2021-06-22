@@ -29,10 +29,6 @@ Grab the `configuration.nix` and `hardware-configuration.nix` that
 `nixos-generate-config` creates for you when setting up the new host for the
 first time. Copy them to `nixos/[HOSTNAME]/` subdirectory.
 
-Modify `nixos/[HOSTNAME]/configuration.nix` to import `nixos/common.nix`
-unless you need to set up a custom configuration for a special needs host:
-
-    imports = [
-      ./hardware-configuration.nix
-      ../common.nix
-    ];
+Modify `nixos/[HOSTNAME]/configuration.nix` to import extra configurations
+modules from nixos/ directory. See `nixos/minimal/configuration.nix` for an
+example.

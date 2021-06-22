@@ -1,5 +1,6 @@
+# Latex setup. This installs lots of packages.
 { pkgs, ... }:
-# Latex things. This installs lots of packages.
+
 {
   home.packages = with pkgs;
     [
@@ -13,3 +14,4 @@
       })
     ];
 }
+

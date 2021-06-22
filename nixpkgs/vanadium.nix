@@ -4,7 +4,7 @@
 
 {
   imports = [
-    ./common.nix
+    ./gui-core.nix
     ./autorandr/vanadium.nix
 
     ./style/light-theme.nix

@@ -1,9 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
     ./hardware-configuration.nix
-    ../common.nix
+    ../settings.nix
+    ../home-network.nix
+    ../gui-core.nix
   ];
 
   # BOOT

@@ -1,9 +1,13 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  nixpkgs.config.allowUnfree = true;
+
+  imports = [
     ./hardware-configuration.nix
-    ../common.nix
+    ../settings.nix
+    ../home-network.nix
+    ../gui-core.nix
   ];
 
   # BOOT

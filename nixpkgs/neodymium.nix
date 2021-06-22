@@ -1,6 +1,15 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./gui-core.nix
+    ./extras.nix
+    ./programs/chromium.nix
+    ./programs/zathura.nix
+
+    ./style/dark-theme.nix
+  ];
+
   xdg.configFile."i3/status.toml".text = ''
     theme = "plain"
     icons = "awesome"
@@ -13,18 +22,5 @@
     block = "net"
     device = "wlan0"
     format = "{ip}"
-  '';
-
-  imports = [
-    ./common.nix
-    ./packages.nix
-
-    ./style/dark-theme.nix
-  ];
-
-  home.packages = with pkgs; [
-  ];
-
-  xsession.profileExtra = ''
   '';
 }

@@ -7,20 +7,26 @@ in {
     # Utils
     aspell
     aspellDicts.en
-    exa
     cheat
     delta
+    direnv
     du-dust
     duf
+    exa
     fd
     fdupes
     figlet
     fortune
     gitAndTools.git-annex
     hledger
+    htop
     imagemagick
     jmtpfs
+    jq
+    just
+    lsof
     monolith
+    mosh
     mpc_cli
     mpd
     ncdu
@@ -30,9 +36,13 @@ in {
     ranger
     restic
     ripgrep
+    sshfs
     thefuck
+    tmux
     tokei
     tree
+    unzip
+    xxd
     youtubeDL
 
     # Dev
@@ -51,13 +61,10 @@ in {
     anki
     autorandr
     gimp
-    keepass
     mpv
     neovim-qt
     nitrogen
     notify-osd
-    scrot
-    sxiv
     xorg.xrefresh
   ];
 }

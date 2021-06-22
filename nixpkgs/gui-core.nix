@@ -1,30 +1,17 @@
-{ config, pkgs, ... }:
+# Essential GUI packages
+{ pkgs, ... }:
 
 {
   imports = [
-    ./programs/chromium.nix
-    ./programs/git.nix
+    ./cli-core.nix
     ./programs/i3.nix
-    ./programs/neovim.nix
-    ./programs/zathura.nix
-    ./programs/zsh.nix
-  ] ++ (if builtins.pathExists ./local.nix then [ ./local.nix ] else [ ]);
-  # Extra settings can be added in non-version-controlled local.nix
+  ];
 
-  programs.bat.enable = true;
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.ssh = {
-    enable = true;
-
-    extraConfig = ''
-      AddKeysToAgent yes
-    '';
-  };
+  home.packages = with pkgs; [
+    keepass
+    scrot
+    sxiv
+  ];
 
   programs.urxvt = {
     enable = true;
@@ -51,19 +38,6 @@
       "keysym.C-equal" = "font-size:increase";
       "keysym.C-minus" = "font-size:decrease";
     };
-  };
-
-  services.lorri.enable = true;
-
-  services.mpd = {
-    enable = true;
-    musicDirectory = "${config.home.homeDirectory}/Music";
-    extraConfig = ''
-      audio_output {
-        type "pulse"
-        name "pulse audio"
-      }
-    '';
   };
 
   services.redshift = {
