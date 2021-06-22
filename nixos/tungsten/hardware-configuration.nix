@@ -31,6 +31,7 @@
   fileSystems."/media/data0" = {
     device = "/dev/disk/by-uuid/d88fc96a-743d-44c4-a1aa-52e3245a2036";
     fsType = "ext4";
+    options = [ "noatime" ];
   };
 
   nix.maxJobs = lib.mkDefault 4;

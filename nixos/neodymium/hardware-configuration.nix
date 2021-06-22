@@ -22,6 +22,7 @@
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/6b56f7c0-e2a1-40c6-8fe0-e86bf1a8ccf7";
       fsType = "ext4";
+      options = [ "noatime" ];
     };
 
   swapDevices = [ ];
