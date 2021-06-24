@@ -51,6 +51,12 @@
   fonts.fonts = with pkgs; [
     terminus_font
     source-code-pro
+
+    # Fonts with extra symbols
+    noto-fonts-cjk
+    font-awesome_5
+    material-design-icons
+    powerline-fonts
   ];
 
   # GUI-only zsh aliases: Switch between qwerty and colemak
