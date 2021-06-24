@@ -22,7 +22,7 @@
     "*.color15" = "#ffffff";
   };
 
-  xdg.configFile."nvim/init.vim".text = ''
+  xdg.configFile."nvim/colorscheme.vim".text = ''
     colorscheme gruvbox
     set background=light
   '';

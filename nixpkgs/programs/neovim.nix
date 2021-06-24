@@ -11,6 +11,7 @@
     "nvim/ftdetect/votl.vim".source = ./neovim/ftdetect/votl.vim;
     "nvim/ftplugin/jrnl.vim".source = ./neovim/ftplugin/jrnl.vim;
     "nvim/ginit.vim".source = ./neovim/ginit.vim;
+    "nvim/colorscheme.vim".text = "";  # Filled in style nixfile.
     "nvim/init.vim".text = ''
       runtime main.vim
     '';

@@ -8,3 +8,5 @@ vmap <LeftRelease> "*ygv
 
 " Clipboard paste in insert mode
 imap <S-Insert> <C-o>"*p
+
+runtime colorscheme.vim
