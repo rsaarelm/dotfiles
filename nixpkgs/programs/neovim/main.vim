@@ -300,6 +300,16 @@ autocmd FileType javascript setlocal shiftwidth=2
 " Run REPL eval for current buffer with F5 in Clojure
 autocmd FileType clojure nnoremap <F5> :%Eval<CR>
 
+" Colorscheme
+" ================================
+
+" Tone down some default colors that look bad in a white background terminal.
+hi Statement ctermfg=3
+hi Identifier ctermfg=4 cterm=NONE
+hi Special ctermfg=2
+hi PreProc ctermfg=6
+hi Type ctermfg=1
+
 " Commands
 " ================================
 
