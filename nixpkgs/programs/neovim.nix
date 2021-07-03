@@ -12,10 +12,11 @@
     "nvim/ftplugin/jrnl.vim".source = ./neovim/ftplugin/jrnl.vim;
     "nvim/ginit.vim".source = ./neovim/ginit.vim;
     "nvim/colorscheme.vim".text = "";  # Filled in style nixfile.
+    "nvim/core.vim".source = ./neovim/core.vim;
+    "nvim/main.vim".source = ./neovim/main.vim;
     "nvim/init.vim".text = ''
       runtime main.vim
     '';
-    "nvim/main.vim".source = ./neovim/main.vim;
     "nvim/syntax/jrnl.vim".source = ./neovim/syntax/jrnl.vim;
     "nvim/syntax/wikilike.vim".source = ./neovim/syntax/wikilike.vim;
   };
