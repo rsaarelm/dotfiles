@@ -61,10 +61,11 @@
           # Handle packages where the binary name differs from package name.
           # (Just manually add things I find myself using here)
           "Discord") nix-shell -p discord --run "$*" ;;
-          "x64") nix-shell -p vice --run "$*" ;;
-          "wtfutil") nix-shell -p wtf --run "$*" ;;
           "btm") nix-shell -p bottom --run "$*" ;;
           "glxgears") nix-shell -p glxinfo --run "$*" ;;
+          "wtfutil") nix-shell -p wtf --run "$*" ;;
+          "x64") nix-shell -p vice --run "$*" ;;
+          "xev") nix-shell -p xorg.xev --run "$*" ;;
 
           # Default case.
           *) nix-shell -p $1 --run "$*" ;;
