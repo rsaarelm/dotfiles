@@ -17,12 +17,12 @@ highlight! StatusLineNC   guibg=bg   guifg=fg gui=NONE   ctermbg=none ctermfg=no
 highlight! WildMenu       guibg=bg   guifg=fg gui=NONE   ctermbg=none ctermfg=none cterm=NONE
 highlight! VertSplit      guibg=bg   guifg=fg gui=NONE   ctermbg=none ctermfg=none cterm=NONE
 highlight! Folded         guibg=gray guifg=fg gui=italic ctermbg=8    ctermfg=none cterm=italic
-highlight! FoldColumn     guibg=bg   guifg=fg            ctermbg=none ctermfg=none
+highlight! FoldColumn     guibg=gray guifg=fg            ctermbg=8    ctermfg=none
 highlight! Conceal        guibg=bg   guifg=fg gui=NONE   ctermbg=none ctermfg=none cterm=NONE
 highlight! LineNr         guibg=bg   guifg=fg gui=italic ctermbg=none ctermfg=none cterm=italic
 highlight! Visual         guibg=fg   guifg=bg            ctermbg=none ctermfg=none cterm=reverse
 highlight! CursorLine     guibg=bg   guifg=fg            ctermbg=none ctermfg=none
-highlight! ColorColumn                                   ctermbg=none ctermfg=none cterm=reverse
+highlight! ColorColumn                                   ctermbg=none ctermfg=red
 
 highlight! Statement      guibg=bg guifg=fg      gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
 highlight! Identifier     guibg=bg guifg=fg      gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
