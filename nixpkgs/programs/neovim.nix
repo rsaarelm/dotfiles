@@ -7,6 +7,7 @@
     "nvim/after/syntax/votl.vim".source = ./neovim/after/syntax/votl.vim;
     "nvim/colors/gruvbox.vim".source = ./neovim/colors/gruvbox.vim;
     "nvim/colors/jellybeans.vim".source = ./neovim/colors/jellybeans.vim;
+    "nvim/colors/rubricate.vim".source = ./neovim/colors/rubricate.vim;
     "nvim/ftdetect/jrnl.vim".source = ./neovim/ftdetect/jrnl.vim;
     "nvim/ftdetect/votl.vim".source = ./neovim/ftdetect/votl.vim;
     "nvim/ftplugin/jrnl.vim".source = ./neovim/ftplugin/jrnl.vim;
