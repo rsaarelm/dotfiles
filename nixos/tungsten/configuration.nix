@@ -33,7 +33,13 @@
 
   # SERVICES
 
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    docker.enable = true;
+
+    virtualbox.host.enable = true;
+    virtualbox.host.enableExtensionPack = true;
+    virtualbox.guest.enable = true;
+  };
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];

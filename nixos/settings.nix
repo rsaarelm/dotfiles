@@ -92,7 +92,7 @@
   users.extraUsers.rsaarelm = {
     isNormalUser = true;
     home = "/home/rsaarelm";
-    extraGroups = [ "wheel" "audio" "docker" ];
+    extraGroups = [ "wheel" "audio" "docker" "vboxusers" ];
     uid = 1000;
     shell = pkgs.zsh;
     initialPassword = "1234";
