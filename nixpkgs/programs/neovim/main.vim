@@ -175,6 +175,8 @@ let g:netrw_silent=1 " Don't prompt for ENTER when saving over scp
 set spelllang=en_us
 set spellfile=~/.config/nvim/spell/en.utf-8.add
 
+set signcolumn=no   " Hide languageclient error column
+
 " Key mapping
 " ================================
 
