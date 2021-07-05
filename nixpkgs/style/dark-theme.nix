@@ -23,7 +23,7 @@
   };
 
   xdg.configFile."nvim/colorscheme.vim".text = ''
-    colorscheme jellybeans
+    set background=dark
   '';
 
   programs.git.extraConfig = {
