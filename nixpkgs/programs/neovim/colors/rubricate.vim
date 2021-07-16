@@ -43,6 +43,7 @@ highlight! link PreProc         Comment
 highlight! Constant       guibg=bg guifg=fg      gui=italic ctermbg=none ctermfg=none    cterm=italic
 highlight! link SpecialComment  Comment
 highlight! Special        guibg=bg guifg=none    gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
+highlight! Tag            guibg=bg guifg=none    gui=bold   ctermbg=none ctermfg=none    cterm=bold
 highlight! SpecialKey     guibg=bg guifg=red     gui=bold   ctermbg=none ctermfg=darkred cterm=bold
 highlight! Directory      guibg=bg guifg=fg      gui=bold   ctermbg=none ctermfg=none    cterm=bold
 highlight! link Title           Directory
