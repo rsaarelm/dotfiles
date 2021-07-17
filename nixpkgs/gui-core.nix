@@ -43,8 +43,8 @@
   services.redshift = {
     enable = true;
 
-    latitude = "25.0";
-    longitude = "60.0";
+    latitude = "60.0";
+    longitude = "25.0";
 
     temperature.day = 6500;
     temperature.night = 3500;
