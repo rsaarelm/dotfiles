@@ -36,9 +36,10 @@
   virtualisation = {
     docker.enable = true;
 
-    virtualbox.host.enable = true;
-    virtualbox.host.enableExtensionPack = true;
-    virtualbox.guest.enable = true;
+    # This causes lots of upgrade churn, only turn it on when needed.
+    # virtualbox.host.enable = true;
+    # virtualbox.host.enableExtensionPack = true;
+    # virtualbox.guest.enable = true;
   };
 
   services.xserver = {
