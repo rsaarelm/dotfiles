@@ -60,6 +60,7 @@ in {
     # X11
     anki
     autorandr
+    foliate
     gimp
     mpv
     neovim-qt
