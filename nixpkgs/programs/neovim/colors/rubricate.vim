@@ -7,8 +7,8 @@ hi clear
 " colors that rely on a discreet background color based on it.
 if &background == 'dark'
   highlight! Normal       guibg=#111111  guifg=#ffffea
-  highlight! ColorColumn  guibg=gray25   guifg=darkred
-  highlight! Folded       guibg=gray25   guifg=fg gui=italic
+  highlight! ColorColumn  guibg=gray10   guifg=darkred
+  highlight! Folded       guibg=gray10   guifg=fg gui=italic
 else " is light background
   highlight! Normal       guibg=#ffffea  guifg=#111111
   highlight! ColorColumn  guibg=gray80   guifg=red
