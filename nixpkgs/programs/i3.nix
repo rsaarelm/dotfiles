@@ -80,12 +80,18 @@
     alert = 10.0
 
     [[block]]
+    block = "memory"
+
+    [[block]]
     block = "load"
     interval = 1
     format = "{1m}"
 
     [[block]]
     block = "sound"
+
+    [[block]]
+    block = "uptime"
 
     [[block]]
     block = "time"
