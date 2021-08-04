@@ -43,7 +43,7 @@
   services.redshift = {
     enable = true;
 
-    latitude = "60.0";
+    latitude = "0.0";
     longitude = "25.0";
 
     temperature.day = 6500;
