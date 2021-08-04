@@ -3,6 +3,10 @@
 let
  tt = pkgs.callPackage ./pkgs/tt { };
 in {
+  imports = [
+    ./programs/ranger.nix
+  ];
+
   home.packages = with pkgs; [
     # Utils
     aspell
@@ -33,7 +37,6 @@ in {
     neofetch
     optipng
     pandoc
-    ranger
     restic
     ripgrep
     sshfs
