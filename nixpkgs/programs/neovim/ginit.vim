@@ -1,6 +1,6 @@
 set mouse=a
 
-Guifont Source\ Code\ Pro:h11
+Guifont! opendyslexicmono:h11
 set linespace=1
 
 " Copy selections to clipboard automatically

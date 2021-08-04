@@ -51,6 +51,7 @@
   fonts.fonts = with pkgs; [
     terminus_font
     source-code-pro
+    open-dyslexic
 
     # Fonts with extra symbols
     noto-fonts-cjk
