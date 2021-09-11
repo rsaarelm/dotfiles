@@ -65,7 +65,7 @@
       "image/vnd.djvu" = "org.pwmt.zathura.desktop";
       "image/vnd.djvu+multipage" = "org.pwmt.zathura.desktop";
 
-      "application/epub+zip" = "com.github.johnfactotum.Foliate.desktop";
+      "application/epub+zip" = "org.pwmt.zathura.desktop";
 
       "image/gif" = "sxiv.desktop";
       "image/png" = "sxiv.desktop";
