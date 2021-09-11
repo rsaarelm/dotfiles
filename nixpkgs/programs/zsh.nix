@@ -62,6 +62,7 @@
           # (Just manually add things I find myself using here)
           "Discord") nix-shell -p discord --run "$*" ;;
           "btm") nix-shell -p bottom --run "$*" ;;
+          "getgbook") nix-shell -p getxbook --run "$*" ;;
           "glxgears") nix-shell -p glxinfo --run "$*" ;;
           "wtfutil") nix-shell -p wtf --run "$*" ;;
           "x64") nix-shell -p vice --run "$*" ;;
