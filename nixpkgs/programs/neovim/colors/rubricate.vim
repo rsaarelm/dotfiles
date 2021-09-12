@@ -24,6 +24,7 @@ highlight! link FoldColumn      Folded
 highlight! Conceal        guibg=bg      guifg=fg  gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
 highlight! Visual         guibg=fg      guifg=bg             ctermbg=none ctermfg=none    cterm=reverse
 highlight! CursorLine     guibg=bg      guifg=red gui=italic ctermbg=none ctermfg=red     cterm=italic
+highlight! CursorColumn   guibg=bg      guifg=red gui=italic ctermbg=none ctermfg=red     cterm=italic
 highlight! ColorColumn                                       ctermbg=none ctermfg=red
 highlight! MatchParen     guibg=darkred guifg=fg             ctermbg=red  ctermfg=none
 highlight! link LineNr          Comment
