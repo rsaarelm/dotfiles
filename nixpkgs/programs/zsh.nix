@@ -25,6 +25,7 @@
       # Misc
       wet = "curl wttr.in";
       d = "notify-send done";
+      exan = "exa -snew";
 
       # Enable nix stuff on non-NixOS machine
       local-nix = ". $HOME/.nix-profile/etc/profile.d/nix.sh";
