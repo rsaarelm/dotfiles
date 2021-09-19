@@ -289,7 +289,7 @@ function! AsciiMathAbbrevs()
 
     iabbrev <buffer> cdot ⋅
     iabbrev <buffer> circ ∘
-    iabbrev <buffer> degree °
+    iabbrev <buffer> degree <BS>°
     iabbrev <buffer> dagger †
     iabbrev <buffer> oplus ⊕
     iabbrev <buffer> otimes ⊗
@@ -308,11 +308,11 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> oo ∞
     iabbrev <buffer> emptyset ∅
     iabbrev <buffer> aleph ℵ
-    iabbrev <buffer> ^-1 ⁻¹
-    iabbrev <buffer> ^-2 ⁻²
-    iabbrev <buffer> ^2 ²
-    iabbrev <buffer> ^3 ³
-    iabbrev <buffer> ^T ᵀ
+    iabbrev <buffer> ^-1 <BS>⁻¹
+    iabbrev <buffer> ^-2 <BS>⁻²
+    iabbrev <buffer> ^2 <BS>²
+    iabbrev <buffer> ^3 <BS>³
+    iabbrev <buffer> ^T <BS>ᵀ
     " Bit too tiny on regular terminal, in particular hard to tell _i and _1
     " apart.
     "iabbrev <buffer> _i ᵢ
