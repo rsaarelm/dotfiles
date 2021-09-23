@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+
+# Work timer ladder, inspired by http://markforster.squarespace.com/blog/2021/9/20/using-a-timer.html
+# Usage:
+#    work-ladder     # Rises forever
+#    work-ladder N   # Go up to a N-minute session, then go back down to 1 minute
+
+import os
+import sys
+import time
+
+def notify():
+    """Blink the screen and print the time to stdout."""
+    os.system("xrefresh -solid orange")
+    print(time.strftime("%Y-%m-%dT%H:%M:%S%z"))
+
+def ladder_duration(max_session):
+    """Compute duration of whole ladder given duration of longest session."""
+    # Σ_{i=1}^n i + Σ_{i=1}^{n-1} i
+
+    n = max_session
+    return int(.5*(n-1)*n + .5*(n+1)*n)
+
+def main(max_session=None):
+    if max_session is not None:
+        print("Working for %s minutes" % ladder_duration(max_session), file=sys.stderr)
+    else:
+        print("Working indefinitely", file=sys.stderr)
+    ascending = True
+    duration = 1
+    while duration:
+        time.sleep(duration * 60)
+        notify()
+        if max_session is not None and duration >= max_session:
+            ascending = False
+            duration -= 1
+        elif not ascending:
+            duration -= 1
+        else:
+            duration += 1
+    print("Done!", file=sys.stderr)
+
+if __name__ == '__main__':
+    main(int(dict(enumerate(sys.argv)).get(1)))
