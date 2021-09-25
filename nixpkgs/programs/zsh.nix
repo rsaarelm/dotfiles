@@ -36,19 +36,27 @@
       # Convenience viewer function, does not lock shell
       function v () {
         if [ -f $1 ]; then
-          xdg-open "`realpath $1`" 2> /dev/null &!
+          FILEPATH="$(realpath $1)"
+          FILENAME="$(basename $1)"
+          LINKPATH="$(realpath ~/recently-read/$FILENAME)"
 
-          # Keep track of files opened last to get a "recently read" queue
-          mkdir -p ~/recently-read
-          FILE="`realpath $1`"
-          rm -f ~/recently-read/"`basename $1`"
-          ln -s $FILE ~/recently-read/"`basename $1`"
+          xdg-open $FILEPATH 2> /dev/null &!
+
+          if [ $FILEPATH != $LINKPATH ]; then
+            # Keep track of files opened last to get a "recently read" queue
+            mkdir -p ~/recently-read
+            rm -f $LINKPATH
+            ln -s $FILEPATH $LINKPATH
+          else
+            echo "Physical file already in ~/recently-read/, not clobbering."
+            touch $FILEPATH
+          fi
 
           # Also log them so we retain earlier read times when a document is
           # re-read.
-          echo "`basename $1`\t`date -Imin`\t`sha1sum $1 | cut -d ' ' -f 1`" >> ~/recently-read/log.txt
+          echo "$FILENAME\t`date -Imin`\t`sha1sum $1 | cut -d ' ' -f 1`" >> ~/recently-read/log.txt
 
-          echo "Tagged `basename $1` as recently read"
+          echo "Tagged $FILENAME as recently read"
         fi
       }
 
