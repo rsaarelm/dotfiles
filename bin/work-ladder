@@ -41,4 +41,8 @@ def main(max_session=None):
     print("Done!", file=sys.stderr)
 
 if __name__ == '__main__':
-    main(int(dict(enumerate(sys.argv)).get(1)))
+    if len(sys.argv) >= 2:
+        max_session = int(sys.argv[1])
+    else:
+        max_session = None
+    main(max_session)
