@@ -9,10 +9,25 @@ import os
 import sys
 import time
 
-def notify():
+# Worked 1 h 20 min so far, work for 32 min next.
+
+def minutes_str(min):
+    hours = min // 60
+    min = min % 60
+    ret = ""
+    if hours:
+        ret += "%s h " % hours
+    ret += "%s min" % min
+    return ret
+
+def notify(end=False):
     """Blink the screen and print the time to stdout."""
-    os.system("xrefresh -solid orange")
-    print(time.strftime("%Y-%m-%dT%H:%M:%S%z"))
+    if end:
+        os.system("xrefresh -solid green")
+        time.sleep(0.25)
+        os.system("xrefresh -solid green")
+    else:
+        os.system("xrefresh -solid orange")
 
 def ladder_duration(max_session):
     """Compute duration of whole ladder given duration of longest session."""
@@ -27,9 +42,11 @@ def main(max_session=None):
     else:
         print("Working indefinitely", file=sys.stderr)
     ascending = True
+    total_work = 0
     duration = 1
     while duration:
         time.sleep(duration * 60)
+        total_work += duration
         notify()
         if max_session is not None and duration >= max_session:
             ascending = False
@@ -38,6 +55,10 @@ def main(max_session=None):
             duration -= 1
         else:
             duration += 1
+        if duration:
+            print("%s elapsed. Now work for %s." %
+                    (minutes_str(total_work), minutes_str(duration)))
+    notify(end=True)
     print("Done!", file=sys.stderr)
 
 if __name__ == '__main__':
