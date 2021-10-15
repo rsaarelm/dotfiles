@@ -84,8 +84,11 @@ def main(max_session=None, title=None):
         else:
             duration += 1
         if duration:
-            print("%s elapsed. Now work for %s." %
-                    (minutes_str(total_work), minutes_str(duration)),
+            next_time = datetime.datetime.today() + \
+                    datetime.timedelta(minutes=duration)
+            print("%s elapsed. Now work for %s to %s." %
+                    (minutes_str(total_work), minutes_str(duration),
+                        next_time.strftime('%H:%M:%S')),
                     file=sys.stderr)
     notify(end=True)
     print_duration(start_time, title)
