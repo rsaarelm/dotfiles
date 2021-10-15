@@ -70,6 +70,7 @@
           # Handle packages where the binary name differs from package name.
           # (Just manually add things I find myself using here)
           "Discord") nix-shell -p discord --run "$*" ;;
+          "FBReader") nix-shell -p fbreader --run "$*" ;;
           "btm") nix-shell -p bottom --run "$*" ;;
           "getgbook") nix-shell -p getxbook --run "$*" ;;
           "glxgears") nix-shell -p glxinfo --run "$*" ;;
