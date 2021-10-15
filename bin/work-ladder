@@ -2,8 +2,9 @@
 
 # Work timer ladder, inspired by http://markforster.squarespace.com/blog/2021/9/20/using-a-timer.html
 # Usage:
-#    work-ladder     # Rises forever
-#    work-ladder N   # Go up to a N-minute session, then go back down to 1 minute
+#    work-ladder [task]    # Rises forever
+#    work-ladder N [task]  # (N is integer) Go up to a N-minute session,
+#                          # then go back down to 1 minute
 
 import datetime
 import os
