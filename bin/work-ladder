@@ -5,7 +5,9 @@
 #    work-ladder     # Rises forever
 #    work-ladder N   # Go up to a N-minute session, then go back down to 1 minute
 
+import datetime
 import os
+import signal
 import sys
 import time
 
@@ -36,11 +38,36 @@ def ladder_duration(max_session):
     n = max_session
     return int(.5*(n-1)*n + .5*(n+1)*n)
 
-def main(max_session=None):
+def print_duration(start_time, title):
+    end_time = datetime.datetime.today()
+    # VimOutliner clock style duration line
+    if title:
+        print("%s " % title, end = "")
+    print("%s [%s -- %s] ->" % (
+        start_time.strftime("%Y-%m-%d"),
+        start_time.strftime("%H:%M:%S"),
+        end_time.strftime("%H:%M:%S")))
+
+def main(max_session=None, title=None):
+    start_time = datetime.datetime.today()
+
+    # Catch ctrl-C
+    def handler(*args):
+        print()  # Newline after the ^C echoed on terminal.
+        print_duration(start_time, title)
+        sys.exit(1)
+    signal.signal(signal.SIGINT, handler)
+
     if max_session is not None:
-        print("Working for %s minutes" % ladder_duration(max_session), file=sys.stderr)
+        print("Working for %s" % minutes_str(ladder_duration(max_session)),
+                end='', file=sys.stderr)
     else:
-        print("Working indefinitely", file=sys.stderr)
+        print("Working indefinitely", end='', file=sys.stderr)
+    if title:
+        print(' on "%s".' % title, file=sys.stderr)
+    else:
+        print(".", file=sys.stderr)
+
     ascending = True
     total_work = 0
     duration = 1
@@ -57,13 +84,22 @@ def main(max_session=None):
             duration += 1
         if duration:
             print("%s elapsed. Now work for %s." %
-                    (minutes_str(total_work), minutes_str(duration)))
+                    (minutes_str(total_work), minutes_str(duration)),
+                    file=sys.stderr)
     notify(end=True)
-    print("Done!", file=sys.stderr)
+    print_duration(start_time, title)
 
 if __name__ == '__main__':
-    if len(sys.argv) >= 2:
-        max_session = int(sys.argv[1])
-    else:
-        max_session = None
-    main(max_session)
+    args = sys.argv[1:]
+
+    # If first one parses as integer, take it as max session length
+    max_session = None
+    try:
+        max_session = int(args[0])
+        args = args[1:]
+    except ValueError:
+        pass
+    except IndexError:
+        pass
+
+    main(max_session, ' '.join(args))
