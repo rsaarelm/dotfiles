@@ -177,6 +177,10 @@ set spellfile=~/.config/nvim/spell/en.utf-8.add
 
 set signcolumn=no   " Hide languageclient error column
 
+" Define some extra digraphs
+digraph Nx 8469  " ℕ
+digraph Qx 8474  " ℚ
+
 " Key mapping
 " ================================
 
