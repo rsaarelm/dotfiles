@@ -63,6 +63,7 @@ in {
     # X11
     anki
     autorandr
+    briss
     foliate
     gimp
     mpv
