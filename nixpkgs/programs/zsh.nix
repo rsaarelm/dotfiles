@@ -31,6 +31,7 @@
       local-nix = ". $HOME/.nix-profile/etc/profile.d/nix.sh";
 
       burner-chromium = "chromium-browser --user-data-dir=`mktemp -d`";
+      music-chromium = "chromium-browser --user-data-dir=$HOME/music-chromium";
     };
     initExtra = ''
       # Convenience viewer function, does not lock shell

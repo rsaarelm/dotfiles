@@ -50,6 +50,7 @@
 
   fonts.fonts = with pkgs; [
     terminus_font
+    tamsyn
     source-code-pro
     open-dyslexic
 
