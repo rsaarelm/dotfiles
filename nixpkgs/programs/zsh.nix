@@ -72,6 +72,8 @@
           "Discord") nix-shell -p discord --run "$*" ;;
           "FBReader") nix-shell -p fbreader --run "$*" ;;
           "btm") nix-shell -p bottom --run "$*" ;;
+          "cataclysm-tiles") nix-shell -p cataclysm-dda --run "$*" ;;
+          "cataclysm") nix-shell -p 'cataclysm-dda.override { tiles = false; }' --run "$*" ;;
           "getgbook") nix-shell -p getxbook --run "$*" ;;
           "glxgears") nix-shell -p glxinfo --run "$*" ;;
           "wtfutil") nix-shell -p wtf --run "$*" ;;
