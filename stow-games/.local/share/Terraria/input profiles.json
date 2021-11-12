@@ -1220,7 +1220,7 @@
         "J"
       ],
       "Inventory": [
-        "OemQuotes"
+        "OemBackslash"
       ],
       "Grapple": [
         "L"
@@ -1259,7 +1259,7 @@
         "M"
       ],
       "MapStyle": [
-        "Tab"
+        "Q"
       ],
       "Hotbar1": [
         "D1"
