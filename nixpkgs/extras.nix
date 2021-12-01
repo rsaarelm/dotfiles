@@ -55,7 +55,7 @@ in {
     gnumake
     nixfmt
     python3
-    python37Packages.ipython
+    python3Packages.ipython
 
     # Extra fonts
     apl385
