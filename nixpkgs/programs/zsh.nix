@@ -70,16 +70,17 @@
         case $1 in
           # Handle packages where the binary name differs from package name.
           # (Just manually add things I find myself using here)
-          "Discord") nix-shell -p discord --run "$*" ;;
-          "FBReader") nix-shell -p fbreader --run "$*" ;;
-          "btm") nix-shell -p bottom --run "$*" ;;
-          "cataclysm-tiles") nix-shell -p cataclysm-dda --run "$*" ;;
-          "cataclysm") nix-shell -p 'cataclysm-dda.override { tiles = false; }' --run "$*" ;;
-          "getgbook") nix-shell -p getxbook --run "$*" ;;
-          "glxgears") nix-shell -p glxinfo --run "$*" ;;
-          "wtfutil") nix-shell -p wtf --run "$*" ;;
-          "x64") nix-shell -p vice --run "$*" ;;
-          "xev") nix-shell -p xorg.xev --run "$*" ;;
+          "Discord")          nix-shell -p discord --run "$*" ;;
+          "FBReader")         nix-shell -p fbreader --run "$*" ;;
+          "btm")              nix-shell -p bottom --run "$*" ;;
+          "cataclysm")        nix-shell -p 'cataclysm-dda.override { tiles = false; }' --run "$*" ;;
+          "cataclysm-tiles")  nix-shell -p cataclysm-dda --run "$*" ;;
+          "getgbook")         nix-shell -p getxbook --run "$*" ;;
+          "glxgears")         nix-shell -p glxinfo --run "$*" ;;
+          "perf")             nix-shell -p linuxPackages.perf --run "$*" ;;
+          "wtfutil")          nix-shell -p wtf --run "$*" ;;
+          "x64")              nix-shell -p vice --run "$*" ;;
+          "xev")              nix-shell -p xorg.xev --run "$*" ;;
 
           # Default case.
           *) nix-shell -p $1 --run "$*" ;;
