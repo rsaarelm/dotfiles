@@ -23,19 +23,20 @@
   "DisplayHeight": 1038,
   "GraphicsQuality": 0,
   "BackgroundEnabled": true,
-  "FrameSkipMode": 2,
+  "FrameSkipMode": 1,
   "LightingMode": 3,
   "BackgroundParallax": 60,
   "ShowItemText": true,
-  "LastLaunchedVersion": 238,
+  "LastLaunchedVersion": 244,
   "ClientUUID": "fad2b84c-4bf7-4857-8379-66ac7b4369dc",
   "UseSmartCursorForCommonBlocks": false,
   "UseSmartAxeAfterSmartPickaxe": false,
+  "SmartCursorHoldCanReleaseMidUse": false,
   "DisableLeftShiftTrashCan": true,
   "HighlightNewItems": true,
   "HidePasswords": false,
   "ReverseUpDownForArmorSetBonuses": false,
-  "MouseShowBuildingGrid": false,
+  "MouseShowBuildingGrid": true,
   "AllowUnfocusedInputOnGamepad": false,
   "LockOnPriority": 2,
   "InvisibleCursorForGamepad": true,
@@ -75,6 +76,8 @@
   "WaterfallDrawLimit": 1000,
   "DisableIntenseVisualEffects": false,
   "CloudSavingDefault": false,
+  "PlayerResourcesSet": "New",
+  "MinimapFrame": "Default",
   "FilterLimit": 16,
   "FilterPriorityThreshold": "VeryLow",
   "RGBUpdatesPerSecond": 45.0,
@@ -229,7 +232,5 @@
       "G": 1.0,
       "B": 1.0
     }
-  },
-  "MinimapFrame": "Default",
-  "PlayerResourcesSet": "New"
+  }
 }
