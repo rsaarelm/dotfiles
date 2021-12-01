@@ -29,6 +29,8 @@
       enable = true;
       settings = { General.Enable = "Source,Sink,Media,Socket"; };
     };
+
+    nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   };
 
   # SERVICES
