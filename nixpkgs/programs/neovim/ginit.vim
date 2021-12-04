@@ -1,5 +1,7 @@
 set mouse=a
 
+call GuiClipboard()
+
 Guifont Source\ Code\ Pro:h11
 set linespace=1
 
