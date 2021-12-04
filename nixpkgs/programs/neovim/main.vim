@@ -104,7 +104,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['env', 'rust-analyzer'],
-    \ 'python': ['env', 'pyls'],
+    \ 'python': ['env', 'pylsp'],
     \ 'cpp': ['clangd-8'],
     \ 'go': ['env', 'go-langserver'],
     \ 'clojure': ['env', 'clojure-lsp'],
@@ -286,6 +286,9 @@ colorscheme rubricate
 
 " Remove trailing whitespace.
 command! WhiteClean %s/\s\+$
+
+" Reformat Python source code using https://github.com/psf/black
+command! Black !black %
 
 function! AsciiMathAbbrevs()
     " Remove _ from set so you can write x_i and have the _i part contract
