@@ -28,6 +28,9 @@
 
   services.earlyoom.enable = true;
 
+  # Maybe keeps SSD drives healthier.
+  services.fstrim.enable = true;
+
   # Automatically garbage collect after a while.
   nix.gc = {
     automatic = true;
