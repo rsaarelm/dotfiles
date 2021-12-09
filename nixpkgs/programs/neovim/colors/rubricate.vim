@@ -10,23 +10,23 @@ if &background == 'dark'
   highlight! ColorColumn  guibg=gray10   guifg=darkred
   highlight! Folded       guibg=gray10   guifg=fg gui=italic
 else " is light background
-  highlight! Normal       guibg=#ffffea  guifg=#111111
-  highlight! ColorColumn  guibg=gray80   guifg=red
-  highlight! Folded       guibg=gray80   guifg=fg gui=italic
+  highlight! Normal       guibg=#888899  guifg=#111111
+  highlight! ColorColumn  guibg=gray45   guifg=darkred
+  highlight! Folded       guibg=gray45   guifg=fg gui=italic
 endif
 
-highlight! Normal                                            ctermbg=none ctermfg=none    cterm=NONE
-highlight! NonText        guibg=bg      guifg=red gui=NONE   ctermbg=none ctermfg=red     cterm=NONE
-highlight! WildMenu       guibg=bg      guifg=fg  gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
-highlight! VertSplit      guibg=bg      guifg=fg  gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
-highlight! Folded                                 gui=italic ctermbg=8    ctermfg=none    cterm=italic
+highlight! Normal                                                ctermbg=none ctermfg=none    cterm=NONE
+highlight! NonText        guibg=bg      guifg=darkred gui=NONE   ctermbg=none ctermfg=red     cterm=NONE
+highlight! WildMenu       guibg=bg      guifg=fg      gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
+highlight! VertSplit      guibg=bg      guifg=fg      gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
+highlight! Folded                                     gui=italic ctermbg=8    ctermfg=none    cterm=italic
 highlight! link FoldColumn      Folded
-highlight! Conceal        guibg=bg      guifg=fg  gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
-highlight! Visual         guibg=fg      guifg=bg             ctermbg=none ctermfg=none    cterm=reverse
-highlight! CursorLine     guibg=bg      guifg=red gui=italic ctermbg=none ctermfg=red     cterm=italic
-highlight! CursorColumn   guibg=bg      guifg=red gui=italic ctermbg=none ctermfg=red     cterm=italic
-highlight! ColorColumn                                       ctermbg=none ctermfg=red
-highlight! MatchParen     guibg=darkred guifg=fg             ctermbg=red  ctermfg=none
+highlight! Conceal        guibg=bg      guifg=fg      gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
+highlight! Visual         guibg=fg      guifg=bg                 ctermbg=none ctermfg=none    cterm=reverse
+highlight! CursorLine     guibg=bg      guifg=darkred gui=italic ctermbg=none ctermfg=red     cterm=italic
+highlight! CursorColumn   guibg=bg      guifg=darkred gui=italic ctermbg=none ctermfg=red     cterm=italic
+highlight! ColorColumn                                           ctermbg=none ctermfg=red
+highlight! MatchParen     guibg=darkred guifg=fg                 ctermbg=red  ctermfg=none
 highlight! link LineNr          Comment
 
 " TODO: I want to use bold to highlight *specific important parts* in source
@@ -36,7 +36,7 @@ highlight! link LineNr          Comment
 " function body, but treesitter doens't seem to have "variable in function
 " body that is a function parameter" category.
 
-highlight! Comment        guibg=bg guifg=gray    gui=italic ctermbg=none ctermfg=8       cterm=italic
+highlight! Comment        guibg=bg guifg=gray30  gui=italic ctermbg=none ctermfg=8       cterm=italic
 highlight! link Statement       Normal
 highlight! link Identifier      Normal
 highlight! link Type            Comment
@@ -45,12 +45,12 @@ highlight! Constant       guibg=bg guifg=fg      gui=italic ctermbg=none ctermfg
 highlight! link SpecialComment  Comment
 highlight! Special        guibg=bg guifg=none    gui=NONE   ctermbg=none ctermfg=none    cterm=NONE
 highlight! Tag            guibg=bg guifg=none    gui=bold   ctermbg=none ctermfg=none    cterm=bold
-highlight! SpecialKey     guibg=bg guifg=red     gui=bold   ctermbg=none ctermfg=darkred cterm=bold
+highlight! SpecialKey     guibg=bg guifg=darkred gui=bold   ctermbg=none ctermfg=darkred cterm=bold
 highlight! Directory      guibg=bg guifg=fg      gui=bold   ctermbg=none ctermfg=none    cterm=bold
 highlight! link Title           Directory
 highlight! link MoreMsg         Comment
 highlight! link Question        Comment
-highlight! Todo           guibg=lightgray guifg=darkred gui=italic    ctermbg=none ctermfg=darkred cterm=reverse,italic
+highlight! Todo           guibg=gray45    guifg=darkred gui=italic    ctermbg=none ctermfg=darkred cterm=reverse,italic
 highlight! SpellCap       guibg=none      guifg=none    gui=underline ctermbg=none ctermfg=none    cterm=underline
 
 let g:colors_name = "rubricate"
