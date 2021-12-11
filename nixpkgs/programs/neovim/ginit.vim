@@ -1,9 +1,8 @@
+set linespace=1
+
 set mouse=a
 
 call GuiClipboard()
-
-Guifont Source\ Code\ Pro:h11
-set linespace=1
 
 " Copy selections to clipboard automatically
 vmap <LeftRelease> "*ygv
@@ -12,3 +11,4 @@ vmap <LeftRelease> "*ygv
 imap <S-Insert> <C-o>"*p
 
 runtime colorscheme.vim
+runtime guifont.vim

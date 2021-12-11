@@ -30,4 +30,8 @@
     device = "enp3s0"
     format = "{ip}"
   '';
+
+  xdg.configFile."nvim/guifont.vim".text = ''
+    Guifont Source\ Code\ Pro:h11
+  '';
 }

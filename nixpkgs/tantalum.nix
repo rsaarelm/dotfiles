@@ -37,4 +37,8 @@ in
     device = "wlp1s0"
     format = "{ssid} {signal_strength} {ip}"
   '';
+
+  xdg.configFile."nvim/guifont.vim".text = ''
+    Guifont Source\ Code\ Pro:h9
+  '';
 }
