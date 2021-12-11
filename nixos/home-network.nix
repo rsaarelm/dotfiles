@@ -9,9 +9,6 @@
     # Wired connection     = atomic number of name
     # Wireless connection  = atomic number of name + 100
     extraHosts = ''
-      192.168.1.123 vanadium
-      192.168.1.123 v
-
       192.168.1.173 tantalum
       192.168.1.173 ta
 
