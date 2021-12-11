@@ -2,23 +2,39 @@
 
 {
   xresources.properties = {
-    "*.background" = "#e0e0e0";
-    "*.foreground" = "#262626";
-    "*.color0" = "#1b1b1b";
-    "*.color1" = "#7d1e1e";
-    "*.color2" = "#356C00";
-    "*.color3" = "#7f702d";
-    "*.color4" = "#254d80";
-    "*.color5" = "#802576";
-    "*.color6" = "#00787a";
-    "*.color7" = "#c2c2c2";
-    "*.color8" = "#6d6d6d";
-    "*.color9" = "#ee3030";
-    "*.color10" = "#61be07";
-    "*.color11" = "#beb03c";
-    "*.color12" = "#3f7ec1";
-    "*.color13" = "#c546ba";
-    "*.color14" = "#76baba";
+    "*.foreground" = "#222222";
+    "*.background" = "#aaaaaa";
+
+    # black
+    "*.color0" = "#111111";
+    "*.color8" = "#444444";
+
+    # red
+    "*.color1" = "#550000";
+    "*.color9" = "#aa2222";
+
+    # green
+    "*.color2" = "#225500";
+    "*.color10" = "#558822";
+
+    # yellow
+    "*.color3" = "#332211";
+    "*.color11" = "#887733";
+
+    # blue
+    "*.color4" = "#224488";
+    "*.color12" = "#3377cc";
+
+    # magenta
+    "*.color5" = "#882277";
+    "*.color13" = "#cc44bb";
+
+    # cyan
+    "*.color6" = "#004444";
+    "*.color14" = "#448888";
+
+    # white
+    "*.color7" = "#777777";
     "*.color15" = "#ffffff";
   };
 
