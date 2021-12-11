@@ -7,12 +7,14 @@ hi clear
 " colors that rely on a discreet background color based on it.
 if &background == 'dark'
   highlight! Normal       guibg=#111111  guifg=#ffffea
-  highlight! ColorColumn  guibg=gray10   guifg=darkred
-  highlight! Folded       guibg=gray10   guifg=fg gui=italic
+  highlight! ColorColumn  guibg=gray20   guifg=darkred
+  highlight! Folded       guibg=gray20   guifg=fg gui=italic
+  highlight! Comment                     guifg=gray50
 else " is light background
-  highlight! Normal       guibg=#888899  guifg=#111111
-  highlight! ColorColumn  guibg=gray45   guifg=darkred
-  highlight! Folded       guibg=gray45   guifg=fg gui=italic
+  highlight! Normal       guibg=gray65   guifg=#111111
+  highlight! ColorColumn  guibg=gray55   guifg=darkred
+  highlight! Folded       guibg=gray55   guifg=fg gui=italic
+  highlight! Comment                     guifg=gray30
 endif
 
 highlight! Normal                                                ctermbg=none ctermfg=none    cterm=NONE
@@ -36,9 +38,9 @@ highlight! link LineNr          Comment
 " function body, but treesitter doens't seem to have "variable in function
 " body that is a function parameter" category.
 
-highlight! Comment        guibg=bg guifg=gray30  gui=italic ctermbg=none ctermfg=8       cterm=italic
+highlight! Comment        guibg=bg               gui=italic ctermbg=none ctermfg=8       cterm=italic
 highlight! link Statement       Normal
-highlight! link Identifier      Normal
+highlight! Identifier     guibg=bg guifg=none    gui=bold   ctermbg=none ctermfg=none    cterm=bold
 highlight! link Type            Comment
 highlight! link PreProc         Comment
 highlight! Constant       guibg=bg guifg=fg      gui=italic ctermbg=none ctermfg=none    cterm=italic
@@ -50,7 +52,7 @@ highlight! Directory      guibg=bg guifg=fg      gui=bold   ctermbg=none ctermfg
 highlight! link Title           Directory
 highlight! link MoreMsg         Comment
 highlight! link Question        Comment
-highlight! Todo           guibg=gray45    guifg=darkred gui=italic    ctermbg=none ctermfg=darkred cterm=reverse,italic
+highlight! Todo           guibg=gray55    guifg=darkred gui=italic    ctermbg=none ctermfg=darkred cterm=reverse,italic
 highlight! SpellCap       guibg=none      guifg=none    gui=underline ctermbg=none ctermfg=none    cterm=underline
 
 let g:colors_name = "rubricate"
