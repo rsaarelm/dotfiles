@@ -12,7 +12,7 @@ in
     ./programs/zathura.nix
 
     ./autorandr/tantalum.nix
-    ./style/dark-theme.nix
+    ./style/light-theme.nix
   ];
 
   home.packages = with pkgs; [

@@ -2,40 +2,40 @@
 
 {
   xresources.properties = {
-    "*.foreground" = "#222222";
-    "*.background" = "#aaaaaa";
+    "*.foreground" = "#222";
+    "*.background" = "#999";
 
     # black
-    "*.color0" = "#111111";
-    "*.color8" = "#444444";
+    "*.color0" = "#111";
+    "*.color8" = "#444";
 
     # red
-    "*.color1" = "#550000";
-    "*.color9" = "#aa2222";
+    "*.color1" = "#400";
+    "*.color9" = "#a22";
 
     # green
-    "*.color2" = "#225500";
-    "*.color10" = "#558822";
+    "*.color2" = "#140";
+    "*.color10" = "#361";
 
     # yellow
-    "*.color3" = "#332211";
-    "*.color11" = "#887733";
+    "*.color3" = "#321";
+    "*.color11" = "#652";
 
     # blue
-    "*.color4" = "#224488";
-    "*.color12" = "#3377cc";
+    "*.color4" = "#128";
+    "*.color12" = "#369";
 
     # magenta
-    "*.color5" = "#882277";
-    "*.color13" = "#cc44bb";
+    "*.color5" = "#605";
+    "*.color13" = "#827";
 
     # cyan
-    "*.color6" = "#004444";
-    "*.color14" = "#448888";
+    "*.color6" = "#033";
+    "*.color14" = "#377";
 
     # white
-    "*.color7" = "#777777";
-    "*.color15" = "#ffffff";
+    "*.color7" = "#666";
+    "*.color15" = "#fff";
   };
 
   xdg.configFile."nvim/colorscheme.vim".text = ''
