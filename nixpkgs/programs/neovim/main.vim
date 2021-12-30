@@ -90,6 +90,7 @@ Plug 'rsaarelm/vimoutliner'
 " Rust support
 Plug 'rust-lang/rust.vim'
 let g:rustfmt_command = 'rustfmt'
+let g:rustfmt_options = '--edition 2021'
 
 " Nix file format
 Plug 'LnL7/vim-nix'
