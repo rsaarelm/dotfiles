@@ -14,13 +14,6 @@ noremap <buffer> gd /^\s*[(*]\?<C-r>=expand("<cword>")<CR>[)*]\?\s*\( \*\)\?$<CR
 setlocal iskeyword-=39
 setlocal iskeyword-=45
 
-" Don't wrap lines when cursor is on a table
-autocmd CursorMoved,CursorMovedI <buffer> if IsVimOutlinerTable() | setlocal nowrap | else | setlocal wrap | endif
-
-function! IsVimOutlinerTable()
-    return getline('.') =~# '^\t*| '
-endfunction
-
 if has("conceal")
   setlocal conceallevel=2 concealcursor=nc
 endif
