@@ -106,7 +106,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['env', 'rust-analyzer'],
     \ 'python': ['env', 'pylsp'],
-    \ 'cpp': ['clangd-8'],
+    \ 'cpp': ['env', 'clangd-8'],
     \ 'go': ['env', 'go-langserver'],
     \ 'clojure': ['env', 'clojure-lsp'],
     \ }
