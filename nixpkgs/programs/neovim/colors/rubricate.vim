@@ -55,4 +55,7 @@ highlight! link Question        Comment
 highlight! Todo           guibg=gray55    guifg=darkred gui=italic    ctermbg=none ctermfg=darkred cterm=reverse,italic
 highlight! SpellCap       guibg=none      guifg=none    gui=underline ctermbg=none ctermfg=none    cterm=underline
 
+highlight! link LanguageClientWarningSign NonText
+highlight! link Todo NonText
+
 let g:colors_name = "rubricate"
