@@ -49,8 +49,6 @@ in {
     youtubeDL
 
     # Dev
-    binutils
-    clang
     docker
     gnumake
     nixfmt
