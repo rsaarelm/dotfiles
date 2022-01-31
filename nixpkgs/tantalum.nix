@@ -32,10 +32,10 @@ in
     [[block]]
     block = "battery"
 
+    # FIXME
     [[block]]
     block = "net"
-    device = "wlp1s0"
-    format = "{ssid} {signal_strength} {ip}"
+    format = "{bitrate}"
   '';
 
   xdg.configFile."nvim/guifont.vim".text = ''
