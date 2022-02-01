@@ -49,8 +49,10 @@ in {
     youtubeDL
 
     # Dev
+    clang
     docker
     gnumake
+    lldb
     nixfmt
     python3
     python3Packages.ipython

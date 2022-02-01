@@ -18,12 +18,9 @@ Plug 'vim-airline/vim-airline-themes'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
-" Debugging
-" XXX: May need to do 'pip3 install pynvim' before UpdateRemotePlugins works
-" FIXME: The proposed do-format is wrong, you can't bar-append to shell command
-" Instead, you need to manually call :UpdateRemotePlugins after install
-"Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+" Debugging with DAP
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
 
 " NerdTree
 Plug 'scrooloose/nerdtree'
@@ -110,15 +107,14 @@ let g:LanguageClient_serverCommands = {
     \ 'go': ['env', 'go-langserver'],
     \ 'clojure': ['env', 'clojure-lsp'],
     \ }
-nnoremap <F5> :call LanguageClient#textDocument_codeAction()<CR>
+nnoremap <F6> :call LanguageClient#textDocument_codeAction()<CR>
 " List things that link to current symbol
-nnoremap <F6> :call LanguageClient#textDocument_references()<CR>
+nnoremap <S-F6> :call LanguageClient#textDocument_references()<CR>
 nnoremap <F8> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gD :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> gf :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <leader>s :call LanguageClient#workspace_symbol()<CR>
 
 " Don't clobber quickfix buffer, language client is always running so it will
@@ -135,6 +131,48 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'tpope/vim-fireplace'
 
 call plug#end()
+
+
+lua << END
+-- DAP debugger setup
+
+-- From https://alpha2phi.medium.com/neovim-dap-enhanced-ebc730ff498b
+
+local dap = require("dap")
+
+dap.adapters.lldb = {
+    type = 'executable',
+    attach = {pidProperty = "pid", pidSelect = "ask"},
+    command = 'lldb-vscode',
+    name = "lldb",
+    env = {LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES"}
+}
+
+dap.configurations.cpp = {
+    {
+        name = "Launch",
+        type = "lldb",
+        request = "launch",
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/',
+                                'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+        runInTerminal = false
+    }
+}
+
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
+END
+
+nnoremap <silent> <F5> :lua require('dap').continue()<cr>
+nnoremap <silent> <F11> :lua require('dap').step_into()<cr>
+nnoremap <silent> <S-F11> :lua require('dap').step_out()<cr>
+nnoremap <silent> <F10> :lua require('dap').step_over()<cr>
+nnoremap <silent> <F9> :lua require('dap').toggle_breakpoint()<cr>
 
 
 " Settings
@@ -270,9 +308,6 @@ autocmd FileType go setlocal tabstop=4 listchars=tab:\ \ ,trail:· formatoptions
 autocmd FileType gdscript setlocal tabstop=4
 
 autocmd FileType javascript setlocal shiftwidth=2
-
-" Run REPL eval for current buffer with F5 in Clojure
-autocmd FileType clojure nnoremap <F5> :%Eval<CR>
 
 " Colorscheme
 " ================================
