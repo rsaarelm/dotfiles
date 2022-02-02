@@ -31,6 +31,9 @@
   # Maybe keeps SSD drives healthier.
   services.fstrim.enable = true;
 
+  # Maintain file locate db.
+  services.locate.enable = true;
+
   # Automatically garbage collect after a while.
   nix.gc = {
     automatic = true;
