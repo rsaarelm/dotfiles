@@ -22,6 +22,7 @@ in {
     figlet
     fortune
     gitAndTools.git-annex
+    git-annex-utils
     hledger
     htop
     imagemagick
