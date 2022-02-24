@@ -41,11 +41,16 @@
     options = " --delete-older-than 30d";
   };
 
-  # Smart garbage collection when space is getting tight.
-  # "Free up to 1GiB whenever there is less than 100MiB left."
+  # Flakes
+  nix.package = pkgs.nixFlakes;
+
   nix.extraOptions = ''
+    # Smart garbage collection when space is getting tight.
+    # "Free up to 1GiB whenever there is less than 100MiB left."
     min-free = ${toString (100 * 1024 * 1024)}
     max-free = ${toString (1024 * 1024 * 1024)}
+
+    experimental-features = nix-command flakes
   '';
 
   # SHELL
