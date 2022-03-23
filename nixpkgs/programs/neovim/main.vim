@@ -141,7 +141,7 @@ set colorcolumn=81  " Show the forbidden zone
 set wrap            " Show long lines by default
 set textwidth=78
 
-set listchars=tab:›…,trail:·  " Show trailing whitespace
+set listchars=tab:›…,trail:·,nbsp:░  " Show trailing whitespace
 set list
 
 set lazyredraw      " Don't update screen when running macros
@@ -244,7 +244,7 @@ filetype indent on
 autocmd FileType text setlocal fo+=t linebreak
 autocmd FileType markdown setlocal fo+=t linebreak
 
-autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent colorcolumn=0 foldlevel=0 textwidth=80 tabstop=2 shiftwidth=2 listchars=tab:\ \ ,trail:·
+autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent colorcolumn=0 foldlevel=0 textwidth=80 tabstop=2 shiftwidth=2 listchars=tab:\ \ ,trail:·,nbsp:░
 
 autocmd FileType todo setlocal linebreak breakindentopt+=shift:2 breakindent colorcolumn=0 formatoptions-=t foldexpr=getline(v:lnum)=~'^\|\\s.*'?'1':0 foldmethod=expr
 

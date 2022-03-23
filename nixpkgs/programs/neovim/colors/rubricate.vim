@@ -38,7 +38,7 @@ highlight! link LineNr          Comment
 " function body, but treesitter doens't seem to have "variable in function
 " body that is a function parameter" category.
 
-highlight! Comment        guibg=bg               gui=italic ctermbg=none ctermfg=8       cterm=italic
+highlight! Comment        guibg=bg               gui=italic ctermbg=none ctermfg=3       cterm=italic
 highlight! link Statement       Normal
 highlight! Identifier     guibg=bg guifg=none    gui=bold   ctermbg=none ctermfg=none    cterm=bold
 highlight! link Type            Comment

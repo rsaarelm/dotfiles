@@ -12,7 +12,7 @@
     "*color5" = "#ff00e4";
     "*color6" = "#00fbff";
     "*color7" = "#d3d7cf";
-    "*color8" = "#565654";
+    "*color8" = "#777780";
     "*color9" = "#ee3030";
     "*color10" = "#8ae234";
     "*color11" = "#fce94f";
