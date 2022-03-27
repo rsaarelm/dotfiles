@@ -11,7 +11,6 @@ in
     ./programs/texlive.nix
     ./programs/zathura.nix
 
-    ./autorandr/tantalum.nix
     ./style/light-theme.nix
   ];
 

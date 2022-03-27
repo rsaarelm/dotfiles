@@ -7,7 +7,7 @@
     ./hardware-configuration.nix
     ../settings.nix
     ../home-network.nix
-    ../gui-core.nix
+    ../wayland.nix
   ];
 
   # BOOT
@@ -30,30 +30,14 @@
       settings = { General.Enable = "Source,Sink,Media,Socket"; };
     };
 
-    nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+    # nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   };
 
   # SERVICES
 
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
-    # Dual monitor setup
-    xrandrHeads = [
-      {
-        output = "DP-1";
-        primary = true;
-        monitorConfig = ''
-          Option "PreferredMode" "1920x1080"
-        '';
-      }
-      {
-        output = "DVI-I-1";
-        monitorConfig = ''
-          Option "PreferredMode" "1920x1200"
-          Option "Rotate" "left"
-        '';
-      }
-    ];
+    # videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nouveau" ];
 
     # Wacom tablet setup
     wacom.enable = true;

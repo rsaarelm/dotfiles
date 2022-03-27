@@ -8,7 +8,6 @@
     ./programs/texlive.nix
     ./programs/zathura.nix
 
-    ./autorandr/tungsten.nix
     ./style/dark-theme.nix
   ];
 
@@ -18,9 +17,34 @@
     steam-run-native
   ];
 
-  xsession.profileExtra = ''
-    autorandr hires
-  '';
+  # Tungsten's multi-monitor setup
+  wayland.windowManager.sway.config = {
+    output = {
+      DP-1 = {
+        pos = "0 0";
+        scale = "2";
+      };
+      DVI-I-1 = {
+        # NB: Use DPI-scaled coordinates for position
+        pos = "1920 0";
+        transform = "270";
+      };
+    };
+
+    # Left-hand keys, left monitor; right-hand keys right monitor
+    workspaceOutputAssign = [
+      { workspace = "1";  output = "DP-1"; }
+      { workspace = "2";  output = "DP-1"; }
+      { workspace = "3";  output = "DP-1"; }
+      { workspace = "4";  output = "DP-1"; }
+      { workspace = "5";  output = "DP-1"; }
+      { workspace = "6";  output = "DVI-I-1"; }
+      { workspace = "7";  output = "DVI-I-1"; }
+      { workspace = "8";  output = "DVI-I-1"; }
+      { workspace = "9";  output = "DVI-I-1"; }
+      { workspace = "10"; output = "DVI-I-1"; }
+    ];
+  };
 
   xsession.pointerCursor = {
     name = "Adwaita";
