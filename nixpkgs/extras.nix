@@ -38,6 +38,7 @@ in {
     neofetch
     optipng
     pandoc
+    pdftk
     restic
     ripgrep
     sshfs
@@ -47,7 +48,7 @@ in {
     tree
     unzip
     xxd
-    youtubeDL
+    yt-dlp
 
     # Dev
     clang
