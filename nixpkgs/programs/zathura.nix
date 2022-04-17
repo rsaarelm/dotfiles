@@ -5,13 +5,13 @@
     enable = true;
 
     extraConfig = ''
-      map <Space> feedkeys "<PageDown>"
-      map <BackSpace> feedkeys "<PageUp>"
-      map <S-Space> feedkeys "<PageUp>"
-      map <Right> feedkeys "<C-f>"
-      map <Left> feedkeys "<C-b>"
-      map c feedkeys "<C-f>"  # Comfy key for left hand
-      map C feedkeys "<C-b>"
+      map <Space> feedkeys "<C-f>"
+      map <BackSpace> feedkeys "<C-b>"
+      map <S-Space> feedkeys "<C-b>"
+      map <Right> feedkeys "<PageDown>"
+      map <Left> feedkeys "<PageUp>"
+      map c feedkeys "<PageDown>"
+      map C feedkeys "<PageUp>"
       map <Button3> navigate next
       set guioptions ""  # Don't show status bar by default
     '';
