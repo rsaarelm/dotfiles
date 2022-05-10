@@ -12,9 +12,8 @@
       { id = "dneaehbmnbhcippjikoajpoabadpodje"; }
       # Nitter redirect
       { id = "mohaicophfnifehkkkdbcejkflmgfkof"; }
-      # (Was updated into uselessness)
-      # # Wayback Machine
-      # { id = "fpnmgdkabkmnadcjpehmlllkndpkmiak"; }
+      # Wayback Machine
+      { id = "fpnmgdkabkmnadcjpehmlllkndpkmiak"; }
     ];
   };
 }
