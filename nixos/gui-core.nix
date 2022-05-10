@@ -31,7 +31,8 @@
       ];
     };
 
-    layout = "us(colemak)";
+    layout = "us";
+    xkbVariant = "colemak";
     xkbOptions = "ctrl:nocaps";
 
     desktopManager.xterm.enable = false;

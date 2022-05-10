@@ -8,7 +8,10 @@
       enable = true;
 
       config = rec {
-        fonts = [ "DejaVu Sans Mono 10" ];
+        fonts = {
+          names = [ "DejaVu Sans Mono" ];
+          size = 10.0;
+        };
 
         modifier = "Mod4";
         workspaceLayout = "tabbed";

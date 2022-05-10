@@ -11,8 +11,7 @@
         acpitool
         bluez
         coreutils
-        exfat-utils
-        fuse_exfat
+        exfat
         inotifyTools
         lm_sensors
         openvpn
@@ -24,7 +23,7 @@
         file
         git
         home-manager
-        links
+        links2
         neovim
         p7zip
         pwgen

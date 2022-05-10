@@ -105,7 +105,7 @@
 
       # No password guessing
       passwordAuthentication = false;
-      challengeResponseAuthentication = false;
+      kbdInteractiveAuthentication = false;
     };
   };
 

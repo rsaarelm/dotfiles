@@ -33,6 +33,13 @@
       burner-chromium = "chromium-browser --user-data-dir=`mktemp -d`";
       music-chromium = "chromium-browser --user-data-dir=$HOME/music-chromium";
     };
+
+    envExtra = ''
+      if [[ -f ~/.zshenv.local ]]; then
+        source ~/.zshenv.local
+      fi
+    '';
+
     initExtra = ''
       # Convenience viewer function, does not lock shell
       function v () {
