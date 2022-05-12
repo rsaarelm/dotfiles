@@ -55,8 +55,6 @@
     };
   };
 
-  services.xcape.enable = true;
-
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
