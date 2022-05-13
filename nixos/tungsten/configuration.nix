@@ -10,14 +10,17 @@
     ../wayland.nix
   ];
 
+
   # BOOT
 
   # Use GRUB to boot
   boot.loader.grub.device = "/dev/sda";
 
+
   # NETWORK
 
   networking.hostName = "tungsten";
+
 
   # HARDWARE
 
@@ -33,15 +36,26 @@
     # nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   };
 
-  # SERVICES
 
-  services.xserver = {
-    # videoDrivers = [ "nvidia" ];
-    videoDrivers = [ "nouveau" ];
+  # NVIDIA
 
-    # Wacom tablet setup
-    wacom.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+    powerManagement.enable = false;
+    modesetting.enable = true;
   };
+
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
+
+
+  # MISC
+
+  services.xserver.wacom.enable = true;  # Wacom tablet enabled
+
 
   system.stateVersion = "21.11";
 }
