@@ -16,25 +16,36 @@ in {
         fingerprint = dual-monitors;
 
         config = {
+          # XXX: Declarative config doesn't work, do everything with the
+          # explicit xrandr command in postswitch hook.
           DVI-I-1.enable = false;
-          DP-1 = {
-            enable = true;
-            primary = true;
-            position = "0x0";
-            mode = "3840x2160";
-            rate = "60.00";
-            dpi = 192;
-          };
+          DP-1.enable = false;
+          # DVI-I-1 = {
+          #   enable = true;
+          #   mode = "1920x1200";
+          #   position = "3840x0";
+          #   rotate = "left";
+          #   scale = { x = 2; y = 2; };
+          #   rate = "59.95";
+          # };
+          # DP-1 = {
+          #   enable = true;
+          #   primary = true;
+          #   position = "0x0";
+          #   mode = "3840x2160";
+          #   rate = "60.00";
+          #   dpi = 192;
+          # };
         };
 
         hooks.postswitch = ''
           #!/bin/sh
 
-          #xrandr --dpi 192
-          i3-msg restart
+          # Speed up mouse
+          xinput set-prop "HP HP USB 1000dpi Laser Mouse" "Coordinate Transformation Matrix" 2 0 0 0 2 0 0 0 1
 
-          # Mouse speed
-          xset mouse 2 2
+          xrandr --dpi 192 --output DP-1 --mode 3840x2160 --output DVI-I-1 --mode 1920x1200 --scale 2x2 --rotate left --right-of DP-1
+          i3-msg restart
         '';
       };
 
@@ -73,8 +84,8 @@ in {
 
           xrandr --output DVI-I-1 --right-of DP-1 --rotate left --auto
 
-          # Mouse speed
-          xset mouse 2 2
+          # Slow down mouse
+          xinput set-prop "HP HP USB 1000dpi Laser Mouse" "Coordinate Transformation Matrix" 1 0 0 0 1 0 0 0 1
         '';
       };
 

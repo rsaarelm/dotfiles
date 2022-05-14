@@ -18,7 +18,7 @@
   ];
 
   xsession.profileExtra = ''
-    autorandr lowres
+    autorandr hires
   '';
 
   xdg.configFile."i3/status.toml".text = ''
