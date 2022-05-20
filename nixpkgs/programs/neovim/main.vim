@@ -146,7 +146,7 @@ nvim_lsp.rust_analyzer.setup({
         command = "clippy",
       },
       assist = {
-        importGranularity = "module",
+        importGranularity = "crate",
         importPrefix = "self",
       },
       cargo = {
