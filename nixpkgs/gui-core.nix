@@ -13,6 +13,9 @@
     sxiv
   ];
 
+  # Managed by main configuration.
+  home.keyboard = null;
+
   programs.urxvt = {
     enable = true;
     package = pkgs.rxvt_unicode-with-plugins;
