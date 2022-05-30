@@ -21,6 +21,12 @@
     autorandr hires
   '';
 
+  xsession.pointerCursor = {
+    name = "Adwaita";
+    package = pkgs.gnome.adwaita-icon-theme;
+    size = 64;
+  };
+
   xdg.configFile."i3/status.toml".text = ''
     theme = "plain"
     icons = "awesome"
