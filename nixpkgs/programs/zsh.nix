@@ -20,7 +20,7 @@
       tp = "tt missed-pings 45";
 
       # Download video into ogg file
-      audio-dl = "youtube-dl -x --audio-format vorbis";
+      audio-dl = "yt-dlp -x --audio-format vorbis";
 
       # Misc
       wet = "curl wttr.in";
