@@ -24,7 +24,7 @@
   xsession.pointerCursor = {
     name = "Adwaita";
     package = pkgs.gnome.adwaita-icon-theme;
-    size = 64;
+    size = 32;
   };
 
   xdg.configFile."i3/status.toml".text = ''
