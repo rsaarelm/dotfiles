@@ -38,6 +38,8 @@
       if [[ -f ~/.zshenv.local ]]; then
         source ~/.zshenv.local
       fi
+
+      export PATH=$PATH:$HOME/bin
     '';
 
     initExtra = ''
