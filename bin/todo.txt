@@ -3,4 +3,4 @@
 # Turn `// TODO something` comments in a git project into a todo.txt file.
 # Call todo.txt in your project directory, pipe output to anything that would use todo.txt formats.
 
-git grep TODO | sed 's/^.*TODO\s*//' | sort
+git grep TODO | sed 's/^.*TODO\s*//' | LC_ALL=C sort
