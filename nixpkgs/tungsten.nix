@@ -13,6 +13,7 @@
   ];
 
   home.packages = with pkgs; [
+    wineWowPackages.stable
     steam
     steam-run-native
   ];
