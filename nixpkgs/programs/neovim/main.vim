@@ -142,18 +142,26 @@ nvim_lsp.rust_analyzer.setup({
   settings = {
     ["rust-analyzer"] = {
       -- Use clippy instead of check to report errors
-      checkOnSave = {
-        command = "clippy",
-      },
       assist = {
         importGranularity = "crate",
         importPrefix = "self",
       },
       cargo = {
-        loadOutDirsFromCheck = true
+        loadOutDirsFromCheck = true,
+      },
+      checkOnSave = {
+        command = "clippy",
+      },
+      diagnostics = {
+        enable = true,
+        enableExperimental = true,
+        -- FIXME Getting lots of "unresolved proc macro" noise despite
+        -- procMacro being enabled, going to just turn the diagnostic off for
+        -- now.
+        disabled = {"unresolved-proc-macro"},
       },
       procMacro = {
-        enable = true
+        enable = true,
       },
     }
   }
