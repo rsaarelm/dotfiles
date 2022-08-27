@@ -367,6 +367,7 @@ function! AsciiMathAbbrevs()
     iabbrev <buffer> ~= ≅
     iabbrev <buffer> ~~ ≈
     iabbrev <buffer> neg ¬
+    iabbrev <buffer> prop ∝
     iabbrev <buffer> AA ∀
     iabbrev <buffer> EE ∃
     iabbrev <buffer> bot ⊥
