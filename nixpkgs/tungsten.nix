@@ -19,7 +19,7 @@
   ];
 
   xsession.profileExtra = ''
-    autorandr hires
+    autorandr lowres
   '';
 
   xsession.pointerCursor = {
