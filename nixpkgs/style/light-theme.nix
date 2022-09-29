@@ -3,7 +3,7 @@
 {
   xresources.properties = {
     "*.foreground" = "#222";
-    "*.background" = "#999";
+    "*.background" = "#AAA";
 
     # black
     "*.color0" = "#111";
@@ -34,7 +34,7 @@
     "*.color14" = "#377";
 
     # white
-    "*.color7" = "#666";
+    "*.color7" = "#888";
     "*.color15" = "#fff";
   };
 
