@@ -7,7 +7,7 @@
   boot.cleanTmpDir = true;
 
   # Link identical store files together.
-  nix.autoOptimiseStore = true;
+  nix.settings.auto-optimise-store = true;
 
   # LOCALIZATION
 
