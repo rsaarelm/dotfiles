@@ -23,4 +23,10 @@
   };
 
   services.lorri.enable = true;
+
+  home = {
+    stateVersion = "22.11";
+    username = "rsaarelm";
+    homeDirectory = "/home/rsaarelm";
+  };
 }
