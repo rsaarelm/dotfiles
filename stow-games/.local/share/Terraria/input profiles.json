@@ -1,7 +1,7 @@
 {
   "Selected Profile": "Custom",
   "Redigit's Pick": {
-    "Last Launched Version": 244,
+    "Last Launched Version": 279,
     "Settings": {
       "Edittable": true,
       "Gamepad - HotbarRadialHoldTime": 16,
@@ -116,6 +116,18 @@
       ],
       "ViewZoomOut": [
         "OemMinus"
+      ],
+      "Loadout1": [
+        "F1"
+      ],
+      "Loadout2": [
+        "F2"
+      ],
+      "Loadout3": [
+        "F3"
+      ],
+      "ToggleCameraMode": [
+        "F4"
       ],
       "ToggleCreativeMenu": [
         "C"
@@ -297,7 +309,7 @@
     }
   },
   "Yoraiz0r's Pick": {
-    "Last Launched Version": 244,
+    "Last Launched Version": 279,
     "Settings": {
       "Edittable": true,
       "Gamepad - HotbarRadialHoldTime": 16,
@@ -412,6 +424,18 @@
       ],
       "ViewZoomOut": [
         "OemMinus"
+      ],
+      "Loadout1": [
+        "F1"
+      ],
+      "Loadout2": [
+        "F2"
+      ],
+      "Loadout3": [
+        "F3"
+      ],
+      "ToggleCameraMode": [
+        "F4"
       ],
       "ToggleCreativeMenu": [
         "C"
@@ -592,7 +616,7 @@
     }
   },
   "Console (Playstation)": {
-    "Last Launched Version": 244,
+    "Last Launched Version": 279,
     "Settings": {
       "Edittable": true,
       "Gamepad - HotbarRadialHoldTime": 16,
@@ -707,6 +731,18 @@
       ],
       "ViewZoomOut": [
         "OemMinus"
+      ],
+      "Loadout1": [
+        "F1"
+      ],
+      "Loadout2": [
+        "F2"
+      ],
+      "Loadout3": [
+        "F3"
+      ],
+      "ToggleCameraMode": [
+        "F4"
       ],
       "ToggleCreativeMenu": [
         "C"
@@ -885,7 +921,7 @@
     }
   },
   "Console (Xbox)": {
-    "Last Launched Version": 244,
+    "Last Launched Version": 279,
     "Settings": {
       "Edittable": true,
       "Gamepad - HotbarRadialHoldTime": 16,
@@ -1000,6 +1036,18 @@
       ],
       "ViewZoomOut": [
         "OemMinus"
+      ],
+      "Loadout1": [
+        "F1"
+      ],
+      "Loadout2": [
+        "F2"
+      ],
+      "Loadout3": [
+        "F3"
+      ],
+      "ToggleCameraMode": [
+        "F4"
       ],
       "ToggleCreativeMenu": [
         "C"
@@ -1178,7 +1226,7 @@
     }
   },
   "Custom": {
-    "Last Launched Version": 244,
+    "Last Launched Version": 279,
     "Settings": {
       "Edittable": true,
       "Gamepad - HotbarRadialHoldTime": 16,
@@ -1220,7 +1268,7 @@
         "J"
       ],
       "Inventory": [
-        "OemBackslash"
+        "OemPipe"
       ],
       "Grapple": [
         "L"
@@ -1296,6 +1344,18 @@
       ],
       "ViewZoomOut": [
         "OemMinus"
+      ],
+      "Loadout1": [
+        "F1"
+      ],
+      "Loadout2": [
+        "F2"
+      ],
+      "Loadout3": [
+        "F3"
+      ],
+      "ToggleCameraMode": [
+        "F4"
       ],
       "ToggleCreativeMenu": [
         "C"
