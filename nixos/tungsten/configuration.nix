@@ -37,20 +37,12 @@
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
-    # Dual monitor setup
     xrandrHeads = [
       {
         output = "DP-1";
         primary = true;
         monitorConfig = ''
           Option "PreferredMode" "1920x1080"
-        '';
-      }
-      {
-        output = "DVI-I-1";
-        monitorConfig = ''
-          Option "PreferredMode" "1920x1200"
-          Option "Rotate" "left"
         '';
       }
     ];
