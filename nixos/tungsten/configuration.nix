@@ -37,18 +37,22 @@
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
-    xrandrHeads = [
-      {
-        output = "DP-1";
-        primary = true;
-        monitorConfig = ''
-          Option "PreferredMode" "1920x1080"
-        '';
-      }
-    ];
 
     # Wacom tablet setup
     wacom.enable = true;
+
+    libinput = {
+      enable = true;
+    };
+  };
+
+  # hiDPI settinps
+  hardware.video.hidpi.enable = true;
+  services.xserver.dpi = 192;
+  environment.variables = {
+    GDK_SCALE = "2";
+    GDK_DPI_SCALE = "0.5";
+    _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
   };
 
   system.stateVersion = "21.11";
