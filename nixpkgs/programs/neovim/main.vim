@@ -103,6 +103,9 @@ Plug 'junegunn/vim-peekaboo'
 " Clojure REPL
 Plug 'tpope/vim-fireplace'
 
+" Kanagawa color scheme
+Plug 'rebelot/kanagawa.nvim'
+
 call plug#end()
 
 
@@ -309,7 +312,9 @@ autocmd FileType javascript setlocal shiftwidth=2
 " Neovim doesn't reliably detect terminal background color and can end up with
 " unusable colors on a light terminal. Use a special minimalist color scheme
 " designed to look right everywhere.
-colorscheme rubricate
+" colorscheme rubricate
+
+colorscheme kanagawa
 
 " Commands
 " ================================
