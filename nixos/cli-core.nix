@@ -9,6 +9,7 @@
         # System
         acpi
         acpitool
+        at
         bluez
         coreutils
         exfat

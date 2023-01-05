@@ -34,6 +34,9 @@
   # Maintain file locate db.
   services.locate.enable = true;
 
+  # At daemon
+  services.atd.enable = true;
+
   # Automatically garbage collect after a while.
   nix.gc = {
     automatic = true;
