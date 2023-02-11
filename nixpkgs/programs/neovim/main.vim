@@ -284,6 +284,9 @@ iabbrev ansicyan \x1b[1;36m\x1b[0m<esc>7ha
 filetype plugin on
 filetype indent on
 
+" Bad IDM file support by just piggy-backing off votl
+autocmd BufNewFile,BufRead *.idm set filetype=votl
+
 autocmd FileType text setlocal fo+=t linebreak
 autocmd FileType markdown setlocal fo+=t linebreak
 
