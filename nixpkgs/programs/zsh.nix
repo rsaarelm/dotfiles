@@ -84,6 +84,7 @@
           "btm")              nix-shell -p bottom --run "$*" ;;
           "cataclysm")        nix-shell -p 'cataclysm-dda.override { tiles = false; }' --run "$*" ;;
           "cataclysm-tiles")  nix-shell -p cataclysm-dda --run "$*" ;;
+          "keeper")           nix-shell -p keeperrl --run "$*" ;;
           "getgbook")         nix-shell -p getxbook --run "$*" ;;
           "glxgears")         nix-shell -p glxinfo --run "$*" ;;
           "perf")             nix-shell -p linuxPackages.perf --run "$*" ;;
