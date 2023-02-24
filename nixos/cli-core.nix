@@ -22,6 +22,7 @@
 
         # Basic tools
         file
+        fzf
         git
         home-manager
         links2
