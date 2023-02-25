@@ -70,6 +70,8 @@ nnoremap <silent> <leader>a :Buffers<CR>
 nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
+" .gitignore respecting fzf command
+let $FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 
 " Vimoutliner
 " (Use my fork to get the empty line fix in)
