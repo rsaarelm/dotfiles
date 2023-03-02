@@ -13,6 +13,28 @@
         $time_segment
       }
       let-env PROMPT_COMMAND_RIGHT = { create_right_prompt }
+
+      # Oneshot runner for uninstalled NixOS programs.
+      def nx [
+        ...args: string  # Command line invocation of the program
+      ] {
+        # Replace package names that are different from the executable name
+        let package_name = ({
+          'Discord': 'discord'
+          'FBReader': 'fbreader'
+          'btm': 'bottom'
+          'cataclysm-tiles': 'cataclysm-dda'
+          'keeper': 'keeperrl'
+          'getgbook': 'getxbook'
+          'glxgears': 'glxinfo'
+          'perf': 'linuxPackages.perf'
+          'wtfutil': 'wtf'
+          'x64': 'vice'
+          'xev': 'xorg.xev'
+        } | get -i $args.0 | default $args.0)
+        let cmd = ($args | str join ' ')
+        ^nix-shell -p $package_name --run $"($cmd)"
+      }
     '';
 
     # TODO 2023-02-24 Use home-manager's enableNushellIntegration instead of the pre_prompt hook when it's available in nixpkgs version
