@@ -13,6 +13,24 @@
         $time_segment
       }
       let-env PROMPT_COMMAND_RIGHT = { create_right_prompt }
+    '';
+
+    # TODO 2023-02-24 Use home-manager's enableNushellIntegration instead of the pre_prompt hook when it's available in nixpkgs version
+    configFile.text = ''
+      let-env config = {
+        show_banner: false
+
+        hooks: {
+          # Direnv integration
+          pre_prompt: [{
+            code: "
+              let direnv = (direnv export json | from json)
+              let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
+              $direnv | load-env
+            "
+          }]
+        }
+      }
 
       # Oneshot runner for uninstalled NixOS programs.
       def nx [
@@ -35,24 +53,9 @@
         let cmd = ($args | str join ' ')
         ^nix-shell -p $package_name --run $"($cmd)"
       }
-    '';
 
-    # TODO 2023-02-24 Use home-manager's enableNushellIntegration instead of the pre_prompt hook when it's available in nixpkgs version
-    configFile.text = ''
-      let-env config = {
-        show_banner: false
-
-        hooks: {
-          # Direnv integration
-          pre_prompt: [{
-            code: "
-              let direnv = (direnv export json | from json)
-              let direnv = if ($direnv | length) == 1 { $direnv } else { {} }
-              $direnv | load-env
-            "
-          }]
-        }
-      }
+      alias burner-chromium = chromium $"--user-data-dir=(mktemp -d)"
+      alias music-chromium = chromium $"--user-data-dir=($env.HOME)/music-chromium"
     '';
   };
 }
