@@ -54,6 +54,26 @@
         ^nix-shell -p $package_name --run $"($cmd)"
       }
 
+      # Detaching document viewer with logging
+      def v [ path: string ] {
+        let filepath = (realpath $path | str trim)
+        let filename = (basename $path | str trim)
+        let linkpath = $"($env.HOME)/recently-read/($filename)"
+
+        if $filepath != $linkpath {
+          mkdir ~/recently-read
+          rm -f $linkpath
+          ln -s $filepath $linkpath
+        } else {
+          echo "Physical file already in ~/recently-read/, not clobbering."
+          touch $linkpath
+        }
+
+        (echo $"($filename)\t(date format '%Y-%m-%dT%H:%M%Z')\t(sha1sum $filepath | cut -d ' ' -f 1)" | save --append ~/recently-read/log.txt)
+        echo $"Tagged ($filename) as recently read"
+        sh -c $"xdg-open ($filepath) 2> /dev/null &!"
+      }
+
       alias burner-chromium = chromium $"--user-data-dir=(mktemp -d)"
       alias music-chromium = chromium $"--user-data-dir=($env.HOME)/music-chromium"
     '';
