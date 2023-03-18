@@ -69,7 +69,6 @@
           touch $linkpath
         }
 
-        (echo $"($filename)\t(date format '%Y-%m-%dT%H:%M%Z')\t(sha1sum $filepath | cut -d ' ' -f 1)" | save --append ~/recently-read/log.txt)
         echo $"Tagged ($filename) as recently read"
         sh -c $"xdg-open ($filepath) 2> /dev/null &!"
       }
