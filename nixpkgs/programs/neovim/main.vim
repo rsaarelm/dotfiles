@@ -266,8 +266,7 @@ command! NoSembr iunmap <buffer> .|iunmap <buffer> <C-.>|iunmap <buffer> ?|iunma
 " Timestamp abbreviation
 iabbr tsp <C-r>=strftime("%Y-%m-%d")<cr>
 iabbr tspt <C-r>=strftime("%Y-%m-%d %H:%M")<cr>
-" XXX: strftime produces invalid TZ deltas, +0300 instead of +03:00. Add horrible glue to fix this.
-iabbr tspz <C-r>=strftime("%Y-%m-%dT%H:%M:%S%z")<cr><esc>hha:<esc>lla
+iabbr tspz <C-r>=strftime("%Y-%m-%dT%H:%M:%S%z")<cr>
 
 iabbrev ansired \x1b[1;31m\x1b[0m<esc>7ha
 iabbrev ansigreen \x1b[1;32m\x1b[0m<esc>7ha
