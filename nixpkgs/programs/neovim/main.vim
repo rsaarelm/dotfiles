@@ -285,7 +285,7 @@ filetype indent on
 autocmd BufNewFile,BufRead *.idm set filetype=votl
 
 autocmd FileType text setlocal fo+=t linebreak
-autocmd FileType markdown setlocal fo+=t linebreak
+autocmd FileType markdown setlocal fo-=t linebreak
 
 autocmd FileType votl setlocal linebreak breakindentopt+=shift:3 breakindent colorcolumn=0 foldlevel=0 textwidth=80 tabstop=2 shiftwidth=2 listchars=tab:\ \ ,trail:·,nbsp:░
 
