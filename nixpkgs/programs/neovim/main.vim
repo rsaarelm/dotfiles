@@ -214,6 +214,10 @@ set signcolumn=no   " Hide languageclient error column
 digraph Nx 8469  " ℕ
 digraph Qx 8474  " ℚ
 
+" Turn off mouse support in terminal, it seems to mostly make copy-paste work
+" wrong. It'll be reactivated for GUI mode in ginit.vim.
+set mouse=
+
 " Key mapping
 " ================================
 
