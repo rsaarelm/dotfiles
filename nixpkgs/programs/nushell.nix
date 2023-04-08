@@ -76,7 +76,7 @@
       alias burner-chromium = chromium $"--user-data-dir=(mktemp -d)"
       alias music-chromium = chromium $"--user-data-dir=($env.HOME)/music-chromium"
 
-      alias grep-urls = grep -Eo "(http|https)://[][a-zA-Z0-9._~:/?#@!$&%'()*+,;=-]*"
+      alias grep-urls = grep -Eo "(http|https)://[a-zA-Z0-9._~:/?#@!$&%'()*+,;=-]*"
     '';
   };
 }

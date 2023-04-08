@@ -19,6 +19,7 @@ in {
     exa
     fd
     fdupes
+    ffmpeg
     figlet
     fortune
     gitAndTools.git-annex
