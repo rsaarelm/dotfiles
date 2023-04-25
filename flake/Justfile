@@ -1,0 +1,10 @@
+help:
+    just -l
+
+# Switch installed os to flake
+rebuild:
+    sudo nixos-rebuild switch --flake .#tantalum
+
+# Install flake's home-manager configuration
+home:
+    home-manager --flake .#rsaarelm@tantalum
