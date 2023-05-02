@@ -10,8 +10,6 @@
       { id = "kbmfpngjjgdllneeigpgjifpgocmfgmb"; }
       # Old Reddit Redirect
       { id = "dneaehbmnbhcippjikoajpoabadpodje"; }
-      # Nitter redirect
-      { id = "mohaicophfnifehkkkdbcejkflmgfkof"; }
       # Wayback Machine
       { id = "fpnmgdkabkmnadcjpehmlllkndpkmiak"; }
     ];
