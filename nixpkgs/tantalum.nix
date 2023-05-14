@@ -38,6 +38,6 @@ in
   '';
 
   xdg.configFile."nvim/guifont.vim".text = ''
-    Guifont Source\ Code\ Pro:h9
+    Guifont IntelOne\ Mono:h9
   '';
 }
