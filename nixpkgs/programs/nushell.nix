@@ -76,6 +76,8 @@
       alias burner-chromium = chromium $"--user-data-dir=(mktemp -d)"
       alias music-chromium = chromium $"--user-data-dir=($env.HOME)/music-chromium"
 
+      alias burner-firefox = nix-shell -p firefox --run $"firefox -profile (mktemp -d) -no-remote -new-instance"
+
       alias grep-urls = grep -Eo "(http|https)://[a-zA-Z0-9._~:/?#@!$&%'()*+,;=-]*"
     '';
   };
