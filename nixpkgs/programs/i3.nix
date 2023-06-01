@@ -80,7 +80,7 @@
         { block = "load"; }
         { block = "memory"; }
         { block = "disk_space"; }
-        { block = "net"; format = " $icon $ip {$signal_strength $ssid|}"; }
+        { block = "net"; format = " $icon {$ssid $signal_strength|}"; }
         { block = "battery"; missing_format = ""; }
         { block = "temperature"; format = " $icon $average/$max"; }
         { block = "tea_timer"; increment = 60; done_cmd = "notify-send 'Timer done'"; }
