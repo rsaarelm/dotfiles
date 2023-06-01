@@ -4,7 +4,7 @@
 { config, pkgs, ... }:
 
 {
-  boot.cleanTmpDir = true;
+  boot.tmp.cleanOnBoot = true;
 
   # Link identical store files together.
   nix.settings.auto-optimise-store = true;
@@ -107,8 +107,10 @@
       enable = true;
 
       # No password guessing
-      passwordAuthentication = false;
-      kbdInteractiveAuthentication = false;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
     };
   };
 

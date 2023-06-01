@@ -35,6 +35,7 @@ init-home-manager host=`hostname`:
     else
         echo "nixpkgs/home.nix already exists."
     fi
+    # TODO 2023-06-01 Install home.nix to ~/.config/home-manager instead of ~/.config/nixpkgs (just renaming the dir seems to break some home-manager config..?)
     if [[ ! -d ~/.config/nixpkgs ]]; then
         mkdir -p ~/.config
         ln -s `pwd`/nixpkgs ~/.config

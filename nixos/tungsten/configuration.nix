@@ -79,7 +79,6 @@
   '';
 
   # hiDPI settinps
-  hardware.video.hidpi.enable = true;
   services.xserver.dpi = 192;
   environment.variables = {
     GDK_SCALE = "2";
