@@ -18,7 +18,7 @@
 
         bars = [{
           position = "bottom";
-          statusCommand = "i3status-rs ${config.xdg.configHome}/i3/status.toml";
+          statusCommand = "i3status-rs config-bottom.toml";
         }];
 
         keybindings = pkgs.lib.mkOptionDefault {
@@ -71,34 +71,23 @@
     };
   };
 
-  xdg.configFile."i3/status.toml".text = ''
-    [[block]]
-    block = "disk_space"
-    path = "/"
-    alias = "/"
-    info_type = "available"
-    unit = "GB"
-    interval = 20
-    warning = 20.0
-    alert = 10.0
+  programs.i3status-rust = {
+    enable = true;
 
-    [[block]]
-    block = "memory"
-
-    [[block]]
-    block = "load"
-    interval = 1
-    format = "{1m}"
-
-    [[block]]
-    block = "sound"
-
-    [[block]]
-    block = "uptime"
-
-    [[block]]
-    block = "time"
-    interval = 1
-    format = "%g%V.%u/%m-%d %R"
-  '';
+    bars.bottom = {
+      icons = "awesome5";
+      blocks = [
+        { block = "load"; }
+        { block = "memory"; }
+        { block = "disk_space"; }
+        { block = "net"; format = " $icon $ip {$signal_strength $ssid|}"; }
+        { block = "battery"; missing_format = ""; }
+        { block = "temperature"; format = " $icon $average/$max"; }
+        { block = "tea_timer"; increment = 60; done_cmd = "notify-send 'Timer done'"; }
+        { block = "sound"; }
+        { block = "uptime"; }
+        { block = "time"; format = "$icon $timestamp.datetime(f:'%g%V.%u/%m-%d %R') "; interval = 1; }
+      ];
+    };
+  };
 }

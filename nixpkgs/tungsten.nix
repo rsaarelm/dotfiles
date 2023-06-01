@@ -24,16 +24,6 @@
     size = 32;
   };
 
-  xdg.configFile."i3/status.toml".text = ''
-    theme = "plain"
-    icons = "awesome"
-
-    [[block]]
-    block = "net"
-    device = "enp3s0"
-    format = "{ip}"
-  '';
-
   xdg.configFile."nvim/guifont.vim".text = ''
     Guifont IntelOne\ Mono:h11
   '';

@@ -21,22 +21,6 @@ in
     adom
   ];
 
-  xdg.configFile."i3/status.toml".text = ''
-    theme = "plain"
-    icons = "awesome"
-
-    [[block]]
-    block = "bluetooth"
-    mac = "EB:06:EF:74:4B:47"
-
-    [[block]]
-    block = "battery"
-
-    [[block]]
-    block = "net"
-    format = "{ssid}"
-  '';
-
   xdg.configFile."nvim/guifont.vim".text = ''
     Guifont IntelOne\ Mono:h9
   '';
