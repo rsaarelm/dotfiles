@@ -14,11 +14,12 @@ self: super: {
     '';
   };
 
+  # TODO 2023-06-01 Drop local derivation for intel-one-mono when it's officially supported in NixOS
   intel-one-mono = super.stdenv.mkDerivation {
     name = "intel-one-mono";
     src = super.fetchurl {
       url = "https://github.com/intel/intel-one-mono/raw/main/fonts/ttf.zip";
-      sha256 = "1cfxpjr1njz7fbyhip5xc0mc66qziq9gb8znhn3s12570d6h8ixj";
+      sha256 = "91acf40de3de3bc9ef295a2760986ce5fdbea6cff95e8e69b23835868c736a25";
     };
     buildInputs = [ super.unzip ];
     sourceRoot = ".";
