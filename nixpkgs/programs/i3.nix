@@ -24,6 +24,7 @@
         keybindings = pkgs.lib.mkOptionDefault {
           "${modifier}+s" = "exec rofi -show run";
           "${modifier}+F2" = "exec chromium-browser --incognito";
+          "${modifier}+b" = "exec chromium-browser --incognito";
           "${modifier}+F9" = "exec mpc toggle";
           "XF86AudioPlay" = "exec mpc toggle";
           "${modifier}+F10" = "exec mpc next";
