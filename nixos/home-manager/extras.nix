@@ -60,9 +60,6 @@ in {
     python3
     python3Packages.ipython
 
-    # Extra fonts
-    apl385
-
     # X11
     anki
     autorandr

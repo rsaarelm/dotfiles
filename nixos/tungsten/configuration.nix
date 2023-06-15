@@ -8,6 +8,8 @@
     ../settings.nix
     ../home-network.nix
     ../gui-core.nix
+    # sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.05.tar.gz home-manager
+    <home-manager/nixos>
   ];
 
   # BOOT
@@ -34,6 +36,12 @@
   };
 
   # SERVICES
+
+  environment.systemPackages = with pkgs; [
+    wineWowPackages.stable
+    steam
+    steam-run-native
+  ];
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
@@ -119,4 +127,28 @@
   };
 
   system.stateVersion = "21.11";
+
+  # Home manager
+  home-manager.users.rsaarelm = { pkgs, ... }: {
+    imports = [
+      ../home-manager/gui-core.nix
+      ../home-manager/extras.nix
+      ../home-manager/programs/chromium.nix
+      ../home-manager/programs/texlive.nix
+      ../home-manager/programs/zathura.nix
+
+      ../home-manager/autorandr/tungsten.nix
+      ../home-manager/style/dark-theme.nix
+    ];
+
+    #home.pointerCursor = {
+    #  name = "Adwaita";
+    #  package = pkgs.gnome.adwaita-icon-theme;
+    #  size = 32;
+    #};
+
+    xdg.configFile."nvim/guifont.vim".text = ''
+      Guifont IntelOne\ Mono:h11
+    '';
+  };
 }

@@ -22,8 +22,6 @@
     fonts = [
       # Main font
       "xft:Source Code Pro:size=11"
-      # APL font
-      "xft:APL385 Unicode"
       # CJK support
       "xft:Noto Sans Mono CJK JP"
       # Icons
