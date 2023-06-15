@@ -62,7 +62,6 @@ in {
 
     # Extra fonts
     apl385
-    intel-one-mono
 
     # X11
     anki
