@@ -94,5 +94,5 @@
     xdg.configFile."nvim/guifont.vim".text = ''
       Guifont Source\ Code\ Pro:h9
     '';
-  }
+  };
 }
