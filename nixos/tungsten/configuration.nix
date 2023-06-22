@@ -141,11 +141,11 @@
       ../home-manager/style/dark-theme.nix
     ];
 
-    #home.pointerCursor = {
-    #  name = "Adwaita";
-    #  package = pkgs.gnome.adwaita-icon-theme;
-    #  size = 32;
-    #};
+    home.pointerCursor = {
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
+      size = 32;
+    };
 
     xdg.configFile."nvim/guifont.vim".text = ''
       Guifont IntelOne\ Mono:h11
