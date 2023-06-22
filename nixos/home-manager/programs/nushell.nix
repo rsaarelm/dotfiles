@@ -49,6 +49,7 @@
           'wtfutil': 'wtf'
           'x64': 'vice'
           'xev': 'xorg.xev'
+          'yt': 'yewtube'
         } | get -i $args.0 | default $args.0)
         let cmd = ($args | str join ' ')
         ^nix-shell -p $package_name --run $"($cmd)"
