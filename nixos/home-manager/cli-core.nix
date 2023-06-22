@@ -4,6 +4,7 @@
 {
   imports = [
     ./programs/git.nix
+    ./programs/helix.nix
     ./programs/neovim.nix
     ./programs/nushell.nix
     ./programs/zsh.nix
