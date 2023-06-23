@@ -10,6 +10,9 @@
     }];
 
     settings = {
+      theme = "autumn_night";
+      editor.true-color = true;  # It thinks color support doesn't exist otherwise.
+
       keys.normal = {
         n = "move_visual_line_down";
         N = "join_selections";

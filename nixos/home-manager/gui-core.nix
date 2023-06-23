@@ -11,6 +11,7 @@
     keepass
     scrot
     sxiv
+    xclip
   ];
 
   # Managed by main configuration.
