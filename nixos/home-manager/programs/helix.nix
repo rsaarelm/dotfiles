@@ -21,8 +21,10 @@
         e = "move_visual_line_up";
         k = "search_next";
         K = "search_prev";
-        j = "move_next_word_end";
-        J = "move_next_long_word_end";
+        f = "move_next_word_end";
+        F = "move_next_long_word_end";
+        j = "find_next_char";
+        J = "find_prev_char";
         ";" = "command_mode";
         ":" = "collapse_selection";
       };
