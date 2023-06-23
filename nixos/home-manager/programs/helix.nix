@@ -3,6 +3,8 @@
 {
   programs.helix = {
     enable = true;
+    # TODO: Wait for this to become stable.
+    # defaultEditor = true;
 
     languages.language = [{
       name = "rust";
