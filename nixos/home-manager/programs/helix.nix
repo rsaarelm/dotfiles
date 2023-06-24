@@ -3,7 +3,7 @@
 {
   programs.helix = {
     enable = true;
-    # TODO: Wait for this to become stable.
+    # TODO Activate defaultEditor flag when it becomes stable.
     # defaultEditor = true;
 
     languages.language = [{

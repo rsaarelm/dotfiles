@@ -32,8 +32,6 @@
         wget
       ];
 
-    # variables.EDITOR = pkgs.lib.mkOverride 0 "nvim";
-    # TODO: use helix.defaultEditor = true when it's stable instead
-    variables.EDITOR = pkgs.lib.mkOverride 0 "hx";
+    variables.EDITOR = pkgs.lib.mkOverride 0 "nvim";
   };
 }
