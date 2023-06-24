@@ -13,7 +13,8 @@
 
     settings = {
       theme = "autumn_night";
-      editor.true-color = true;  # It thinks color support doesn't exist otherwise.
+      editor.true-color =
+        true; # It thinks color support doesn't exist otherwise.
 
       keys.normal = {
         n = "move_visual_line_down";
@@ -27,6 +28,12 @@
         J = "find_prev_char";
         ";" = "command_mode";
         ":" = "collapse_selection";
+
+        # More agile window movement
+        "C-h" = "jump_view_left";
+        "C-l" = "jump_view_right";
+        "C-n" = "jump_view_down";
+        "C-e" = "jump_view_up";
       };
 
       keys.select = {
