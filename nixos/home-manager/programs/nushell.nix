@@ -45,6 +45,7 @@
           'keeper': 'keeperrl'
           'getgbook': 'getxbook'
           'glxgears': 'glxinfo'
+          'grafx2-sdl': 'grafx2'
           'perf': 'linuxPackages.perf'
           'wtfutil': 'wtf'
           'x64': 'vice'
