@@ -22,7 +22,7 @@
     package = pkgs.rxvt_unicode-with-plugins;
     fonts = [
       # Main font
-      "xft:Source Code Pro:size=11"
+      "xft:IntelOne Mono:size=11"
       # CJK support
       "xft:Noto Sans Mono CJK JP"
       # Icons
