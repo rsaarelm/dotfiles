@@ -81,6 +81,8 @@
       alias burner-firefox = nix-shell -p firefox --run $"firefox -profile (mktemp -d) -no-remote -new-instance"
 
       alias grep-urls = grep -Eo "(http|https)://[a-zA-Z0-9._~:/?#@!$&%'()*+,;=-]*"
+      # Show newest files at bottom
+      alias nexa = exa -xsnew
     '';
   };
 }
