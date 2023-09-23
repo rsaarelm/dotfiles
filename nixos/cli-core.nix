@@ -21,6 +21,7 @@
         usbutils
 
         # Basic tools
+        comma
         file
         fzf
         git

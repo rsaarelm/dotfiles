@@ -75,6 +75,16 @@
         sh -c $"xdg-open ($filepath) 2> /dev/null &!"
       }
 
+      # Download nix-cache files
+      # After https://github.com/nix-community/nix-index-database#ad-hoc-download
+      def download-nixpngs-cache-index [] {
+        mkdir ~/.cache/nix-index
+        cd ~/.cache/nix-index
+        # XXX: Hardcoded for non-arch boxes
+        wget -q -N https://github.com/Mic92/nix-index-database/releases/latest/download/index-x86_64-linux
+        ln -f index-x86_64-linux files
+      }
+
       alias burner-chromium = chromium $"--user-data-dir=(mktemp -d)"
       alias music-chromium = chromium $"--user-data-dir=($env.HOME)/music-chromium"
 
