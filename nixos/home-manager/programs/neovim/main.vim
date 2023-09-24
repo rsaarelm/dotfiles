@@ -141,14 +141,16 @@ nvim_lsp.rust_analyzer.setup({
   on_attach=on_attach,
   settings = {
     ["rust-analyzer"] = {
-      -- Use clippy instead of check to report errors
       assist = {
+        importEnforceGranularity = true,
         importGranularity = "crate",
-        importPrefix = "self",
+        importPrefix = "plain",
       },
       cargo = {
         loadOutDirsFromCheck = true,
+        allFeatures = true,
       },
+      -- Use clippy instead of check to report errors
       checkOnSave = {
         command = "clippy",
       },
