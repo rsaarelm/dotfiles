@@ -77,7 +77,7 @@
 
       # Download nix-cache files
       # After https://github.com/nix-community/nix-index-database#ad-hoc-download
-      def download-nixpngs-cache-index [] {
+      def download-nixpkgs-cache-index [] {
         mkdir ~/.cache/nix-index
         cd ~/.cache/nix-index
         # XXX: Hardcoded for non-arch boxes
