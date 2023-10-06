@@ -85,9 +85,6 @@ let g:rustfmt_options = '--edition 2021'
 " Nix file format
 Plug 'LnL7/vim-nix'
 
-" Godot support
-Plug 'habamax/vim-godot'
-
 " Language client
 Plug 'neovim/nvim-lspconfig'
 
@@ -97,14 +94,14 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Register preview
 Plug 'junegunn/vim-peekaboo'
 
-" Clojure REPL
-Plug 'tpope/vim-fireplace'
-
 " Kanagawa color scheme
 Plug 'rebelot/kanagawa.nvim'
 
-call plug#end()
+" Lean support
+Plug 'Julian/lean.nvim'
+Plug 'nvim-lua/plenary.nvim'
 
+call plug#end()
 
 " Language client setup
 lua << EOF

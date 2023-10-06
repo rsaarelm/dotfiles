@@ -11,6 +11,7 @@
     "nvim/ftdetect/jrnl.vim".source = ./neovim/ftdetect/jrnl.vim;
     "nvim/ftdetect/votl.vim".source = ./neovim/ftdetect/votl.vim;
     "nvim/ftplugin/jrnl.vim".source = ./neovim/ftplugin/jrnl.vim;
+    "nvim/plugin/lean.lua".source = ./neovim/plugin/lean.lua;
     "nvim/ginit.vim".source = ./neovim/ginit.vim;
     "nvim/colorscheme.vim".text = "";  # Filled in style nixfile.
     "nvim/core.vim".source = ./neovim/core.vim;
