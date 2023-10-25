@@ -12,6 +12,8 @@
       { id = "dneaehbmnbhcippjikoajpoabadpodje"; }
       # Wayback Machine
       { id = "fpnmgdkabkmnadcjpehmlllkndpkmiak"; }
+      # Redirector
+      { id = "ocgpenflpmgnfapjedencafcfakcekcd"; }
     ];
   };
 }
