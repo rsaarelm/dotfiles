@@ -32,29 +32,10 @@
         }
       }
 
-      # Oneshot runner for uninstalled NixOS programs.
-      def nx [
-        ...args: string  # Command line invocation of the program
-      ] {
-        # Replace package names that are different from the executable name
-        let package_name = ({
-          'Discord': 'discord'
-          'FBReader': 'fbreader'
-          'btm': 'bottom'
-          'cataclysm-tiles': 'cataclysm-dda'
-          'keeper': 'keeperrl'
-          'getgbook': 'getxbook'
-          'glxgears': 'glxinfo'
-          'grafx2-sdl': 'grafx2'
-          'perf': 'linuxPackages.perf'
-          'wtfutil': 'wtf'
-          'x64': 'vice'
-          'xev': 'xorg.xev'
-          'yt': 'yewtube'
-        } | get -i $args.0 | default $args.0)
-        let cmd = ($args | str join ' ')
-        ^nix-shell -p $package_name --run $"($cmd)"
-      }
+      # I'm using comma to run most temporarily installed programs quickly,
+      # but Discord doesn't seem to show up in comma's package list so adding
+      # a custom shortcut for it.
+      def Discord [] { NIXPKGS_ALLOW_UNFREE=1 nix-shell -p discord --run Discord }
 
       # Detaching document viewer with logging
       def v [ path: string ] {
