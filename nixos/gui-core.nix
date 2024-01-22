@@ -1,8 +1,7 @@
 # Minimal GUI environment.
 { pkgs, ... }:
 
-let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-in {
+{
   # Expands on cli-core, so that gets imported too.
   imports = [ ./cli-core.nix ];
 
@@ -51,8 +50,7 @@ in {
   fonts.fonts = with pkgs; [
     terminus_font
     tamzen
-    # TODO: Drop "unstable." and the import above once this is stable.
-    unstable.intel-one-mono
+    intel-one-mono
     source-code-pro
     open-dyslexic
 
