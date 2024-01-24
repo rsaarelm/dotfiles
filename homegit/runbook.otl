@@ -1,0 +1,100 @@
+Connecting to wireless
+	sudo nmcli device wifi connect [SSID] password [PASSWORD]
+Cleaning up nix store
+	Standard cleanup:
+		sudo nix-collect-garbage -d
+	Find old direnv roots and delete the .direnv/ directories in projects:
+		nix-store --gc --print-roots
+Show changes to i3 after changing configuration
+	i3-msg restart
+Chrome plugins
+	https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm
+	https://chromewebstore.google.com/detail/wayback-machine/fpnmgdkabkmnadcjpehmlllkndpkmiak
+	https://chromewebstore.google.com/detail/raindropio/ldgfbffkinooeloadekpmfoklnobpien
+	https://chromewebstore.google.com/detail/redirector/ocgpenflpmgnfapjedencafcfakcekcd
+		Redirector.json:
+			{
+				"createdBy": "Redirector v3.5.3",
+				"createdAt": "2024-01-26T11:20:43.510Z",
+				"redirects": [
+					{
+						"description": "Use Antifandom mirror",
+						"exampleUrl": "https://example.fandom.com/something",
+						"exampleResult": "https://example.antifandom.com/something",
+						"error": null,
+						"includePattern": "https://*.fandom.com/*",
+						"excludePattern": "",
+						"patternDesc": "",
+						"redirectUrl": "https://$1.antifandom.com/$2",
+						"patternType": "W",
+						"processMatches": "noProcessing",
+						"disabled": false,
+						"grouped": false,
+						"appliesTo": [
+							"main_frame"
+						]
+					},
+					{
+						"description": "Sanitize Substack image URL",
+						"exampleUrl": "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb171c630-ba03-40f7-a0be-b9c775966147_640x729.png",
+						"exampleResult": "https://substack-post-media.s3.amazonaws.com/public/images/b171c630-ba03-40f7-a0be-b9c775966147_640x729.png",
+						"error": null,
+						"includePattern": "https://substackcdn.com/image/*/https*",
+						"excludePattern": "",
+						"patternDesc": "",
+						"redirectUrl": "https$2",
+						"patternType": "W",
+						"processMatches": "urlDecode",
+						"disabled": false,
+						"grouped": false,
+						"appliesTo": [
+							"main_frame"
+						]
+					},
+					{
+						"description": "Nitter redirect",
+						"exampleUrl": "https://twitter.com/foo/123",
+						"exampleResult": "https://nitter.net/foo/123",
+						"error": null,
+						"includePattern": "https://twitter.com/*",
+						"excludePattern": "",
+						"patternDesc": "https://nitter.net/foo/123",
+						"redirectUrl": "https://nitter.net/$1",
+						"patternType": "W",
+						"processMatches": "noProcessing",
+						"disabled": false,
+						"grouped": false,
+						"appliesTo": [
+							"main_frame"
+						]
+					},
+					{
+						"description": "Old Reddit",
+						"exampleUrl": "https://www.reddit.com/r/pics/comments/8aqjh/awww_this_is_just_too_sad_pic/",
+						"exampleResult": "https://old.reddit.com/r/pics/comments/8aqjh/awww_this_is_just_too_sad_pic/",
+						"error": null,
+						"includePattern": "https://(www.)?reddit.com/(.*)",
+						"excludePattern": "",
+						"patternDesc": "",
+						"redirectUrl": "https://old.reddit.com/$2",
+						"patternType": "R",
+						"processMatches": "noProcessing",
+						"disabled": false,
+						"grouped": false,
+						"appliesTo": [
+							"main_frame"
+						]
+					}
+				]
+			}
+Kinesis Advantage keyboard hardware remappings
+	Left is the logical key, right is the physical key it is assigned to.
+
+	Win -> Delete  (Modal key used for i3 commands, used a lot)
+	AltGr -> End   (Chording for international keys)
+	End -> Home
+	Home -> Alt
+	Delete -> Left Ctrl
+	Alt -> PageDown
+	PageDown -> PageUp
+	PageUp -> Windows

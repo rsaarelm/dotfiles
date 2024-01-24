@@ -1,0 +1,6 @@
+help:
+    @just --list
+
+# Install the flake on your box. Run as root.
+install:
+    nixos-rebuild switch --flake '.#'

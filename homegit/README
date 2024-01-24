@@ -1,0 +1,13 @@
+Homegit system
+
+Checked out at your home directory root with a bare git repo.
+
+Setup:
+
+mkdir -p ~/hearth/git/homegit
+git clone --bare https://github.com/rsaarelm/dotfiles ~/hearth/git/homegit
+git --git-dir=$HOME/hearth/git/homegit --work-tree=$HOME checkout
+git --git-dir=$HOME/hearth/git/homegit config status.showUntrackedFiles no
+
+From now on the `homegit` alias should be active and usable for further
+operations.

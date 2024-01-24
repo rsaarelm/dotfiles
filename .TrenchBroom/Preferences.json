@@ -1,0 +1,17 @@
+{
+    "Controls/Camera/Look speed": 0.49494948983192444,
+    "Controls/Camera/Move backward": "E",
+    "Controls/Camera/Move down": "Y",
+    "Controls/Camera/Move forward": "U",
+    "Controls/Camera/Move left": "N",
+    "Controls/Camera/Move right": "I",
+    "Controls/Camera/Move speed": 0.2929292917251587,
+    "Controls/Camera/Move up": "L",
+    "Controls/Camera/Pan speed": 0.49494948983192444,
+    "Editor/UV lock": true,
+    "Menu/Edit/Tools/Edge Tool": "F",
+    "Menu/Edit/Tools/Face Tool": "T",
+    "Menu/Edit/Tools/Scale Tool": "",
+    "Menu/Edit/UV Lock": "",
+    "Views/Map view layout": 1
+}

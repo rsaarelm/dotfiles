@@ -1,3 +1,0 @@
-[submodule "nixpkgs/pkgs/tt"]
-	path = nixos/home-manager/pkgs/tt
-	url = https://github.com/rsaarelm/tt

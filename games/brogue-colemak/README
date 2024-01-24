@@ -1,2 +1,0 @@
-Brogue doesn't seem to have a global config directory? Just cd to this
-subdirectory and run it and it'll load the local keymap file.

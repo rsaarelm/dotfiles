@@ -1,0 +1,49 @@
+icons_format = "{icon}"
+
+[icons]
+icons = "awesome6"
+
+[[block]]
+block = "net"
+format = " $icon {$ssid $signal_strength|Wired} "
+
+[[block]]
+block = "battery"
+missing_format = ""
+
+[[block]]
+block = "temperature"
+format = " $icon $average/$max "
+
+[[block]]
+block = "load"
+
+[[block]]
+block = "cpu"
+format = " $icon $barchart "
+
+[[block]]
+block = "memory"
+format = " $icon $mem_total_used_percents.eng(w:2)/$swap_used_percents.eng(w:2) "
+
+[[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+format = " $icon $available/$total "
+
+[[block]]
+block = "sound"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+[[block]]
+block = "uptime"
+format = " $icon $text "
+
+[[block]]
+block = "time"
+interval = 1
+format = " $icon $timestamp.datetime(f:'%g%V.%u/%m-%d %R')"
