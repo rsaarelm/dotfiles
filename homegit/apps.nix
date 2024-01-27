@@ -34,6 +34,8 @@
         neovim
         p7zip
         pwgen
+        python3
+        python3Packages.ipython
         ripgrep
         tmux
         wget
