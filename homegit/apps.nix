@@ -94,7 +94,7 @@
     };
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     terminus_font
     intel-one-mono
     source-code-pro
