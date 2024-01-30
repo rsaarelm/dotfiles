@@ -89,6 +89,12 @@ Chrome plugins
 			}
 Kinesis Advantage keyboard hardware remappings
 	Left is the logical key, right is the physical key it is assigned to.
+	Remap procedure:
+		Press Progm + F12 to start
+		Press logical key you want to map to physical key
+		Press physical key you want to map it to
+		(repeat for all keys)
+		Press Progm + F12 to end
 
 	Win -> Delete  (Modal key used for i3 commands, used a lot)
 	AltGr -> End   (Chording for international keys)
