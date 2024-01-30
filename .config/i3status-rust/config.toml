@@ -10,6 +10,13 @@ block = "net"
 format = " $icon {$ssid $signal_strength|Wired} "
 
 [[block]]
+block = "disk_space"
+path = "/"
+info_type = "available"
+alert_unit = "GB"
+format = " $icon $available "
+
+[[block]]
 block = "battery"
 missing_format = ""
 
