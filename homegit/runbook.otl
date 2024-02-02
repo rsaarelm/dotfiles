@@ -73,7 +73,7 @@ Chrome plugins
 						"exampleUrl": "https://www.reddit.com/r/pics/comments/8aqjh/awww_this_is_just_too_sad_pic/",
 						"exampleResult": "https://old.reddit.com/r/pics/comments/8aqjh/awww_this_is_just_too_sad_pic/",
 						"error": null,
-						"includePattern": "https://(www.)?reddit.com/(.*)",
+						"includePattern": "^https://(www.)?reddit.com/(.*)",
 						"excludePattern": "",
 						"patternDesc": "",
 						"redirectUrl": "https://old.reddit.com/$2",
