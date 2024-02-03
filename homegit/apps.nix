@@ -32,12 +32,14 @@
         links2
         mosh
         neovim
+        nixfmt
         p7zip
         pwgen
         python3
         python3Packages.ipython
         ripgrep
         tmux
+        tokei
         wget
       ];
 
