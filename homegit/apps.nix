@@ -43,10 +43,10 @@
         wget
       ];
 
-      variables = {
-        EDITOR = pkgs.lib.mkOverride 0 "nvim";
-        TERMINAL = "alacritty";
-      };
+    variables = {
+      EDITOR = pkgs.lib.mkOverride 0 "nvim";
+      TERMINAL = "alacritty";
+    };
   };
 
   services.xserver = {
@@ -78,9 +78,11 @@
       ];
     };
 
-    layout = "us";
-    xkbVariant = "colemak";
-    xkbOptions = "ctrl:nocaps";
+    xkb = {
+      layout = "us";
+      variant = "colemak";
+      options = "ctrl:nocaps";
+    };
 
     desktopManager.xterm.enable = false;
 
