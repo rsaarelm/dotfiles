@@ -22,6 +22,7 @@
         usbutils
 
         # Basic tools
+        bottom
         direnv
         fd
         file
