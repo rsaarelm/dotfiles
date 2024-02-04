@@ -1,0 +1,16 @@
+[[hints.enabled]]
+hyperlinks = true
+post_processing = true
+regex = "(https:|http:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+key = "U"
+mods = "Control|Shift"
+
+[hints.enabled.command]
+args = ["--incognito"]
+program = "chromium"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "None"
