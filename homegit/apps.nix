@@ -29,6 +29,7 @@
         fzf
         git
         git-annex
+        jujutsu
         just
         links2
         mosh
