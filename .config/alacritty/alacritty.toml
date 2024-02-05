@@ -1,3 +1,9 @@
+[font]
+normal.family = "Source Code Pro"
+bold.family = "Source Code Pro"
+italic.family = "Source Code Pro"
+bold_italic.family = "Source Code Pro"
+
 [[hints.enabled]]
 hyperlinks = true
 post_processing = true
