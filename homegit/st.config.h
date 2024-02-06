@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Terminus:size=12:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgb:antialias=false:autohint=false";
+static char *font = "Intel One Mono:size=10:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
