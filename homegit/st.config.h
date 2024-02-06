@@ -96,32 +96,32 @@ unsigned int tabspaces = 8;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"#484f58", /* black */
-	"#ff7b72", /* maroon */
-	"#3fb950", /* green */
-	"#d29922", /* brown */
-	"#58a6ff", /* navy */
-	"#bc8cff", /* purple */
-	"#39c5cf", /* teal */
-	"#b1bac4", /* silver */
+	"#181818", /* black */
+	"#ac4242", /* maroon */
+	"#90a959", /* green */
+	"#f4bf75", /* brown */
+	"#6a9fb5", /* navy */
+	"#aa759f", /* purple */
+	"#75b5aa", /* teal */
+	"#d8d8d8", /* silver */
 
 	/* 8 bright colors */
-	"#6e7681", /* gray */
-	"#ffa198", /* red */
-	"#56d364", /* lime */
-	"#e3b341", /* yellow */
-	"#79c0ff", /* blue */
-	"#bc8cff", /* fuchsia */
-	"#39c5cf", /* aqua */
-	"#b1bac4", /* white */
+	"#6b6b6b", /* gray */
+	"#c55555", /* red */
+	"#aac474", /* lime */
+	"#feca88", /* yellow */
+	"#82b8c8", /* blue */
+	"#c28cb8", /* fuchsia */
+	"#93d3c3", /* aqua */
+	"#f8f8f8", /* white */
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
 	"#cccccc",
 	"#555555",
-	"#e6edf3", /* default foreground colour */
-	"#30363d", /* default background colour */
+	"#d8d8d8", /* default foreground colour */
+	"#181818", /* default background colour */
 };
 
 
