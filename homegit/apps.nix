@@ -33,6 +33,7 @@
         just
         links2
         mosh
+        neofetch
         neovim
         nixfmt
         p7zip
