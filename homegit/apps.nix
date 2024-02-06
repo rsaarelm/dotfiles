@@ -48,7 +48,7 @@
 
     variables = {
       EDITOR = pkgs.lib.mkOverride 0 "nvim";
-      TERMINAL = "alacritty";
+      TERMINAL = "st";
     };
   };
 
@@ -67,7 +67,11 @@
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
-        alacritty
+        (st.overrideAttrs (oldAttrs: rec {
+          configFile = writeText "config.def.h" (builtins.readFile ./st.config.h);
+          postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
+        }))
+
         i3lock
         i3status-rust
         libnotify

@@ -24,7 +24,7 @@ missing_format = ""
 block = "load"
 [[block.click]]
 button = "left"
-cmd = "alacritty -e 'btm'"
+cmd = "st -e 'btm'"
 
 [[block]]
 block = "sound"
