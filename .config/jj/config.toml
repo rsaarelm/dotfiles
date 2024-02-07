@@ -1,3 +1,6 @@
 [user]
 name = "Risto Saarelma"
 email = "risto.saarelma@iki.fi"
+
+[aliases]
+lg = ["log", "--no-pager", "-l", "10"]
