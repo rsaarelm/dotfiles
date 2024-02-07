@@ -4,6 +4,3 @@ email = "risto.saarelma@iki.fi"
 
 [aliases]
 lg = ["log", "--no-pager", "-l", "10"]
-
-[ui]
-diff-editor = "vimdirdiff"

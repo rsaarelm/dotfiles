@@ -45,9 +45,6 @@ if (winwidth(0) < 120)
     let NERDTreeWinSize = 16
 endif
 
-" DirDiff
-Plug 'will133/vim-dirdiff'
-
 " Fugitive for Git
 Plug 'tpope/vim-fugitive'
 
