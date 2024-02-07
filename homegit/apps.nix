@@ -45,6 +45,7 @@
         tmux
         tokei
         wget
+        xxd
       ];
 
     variables = {
@@ -81,6 +82,7 @@
 
         chromium
         neovim-qt
+        scrot
         sxiv
         zathura
       ];
