@@ -3,3 +3,5 @@ if status is-interactive
     thefuck --alias | source
     neofetch
 end
+
+fish_add_path ~/bin
