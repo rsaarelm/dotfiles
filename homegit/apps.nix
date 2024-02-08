@@ -30,6 +30,7 @@
         fzf
         git
         git-annex
+        imagemagick
         jujutsu
         just
         links2
