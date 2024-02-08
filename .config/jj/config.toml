@@ -2,6 +2,8 @@
 name = "Risto Saarelma"
 email = "risto.saarelma@iki.fi"
 
+[ui]
+pager = "bat -p"
+
 [aliases]
-lg = ["log", "--no-pager", "-l", "10"]
-s = ["status", "--no-pager"]
+lg = ["log", "-l", "10"]

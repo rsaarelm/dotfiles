@@ -22,6 +22,7 @@
         usbutils
 
         # Basic tools
+        bat
         bottom
         direnv
         fd
