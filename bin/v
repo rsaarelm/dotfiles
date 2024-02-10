@@ -1,0 +1,3 @@
+#!/usr/bin/env fish
+# Run and disown a document viewer
+xdg-open $argv 2> /dev/null&; disown
