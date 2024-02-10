@@ -1,4 +1,4 @@
-GuiFont Source\ Code\ Pro
+GuiFont Intel\ One\ Mono
 
 set linespace=1
 
