@@ -1,4 +1,7 @@
 #!/bin/sh
+
+# Stochastic time tracker runner after https://messymatters.com/tagtime/
+
 while [ true ]
 do
     sleep $(tt next-ping 45)
