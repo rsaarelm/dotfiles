@@ -94,12 +94,19 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Register preview
 Plug 'junegunn/vim-peekaboo'
 
-" Kanagawa color scheme
-Plug 'rebelot/kanagawa.nvim'
+" Kanagawa color scheme (seems to glitch on older nvims)
+if has('nvim-0.8')
+    Plug 'rebelot/kanagawa.nvim'
+    colorscheme kanagawa
+else
+    colorscheme rubricate
+endif
 
 call plug#end()
 
 " Language client setup
+if has('nvim-0.7')
+
 lua << EOF
 local nvim_lsp = require('lspconfig')
 
@@ -162,6 +169,8 @@ nvim_lsp.rust_analyzer.setup({
   }
 })
 EOF
+
+endif
 
 
 " Settings
@@ -304,16 +313,6 @@ autocmd FileType go setlocal tabstop=4 listchars=tab:\ \ ,trail:· formatoptions
 autocmd FileType gdscript setlocal tabstop=4
 
 autocmd FileType javascript setlocal shiftwidth=2
-
-" Colorscheme
-" ================================
-
-" Neovim doesn't reliably detect terminal background color and can end up with
-" unusable colors on a light terminal. Use a special minimalist color scheme
-" designed to look right everywhere.
-" colorscheme rubricate
-
-colorscheme kanagawa
 
 " Commands
 " ================================
