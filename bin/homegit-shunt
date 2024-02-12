@@ -1,0 +1,12 @@
+#!/usr/bin/env fish
+
+# Shunt the top homegit commit to master branch and rebase current branch on
+# top of the updated master branch. Use this to move general improvement
+# commits from host customization branch to master branch on hosts where
+# homegit has a local custom branch.
+
+set HEAD $(homegit rev-parse HEAD)
+homegit checkout master
+homegit cherry-pick $HEAD
+homegit checkout -
+homegit rebase master
