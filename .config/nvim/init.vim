@@ -97,12 +97,15 @@ Plug 'junegunn/vim-peekaboo'
 " Kanagawa color scheme (seems to glitch on older nvims)
 if has('nvim-0.8')
     Plug 'rebelot/kanagawa.nvim'
+endif
+
+call plug#end()
+
+if has('nvim-0.8')
     colorscheme kanagawa
 else
     colorscheme rubricate
 endif
-
-call plug#end()
 
 " Language client setup
 if has('nvim-0.7')
