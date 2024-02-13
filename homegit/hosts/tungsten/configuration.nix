@@ -1,12 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../common.nix
-      ../../apps.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../common.nix
+    ../../apps.nix
+    ../../home-network.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -36,9 +36,7 @@
       # Wacom tablet setup
       wacom.enable = true;
 
-      libinput = {
-        enable = true;
-      };
+      libinput = { enable = true; };
     };
 
     # PS4 controller support for Steam
@@ -76,7 +74,6 @@
     openssh.enable = true;
   };
 
-
   # hiDPI settinps
   services.xserver.dpi = 192;
   environment.variables = {
@@ -87,7 +84,6 @@
   # xdg.configFile."nvim/guifont.vim".text = ''
   #   Guifont IntelOne\ Mono:h11
   # '';
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -1,7 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ../common.nix ../../apps.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../common.nix
+    ../../apps.nix
+    ../../home-network.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
