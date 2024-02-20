@@ -84,6 +84,7 @@
         rofi
 
         chromium
+        keepass
         neovim-qt
         scrot
         sxiv
