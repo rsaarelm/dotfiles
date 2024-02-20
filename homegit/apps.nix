@@ -48,6 +48,7 @@
         tokei
         wget
         xxd
+        zoxide
       ];
 
     variables = {
