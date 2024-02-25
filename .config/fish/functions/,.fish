@@ -17,6 +17,7 @@ function ','
         case grafx2-sdl; set pkg grafx2
         case keeper; set pkg keeperrl
         case perf; set pkg linuxPackages.perf
+        case snunzip; set pkg snzip
         case wtfutil; set pkg wtf
         case xev; set pkg xorg.xev
         case yt; set pkg yewtube
