@@ -49,6 +49,12 @@
         wget
         xxd
         zoxide
+
+        # deps for rust-script
+        rustc
+        cargo
+        clang
+        rust-script
       ];
 
     variables = {
