@@ -43,7 +43,6 @@
         python3
         python3Packages.ipython
         ripgrep
-        thefuck
         tmux
         tokei
         wget
