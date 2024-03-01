@@ -45,6 +45,7 @@
         ripgrep
         tmux
         tokei
+        unzip
         wget
         xxd
         zoxide
