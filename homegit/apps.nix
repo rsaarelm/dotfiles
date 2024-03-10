@@ -38,6 +38,7 @@
         neofetch
         neovim
         nixfmt
+        pandoc
         p7zip
         pwgen
         python3
