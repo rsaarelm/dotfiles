@@ -28,6 +28,11 @@
     nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   };
 
+  environment.systemPackages = with pkgs; [
+    steam
+    discord
+  ];
+
   services = {
     xserver = {
       enable = true;
