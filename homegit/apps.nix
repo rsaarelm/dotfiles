@@ -37,6 +37,7 @@
         mosh
         neofetch
         neovim
+        nix-index
         nixfmt
         pandoc
         p7zip
@@ -84,6 +85,7 @@
           postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
         }))
 
+        dunst
         i3lock
         i3status-rust
         libnotify
@@ -95,6 +97,7 @@
         neovim-qt
         scrot
         sxiv
+        xorg.xrefresh
         zathura
       ];
     };
