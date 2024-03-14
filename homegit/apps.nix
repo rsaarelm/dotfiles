@@ -30,6 +30,7 @@
         fzf
         git
         git-annex
+        hledger
         imagemagick
         jujutsu
         just
@@ -94,6 +95,7 @@
 
         chromium
         keepass
+        mpv
         neovim-qt
         scrot
         sxiv
