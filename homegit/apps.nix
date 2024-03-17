@@ -51,6 +51,8 @@
         unzip
         wget
         xxd
+        yewtube
+        yt-dlp
         zoxide
 
         # deps for rust-script
