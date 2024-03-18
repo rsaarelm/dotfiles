@@ -26,6 +26,7 @@ fn main() -> Result<()> {
     // text, and the text of any lines below that have the exact same comment
     // prefix and do not start with "TODO" are added to the item sans the prefix.
     let todo_re = Regex::new(r"(\s*\S{1,4}\s+)TODO:? (.*)$").unwrap();
+    let priority_re = Regex::new(r"^(\(.\)) (.*)$").unwrap();
 
     let mut todo_list = Vec::new();
 
@@ -58,13 +59,18 @@ fn main() -> Result<()> {
                     break;
                 }
                 let date = blame_date(&path, n)?;
-                todo_list.push(format!("{date} {text}"));
+
+                // Move priority marker in front of date.
+                if let Some(caps) = priority_re.captures(&text) {
+                    todo_list.push(format!("{} {date} {}", &caps[1], &caps[2]));
+                } else {
+                    todo_list.push(format!("{date} {text}"));
+                }
             }
         }
     }
 
     todo_list.sort();
-    todo_list.reverse();
     for line in todo_list {
         println!("{line}");
     }
