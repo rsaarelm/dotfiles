@@ -1,6 +1,141 @@
-#!/bin/sh
+#!/usr/bin/env rust-script
 
-# Turn `// TODO something` comments in a git project into a todo.txt file.
-# Call todo.txt in your project directory, pipe output to anything that would use todo.txt formats.
+//! Extract a TODO list in todo.txt format from a git project
+//!
+//! ```cargo
+//! [dependencies]
+//! anyhow = "1"
+//! binaryornot = "1"
+//! chrono = "0.4"
+//! regex = "1"
+//! ```
 
-git grep TODO | sed 's/^.*TODO\s*//' | LC_ALL=C sort
+// TODO: Use cargo script runner when it's stable instead of rust-script,
+// https://github.com/rust-lang/cargo/issues/12207
+
+use anyhow::{anyhow, bail, Context, Result};
+use regex::Regex;
+use std::{
+    fs::read_to_string,
+    process::{Command, Stdio},
+};
+
+fn main() -> Result<()> {
+    // Valid TODO items are a single comment marker followed immediately by
+    // "TODO", optionally followed with a colon that is dropped. The subsequent
+    // text, and the text of any lines below that have the exact same comment
+    // prefix and do not start with "TODO" are added to the item sans the prefix.
+    let todo_re = Regex::new(r"(\s*\S{1,4}\s+)TODO:? (.*)$").unwrap();
+
+    let mut todo_list = Vec::new();
+
+    for path in list_files()? {
+        if binaryornot::is_binary(&path).with_context(|| "failed to scan file")? {
+            // skipping binary file
+            continue;
+        }
+
+        let text = read_to_string(&path).with_context(|| "failed to read file")?;
+        let mut lines = text.lines().enumerate().peekable();
+
+        while let Some((n, line)) = lines.next() {
+            let n = n + 1;
+            if let Some(caps) = todo_re.captures(line) {
+                // Matched a TODO item, grab the first line and see if it
+                // continues to the next.
+                let prefix = &caps[1];
+                let mut text = caps[2].trim().to_string();
+                while let Some((_, next_line)) = lines.peek() {
+                    if let Some(next_line) = next_line.strip_prefix(prefix) {
+                        let next_line = next_line.trim();
+                        if !next_line.starts_with("TODO") && !next_line.is_empty() {
+                            text.push_str(" ");
+                            text.push_str(next_line);
+                            lines.next();
+                            continue;
+                        }
+                    }
+                    break;
+                }
+                let date = blame_date(&path, n)?;
+                todo_list.push(format!("{date} {text}"));
+            }
+        }
+    }
+
+    todo_list.sort();
+    todo_list.reverse();
+    for line in todo_list {
+        println!("{line}");
+    }
+
+    Ok(())
+}
+
+fn list_files() -> Result<Vec<String>> {
+    let output = Command::new("git")
+        .arg("ls-files")
+        .stdout(Stdio::piped())
+        .output()?;
+
+    if output.status.success() {
+        let stdout = String::from_utf8(output.stdout)?;
+        let files: Vec<String> = stdout.lines().map(String::from).collect();
+        Ok(files)
+    } else {
+        let stderr = String::from_utf8(output.stderr)?;
+        if stderr.contains("not a git repository") {
+            bail!("current directory is not in a git repository")
+        } else {
+            bail!("git ls-files command failed")
+        }
+    }
+}
+
+fn blame_date(path: &str, line: usize) -> Result<String> {
+    let output = Command::new("git")
+        .args(&["blame", "-p", "-L", &format!("{line},{line}"), path])
+        .stdout(Stdio::piped())
+        .output()?;
+
+    if output.status.success() {
+        let stdout = String::from_utf8(output.stdout)?;
+        let mut author_time = String::new();
+        let mut author_tz = String::new();
+
+        for line in stdout.lines() {
+            let words: Vec<&str> = line.split_whitespace().collect();
+            if words.len() == 2 {
+                if words[0] == "author-time" {
+                    author_time = words[1].to_string();
+                }
+                if words[0] == "author-tz" {
+                    author_tz = words[1].to_string();
+                }
+            }
+        }
+
+        if author_time.is_empty() {
+            bail!("failed to get blame time");
+        }
+        let author_time: i64 = author_time
+            .parse()
+            .map_err(|_| anyhow!("invalid author_time"))?;
+
+        let mut author_tz: i64 = if author_tz.is_empty() {
+            0
+        } else {
+            author_tz
+                .parse()
+                .map_err(|_| anyhow!("invalid author_tz"))?
+        };
+        // Should be good enough to convert +0200 style stuff to seconds.
+        author_tz = author_tz / 100 * 3600;
+
+        let dt = chrono::DateTime::from_timestamp(author_time + author_tz, 0)
+            .with_context(|| "timestamp failed")?;
+        Ok(dt.format("%Y-%m-%d").to_string())
+    } else {
+        bail!("git blame failed")
+    }
+}
