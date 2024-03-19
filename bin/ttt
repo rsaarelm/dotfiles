@@ -12,10 +12,13 @@
 //! regex = "1"
 //! ```
 
-use chrono::{DateTime, FixedOffset};
+const PING_SECONDS: i64 = 45 * 60;
+
+use anyhow::{Context, Result};
+use chrono::{DateTime, FixedOffset, NaiveDate};
 use clap::Parser;
 use regex::Regex;
-use std::{fmt, str::FromStr, sync::OnceLock};
+use std::{fmt, fs::read_to_string, path::Path, str::FromStr, sync::OnceLock};
 
 #[derive(Parser, Debug)]
 struct Args {
@@ -38,10 +41,8 @@ struct Args {
     comment: Vec<String>,
 }
 
-fn main() {
+fn main() -> Result<()> {
     let args = Args::parse();
-
-    println!("{args:?}");
 
     let entry = format!(
         "{}  {}",
@@ -53,6 +54,46 @@ fn main() {
 
     println!("{entry:?}");
     println!("{entry}");
+
+    let log = load_log("/home/rsaarelm/notes/ntt.timedot")?;
+    for e in log {
+        println!("{e}");
+    }
+
+    Ok(())
+}
+
+fn load_log(path: impl AsRef<Path>) -> Result<Vec<Entry>> {
+    let log = read_to_string(path).with_context(|| "failed to load log file")?;
+
+    let mut day = 0;
+    let mut ret = Vec::new();
+
+    for line in log.lines() {
+        if let Some(newDay) = parse_date(line) {
+            day = newDay;
+            continue;
+        }
+
+        if let Ok(mut entry) = line.parse::<Entry>() {
+            entry.unix_time += day;
+            ret.push(entry);
+        }
+    }
+
+    Ok(ret)
+}
+
+/// Parse date lines into unix timestamps.
+fn parse_date(line: &str) -> Option<i64> {
+    let line = line.split(';').next().unwrap().trim(); // Strip comment
+    for fmt in ["%Y-%m-%d", "%Y/%m/%d", "%Y.%m.%d"] {
+        if let Ok(ret) = NaiveDate::parse_from_str(line, fmt) {
+            return Some(ret.and_hms_opt(0, 0, 0).unwrap().and_utc().timestamp());
+        }
+    }
+
+    None
 }
 
 #[derive(Debug)]
@@ -60,14 +101,8 @@ struct Entry {
     id: String,
     duration_s: i64,
     time_of_day: String,
+    unix_time: i64,
     comment: String,
-}
-
-impl Entry {
-    pub fn unix_time(&self, date: &str) -> Option<i64> {
-        // TODO: Concatenate date and timezoned time of entry to timestamp, parse it for tz-adjusted unix time
-        todo!()
-    }
 }
 
 impl FromStr for Entry {
@@ -100,6 +135,15 @@ impl FromStr for Entry {
 
         let time_of_day = caps[4].to_string();
 
+        // Check that the time of day is actually valid, parse it for unix
+        // epoch zero day to get offset from the time of day.
+
+        let timestamp = format!("1970-01-01T{time_of_day}");
+
+        let time = DateTime::parse_from_str(&timestamp, "%Y-%m-%dT%H:%M:%S%z").map_err(|e| ())?;
+
+        let unix_time = time.timestamp();
+
         let comment: String = if let Some(comment) = caps.get(7) {
             comment.as_str().into()
         } else {
@@ -110,6 +154,7 @@ impl FromStr for Entry {
             id,
             duration_s,
             time_of_day,
+            unix_time,
             comment,
         })
     }
@@ -119,24 +164,26 @@ impl fmt::Display for Entry {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
         write!(f, "{}  ", self.id)?;
 
-        let (unit, t) = if self.duration_s < 60 {
-            ("s", self.duration_s as f32)
-        } else if self.duration_s < 3600 {
-            ("m", (self.duration_s as f32) / 60.0)
-        } else if self.duration_s < 3600 * 24 {
-            ("h", (self.duration_s as f32) / 3600.0)
-        } else if self.duration_s < 3600 * 24 * 7 {
-            ("d", (self.duration_s as f32) / (3600.0 * 24.0))
-        } else if self.duration_s < 3600 * 24 * 30 {
-            ("w", (self.duration_s as f32) / (3600.0 * 24.0 * 7.0))
-        } else if self.duration_s < 3600 * 24 * 365 {
-            ("m", (self.duration_s as f32) / (3600.0 * 24.0 * 30.0))
+        // Keep the time in smaller units if it doesn't split cleanly into minutes or hours.
+        // YAGNI units larger than hour.
+        let d = self.duration_s;
+        let (unit, t) = if d < 60 || d % 60 != 0 {
+            ("s", d as f32)
+        } else if d < 3600 || d % 900 != 0 {
+            ("m", (d as f32) / 60.0)
         } else {
-            ("y", (self.duration_s as f32) / (3600.0 * 24.0 * 365.0))
+            ("h", (d as f32) / 3600.0)
         };
 
-        // TODO: Limit precision but still print 5.0 as "5"...
-        write!(f, "{}{}", t, unit)?;
+        // XXX: Rust formatting doesn't let me do "omit .0 decimals but
+        // also limit precision to n decimals", using a kludged up expression.
+        let t_str = format!("{:.3}", t);
+        write!(
+            f,
+            "{}{}",
+            t_str.trim_end_matches('0').trim_end_matches('.'),
+            unit
+        )?;
 
         write!(f, "  ; {}", self.time_of_day)?;
 
