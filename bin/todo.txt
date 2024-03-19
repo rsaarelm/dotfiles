@@ -36,7 +36,11 @@ fn main() -> Result<()> {
             continue;
         }
 
-        let text = read_to_string(&path).with_context(|| "failed to read file")?;
+        let Ok(text) = read_to_string(&path) else {
+            eprintln!("Failed to read {path}, skipping.");
+            continue;
+        };
+
         let mut lines = text.lines().enumerate().peekable();
 
         while let Some((n, line)) = lines.next() {
