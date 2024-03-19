@@ -1,0 +1,159 @@
+#!/usr/bin/env rust-script
+
+//! Tagged Time Tracker
+//!
+//! A stochastic time tracker.
+//!
+//! ```cargo
+//! [dependencies]
+//! anyhow = "1"
+//! chrono = "0.4"
+//! clap = { version = "4", features = ["derive"] }
+//! regex = "1"
+//! ```
+
+use chrono::{DateTime, FixedOffset};
+use clap::Parser;
+use regex::Regex;
+use std::{fmt, str::FromStr, sync::OnceLock};
+
+#[derive(Parser, Debug)]
+struct Args {
+    #[arg(short = 'm', long)]
+    /// Display a minimal status string.
+    minimal: bool,
+
+    #[arg(long)]
+    /// Sleep until next ping.
+    sleep: bool,
+
+    #[arg(long)]
+    /// Show missed pings for the last 24 hours.
+    missed: bool,
+
+    /// Task identifier.
+    task: Option<String>,
+
+    /// Additional task description.
+    comment: Vec<String>,
+}
+
+fn main() {
+    let args = Args::parse();
+
+    println!("{args:?}");
+
+    let entry = format!(
+        "{}  {}",
+        args.task.unwrap_or("".to_string()),
+        args.comment.join(" ")
+    )
+    .parse::<Entry>()
+    .unwrap();
+
+    println!("{entry:?}");
+    println!("{entry}");
+}
+
+#[derive(Debug)]
+struct Entry {
+    id: String,
+    duration_s: i64,
+    time_of_day: String,
+    comment: String,
+}
+
+impl Entry {
+    pub fn unix_time(&self, date: &str) -> Option<i64> {
+        // TODO: Concatenate date and timezoned time of entry to timestamp, parse it for tz-adjusted unix time
+        todo!()
+    }
+}
+
+impl FromStr for Entry {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        static CELL: OnceLock<Regex> = OnceLock::new();
+        let re = CELL.get_or_init(|| {
+            Regex::new(
+            r"^\s*(\S+) \s+(\d+)(s|m|h|d|w|mo|y)?\s+; (\d\d:\d\d:\d\d(\+|-)\d\d\d\d)(\s+(.*))?$").unwrap()
+        });
+
+        let Some(caps) = re.captures(s) else {
+            return Err(());
+        };
+
+        let id = caps[1].to_string();
+
+        let mut duration_s = caps[2].parse().map_err(|_| ())?;
+        match caps.get(3).map(|m| m.as_str()) {
+            Some("s") => {}
+            Some("m") => duration_s *= 60,
+            None | Some("h") => duration_s *= 3600,
+            Some("d") => duration_s *= 3600 * 24,
+            Some("w") => duration_s *= 3600 * 24 * 7,
+            Some("mo") => duration_s *= 3600 * 24 * 30,
+            Some("y") => duration_s *= 3600 * 24 * 365,
+            _ => return Err(()),
+        }
+
+        let time_of_day = caps[4].to_string();
+
+        let comment: String = if let Some(comment) = caps.get(7) {
+            comment.as_str().into()
+        } else {
+            "".to_string()
+        };
+
+        Ok(Entry {
+            id,
+            duration_s,
+            time_of_day,
+            comment,
+        })
+    }
+}
+
+impl fmt::Display for Entry {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
+        write!(f, "{}  ", self.id)?;
+
+        let (unit, t) = if self.duration_s < 60 {
+            ("s", self.duration_s as f32)
+        } else if self.duration_s < 3600 {
+            ("m", (self.duration_s as f32) / 60.0)
+        } else if self.duration_s < 3600 * 24 {
+            ("h", (self.duration_s as f32) / 3600.0)
+        } else if self.duration_s < 3600 * 24 * 7 {
+            ("d", (self.duration_s as f32) / (3600.0 * 24.0))
+        } else if self.duration_s < 3600 * 24 * 30 {
+            ("w", (self.duration_s as f32) / (3600.0 * 24.0 * 7.0))
+        } else if self.duration_s < 3600 * 24 * 365 {
+            ("m", (self.duration_s as f32) / (3600.0 * 24.0 * 30.0))
+        } else {
+            ("y", (self.duration_s as f32) / (3600.0 * 24.0 * 365.0))
+        };
+
+        // TODO: Limit precision but still print 5.0 as "5"...
+        write!(f, "{}{}", t, unit)?;
+
+        write!(f, "  ; {}", self.time_of_day)?;
+
+        if !self.comment.is_empty() {
+            write!(f, " {}", self.comment)?;
+        }
+
+        Ok(())
+    }
+}
+
+fn is_ping(avg_secs: i64, t: i64) -> bool {
+    use std::num::Wrapping;
+
+    let mut t = Wrapping(t);
+    t ^= t << 13;
+    t ^= t >> 7;
+    t ^= t << 17;
+    (t & Wrapping(0x7fffffffffffffff)).0 % avg_secs == 0
+}
