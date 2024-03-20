@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Exit script if ttt sleep is exited with Ctrl-C.
+set -e
+
+# Run a loop that notifies the user on every ping.
+# ntt must be compiled and in path before this is run.
+while [ true ]; do
+    ttt --sleep
+    notify-send ping
+    aplay -q $(dirname $0)/bell.wav
+done
