@@ -359,7 +359,7 @@ impl FromStr for Entry {
         static CELL: OnceLock<Regex> = OnceLock::new();
         let re = CELL.get_or_init(|| {
             Regex::new(
-            r"^\s*(\S+) \s+(\d+)(s|m|h|d|w|mo|y)?\s+; (\d\d:\d\d:\d\d(\+|-)\d\d\d\d)(\s+(.*))?$").unwrap()
+            r"^\s*(\S+) \s+(\d+(\.\d+)?)(s|m|h|d|w|mo|y)?\s+; (\d\d:\d\d:\d\d(\+|-)\d\d\d\d)(\s+(.*))?$").unwrap()
         });
 
         let Some(caps) = re.captures(s) else {
@@ -368,23 +368,23 @@ impl FromStr for Entry {
 
         let id = caps[1].to_string();
 
-        let mut duration_s = caps[2].parse().map_err(|_| ())?;
-        match caps.get(3).map(|m| m.as_str()) {
-            Some("s") => {}
-            Some("m") => duration_s *= 60,
-            None | Some("h") => duration_s *= 3600,
-            Some("d") => duration_s *= 3600 * 24,
-            Some("w") => duration_s *= 3600 * 24 * 7,
-            Some("mo") => duration_s *= 3600 * 24 * 30,
-            Some("y") => duration_s *= 3600 * 24 * 365,
+        let n: f32 = caps[2].parse().map_err(|_| ())?;
+        let duration_s = match caps.get(4).map(|m| m.as_str()) {
+            Some("s") => n,
+            Some("m") => n * 60.0,
+            None | Some("h") => n * 3600.0,
+            Some("d") => n * 3600.0 * 24.0,
+            Some("w") => n * 3600.0 * 24.0 * 7.0,
+            Some("mo") => n * 3600.0 * 24.0 * 30.0,
+            Some("y") => n * 3600.0 * 24.0 * 365.0,
             _ => return Err(()),
-        }
+        } as i64;
 
         // The ".... ...." dots format of timedot isn't supported. Ttt will
         // never output times using it, so it should be okay to just skip
         // lines using it.
 
-        let time_of_day = caps[4].to_string();
+        let time_of_day = caps[5].to_string();
 
         // Check that the time of day is actually valid, parse it for unix
         // epoch zero day to get offset from the time of day.
@@ -395,7 +395,7 @@ impl FromStr for Entry {
 
         let time_offset = time.timestamp();
 
-        let comment: String = if let Some(comment) = caps.get(7) {
+        let comment: String = if let Some(comment) = caps.get(8) {
             comment.as_str().into()
         } else {
             "".to_string()
