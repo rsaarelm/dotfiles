@@ -94,6 +94,9 @@ struct Args {
     log_path: Option<PathBuf>,
 
     /// Task identifier.
+    #[arg(value_parser = |s: &str|
+        if s.chars().any(|c| c.is_whitespace()) { Err("bad task id") } else { Ok(s.to_string()) }
+    )]
     task: Option<String>,
 
     /// Additional task description.
@@ -437,7 +440,7 @@ impl fmt::Display for Entry {
         write!(f, "  ; {}", self.time_of_day)?;
 
         if !self.comment.is_empty() {
-            write!(f, " {}", self.comment)?;
+            write!(f, "  {}", self.comment)?;
         }
 
         Ok(())
