@@ -158,9 +158,20 @@ fn status(args: &Args) -> Result<()> {
     }
 
     if prev_pings.is_empty() {
-        eprintln!("No missed pings.");
+        let duration = now - backpings_from(now).next().unwrap();
+        eprint!("No missed pings. ");
+        if duration < 60 {
+            eprint!("{}s", duration);
+        } else if duration < 3600 {
+            eprint!("{}m", (duration + 30) / 60);
+        } else {
+            eprint!("{}h {}m", duration / 3600, ((duration % 3600) + 30) / 60);
+        }
+        eprintln!(" since last ping.");
+
         return Ok(());
     }
+
     prev_pings.reverse();
     let mut dummy_log: Log = Default::default();
     for &p in &prev_pings {
