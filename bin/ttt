@@ -1,5 +1,47 @@
 #!/usr/bin/env rust-script
 
+//! Tagged Time Tracker
+//!
+//! Stochastic time tracker similar to [tagti.me](http://tagti.me/).
+//!
+//! `ttt` polls you using pings that are fixed points of time spread out
+//! randomly, but averaging 45 minutes between two consecutive ones. When you
+//! start working, start `ttt-daemon` in a shell window. It will wait until
+//! the next ping point and alert you. When you get the ping, use the
+//! command-line `ttt` program to record what you were doing at the moment it
+//! happened, using a suitable task identifier, eg. `ttt housework:gardening`.
+//! This will record you having done 45 minutes work on the task in the `ttt`
+//! log file `~/.local/share/ttt/ttt.timedot`. The command-line program will
+//! always try to save a record for the previous ping, even if it happened
+//! hours ago (ping times are fixed and can be deterimend retroactively), so
+//! you usually want to keep it up to date with recorded work or break time
+//! during a workday.
+//!
+//! The log is kept in hledger's [timedot
+//! format](https://hledger.org/time-planning.html) and can be processed with
+//! hledger:
+//!
+//! `hledger -f ~/.local/share/ttt/ttt.timedot balance -t`
+//!
+//! ## Misc notes
+//!
+//! **Obvious caveat**: Due to the logging being random, logged work hours
+//! will be accurate over a long period, but not over a single day. Do not use
+//! stochastic time tracking if you must have as accurate as possible time use
+//! records for individual days.
+//!
+//! The average ping interval is fixed at 45 minutes. Adjust the constant in
+//! the `ttt` source code if you want to change this.
+//!
+//! You may want to examine and customize the `ttt-daemon` script to use
+//! different shell programs to produce an alert you like.
+//!
+//! You may want to edit your time log manually, eg. rewrite in-between breaks
+//! into tasks. The special part `ttt` looks for on each line to recognize it
+//! as a ping record is a trailing comment that starts with a time-of-day
+//! value, `; 15:04:05+0200`. You can have other timekeeping data in the same
+//! file without this marker and `ttt` will just ignore it.
+//!
 //! ```cargo
 //! [dependencies]
 //! anyhow = "1"
@@ -12,7 +54,7 @@
 // Edit this constant if you want a different average ping interval.
 const AVERAGE_PING_INTERVAL: i64 = 45 * 60;
 
-use anyhow::{Context, Result};
+use anyhow::{bail, Context, Result};
 use chrono::{DateTime, Local, NaiveDate};
 use clap::Parser;
 use regex::Regex;
@@ -40,8 +82,12 @@ struct Args {
     sleep: bool,
 
     #[arg(long)]
-    /// Show missed pings for the last 24 hours.
-    missed: bool,
+    /// Show all missed pings for the last 24 hours.
+    all_missed: bool,
+
+    #[arg(long)]
+    /// Fill all consecutive missed pings with the logged task.
+    fill: bool,
 
     #[arg(long)]
     /// Optional log path.
@@ -71,62 +117,120 @@ impl Args {
 fn main() -> Result<()> {
     let args = Args::parse();
 
+    // Handle special tasks.
+
     if args.sleep {
-        eprintln!("Sleeping until next ping");
+        eprintln!("Sleeping until next ping.");
         sleep_until(next_ping(now()));
         return Ok(());
     }
 
-    let log = Log::load(args.log_path())?;
+    if args.task.is_some() {
+        record(&args)?;
+    } else {
+        status(&args)?;
+    }
 
+    Ok(())
+}
+
+/// Display current status.
+fn status(args: &Args) -> Result<()> {
+    let log = Log::load(args.log_path()).unwrap_or_else(|_| Default::default());
     let now = now();
 
-    if args.missed {
-        let mut prev_pings: Vec<i64> = backpings_from(now)
+    let mut prev_pings: Vec<i64> = if args.all_missed {
+        backpings_from(now)
             .take_while(|t| now - t < 24 * 3600)
             .filter(|t| !log.covered_pings.contains(t))
-            .collect();
-        if prev_pings.is_empty() {
-            eprintln!("No missed pings during last 24h.");
-            return Ok(());
-        }
-        prev_pings.reverse();
-        let mut dummy_log: Log = Default::default();
-        for &p in &prev_pings {
-            let t = local_time(p);
-            dummy_log.log.push((
-                t.date_naive(),
-                Entry {
-                    id: "-".into(),
-                    duration_s: AVERAGE_PING_INTERVAL,
-                    time_of_day: t.format("%H:%M:%S%z").to_string(),
-                    time_offset: 0,
-                    comment: Default::default(),
-                },
-            ));
-        }
+            .collect()
+    } else {
+        backpings_from(now)
+            .take_while(|t| now - t < 24 * 3600 && !log.covered_pings.contains(t))
+            .collect()
+    };
 
-        eprintln!("Missed pings during the last 24h:");
-        dummy_log
-            .print(&mut std::io::stdout().lock(), Default::default())
-            .unwrap();
-
+    if args.minimal {
+        if !prev_pings.is_empty() {
+            print!("{}", prev_pings.len());
+        }
         return Ok(());
     }
 
-    // 24 hours worth of pings up until now.
-    let prev_pings: Vec<i64> = backpings_from(now)
-        .take_while(|t| now - t < 24 * 3600)
-        .collect();
-    for &p in &prev_pings {
-        if !log.covered_pings.contains(&p) {
-            println!("{}", local_time(p));
-        }
+    if prev_pings.is_empty() {
+        eprintln!("No missed pings.");
+        return Ok(());
     }
-    /*
-    log.print(&mut std::io::stdout().lock(), Default::default())
+    prev_pings.reverse();
+    let mut dummy_log: Log = Default::default();
+    for &p in &prev_pings {
+        let t = local_time(p);
+        dummy_log.log.push((
+            t.date_naive(),
+            Entry {
+                id: "-".into(),
+                duration_s: AVERAGE_PING_INTERVAL,
+                time_of_day: t.format("%H:%M:%S%z").to_string(),
+                time_offset: 0,
+                comment: Default::default(),
+            },
+        ));
+    }
+
+    if args.all_missed {
+        eprintln!("Missed pings during the last 24h:");
+    } else {
+        eprintln!("Missed pings:");
+    }
+
+    dummy_log
+        .print(&mut std::io::stdout().lock(), Default::default())
         .unwrap();
-    */
+
+    Ok(())
+}
+
+/// Record activity.
+fn record(args: &Args) -> Result<()> {
+    let log = Log::load(args.log_path()).unwrap_or_else(|_| Default::default());
+    let now = now();
+
+    let missed_pings: Vec<i64> = backpings_from(now)
+        .take_while(|&t| now - t < 24 * 3600 && !log.covered_pings.contains(&t))
+        .collect();
+
+    if missed_pings.is_empty() {
+        eprintln!("Nothing to do yet, wait for next ping.");
+        return Ok(());
+    }
+
+    let t = local_time(missed_pings[0]);
+
+    let duration_s = AVERAGE_PING_INTERVAL
+        * if args.fill {
+            missed_pings.len() as i64
+        } else {
+            1
+        };
+
+    let Some(id) = args.task.as_ref() else {
+        bail!("No task set");
+    };
+    let comment = args.comment.join(" ");
+
+    let mut appendix: Log = Default::default();
+    appendix.log.push((
+        t.date_naive(),
+        Entry {
+            id: id.into(),
+            duration_s,
+            time_of_day: t.format("%H:%M:%S%z").to_string(),
+            time_offset: 0,
+            comment,
+        },
+    ));
+
+    appendix.record(log.last_date(), args.log_path())?;
 
     Ok(())
 }
@@ -172,7 +276,7 @@ impl Log {
         Ok(Log { log, covered_pings })
     }
 
-    pub fn append(&self, prev_date: NaiveDate, path: impl AsRef<Path>) -> Result<()> {
+    pub fn record(&self, prev_date: NaiveDate, path: impl AsRef<Path>) -> Result<()> {
         let path = path.as_ref();
         // Ensure directory exists.
         if let Some(dir) = path.parent() {
@@ -273,7 +377,7 @@ impl FromStr for Entry {
 
         let timestamp = format!("1970-01-01T{time_of_day}");
 
-        let time = DateTime::parse_from_str(&timestamp, "%Y-%m-%dT%H:%M:%S%z").map_err(|e| ())?;
+        let time = DateTime::parse_from_str(&timestamp, "%Y-%m-%dT%H:%M:%S%z").map_err(|_| ())?;
 
         let time_offset = time.timestamp();
 
@@ -333,6 +437,7 @@ fn sleep_until(t: i64) {
     while now() < t {
         std::thread::sleep(std::time::Duration::from_secs(10));
     }
+    eprintln!("Ping at {}", local_time(t).format("%H:%M:%S"));
 }
 
 fn now() -> i64 {
