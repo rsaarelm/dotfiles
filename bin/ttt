@@ -1,26 +1,34 @@
 #!/usr/bin/env rust-script
 
-//! Tagged Time Tracker
-//!
-//! A stochastic time tracker.
-//!
 //! ```cargo
 //! [dependencies]
 //! anyhow = "1"
 //! chrono = "0.4"
 //! clap = { version = "4", features = ["derive"] }
+//! dirs = "5"
 //! regex = "1"
 //! ```
 
-const PING_SECONDS: i64 = 45 * 60;
+// Edit this constant if you want a different average ping interval.
+const AVERAGE_PING_INTERVAL: i64 = 45 * 60;
 
 use anyhow::{Context, Result};
 use chrono::{DateTime, FixedOffset, NaiveDate};
 use clap::Parser;
 use regex::Regex;
-use std::{fmt, fs::read_to_string, path::Path, str::FromStr, sync::OnceLock};
+use std::{
+    fmt,
+    fs::{self, OpenOptions},
+    io::Write,
+    path::{Path, PathBuf},
+    str::FromStr,
+    sync::OnceLock,
+};
 
 #[derive(Parser, Debug)]
+/// Tagged Time Tracker
+///
+/// Stochastic time tracking tool.
 struct Args {
     #[arg(short = 'm', long)]
     /// Display a minimal status string.
@@ -34,6 +42,10 @@ struct Args {
     /// Show missed pings for the last 24 hours.
     missed: bool,
 
+    #[arg(long)]
+    /// Optional log path.
+    log_path: Option<PathBuf>,
+
     /// Task identifier.
     task: Option<String>,
 
@@ -41,55 +53,98 @@ struct Args {
     comment: Vec<String>,
 }
 
+impl Args {
+    pub fn log_path(&self) -> PathBuf {
+        if let Some(path) = &self.log_path {
+            path.clone()
+        } else {
+            dirs::data_dir()
+                .unwrap_or_else(|| Default::default())
+                .join("ttt/ttt.timedot")
+        }
+    }
+}
+
 fn main() -> Result<()> {
     let args = Args::parse();
 
-    let entry = format!(
-        "{}  {}",
-        args.task.unwrap_or("".to_string()),
-        args.comment.join(" ")
-    )
-    .parse::<Entry>()
-    .unwrap();
-
-    println!("{entry:?}");
-    println!("{entry}");
-
-    let log = load_log("/home/rsaarelm/notes/ntt.timedot")?;
-    for e in log {
-        println!("{e}");
-    }
+    let log = Log::load(args.log_path())?;
+    log.print(&mut std::io::stdout().lock(), Default::default())
+        .unwrap();
 
     Ok(())
 }
 
-fn load_log(path: impl AsRef<Path>) -> Result<Vec<Entry>> {
-    let log = read_to_string(path).with_context(|| "failed to load log file")?;
+struct Log(Vec<(NaiveDate, Entry)>);
 
-    let mut day = 0;
-    let mut ret = Vec::new();
+impl Log {
+    pub fn load(path: impl AsRef<Path>) -> Result<Self> {
+        let log = fs::read_to_string(path).with_context(|| "failed to load log file")?;
 
-    for line in log.lines() {
-        if let Some(newDay) = parse_date(line) {
-            day = newDay;
-            continue;
+        let mut day = NaiveDate::default();
+        let mut ret = Vec::new();
+
+        for line in log.lines() {
+            if let Some(new_day) = parse_date(line) {
+                day = new_day;
+                continue;
+            }
+
+            if let Ok(entry) = line.parse::<Entry>() {
+                ret.push((day, entry));
+            }
         }
 
-        if let Ok(mut entry) = line.parse::<Entry>() {
-            entry.unix_time += day;
-            ret.push(entry);
-        }
+        Ok(Log(ret))
     }
 
-    Ok(ret)
+    pub fn append(&self, prev_date: NaiveDate, path: impl AsRef<Path>) -> Result<()> {
+        let path = path.as_ref();
+        // Ensure directory exists.
+        if let Some(dir) = path.parent() {
+            fs::create_dir_all(dir)?;
+        }
+
+        let mut file = OpenOptions::new()
+            .create(true)
+            .append(true)
+            .open(path)
+            .with_context(|| "failed to open file for output")?;
+
+        self.print(&mut file, prev_date)
+    }
+
+    fn print(&self, f: &mut impl Write, mut prev_date: NaiveDate) -> Result<()> {
+        for (date, entry) in &self.0 {
+            if *date != prev_date {
+                // Prev was default if this is the first defined date.
+                // Don't write a preceding newline in that case.
+                if prev_date != Default::default() {
+                    writeln!(f)?;
+                }
+                writeln!(f, "{date}")?;
+                prev_date = *date;
+            }
+            writeln!(f, "{entry}")?;
+        }
+        Ok(())
+    }
+
+    fn last_date(&self) -> NaiveDate {
+        if self.0.is_empty() {
+            Default::default()
+        } else {
+            self.0[self.0.len() - 1].0
+        }
+    }
 }
 
 /// Parse date lines into unix timestamps.
-fn parse_date(line: &str) -> Option<i64> {
+fn parse_date(line: &str) -> Option<NaiveDate> {
     let line = line.split(';').next().unwrap().trim(); // Strip comment
     for fmt in ["%Y-%m-%d", "%Y/%m/%d", "%Y.%m.%d"] {
         if let Ok(ret) = NaiveDate::parse_from_str(line, fmt) {
-            return Some(ret.and_hms_opt(0, 0, 0).unwrap().and_utc().timestamp());
+            return Some(ret);
         }
     }
 
@@ -101,7 +156,7 @@ struct Entry {
     id: String,
     duration_s: i64,
     time_of_day: String,
-    unix_time: i64,
+    time_offset: i64,
     comment: String,
 }
 
@@ -133,6 +188,10 @@ impl FromStr for Entry {
             _ => return Err(()),
         }
 
+        // The ".... ...." dots format of timedot isn't supported. Ttt will
+        // never output times using it, so it should be okay to just skip
+        // lines using it.
+
         let time_of_day = caps[4].to_string();
 
         // Check that the time of day is actually valid, parse it for unix
@@ -142,7 +201,7 @@ impl FromStr for Entry {
 
         let time = DateTime::parse_from_str(&timestamp, "%Y-%m-%dT%H:%M:%S%z").map_err(|e| ())?;
 
-        let unix_time = time.timestamp();
+        let time_offset = time.timestamp();
 
         let comment: String = if let Some(comment) = caps.get(7) {
             comment.as_str().into()
@@ -154,7 +213,7 @@ impl FromStr for Entry {
             id,
             duration_s,
             time_of_day,
-            unix_time,
+            time_offset,
             comment,
         })
     }
@@ -162,7 +221,7 @@ impl FromStr for Entry {
 
 impl fmt::Display for Entry {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> Result<(), fmt::Error> {
-        write!(f, "{}  ", self.id)?;
+        write!(f, "{:24}  ", self.id)?;
 
         // Keep the time in smaller units if it doesn't split cleanly into minutes or hours.
         // YAGNI units larger than hour.
@@ -178,12 +237,13 @@ impl fmt::Display for Entry {
         // XXX: Rust formatting doesn't let me do "omit .0 decimals but
         // also limit precision to n decimals", using a kludged up expression.
         let t_str = format!("{:.3}", t);
-        write!(
-            f,
+        let t_str = format!(
             "{}{}",
             t_str.trim_end_matches('0').trim_end_matches('.'),
             unit
-        )?;
+        );
+
+        write!(f, "{t_str:5}")?;
 
         write!(f, "  ; {}", self.time_of_day)?;
 
@@ -193,6 +253,28 @@ impl fmt::Display for Entry {
 
         Ok(())
     }
+}
+
+fn now() -> i64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_secs() as i64
+}
+
+fn prev_pings() -> impl Iterator<Item = i64> {
+    let t = now();
+    (1..)
+        .map(move |x| t - x)
+        .filter(|&t| is_ping(AVERAGE_PING_INTERVAL, t))
+}
+
+fn next_ping() -> i64 {
+    let mut t = now() + 1;
+    while !is_ping(AVERAGE_PING_INTERVAL, t) {
+        t += 1;
+    }
+    t
 }
 
 fn is_ping(avg_secs: i64, t: i64) -> bool {
