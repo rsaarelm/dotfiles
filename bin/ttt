@@ -85,7 +85,7 @@ struct Args {
     /// Show all missed pings for the last 24 hours.
     all_missed: bool,
 
-    #[arg(long)]
+    #[arg(short = 'f', long)]
     /// Fill all consecutive missed pings with the logged task.
     fill: bool,
 
