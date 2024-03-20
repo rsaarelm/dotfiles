@@ -3,7 +3,7 @@
 //! ```cargo
 //! [dependencies]
 //! anyhow = "1"
-//! chrono = "0.4"
+//! chrono = { version = "0.4", features = ["alloc", "clock"] }
 //! clap = { version = "4", features = ["derive"] }
 //! dirs = "5"
 //! regex = "1"
@@ -13,7 +13,7 @@
 const AVERAGE_PING_INTERVAL: i64 = 45 * 60;
 
 use anyhow::{Context, Result};
-use chrono::{DateTime, FixedOffset, NaiveDate};
+use chrono::{DateTime, Local, NaiveDate};
 use clap::Parser;
 use regex::Regex;
 use std::{
@@ -71,13 +71,67 @@ impl Args {
 fn main() -> Result<()> {
     let args = Args::parse();
 
+    if args.sleep {
+        eprintln!("Sleeping until next ping");
+        sleep_until(next_ping(now()));
+        return Ok(());
+    }
+
     let log = Log::load(args.log_path())?;
+
+    let now = now();
+
+    if args.missed {
+        let mut prev_pings: Vec<i64> = backpings_from(now)
+            .take_while(|t| now - t < 24 * 3600)
+            .filter(|t| !log.covered_pings.contains(t))
+            .collect();
+        if prev_pings.is_empty() {
+            eprintln!("No missed pings during last 24h.");
+            return Ok(());
+        }
+        prev_pings.reverse();
+        let mut dummy_log: Log = Default::default();
+        for &p in &prev_pings {
+            let t = local_time(p);
+            dummy_log.log.push((
+                t.date_naive(),
+                Entry {
+                    id: "-".into(),
+                    duration_s: AVERAGE_PING_INTERVAL,
+                    time_of_day: t.format("%H:%M:%S%z").to_string(),
+                    time_offset: 0,
+                    comment: Default::default(),
+                },
+            ));
+        }
+
+        eprintln!("Missed pings during the last 24h:");
+        dummy_log
+            .print(&mut std::io::stdout().lock(), Default::default())
+            .unwrap();
+
+        return Ok(());
+    }
+
+    // 24 hours worth of pings up until now.
+    let prev_pings: Vec<i64> = backpings_from(now)
+        .take_while(|t| now - t < 24 * 3600)
+        .collect();
+    for &p in &prev_pings {
+        if !log.covered_pings.contains(&p) {
+            println!("{}", local_time(p));
+        }
+    }
+    /*
     log.print(&mut std::io::stdout().lock(), Default::default())
         .unwrap();
+    */
 
     Ok(())
 }
 
+#[derive(Default)]
 struct Log {
     log: Vec<(NaiveDate, Entry)>,
     covered_pings: HashSet<i64>,
@@ -275,11 +329,21 @@ impl fmt::Display for Entry {
     }
 }
 
+fn sleep_until(t: i64) {
+    while now() < t {
+        std::thread::sleep(std::time::Duration::from_secs(10));
+    }
+}
+
 fn now() -> i64 {
     std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap()
         .as_secs() as i64
+}
+
+fn local_time(t: i64) -> DateTime<Local> {
+    (std::time::UNIX_EPOCH + std::time::Duration::from_secs(t as u64)).into()
 }
 
 fn backpings_from(t: i64) -> impl Iterator<Item = i64> {
