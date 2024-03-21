@@ -1,4 +1,3 @@
-# Defined in /nix/store/6m8rdk5zfdw7gnpisy942my0lw9my71z-fish-3.7.0/share/fish/functions/fish_prompt.fish @ line 4
 function fish_prompt --description 'Write out the prompt'
     set -l last_pipestatus $pipestatus
     set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
@@ -28,5 +27,12 @@ function fish_prompt --description 'Write out the prompt'
     set -l statusb_color (set_color $bold_flag $fish_color_status)
     set -l prompt_status (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
 
-    echo -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
+    echo -n -s (date +%H:%M)' ' (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal
+
+    set -l ttt_prompt (ttt --minimal)
+    if test -n "$ttt_prompt"
+        echo -n -s (set_color red) " ⚡$ttt_prompt " $normal
+    end
+
+    echo -n -s " "$prompt_status $suffix " "
 end
