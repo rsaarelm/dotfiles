@@ -25,7 +25,7 @@ fn main() -> Result<()> {
     // "TODO", optionally followed with a colon that is dropped. The subsequent
     // text, and the text of any lines below that have the exact same comment
     // prefix and do not start with "TODO" are added to the item sans the prefix.
-    let todo_re = Regex::new(r"(\s*\S{1,4}\s+)TODO:? (.*)$").unwrap();
+    let todo_re = Regex::new(r"^(\s*\S{1,4}\s+)TODO:? (.*)$").unwrap();
     let priority_re = Regex::new(r"^(\(.\)) (.*)$").unwrap();
 
     let mut todo_list = Vec::new();
