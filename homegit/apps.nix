@@ -96,6 +96,7 @@
         rofi
 
         chromium
+        gimp
         keepass
         mpv
         neovim-qt
