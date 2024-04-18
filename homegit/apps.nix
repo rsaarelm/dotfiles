@@ -26,6 +26,7 @@
         bottom
         direnv
         fd
+        ffmpeg
         file
         fzf
         git
@@ -40,12 +41,13 @@
         neovim
         nix-index
         nixfmt
-        pandoc
         p7zip
+        pandoc
         pwgen
         python3
         python3Packages.ipython
         ripgrep
+        sshfs
         tmux
         tokei
         unzip
