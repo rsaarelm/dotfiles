@@ -28,12 +28,10 @@
   };
 
   services = {
-    xserver = {
-      # Touchpad
-      libinput = {
-        enable = true;
-        touchpad.disableWhileTyping = true;
-      };
+    # Touchpad
+    libinput = {
+      enable = true;
+      touchpad.disableWhileTyping = true;
     };
 
     autorandr.enable = true;

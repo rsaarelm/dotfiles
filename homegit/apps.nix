@@ -40,7 +40,7 @@
         neofetch
         neovim
         nix-index
-        nixfmt
+        nixfmt-rfc-style
         p7zip
         pandoc
         pwgen
@@ -70,24 +70,26 @@
     };
   };
 
+  services.displayManager = {
+    defaultSession = "none+i3";
+
+    autoLogin.enable = true;
+    autoLogin.user = "rsaarelm";
+  };
+
   services.xserver = {
     enable = true;
 
-    displayManager = {
-      defaultSession = "none+i3";
-
-      autoLogin.enable = true;
-      autoLogin.user = "rsaarelm";
-
-      lightdm.enable = true;
-    };
-
+    displayManager.lightdm.enable = true;
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
         (st.overrideAttrs (oldAttrs: rec {
-          configFile = writeText "config.def.h" (builtins.readFile ./st.config.h);
-          postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
+          configFile =
+            writeText "config.def.h" (builtins.readFile ./st.config.h);
+          postPatch = ''
+            ${oldAttrs.postPatch}
+             cp ${configFile} config.def.h'';
         }))
 
         dunst

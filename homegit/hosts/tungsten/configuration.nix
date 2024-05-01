@@ -34,14 +34,14 @@
   ];
 
   services = {
+    libinput.enable = true;
+
     xserver = {
       enable = true;
       videoDrivers = [ "nvidia" ];
 
       # Wacom tablet setup
       wacom.enable = true;
-
-      libinput = { enable = true; };
     };
 
     # PS4 controller support for Steam
