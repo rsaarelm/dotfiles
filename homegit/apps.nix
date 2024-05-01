@@ -57,11 +57,15 @@
         yt-dlp
         zoxide
 
-        # deps for rust-script
-        rustc
+        # Rust and rust-script stuff
         cargo
+        cargo-outdated
         clang
+        clippy
+        rust-analyzer
         rust-script
+        rustc
+        rustfmt
       ];
 
     variables = {
