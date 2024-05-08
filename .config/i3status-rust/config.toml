@@ -25,6 +25,11 @@ button = "left"
 cmd = "st -e 'btm'"
 
 [[block]]
+block = "tea_timer"
+increment = 300
+done_cmd = "notify-send 'Timer done'"
+
+[[block]]
 block = "sound"
 [[block.click]]
 button = "left"
