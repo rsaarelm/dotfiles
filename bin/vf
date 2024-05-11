@@ -1,0 +1,31 @@
+#!/usr/bin/env fish
+
+# "View and favorite", open a throwaway document viewer and link the document
+# in ~/recently-read/
+
+if test -z $argv
+    echo "Usage: vf <file>"
+    exit 1
+end
+
+if test -f $argv[1]
+    set FILEPATH "$(realpath $argv[1])"
+    set FILENAME "$(basename $argv[1])"
+    set LINKPATH "$(realpath ~/recently-read/$FILENAME)"
+
+    xdg-open $FILEPATH 2> /dev/null&; disown
+
+    if [ "$FILEPATH" != "$LINKPATH" ]
+        mkdir -p ~/recently-read
+        rm -f $LINKPATH
+        ln -s $FILEPATH $LINKPATH
+        touch -h $LINKPATH
+        echo "Marked $FILENAME as recently read."
+    else
+        echo "Physical file already in ~/recently-read/, not clobbering."
+        touch -h $LINKPATH
+    end
+else
+    echo "File not found"
+    exit 1
+end
