@@ -16,6 +16,7 @@ function ','
         case glxgears; set pkg glxinfo
         case grafx2-sdl; set pkg grafx2
         case keeper; set pkg keeperrl
+        case mocp; set pkg moc
         case perf; set pkg linuxPackages.perf
         case snunzip; set pkg snzip
         case wtfutil; set pkg wtf
