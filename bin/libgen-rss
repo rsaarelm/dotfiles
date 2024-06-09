@@ -4,5 +4,6 @@
 # Generates a RSS feed URL that should activate when the book shows up at libgen
 
 QUERY=$(echo "$*" | sed 's/ /%2B/g')
+TITLE=$(echo "libgen: $*" | sed 's/ /%20/g')
 
-echo "http://createfeed.wprssaggregator.com/extract.php?url=https%3A%2F%2Flibgen.rs%2Fsearch.php%3Freq%3D${QUERY}&url_contains%5B0%5D=library.lol"
+echo "http://createfeed.wprssaggregator.com/extract.php?url=https%3A%2F%2Flibgen.rs%2Fsearch.php%3Freq%3D${QUERY}&url_contains%5B0%5D=library.lol&feed_title=${TITLE}"
