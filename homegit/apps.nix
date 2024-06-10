@@ -29,6 +29,7 @@
         ffmpeg
         file
         fzf
+        ghostscript
         git
         git-annex
         hledger
