@@ -1,0 +1,11 @@
+#!/usr/bin/env fish
+
+# Save links from stdin in wayback machine
+
+while read -l url
+    echo $url
+    curl "https://web.archive.org/save/$url"
+    sleep 10
+end
+
+notify-send "Wayback-save done"
