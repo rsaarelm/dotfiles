@@ -52,23 +52,6 @@ Chrome plugins
 						]
 					},
 					{
-						"description": "Nitter redirect",
-						"exampleUrl": "https://twitter.com/foo/123",
-						"exampleResult": "https://nitter.net/foo/123",
-						"error": null,
-						"includePattern": "https://twitter.com/*",
-						"excludePattern": "",
-						"patternDesc": "https://nitter.net/foo/123",
-						"redirectUrl": "https://nitter.net/$1",
-						"patternType": "W",
-						"processMatches": "noProcessing",
-						"disabled": false,
-						"grouped": false,
-						"appliesTo": [
-							"main_frame"
-						]
-					},
-					{
 						"description": "Old Reddit",
 						"exampleUrl": "https://www.reddit.com/r/pics/comments/8aqjh/awww_this_is_just_too_sad_pic/",
 						"exampleResult": "https://old.reddit.com/r/pics/comments/8aqjh/awww_this_is_just_too_sad_pic/",
