@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Delete files and directories older than 30 days from ~/tmp/
+
+find ~/tmp/ -type f -mtime +30 -delete
+find ~/tmp/ -type d -empty -delete
