@@ -26,7 +26,7 @@ cmd = "st -e 'btm'"
 
 [[block]]
 block = "tea_timer"
-increment = 300
+increment = 360
 done_cmd = "notify-send 'Timer done'"
 
 [[block]]
