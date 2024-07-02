@@ -19,7 +19,7 @@
 
   hardware = {
     # Steam games want this.
-    opengl.driSupport32Bit = true;
+    graphics.enable32Bit = true;
 
     bluetooth = {
       enable = true;
