@@ -94,6 +94,9 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Register preview
 Plug 'junegunn/vim-peekaboo'
 
+" todo.txt format support
+Plug 'freitass/todo.txt-vim'
+
 " Kanagawa color scheme (seems to glitch on older nvims)
 if has('nvim-0.8')
     Plug 'rebelot/kanagawa.nvim'
