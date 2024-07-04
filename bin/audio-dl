@@ -1,0 +1,3 @@
+#!/bin/sh
+# Download a youtube video into an OGG audio file.
+yt-dlp -x --audio-format vorbis $*
