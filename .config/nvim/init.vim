@@ -51,11 +51,6 @@ Plug 'tpope/vim-fugitive'
 " Table mode
 Plug 'dhruvasagar/vim-table-mode'
 
-" todo.txt (use the fork for done.txt renaming)
-Plug 'dbeniamine/todo.txt-vim'
-let g:TodoTxtForceDoneName='done.txt'
-let g:TodoTxtStripDoneItemPriority=1
-
 " Fuzzy Finder
 if has('win32') || has('win64')
     Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
@@ -96,6 +91,8 @@ Plug 'junegunn/vim-peekaboo'
 
 " todo.txt format support
 Plug 'freitass/todo.txt-vim'
+" XXX: It tries to file to Done.txt when this isn't set.
+let g:todo_done_filename='done.txt'
 
 " Kanagawa color scheme (seems to glitch on older nvims)
 if has('nvim-0.8')
