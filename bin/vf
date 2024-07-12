@@ -1,21 +1,20 @@
 #!/usr/bin/env fish
 
-# "View and favorite", open a throwaway document viewer and link the document
-# in ~/recently-read/
-
 if test -z $argv
     echo "Usage: vf <file>"
+    echo "View and favorite: Open file with viewer and symlink it in ~/recently-read/ folder"
     exit 1
 end
 
 if test -f $argv[1]
-    set FILEPATH "$(realpath $argv[1])"
-    set FILENAME "$(basename $argv[1])"
-    set LINKPATH "$(realpath ~/recently-read/$FILENAME)"
+    set ARGPATH "$(realpath -s $argv[1])"   # Full path to argument file (may be symlink)
+    set FILEPATH "$(realpath $argv[1])"     # Full path to concrete file pointed by argument
+    set FILENAME "$(basename $argv[1])"     # Base filename from symlink
+    set LINKPATH "$(realpath -s ~/recently-read/$FILENAME)"
 
     xdg-open $FILEPATH 2> /dev/null&; disown
 
-    if [ "$FILEPATH" != "$LINKPATH" ]
+    if [ "$ARGPATH" != "$LINKPATH" ]
         mkdir -p ~/recently-read
         rm -f $LINKPATH
         ln -s $FILEPATH $LINKPATH
