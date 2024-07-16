@@ -24,6 +24,7 @@
         # Basic tools
         bat
         bottom
+        busybox
         direnv
         fd
         ffmpeg
