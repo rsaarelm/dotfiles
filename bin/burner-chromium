@@ -1,3 +1,3 @@
 #!/usr/bin/env fish
 # Run a browser with a blank disposable profile
-chromium --user-data-dir=$(mktemp -d)&; disown
+chromium --user-data-dir=$(mktemp -d) $argv &; disown
