@@ -152,7 +152,6 @@
   services.unclutter-xfixes.enable = true;
 
   # Sound on
-  sound.enable = true;
   hardware.pulseaudio = {
     enable = true;
     support32Bit = true;
