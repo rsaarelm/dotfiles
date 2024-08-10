@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+# Convert probability value to deciban value.
+
+import math
+import sys
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        p = float(sys.argv[1])
+    else:
+        p = float(sys.stdin.read().strip())
+    print(10 * math.log10(p / (1 - p)))
