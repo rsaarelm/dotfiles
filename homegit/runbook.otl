@@ -87,3 +87,7 @@ Kinesis Advantage keyboard hardware remappings
 	Alt -> PageDown
 	PageDown -> PageUp
 	PageUp -> Windows
+Raspberry Pi setup
+	Using Raspberry Pi OS since I couldn't get NixOS audio/video stuff to work right in 2022 (might be better now?)
+	Use `rpi-imager` to install OS on SD card
+	Use `raspi-config` to configure settings of an installed system
