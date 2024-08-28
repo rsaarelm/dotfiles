@@ -41,7 +41,8 @@ sudo apt install -y \
 # X11 stuff
 sudo apt install -y \
     i3 \
-    rofi
+    rofi \
+    unclutter
 
 # Wayland stuff
 sudo apt install -y \
