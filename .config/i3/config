@@ -116,7 +116,7 @@ bindsym $mod+Shift+semicolon exec "i3lock"
 bindsym $mod+Shift+slash exec "i3lock & sleep 10; systemctl suspend"
 
 # Quick-launch a one-off browser instance.
-bindsym $mod+b exec "chromium --incognito"
+bindsym $mod+b exec "chromium-browser --incognito"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

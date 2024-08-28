@@ -15,7 +15,7 @@ mods = "Control|Shift"
 
 [hints.enabled.command]
 args = ["--incognito"]
-program = "chromium"
+program = "chromium-browser"
 
 [hints.enabled.mouse]
 enabled = true
