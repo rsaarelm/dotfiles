@@ -2,6 +2,9 @@
 
 # Setup basics for apt-based Linux
 
+# This script should be idempotent, ie. don't do anything that messes things
+# up if the same script is run multiple times.
+
 set -e
 
 sudo apt update
@@ -14,6 +17,7 @@ sudo apt install -y \
     fish \
     fonts-go \
     git \
+    git-annex \
     hledger \
     imagemagick \
     ipython3 \
