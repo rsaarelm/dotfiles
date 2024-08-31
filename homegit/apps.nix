@@ -33,9 +33,9 @@
         ghostscript
         git
         git-annex
+        helix
         hledger
         imagemagick
-        jujutsu
         just
         links2
         mosh
@@ -57,6 +57,7 @@
         xxd
         yewtube
         yt-dlp
+        xsel
         zoxide
 
         # Rust and rust-script stuff
