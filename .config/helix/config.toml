@@ -1,0 +1,36 @@
+[keys.normal]
+# Colemak-friendly navigation
+n = "move_visual_line_down"
+e = "move_visual_line_up"
+N = "join_selections"
+A-N = "join_selections_space"
+j = "move_next_word_end"
+J = "move_next_long_word_end"
+k = "search_next"
+K = "search_prev"
+
+";" = "command_mode"
+":" = "collapse_selection"
+
+[keys.select]
+# Colemak-friendly again
+n = "extend_line_down"
+e = "extend_line_up"
+A-n = "shrink_selection"
+A-e = "expand_selection"
+k = "search_next"
+K = "search_prev"
+
+";" = "command_mode"
+":" = "collapse_selection"
+"A-:" = "flip_selections"
+
+# TODO Window split movement Colemak-friendlified
+
+[editor]
+mouse = false
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
