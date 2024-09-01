@@ -1,0 +1,3 @@
+#!/bin/sh
+# Timestamp abbreviation for writing notes
+date +"%Y-%m-%d %H:%M"
