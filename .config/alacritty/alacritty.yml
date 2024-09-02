@@ -1,5 +1,43 @@
 # Legacy YAML config, drop this file when on OS where alacritty is new enough
 # to use TOML.
+font:
+  normal:
+    family: Intel One Mono
+    style: Regular
+  bold:
+    family: Intel One Mono
+    style: Bold
+  italic:
+    family: Intel One Mono
+    style: Italic
+  bold_italic:
+    family: Intel One Mono
+    style: Bold Italic
+  size: 9
+
+colors:
+  primary:
+    background: '0x181818'
+    foreground: '0xd8d8d8'
+  normal:
+    black:   '0x383838'
+    red:     '0xac4242'
+    green:   '0x90a959'
+    yellow:  '0xf4bf75'
+    blue:    '0x6a9fb5'
+    magenta: '0xaa759f'
+    cyan:    '0x75b5aa'
+    white:   '0xd8d8d8'
+  bright:
+    black:   '0x6b6b6b'
+    red:     '0xc55555'
+    green:   '0xaac474'
+    yellow:  '0xfeca88'
+    blue:    '0x82b8c8'
+    magenta: '0xc28cb8'
+    cyan:    '0x93d3c3'
+    white:   '0xf8f8f8'
+
 hints:
   enabled:
     - regex: "(https:|http:)\\S+"
