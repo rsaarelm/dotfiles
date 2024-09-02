@@ -1,3 +1,5 @@
+theme = "ayu_evolve"
+
 [keys.normal]
 # Colemak-friendly navigation
 n = "move_visual_line_down"
