@@ -12,6 +12,19 @@ K = "search_prev"
 ";" = "command_mode"
 ":" = "collapse_selection"
 
+C-n = "jump_view_down"
+C-e = "jump_view_up"
+C-h = "jump_view_left"
+C-l = "jump_view_right"
+
+[keys.normal."C-w"]
+n = "jump_view_down"
+C-n = "jump_view_down"
+e = "jump_view_up"
+C-e = "jump_view_up"
+N = "swap_view_down"
+E = "swap_view_up"
+
 [keys.select]
 # Colemak-friendly again
 n = "extend_line_down"
@@ -24,8 +37,6 @@ K = "search_prev"
 ";" = "command_mode"
 ":" = "collapse_selection"
 "A-:" = "flip_selections"
-
-# TODO Window split movement Colemak-friendlified
 
 [editor]
 mouse = false
