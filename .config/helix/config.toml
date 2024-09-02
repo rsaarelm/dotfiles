@@ -38,6 +38,11 @@ K = "search_prev"
 ":" = "collapse_selection"
 "A-:" = "flip_selections"
 
+# Abbrev-like stuff
+[keys.insert.C-x]
+t = [":insert-output date +'%Y-%m-%d'", "move_char_right"]  # Insert datestamp
+T = [":insert-output date +'%Y-%m-%d %H:%M'", "move_char_right"]  # Insert timestamp
+
 [editor]
 mouse = false
 
