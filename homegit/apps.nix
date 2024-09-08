@@ -106,6 +106,7 @@
         pavucontrol
         rofi
 
+        alacritty
         chromium
         gimp
         keepass

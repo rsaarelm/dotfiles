@@ -1,21 +1,22 @@
 [font]
-normal.family = "Source Code Pro"
-bold.family = "Source Code Pro"
-italic.family = "Source Code Pro"
-bold_italic.family = "Source Code Pro"
+normal.family = "Intel One Mono"
+bold.family = "Intel One Mono"
+italic.family = "Intel One Mono"
+bold_italic.family = "Intel One Mono"
+size = 9
 
 [[hints.enabled]]
 hyperlinks = true
 post_processing = true
-regex = "(https:|http:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+regex = "(https:|http:)\\S+"
 
 [hints.enabled.binding]
 key = "U"
 mods = "Control|Shift"
 
 [hints.enabled.command]
-args = ["--incognito"]
 program = "chromium-browser"
+args = ["--incognito"]
 
 [hints.enabled.mouse]
 enabled = true
