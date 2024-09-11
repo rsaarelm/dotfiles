@@ -1,6 +1,14 @@
 #!/bin/sh
 
-# Usage: ./archiveofourown-rss 11478249
-# Generates a RSS feed URL for that story ID
+# Usage: archiveofourown-rss ID [TITLE]
+# eg. archiveofourown-rss 11478249 "Worth the Candle"
+# Generates a RSS feed URL for that story ID.
 
-echo "http://createfeed.wprssaggregator.com/extract.php?url=https%3A%2F%2Farchiveofourown.org%2Fworks%2F${1}%2Fnavigate&in_id_or_class=&url_contains=%2Fchapters%2F&order=reverse"
+echo -n "http://createfeed.wprssaggregator.com/extract.php?url=https%3A%2F%2Farchiveofourown.org%2Fworks%2F${1}%2Fnavigate&in_id_or_class=&url_contains=%2Fchapters%2F&order=reverse"
+
+if [ -n "$2" ]; then
+  TITLE=`echo $2 | sed -e 's/ /%20/g'`
+  echo "&feed_title=$TITLE"
+else
+  echo
+fi
