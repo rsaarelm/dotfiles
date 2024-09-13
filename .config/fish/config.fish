@@ -8,3 +8,5 @@ if status is-interactive
 end
 
 fish_add_path ~/bin
+
+alias ls=eza

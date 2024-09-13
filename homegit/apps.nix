@@ -26,6 +26,7 @@
         bottom
         busybox
         direnv
+        eza
         fd
         ffmpeg
         file
