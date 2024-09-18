@@ -94,18 +94,8 @@ Plug 'freitass/todo.txt-vim'
 " XXX: It tries to file to Done.txt when this isn't set.
 let g:todo_done_filename='done.txt'
 
-" Kanagawa color scheme (seems to glitch on older nvims)
-if has('nvim-0.8')
-    Plug 'rebelot/kanagawa.nvim'
-endif
-
+Plug 'Shatur/neovim-ayu'
 call plug#end()
-
-if has('nvim-0.8')
-    colorscheme kanagawa
-else
-    colorscheme rubricate
-endif
 
 " Language client setup
 if has('nvim-0.7')
