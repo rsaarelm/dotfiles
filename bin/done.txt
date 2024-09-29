@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Extract all done items from notes git repo that are written in either
+# todo.txt format or otl task format and produce a sorted list in todo.txt
+# format.
+#
+# x 2002-03-30 This is a done todo.txt item
+#     [X] 2002-03-30 This is a done otl task item
+
+git grep -E '^(\s*\[X\]|x) [0-9]{4}-[0-9]{2}-[0-9]{2}' | sed -E 's/^(.*):.*([0-9]{4}-[0-9]{2}-[0-9]{2}.*)/x \2  (\1)/' | sort
