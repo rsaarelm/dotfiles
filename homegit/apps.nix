@@ -154,12 +154,12 @@
   # Hide immobile mouse cursor.
   services.unclutter-xfixes.enable = true;
 
-  # Sound on
-  hardware.pulseaudio = {
+  # PipeWire audio
+  security.rtkit.enable = true;
+  services.pipewire = {
     enable = true;
-    support32Bit = true;
-
-    # Bluetooth support
-    package = pkgs.pulseaudioFull;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 }
