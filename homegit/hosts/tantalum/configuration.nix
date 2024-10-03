@@ -19,7 +19,9 @@
 
   hardware = {
     # Steam games want this.
-    graphics.enable32Bit = true;
+    opengl.driSupport32Bit = true;
+    # TODO: Change gfx declaration to this new version
+    # graphics.enable32Bit = true;
 
     bluetooth = {
       enable = true;
