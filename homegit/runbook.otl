@@ -91,3 +91,7 @@ Raspberry Pi setup
 	Using Raspberry Pi OS since I couldn't get NixOS audio/video stuff to work right in 2022 (might be better now?)
 	Use `rpi-imager` to install OS on SD card
 	Use `raspi-config` to configure settings of an installed system
+Misc tricks
+	Run bin/todo.txt on homegit files:
+		cd ~/
+		GIT_DIR=~/hearth/git/homegit/ todo.txt
