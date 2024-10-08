@@ -1,5 +1,5 @@
 import = [
-    "~/.config/alacritty/themes/github_dark_high_contrast.toml"
+    "~/.config/alacritty/themes/default.toml"
 ]
 
 [font]
