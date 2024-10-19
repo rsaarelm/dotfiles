@@ -32,6 +32,9 @@ bindsym $mod+Shift+q kill
 # program launcher
 bindsym $mod+s exec rofi -show run
 
+# screenshotting
+bindsym Print exec scrot /tmp/%Y-%m-%dT%H%M%S.png
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+n focus down
