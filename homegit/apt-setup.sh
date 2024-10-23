@@ -15,7 +15,7 @@ sudo apt install -y \
     chromium-browser \
     fd-find \
     fish \
-    fonts-go \
+    fzf \
     git \
     git-annex \
     hledger \
