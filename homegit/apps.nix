@@ -51,6 +51,7 @@
         python3Packages.ipython
         ripgrep
         sshfs
+        texlive.combined.scheme-small
         tmux
         tokei
         unzip
