@@ -1,11 +1,29 @@
 #!/usr/bin/env fish
 
-# Save links from stdin in wayback machine
+# Archive multiple links in the Wayback Machine.
+#
+# Usage:
+#   wayback-save [urls.txt]
+#   cat [urls.txt] | wayback-save
 
-while read -l url
-    echo $url
-    curl "https://web.archive.org/save/$url"
-    sleep 10
+# Guesstimated delay between saves, don't hammer WB endpoint or they might
+# shut us down.
+set SAVE_DELAY_SECONDS 10
+
+function process_urls
+    while read -l url
+        date
+        set save_url "https://web.archive.org/save/$url"
+        echo -e "\x1b[1;32m$save_url\x1b[0m"
+        curl -s "$save_url" | head
+        echo
+        sleep $SAVE_DELAY_SECONDS
+    end
+    notify-send "Wayback-save done"
 end
 
-notify-send "Wayback-save done"
+if test (count $argv) -gt 0
+    cat $argv[1] | process_urls
+else
+    process_urls
+end
