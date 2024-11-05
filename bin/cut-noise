@@ -9,11 +9,12 @@
 //! rodio = "0.19"
 //! ```
 
-// Run in NixOS with nix-shell -p pkg-config alsaLib.dev vorbis-tools
+// Run in NixOS with nix-shell -p pkg-config alsaLib.dev
 
 // Couldn't get mp3 encoding from Rust to work without crashing for big files.
 // Currently outputs wav, to encode ogg, do
 // cut-noise podcast.mp3 - | oggenc - -o quiet-podcast.ogg
+// (oggenc is in NixOS package vorbis-tools)
 
 use std::{env, fs::File, io::BufReader};
 
@@ -26,6 +27,46 @@ const STOP_CLIP_THRESHOLD: f64 = START_CLIP_THRESHOLD - 0.02;
 
 // Smallest duration to clip.
 const MIN_CLIP_SECONDS: f64 = 1.0;
+
+/// Map index over all integers into a mirror-tiled repetition of the array.
+///
+/// This can be used to look at the neighborhood of a wave array near the
+/// beginning and the end of the actual data and to see similar content in
+/// both directions.
+fn smp<T: Copy>(a: &[T], i: isize) -> T {
+    assert!(a.len() > 0);
+    // Map into a single pair of the array and its mirror.
+    let mut i = i.rem_euclid(a.len() as isize * 2) as usize;
+
+    // If it's in the mirror half, flip it back to the main array.
+    if i >= a.len() {
+        i = a.len() * 2 - 1 - i;
+    }
+
+    a[i]
+}
+
+/// Low-pass filter on signal. Convert values to an average value over the
+/// given sample window.
+fn lowpass(a: &[f32], window: usize) -> impl Iterator<Item=f32> + '_ {
+    assert!(window > 0);
+    // Indices at the start and end of the window.
+    let p1 = -(window as isize) / 2 - 1;
+    let p2 = p1 + (window as isize);
+    let mut sum = (p1..p2).map(|i| smp(a, i) * smp(a, i)).sum::<f32>();
+
+    (0..a.len()).map(move |x| {
+        let x = x as isize;
+        // Remove last frame's contribution and add this frame's one.
+        let p1 = x - (window as isize) / 2 - 1;
+        sum -= smp(a, p1) * smp(a, p1);
+
+        let p2 = p1 + (window as isize) + 1;
+        sum += smp(a, p2) * smp(a, p2);
+
+        sum / (window as f32)
+    })
+}
 
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = env::args().collect();
