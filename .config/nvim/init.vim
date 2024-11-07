@@ -276,6 +276,9 @@ iabbrev ansiblue \x1b[1;34m\x1b[0m<esc>7ha
 iabbrev ansimagenta \x1b[1;35m\x1b[0m<esc>7ha
 iabbrev ansicyan \x1b[1;36m\x1b[0m<esc>7ha
 
+" Shebang for embedded python in notebooks
+iabbrev shpy #!/usr/bin/env python3
+
 " Filetype settings
 " ================================
 
