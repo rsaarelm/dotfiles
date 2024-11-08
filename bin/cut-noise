@@ -20,13 +20,12 @@ use std::{env, fs::File, io::BufReader};
 
 use rodio::Source;
 
-// Different thresholds so there's some hysteresis once we start clipping.
-// XXX: The same threshold probably won't work with all clips.
-const START_CLIP_THRESHOLD: f64 = 2.1;
-const STOP_CLIP_THRESHOLD: f64 = START_CLIP_THRESHOLD - 0.02;
+// How much above mean volume can we get before clipping starts.
+// Found using trial and error with one file, may not work generally...
+const PEAK_THRESHOLD: f32 = 0.15;
 
 // Smallest duration to clip.
-const MIN_CLIP_SECONDS: f64 = 1.0;
+const MIN_CLIP_SECONDS: f64 = 3.0;
 
 /// Map index over all integers into a mirror-tiled repetition of the array.
 ///
@@ -48,7 +47,7 @@ fn smp<T: Copy>(a: &[T], i: isize) -> T {
 
 /// Low-pass filter on signal. Convert values to an average value over the
 /// given sample window.
-fn lowpass(a: &[f32], window: usize) -> impl Iterator<Item=f32> + '_ {
+fn lowpass(a: &[f32], window: usize) -> impl Iterator<Item = f32> + '_ {
     assert!(window > 0);
     // Indices at the start and end of the window.
     let p1 = -(window as isize) / 2 - 1;
@@ -71,7 +70,7 @@ fn lowpass(a: &[f32], window: usize) -> impl Iterator<Item=f32> + '_ {
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = env::args().collect();
     if args.len() != 3 {
-        eprintln!("Usage: {} [input.mp3] [output.mp3]", args[0]);
+        eprintln!("Usage: {} [input.mp3] [output.wav]", args[0]);
         std::process::exit(1);
     }
 
@@ -79,33 +78,34 @@ fn main() -> anyhow::Result<()> {
     let decoder = rodio::Decoder::new(BufReader::new(File::open(&args[1])?))?;
     let rate = decoder.sample_rate() * 2; // Assume it's stereo so we double the rate.
     let wave: Vec<f32> = decoder.convert_samples().collect();
+    let lowpass_window = rate as usize;
 
-    eprintln!("Computing smoothed volume");
-    let smoothing_factor: f64 = 1.0 / (rate as f64);
+    eprintln!("Computing volume profile.");
+    let mut sum = 0f64;
+    let mut peak = 0f32;
+    for v in lowpass(&wave, lowpass_window) {
+        sum += v as f64;
+        peak = peak.max(v);
+    }
+    let mean = (sum / wave.len() as f64) as f32;
 
-    let samp = rate as usize / 100;
-    let avg_volume = wave
-        .iter()
-        .step_by(samp)
-        .map(|&a| a as f64 * a as f64)
-        .sum::<f64>()
-        / (wave.len() / samp) as f64;
-    eprintln!("Avg volume: {avg_volume}");
+    eprintln!("mean: {mean}, peak: {peak}");
+
+    let start_threshold = mean + PEAK_THRESHOLD * (peak - mean);
+    // Make stop threshold a bit lower so we have hysteresis when we start clipping.
+    let stop_threshold = mean + (PEAK_THRESHOLD - 0.05) * (peak - mean);
 
     eprintln!("Finding loud regions");
     let mut clips = Vec::new();
     let mut clip_start = None;
-    let mut rolling_vol = 0.0;
-    for (i, &s) in wave.iter().enumerate() {
-        let s = (s as f64 * s as f64) / avg_volume;
-        rolling_vol = s * smoothing_factor + rolling_vol * (1.0 - smoothing_factor);
 
+    for (i, v) in lowpass(&wave, lowpass_window).enumerate() {
         let pos = i & !1; // Position that's always even, works nice for stereo.
         match clip_start {
-            None if rolling_vol > START_CLIP_THRESHOLD => {
+            None if v > start_threshold => {
                 clip_start = Some(pos);
             }
-            Some(a) if rolling_vol < STOP_CLIP_THRESHOLD => {
+            Some(a) if v < stop_threshold => {
                 let delta = (i - a) as f64 / rate as f64;
                 if delta > MIN_CLIP_SECONDS {
                     clips.push((a, pos));
@@ -140,6 +140,8 @@ fn main() -> anyhow::Result<()> {
     };
 
     let output = if args[2] == "-" {
+        // Special option to output to stdout so we can pipe output directly
+        // to an encoder.
         "/dev/stdout"
     } else {
         &args[2]
@@ -151,7 +153,7 @@ fn main() -> anyhow::Result<()> {
     while i < wave.len() {
         writer.write_sample(wave[i])?;
 
-        // Skip ahead when he hit a clip
+        // Skip ahead when we hit a clip
         for &(a, b) in &clips {
             if i == a {
                 i = b;
