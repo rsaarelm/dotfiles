@@ -75,9 +75,6 @@
     experimental-features = nix-command flakes
   '';
 
-  # Flakes
-  nix.package = pkgs.nixFlakes;
-
   # Caps is ctrl
   services.interception-tools = {
     enable = true;

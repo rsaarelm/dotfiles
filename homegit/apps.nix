@@ -147,7 +147,7 @@
     source-code-pro
 
     # Fonts with extra symbols
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     font-awesome
     powerline-fonts
   ];
