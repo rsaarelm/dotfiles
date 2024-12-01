@@ -29,6 +29,11 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    steam
+    discord
+  ];
+
   services = {
     # Touchpad
     libinput = {
