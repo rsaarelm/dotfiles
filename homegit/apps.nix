@@ -56,10 +56,10 @@
         tokei
         unzip
         wget
+        xsel
         xxd
         yewtube
         yt-dlp
-        xsel
         zoxide
 
         # Rust and rust-script stuff
