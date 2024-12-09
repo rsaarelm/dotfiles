@@ -46,6 +46,7 @@
         nixfmt-rfc-style
         p7zip
         pandoc
+        pinentry-tty
         pwgen
         python3
         python3Packages.ipython
@@ -78,6 +79,12 @@
       TERMINAL = "st";
     };
   };
+
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-tty;
+  };
+  services.pcscd.enable = true;
 
   services.displayManager = {
     defaultSession = "none+i3";
