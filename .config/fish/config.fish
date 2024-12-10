@@ -10,3 +10,7 @@ end
 fish_add_path ~/bin
 
 alias ls=eza
+
+if test -f ~/.local.fish
+    source ~/.local.fish
+end
