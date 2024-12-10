@@ -48,7 +48,10 @@
         pandoc
         pinentry-tty
         pwgen
-        python3
+        (python3.withPackages (python-pkgs: with python-pkgs; [
+          scipy
+          pandas
+        ]))
         python3Packages.ipython
         ripgrep
         sshfs
