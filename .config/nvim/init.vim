@@ -128,6 +128,19 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>=', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+
+    -- https://old.reddit.com/r/rust/comments/1geyfld/rustanalyzer_server_cancelled_the_request_in/
+    -- as of 2024-12-13, fix from https://github.com/neovim/neovim/issues/30985
+    -- TODO: Remove the LSP cancel event shim when NeoVim has updated with the fix, prolly sometime in early 2025
+    for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+        local default_diagnostic_handler = vim.lsp.handlers[method]
+        vim.lsp.handlers[method] = function(err, result, context, config)
+            if err ~= nil and err.code == -32802 then
+                return
+            end
+            return default_diagnostic_handler(err, result, context, config)
+        end
+    end
 end
 
 nvim_lsp.rust_analyzer.setup({
@@ -150,16 +163,12 @@ nvim_lsp.rust_analyzer.setup({
       diagnostics = {
         enable = true,
         enableExperimental = true,
-        -- FIXME Getting lots of "unresolved proc macro" noise despite
-        -- procMacro being enabled, going to just turn the diagnostic off for
-        -- now.
-        disabled = {"unresolved-proc-macro"},
       },
       procMacro = {
         enable = true,
       },
     }
-  }
+  },
 })
 EOF
 
