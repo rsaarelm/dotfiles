@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Scrape page title.
+TITLE=`curl -sL "$1" | grep -oP '<title>\K[^<]*'`
+
+# Download a video from an URL and transcribe it to text with openai-whisper.
+yt-dlp -x --audio-format vorbis -o - "$1" | whisper - --output_format txt "${@:2}"
+
+# And we end up with -.txt, which apparently can't be fixed from whisper CLI, sigh.
+mv -- -.txt "$TITLE".txt
