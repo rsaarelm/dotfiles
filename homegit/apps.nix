@@ -39,11 +39,14 @@
         imagemagick
         just
         links2
+        lynx
         mosh
+        ncdu
         neofetch
         neovim
         nix-index
         nixfmt-rfc-style
+        nodejs
         p7zip
         pandoc
         pinentry-tty
