@@ -37,6 +37,7 @@
         helix
         hledger
         imagemagick
+        jujutsu
         just
         links2
         lynx
