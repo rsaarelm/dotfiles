@@ -6,4 +6,4 @@
 QUERY=$(echo "$*" | sed 's/ /%2B/g')
 TITLE=$(echo "libgen: $*" | sed 's/ /%20/g')
 
-echo "http://createfeed.wprssaggregator.com/extract.php?url=https%3A%2F%2Flibgen.rs%2Fsearch.php%3Freq%3D${QUERY}&url_contains%5B0%5D=library.lol&feed_title=${TITLE}"
+echo "http://createfeed.wprssaggregator.com/extract.php?url=https%3A%2F%2Flibgen.is%2Fsearch.php%3Freq%3D${QUERY}&url_contains%5B%5D=book%2Findex.php&feed_title=${TITLE}"
