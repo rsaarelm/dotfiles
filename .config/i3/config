@@ -20,6 +20,9 @@ set $mod Mod4
 # chose an xft font, such as:
 font xft:DejaVu Sans Mono 10
 
+# Browser download dialogs are sometimes too big, limit the size here.
+floating_maximum_size 1536 x 1024
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
