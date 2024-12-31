@@ -25,7 +25,9 @@
         bat
         bottom
         busybox
+        caddy
         direnv
+        entr
         eza
         fd
         ffmpeg
