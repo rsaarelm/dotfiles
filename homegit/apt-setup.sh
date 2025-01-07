@@ -22,6 +22,7 @@ sudo apt install -y \
     imagemagick \
     ipython3 \
     keepassx \
+    libnotify-bin \
     links \
     mosh \
     mupdf \
