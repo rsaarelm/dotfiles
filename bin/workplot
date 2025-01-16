@@ -1,0 +1,62 @@
+#!/usr/bin/env rust-script
+
+//! Display a frequency plot from dated done items.
+//!
+//! ```cargo
+//! [dependencies]
+//! anyhow = "1"
+//! chrono = "0.4"
+//! itertools = "0.14"
+//! regex = "1"
+//! ```
+
+use std::{collections::BTreeMap, io::BufRead};
+
+use anyhow::Result;
+use chrono::{Datelike, NaiveDate};
+use itertools::Itertools;
+use regex::Regex;
+
+fn main() -> Result<()> {
+    // Find YYYY-MM-DD dates from input lines.
+    let date_re = Regex::new(r"\b(\d{4}-\d{2}-\d{2})\b")?;
+    let mut histogram: BTreeMap<NaiveDate, usize> = BTreeMap::new();
+    for line in std::io::stdin().lock().lines() {
+        let line = line?;
+        let Some(date) = date_re.find(&line) else {
+            continue;
+        };
+        let date = date.as_str().parse::<NaiveDate>()?;
+
+        *histogram.entry(date).or_default() += 1;
+    }
+
+    let active_years: Vec<i32> = histogram.keys().map(|d| d.year()).unique().collect();
+    for y in active_years {
+        println!("{y}");
+
+        let weekday_offset = NaiveDate::from_yo_opt(y, 1)
+            .unwrap()
+            .weekday()
+            .num_days_from_monday() as i32;
+
+        for weekday in 1..=7 {
+            for weeknum in 0.. {
+                let day = weekday - weekday_offset + weeknum * 7;
+                if day < 1 {
+                    print!(" ");
+                    continue;
+                }
+                let Some(date) = NaiveDate::from_yo_opt(y, day as u32) else {
+                    break;
+                };
+
+                let n = histogram.get(&date).copied().unwrap_or(0);
+                print!("{}", ".▁▂▃▄▅▆▇█".chars().nth(n.min(8) as usize).unwrap());
+            }
+            println!();
+        }
+    }
+
+    Ok(())
+}
