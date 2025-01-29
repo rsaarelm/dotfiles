@@ -50,6 +50,7 @@
         nix-index
         nixfmt-rfc-style
         nodejs
+        optipng
         p7zip
         pandoc
         pinentry-tty
