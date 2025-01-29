@@ -94,23 +94,24 @@ Plug 'freitass/todo.txt-vim'
 " XXX: It tries to file to Done.txt when this isn't set.
 let g:todo_done_filename='done.txt'
 
+" Colorscheme
 Plug 'Shatur/neovim-ayu'
 
 " Copilot
 Plug 'github/copilot.vim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'CopilotC-Nvim/CopilotChat.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
 call plug#end()
 
-lua << EOF
-require("CopilotChat").setup()
-EOF
-nnoremap <leader>cce :CopilotChatExplain<cr>
-nnoremap <leader>cct :CopilotChatTests<cr>
-nnoremap <leader>ccr :CopilotChatReview<cr>
-nnoremap <leader>ccR :CopilotChatRefactor<cr>
-nnoremap <leader>ccv :CopilotChatToggle<cr>
+" lua << EOF
+" require("CopilotChat").setup()
+" EOF
+" nnoremap <leader>cce :CopilotChatExplain<cr>
+" nnoremap <leader>cct :CopilotChatTests<cr>
+" nnoremap <leader>ccr :CopilotChatReview<cr>
+" nnoremap <leader>ccR :CopilotChatRefactor<cr>
+" nnoremap <leader>ccv :CopilotChatToggle<cr>
 
 " Language client setup
 if has('nvim-0.7')
