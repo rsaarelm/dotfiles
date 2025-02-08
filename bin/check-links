@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Check homepage links health
+
+URL="https://$USER.github.io/"
+
+linkchecker --check-extern $URL \
+    --ignore-url "https://web\.archive\.org/" \
+    --ignore-url "https://sci-hub\.se/" \
+    --ignore-url "https://annas-archive\.org/" \
+    --ignore-url "https://archive\.today/" \
+    --ignore-url "https://archive\.ph/" \
+    --ignore-url "https://doi\.org/" \
+    --ignore-url "https://robpike.io/"
