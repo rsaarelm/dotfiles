@@ -113,6 +113,16 @@ call plug#end()
 " nnoremap <leader>ccR :CopilotChatRefactor<cr>
 " nnoremap <leader>ccv :CopilotChatToggle<cr>
 
+" Set up a callback that will disable copilot on start, don't want it running
+" for every random file.
+lua << EOF
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.cmd(":Copilot disable")
+  end,
+})
+EOF
+
 " Language client setup
 if has('nvim-0.7')
 
