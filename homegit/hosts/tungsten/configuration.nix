@@ -31,6 +31,7 @@
   environment.systemPackages = with pkgs; [
     steam
     discord
+    wine64
   ];
 
   services = {
