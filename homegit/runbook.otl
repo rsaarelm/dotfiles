@@ -15,17 +15,17 @@ Chrome plugins
 		Redirector.json:
 			{
 				"createdBy": "Redirector v3.5.3",
-				"createdAt": "2024-01-26T11:20:43.510Z",
+				"createdAt": "2025-02-15T08:56:40.774Z",
 				"redirects": [
 					{
-						"description": "Use Antifandom mirror",
+						"description": "Use BreezeWiki mirror",
 						"exampleUrl": "https://example.fandom.com/something",
-						"exampleResult": "https://example.antifandom.com/something",
+						"exampleResult": "https://example.breezewiki.com/something",
 						"error": null,
 						"includePattern": "https://*.fandom.com/*",
 						"excludePattern": "",
 						"patternDesc": "",
-						"redirectUrl": "https://$1.antifandom.com/$2",
+						"redirectUrl": "https://$1.breezewiki.com/$2",
 						"patternType": "W",
 						"processMatches": "noProcessing",
 						"disabled": false,
@@ -45,6 +45,23 @@ Chrome plugins
 						"redirectUrl": "https$2",
 						"patternType": "W",
 						"processMatches": "urlDecode",
+						"disabled": false,
+						"grouped": false,
+						"appliesTo": [
+							"main_frame"
+						]
+					},
+					{
+						"description": "XCancel",
+						"exampleUrl": "https://x.com/foo/123",
+						"exampleResult": "https://xcancel.com/foo/123",
+						"error": null,
+						"includePattern": "https://x.com/*",
+						"excludePattern": "",
+						"patternDesc": "https://xcancel.com/foo/123",
+						"redirectUrl": "https://xcancel.com/$1",
+						"patternType": "W",
+						"processMatches": "noProcessing",
 						"disabled": false,
 						"grouped": false,
 						"appliesTo": [
