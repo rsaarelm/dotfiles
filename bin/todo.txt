@@ -13,6 +13,10 @@
 // TODO: Use cargo script runner when it's stable instead of rust-script,
 // https://github.com/rust-lang/cargo/issues/12207
 
+// TODO: binaryornot crate will sometimes panic and should not be used, figure
+// out a replacement (just checking if the file parses into UTF-8 might be good
+// enough) https://github.com/keirlawson/binaryornot/issues/1
+
 use anyhow::{anyhow, bail, Context, Result};
 use regex::Regex;
 use std::{
