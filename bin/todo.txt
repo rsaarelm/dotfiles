@@ -5,17 +5,12 @@
 //! ```cargo
 //! [dependencies]
 //! anyhow = "1"
-//! binaryornot = "1"
 //! chrono = "0.4"
 //! regex = "1"
 //! ```
 
 // TODO: Use cargo script runner when it's stable instead of rust-script,
 // https://github.com/rust-lang/cargo/issues/12207
-
-// TODO: binaryornot crate will sometimes panic and should not be used, figure
-// out a replacement (just checking if the file parses into UTF-8 might be good
-// enough) https://github.com/keirlawson/binaryornot/issues/1
 
 use anyhow::{anyhow, bail, Context, Result};
 use regex::Regex;
@@ -35,15 +30,15 @@ fn main() -> Result<()> {
     let mut todo_list = Vec::new();
 
     for path in list_files()? {
-        if binaryornot::is_binary(&path).with_context(|| "failed to scan file")? {
-            // skipping binary file
-            continue;
-        }
-
         let Ok(text) = read_to_string(&path) else {
-            eprintln!("Failed to read {path}, skipping.");
+            // eprintln!("Failed to read {path} into UTF-8 string, skipping.");
             continue;
         };
+
+        if is_binary(&text) {
+            // eprintln!("File {path} is probably binary, skipping.");
+            continue;
+        }
 
         let mut lines = text.lines().enumerate().peekable();
 
@@ -152,4 +147,49 @@ fn blame_date(path: &str, line: usize) -> Result<String> {
     } else {
         bail!("git blame failed")
     }
+}
+
+fn is_binary(text: &str) -> bool {
+    // Replicating functionality of binaryornot crate that's currently
+    // prone to random panics because of a stale dependency.
+    // (https://github.com/keirlawson/binaryornot/issues/1)
+
+    fn is_unprintable(value: char) -> bool {
+        if value as u32 > 128 {
+            return false;
+        }
+
+        match value as u8 {
+            b'\n' | b'\r' | b'\t' | b'\x0C' | b'\x08' => false,
+            0..32 | 127 => true,
+            _ => false,
+        }
+    }
+
+    fn is_high_ascii(value: char) -> bool {
+        matches!(value as u32, 128..256)
+    }
+
+    let mut n = 0;
+    let mut high = 0;
+    let mut unprintable = 0;
+    for c in text.chars().take(1000) {
+        n += 1;
+        if is_unprintable(c) {
+            unprintable += 1;
+        }
+        if is_high_ascii(c) {
+            high += 1;
+        }
+    }
+
+    if n == 0 {
+        // Empty file, count as text.
+        return false;
+    }
+
+    let high = high as f32 / n as f32;
+    let unprintable = unprintable as f32 / n as f32;
+
+    unprintable > 0.05 || high > 0.3
 }
