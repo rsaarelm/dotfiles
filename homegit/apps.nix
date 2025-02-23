@@ -16,8 +16,10 @@
         inotifyTools
         jmtpfs
         lm_sensors
+        openssl
         openvpn
         pciutils
+        pkg-config
         psmisc
         usbutils
 
