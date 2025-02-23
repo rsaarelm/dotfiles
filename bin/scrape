@@ -1,0 +1,294 @@
+#!/usr/bin/env rust-script
+
+//! Scrape URLs into IDM bookmarks, try to extract valid titles and publication
+//! dates.
+//!
+//! ```cargo
+//! [dependencies]
+//! anyhow = "1"
+//! chrono = "0.4"
+//! futures = "0.3"
+//! htmlescape = "0.3"
+//! reqwest = "0.12"
+//! scraper = "0.22"
+//! tokio = { version = "1", features = ["rt-multi-thread"] }
+//! lazy-regex = "3"
+//! ```
+
+// TODO Better detection for dead links, acknowledge error codes
+
+// TODO If the link is dead, try to get a wayback machine mirror
+
+use std::{env, fmt, fs::File, io::Read, time::Duration};
+
+use anyhow::Result;
+use chrono::NaiveDate;
+use lazy_regex::regex_captures;
+use reqwest::Client;
+use scraper::{Html, Selector};
+
+fn main() {
+    // Get first CLI argument, if there is one.
+    let mut input = String::new();
+    if let Some(arg) = env::args().nth(1) {
+        if let Some(url) = url(&arg) {
+            eprintln!("Scraping URL: {url}");
+            input = arg;
+        } else {
+            eprintln!("Scraping from file {arg}");
+            File::open(arg)
+                .expect("Failed to open file")
+                .read_to_string(&mut input)
+                .expect("Failed to read file");
+        }
+    } else {
+        eprintln!("Scraping from stdin");
+        // Get input from stdin.
+        std::io::stdin().read_to_string(&mut input).unwrap();
+    }
+
+    let urls = input
+        .split_whitespace()
+        .filter_map(|s| url(s).map(|s| s.to_owned()))
+        .collect::<Vec<_>>();
+
+    for page in batch_download(urls) {
+        let entry = Entry::parse(&page);
+        print!("{entry}");
+    }
+}
+
+pub struct Entry {
+    title: String,
+    uri: String,
+    date: Option<String>,
+    requested_url: Option<String>,
+    added: String,
+}
+
+impl fmt::Display for Entry {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        writeln!(f, "{}", self.title)?;
+        writeln!(f, "  :uri {}", self.uri)?;
+        if let Some(date) = &self.date {
+            writeln!(f, "  :date {}", date)?;
+        }
+        if let Some(requested_url) = &self.requested_url {
+            writeln!(f, "  :requested-url {}", requested_url)?;
+        }
+        writeln!(f, "  :added {}", self.added)
+    }
+}
+
+impl Entry {
+    pub fn parse(page: &FetchResult) -> Self {
+        let html = Html::parse_document(&page.body);
+
+        let title = match extract_title(&html) {
+            Some(t) => t,
+            None => page.resolved_url.to_string(),
+        };
+
+        let date = extract_date(&html);
+
+        let requested_url = if page.requested_url != page.resolved_url {
+            Some(page.requested_url.to_string())
+        } else {
+            None
+        };
+
+        Entry {
+            title,
+            uri: page.resolved_url.to_string(),
+            date,
+            requested_url,
+            // Current time timestamp in format 2025-02-23T17:39:33+0200
+            added: chrono::Local::now()
+                .to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+        }
+    }
+}
+
+fn extract_title(document: &Html) -> Option<String> {
+    let Some(mut title) = extract_title_1(document) else {
+        return None;
+    };
+
+    // We might still be left with a dirty "Title at Domain Name" title from
+    // part 1, try one last trick. If the first h1 element on the page is a
+    // prefix of the title, swap title with it.
+    let sel = Selector::parse("h1").unwrap();
+    if let Some(element) = document.select(&sel).next() {
+        let h1 = element.text().collect::<String>();
+        if title.starts_with(&h1) && !h1.trim().is_empty() {
+            title = h1;
+        }
+    }
+
+    title = Html::parse_fragment(&title)
+        .root_element()
+        .text()
+        .collect::<String>();
+    title = htmlescape::decode_html(&title).unwrap_or(title);
+    title = title
+        .trim()
+        .chars()
+        .map(|c| if c.is_whitespace() { ' ' } else { c })
+        .collect();
+
+    Some(title)
+}
+
+fn extract_title_1(document: &Html) -> Option<String> {
+    // The ld data might have a nicer title (without the website name),
+    // try to get it first...
+    let script_selector =
+        Selector::parse("script[type='application/ld+json']").unwrap();
+
+    for element in document.select(&script_selector) {
+        // Pages may serve malformed JSON, fun! So trying to parse with
+        // serde_json might fail, but regexes should be more robust.
+        if let Some((_, title)) = regex_captures!(
+            r#""headline"\s*:\s*"([^"]*)""#,
+            &element.inner_html()
+        ) {
+            let title = title.trim();
+            if !title.is_empty() {
+                return Some(title.to_string());
+            }
+        }
+    }
+
+    // Try regular metadata and finally the <title> tag.
+    // <title> tag is straightforward, but it often includes the title of the
+    // web site as well as the title, and we don't want that in bookmarks.
+    let title_selectors = [
+        Selector::parse("meta[name='title']").unwrap(),
+        Selector::parse("meta[name='twitter:title']").unwrap(),
+        Selector::parse("meta[property='og:title']").unwrap(),
+        Selector::parse("meta[name='citation_title']").unwrap(),
+        Selector::parse("title").unwrap(),
+    ];
+
+    for selector in &title_selectors {
+        if let Some(element) = document.select(selector).next() {
+            let Some(title) = element
+                .value()
+                .attr("content")
+                .map(|s| s.to_string())
+                .or_else(|| Some(element.text().collect::<String>()))
+            else {
+                continue;
+            };
+            return Some(title);
+        }
+    }
+
+    None
+}
+
+fn extract_date(document: &Html) -> Option<String> {
+    let date_selectors = [
+        Selector::parse("meta[property='article:published_time']").unwrap(),
+        Selector::parse("meta[name='date']").unwrap(),
+        Selector::parse("meta[name='citation_publication_date']").unwrap(),
+        Selector::parse("time[datetime]").unwrap(),
+    ];
+
+    for selector in &date_selectors {
+        if let Some(element) = document.select(selector).next() {
+            let date = element
+                .value()
+                .attr("content")
+                .or_else(|| element.value().attr("datetime"))
+                .unwrap_or("");
+            // Trim down to YYYY-mm-dd
+            let date = &date[..10.min(date.len())];
+            if let Ok(date) = NaiveDate::parse_from_str(date, "%Y-%m-%d") {
+                return Some(date.format("%Y-%m-%d").to_string());
+            }
+        }
+    }
+
+    let script_selector =
+        Selector::parse("script[type='application/ld+json']").unwrap();
+
+    for element in document.select(&script_selector) {
+        if let Some((_, date)) = regex_captures!(
+            r#""datePublished"\s*:\s*"([^"]*)""#,
+            &element.inner_html()
+        ) {
+            // Trim down to YYYY-mm-dd
+            let date = &date[..10.min(date.len())];
+            if let Ok(parsed_date) = NaiveDate::parse_from_str(date, "%Y-%m-%d")
+            {
+                return Some(parsed_date.format("%Y-%m-%d").to_string());
+            }
+        }
+    }
+
+    None
+}
+
+fn batch_download(urls: Vec<String>) -> Vec<FetchResult> {
+    async fn download_page(url: &str) -> Result<FetchResult> {
+        let requested_url = url.to_owned();
+
+        let response = Client::new()
+            .get(url)
+            .timeout(Duration::from_secs(20))
+            .send()
+            .await?;
+
+        let resolved_url = response.url().to_string();
+        let body = response.text().await?;
+        Ok(FetchResult {
+            resolved_url,
+            requested_url,
+            body,
+        })
+    }
+
+    let runtime = tokio::runtime::Runtime::new().unwrap();
+    runtime.block_on(async move {
+        let jobs = urls
+            .into_iter()
+            .map(|url| {
+                tokio::spawn(async move {
+                    eprint!(".");
+                    let ret = download_page(&url).await;
+                    if ret.is_err() {
+                        eprintln!("\nFailed to fetch {url}");
+                    }
+                    eprint!(".");
+                    ret
+                })
+            })
+            .collect::<Vec<_>>();
+        let ret = futures::future::join_all(jobs)
+            .await
+            .into_iter()
+            .filter_map(|r| r.unwrap().ok())
+            .collect();
+        eprintln!();
+        ret
+    })
+}
+
+pub struct FetchResult {
+    resolved_url: String,
+    requested_url: String,
+    body: String,
+}
+
+/// Match things that look like URLs.
+fn url(s: &str) -> Option<&str> {
+    let s = s.trim();
+    if !s.chars().any(|c| c.is_whitespace()) && s.starts_with("http://")
+        || s.starts_with("https://")
+    {
+        Some(s)
+    } else {
+        None
+    }
+}
