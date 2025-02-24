@@ -6,7 +6,9 @@
 //! ```cargo
 //! [dependencies]
 //! anyhow = "1"
+//! atty = "0.2"
 //! chrono = "0.4"
+//! clap = { version = "4", features = ["derive"] }
 //! futures = "0.3"
 //! htmlescape = "0.3"
 //! reqwest = "0.12"
@@ -19,32 +21,48 @@
 
 // TODO If the link is dead, try to get a wayback machine mirror
 
-use std::{env, fmt, fs::File, io::Read, time::Duration};
+use std::{fmt, fs::File, io::Read, time::Duration};
 
 use anyhow::Result;
 use chrono::NaiveDate;
+use clap::Parser;
 use lazy_regex::regex_captures;
 use reqwest::Client;
 use scraper::{Html, Selector};
 
+#[derive(Debug, Parser)]
+struct Args {
+    /// Input, either an URL or a path to a file with URLs.
+    /// Use "-" to read URLs from stdin.
+    #[arg(default_value = "-")]
+    input: String,
+
+    /// Use tabs for indentation
+    #[arg(long)]
+    tabs: bool,
+}
+
 fn main() {
-    // Get first CLI argument, if there is one.
+    let args = Args::parse();
+
     let mut input = String::new();
-    if let Some(arg) = env::args().nth(1) {
-        if let Some(url) = url(&arg) {
-            eprintln!("Scraping URL: {url}");
-            input = arg;
-        } else {
-            eprintln!("Scraping from file {arg}");
-            File::open(arg)
+
+    match args.input.as_str() {
+        "-" => {
+            // Scrape from stdin
+            std::io::stdin().read_to_string(&mut input).unwrap();
+        }
+        a if url(a).is_some() => {
+            // Scrape URL directly
+            input = a.to_owned();
+        }
+        path => {
+            // From path
+            File::open(path)
                 .expect("Failed to open file")
                 .read_to_string(&mut input)
                 .expect("Failed to read file");
         }
-    } else {
-        eprintln!("Scraping from stdin");
-        // Get input from stdin.
-        std::io::stdin().read_to_string(&mut input).unwrap();
     }
 
     let urls = input
@@ -53,7 +71,8 @@ fn main() {
         .collect::<Vec<_>>();
 
     for page in batch_download(urls) {
-        let entry = Entry::parse(&page);
+        let mut entry = Entry::parse(&page);
+        entry.tabs = args.tabs;
         print!("{entry}");
     }
 }
@@ -64,19 +83,21 @@ pub struct Entry {
     date: Option<String>,
     requested_url: Option<String>,
     added: String,
+    tabs: bool,
 }
 
 impl fmt::Display for Entry {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let indent = if self.tabs { "\t" } else { "  " };
         writeln!(f, "{}", self.title)?;
-        writeln!(f, "  :uri {}", self.uri)?;
+        writeln!(f, "{indent}:uri {}", self.uri)?;
         if let Some(date) = &self.date {
-            writeln!(f, "  :date {}", date)?;
+            writeln!(f, "{indent}:date {}", date)?;
         }
         if let Some(requested_url) = &self.requested_url {
-            writeln!(f, "  :requested-url {}", requested_url)?;
+            writeln!(f, "{indent}:requested-url {}", requested_url)?;
         }
-        writeln!(f, "  :added {}", self.added)
+        writeln!(f, "{indent}:added {}", self.added)
     }
 }
 
@@ -105,6 +126,7 @@ impl Entry {
             // Current time timestamp in format 2025-02-23T17:39:33+0200
             added: chrono::Local::now()
                 .to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+            tabs: false,
         }
     }
 }
@@ -255,12 +277,12 @@ fn batch_download(urls: Vec<String>) -> Vec<FetchResult> {
             .into_iter()
             .map(|url| {
                 tokio::spawn(async move {
-                    eprint!(".");
+                    eprint(".");
                     let ret = download_page(&url).await;
                     if ret.is_err() {
-                        eprintln!("\nFailed to fetch {url}");
+                        eprint(format!("\nFailed to fetch {url}"));
                     }
-                    eprint!(".");
+                    eprint(".");
                     ret
                 })
             })
@@ -270,7 +292,7 @@ fn batch_download(urls: Vec<String>) -> Vec<FetchResult> {
             .into_iter()
             .filter_map(|r| r.unwrap().ok())
             .collect();
-        eprintln!();
+        eprint("\n");
         ret
     })
 }
@@ -290,5 +312,13 @@ fn url(s: &str) -> Option<&str> {
         Some(s)
     } else {
         None
+    }
+}
+
+/// Custom eprinter that only runs in an interactive TTY.
+fn eprint(s: impl AsRef<str>) {
+    if atty::is(atty::Stream::Stdout) {
+        let s = s.as_ref();
+        eprint!("{s}");
     }
 }
