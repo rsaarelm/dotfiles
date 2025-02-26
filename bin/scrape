@@ -170,8 +170,8 @@ fn extract_title_1(document: &Html) -> Option<String> {
     for element in document.select(&script_selector) {
         // Pages may serve malformed JSON, fun! So trying to parse with
         // serde_json might fail, but regexes should be more robust.
-        if let Some((_, title)) = regex_captures!(
-            r#""headline"\s*:\s*"([^"]*)""#,
+        if let Some((_, _, title)) = regex_captures!(
+            r#""(name|headline)"\s*:\s*"([^"]*)""#,
             &element.inner_html()
         ) {
             let title = title.trim();
