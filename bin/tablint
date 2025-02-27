@@ -1,0 +1,57 @@
+#!/usr/bin/env rust-script
+
+use std::{env, io::Read};
+
+// Make sure that the input
+//
+// * Consistently uses either spaces or tabs for indentation.
+// * Uses tabs *only* for indentation.
+// * Uses *only* tabs for indentation if it uses them at all.
+
+pub fn main() {
+    let mut args = env::args();
+    let mut displayname = "".to_string();
+    let input = if args.len() > 1 {
+        let filename = args.nth(1).unwrap();
+        displayname = format!("{filename}:");
+        std::fs::read_to_string(&filename).unwrap()
+    } else {
+        let mut input = String::new();
+        std::io::stdin().read_to_string(&mut input).unwrap();
+        input
+    };
+
+    let mut spaces_detected = false;
+    let mut tabs_detected = false;
+    for (n, line) in input.lines().enumerate() {
+        let n = n + 1;
+        let mut in_indentation = true;
+        for c in line.chars() {
+            match c {
+                ' ' if in_indentation => {
+                    if tabs_detected {
+                        eprintln!("Tabcop: Line {displayname}{n} in tab-indented file contains space indentation.");
+                        std::process::exit(1);
+                    }
+                    spaces_detected = true;
+                }
+                '\t' if in_indentation => {
+                    if spaces_detected {
+                        eprintln!("Tabcop: Line {displayname}{n} in space-indented file contains tab indentation.");
+                        std::process::exit(1);
+                    }
+                    tabs_detected = true;
+                }
+                '\t' => {
+                    eprintln!(
+                        "Tabcop: Line {displayname}{n} contains tabs in non-indentation context."
+                    );
+                    std::process::exit(1);
+                }
+                _ => {
+                    in_indentation = false;
+                }
+            }
+        }
+    }
+}
