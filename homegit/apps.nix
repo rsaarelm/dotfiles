@@ -35,9 +35,11 @@
         ffmpeg
         file
         fzf
+        gcc
         ghostscript
         git
         git-annex
+        gnumake
         helix
         hledger
         imagemagick
