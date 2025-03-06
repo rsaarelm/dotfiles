@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+
+# Find YYYY-MM-DD date strings in stdin and pipe them to stdout with week
+# numbers and days of the week added.
+
+import sys
+import re
+from datetime import datetime
+
+def decorate_date(line):
+    date_pattern = r'\d{4}-\d{2}-\d{2}'
+    match = re.search(date_pattern, line)
+    if match:
+        date_str = match.group()
+        date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+        week_number = date_obj.isocalendar()[1]
+        day_of_week = date_obj.strftime('%a')
+        decorated_date = f"{date_str} w{week_number:02} {day_of_week}"
+        return line.replace(date_str, decorated_date)
+    return line
+
+for line in sys.stdin:
+    print(decorate_date(line.strip()))
