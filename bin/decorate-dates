@@ -15,7 +15,7 @@ def decorate_date(line):
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
         week_number = date_obj.isocalendar()[1]
         day_of_week = date_obj.strftime('%a')
-        decorated_date = f"{date_str} w{week_number:02} {day_of_week}"
+        decorated_date = f"{date_str} w{week_number:02} {day_of_week} "
         return line.replace(date_str, decorated_date)
     return line
 
