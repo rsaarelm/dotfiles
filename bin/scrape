@@ -40,9 +40,14 @@ struct Args {
     /// Use tabs for indentation
     #[arg(long)]
     tabs: bool,
+
+    /// A custom header for the article, capture the actual title in an
+    /// attribute when this is set.
+    #[arg(long)]
+    slug: Option<String>,
 }
 
-fn main() {
+fn main() -> Result<()> {
     let args = Args::parse();
 
     let mut input = String::new();
@@ -70,11 +75,23 @@ fn main() {
         .filter_map(|s| url(s).map(|s| s.to_owned()))
         .collect::<Vec<_>>();
 
+    if urls.len() > 1 && args.slug.is_some() {
+        anyhow::bail!("Can't use slug when scraping multiple URLs");
+    }
+
     for page in batch_download(urls) {
         let mut entry = Entry::parse(&page);
+
+        if let Some(ref slug) = args.slug {
+            entry.full_title = entry.title.clone();
+            entry.title = slug.clone();
+        }
+
         entry.tabs = args.tabs;
         print!("{entry}");
     }
+
+    Ok(())
 }
 
 pub struct Entry {
@@ -83,6 +100,7 @@ pub struct Entry {
     date: Option<String>,
     requested_url: Option<String>,
     added: String,
+    full_title: String,
     tabs: bool,
 }
 
@@ -90,6 +108,9 @@ impl fmt::Display for Entry {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let indent = if self.tabs { "\t" } else { "  " };
         writeln!(f, "{}", self.title)?;
+        if !self.full_title.is_empty() {
+            writeln!(f, "{indent}:title {}", self.full_title)?;
+        }
         writeln!(f, "{indent}:uri {}", self.uri)?;
         if let Some(date) = &self.date {
             writeln!(f, "{indent}:date {}", date)?;
@@ -124,8 +145,8 @@ impl Entry {
             date,
             requested_url,
             // Current time timestamp in format 2025-02-23T17:39:33+0200
-            added: chrono::Local::now()
-                .to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+            added: chrono::Local::now().to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+            full_title: Default::default(),
             tabs: false,
         }
     }
@@ -164,8 +185,7 @@ fn extract_title(document: &Html) -> Option<String> {
 fn extract_title_1(document: &Html) -> Option<String> {
     // The ld data might have a nicer title (without the website name),
     // try to get it first...
-    let script_selector =
-        Selector::parse("script[type='application/ld+json']").unwrap();
+    let script_selector = Selector::parse("script[type='application/ld+json']").unwrap();
 
     for element in document.select(&script_selector) {
         // Pages may serve malformed JSON, fun! So trying to parse with
@@ -232,18 +252,15 @@ fn extract_date(document: &Html) -> Option<String> {
         }
     }
 
-    let script_selector =
-        Selector::parse("script[type='application/ld+json']").unwrap();
+    let script_selector = Selector::parse("script[type='application/ld+json']").unwrap();
 
     for element in document.select(&script_selector) {
-        if let Some((_, date)) = regex_captures!(
-            r#""datePublished"\s*:\s*"([^"]*)""#,
-            &element.inner_html()
-        ) {
+        if let Some((_, date)) =
+            regex_captures!(r#""datePublished"\s*:\s*"([^"]*)""#, &element.inner_html())
+        {
             // Trim down to YYYY-mm-dd
             let date = &date[..10.min(date.len())];
-            if let Ok(parsed_date) = NaiveDate::parse_from_str(date, "%Y-%m-%d")
-            {
+            if let Ok(parsed_date) = NaiveDate::parse_from_str(date, "%Y-%m-%d") {
                 return Some(parsed_date.format("%Y-%m-%d").to_string());
             }
         }
