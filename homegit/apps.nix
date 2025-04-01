@@ -43,6 +43,7 @@
         helix
         hledger
         imagemagick
+        jq
         jujutsu
         just
         links2
