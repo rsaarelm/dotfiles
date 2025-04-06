@@ -14,6 +14,7 @@ function ','
         case btm; set pkg bottom
         case getgbook; set pkg getxbook
         case glxgears; set pkg glxinfo
+        case godot4; set pkg godot_4
         case grafx2-sdl; set pkg grafx2
         case keeper; set pkg keeperrl
         case mocp; set pkg moc
