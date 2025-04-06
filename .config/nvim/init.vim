@@ -35,10 +35,13 @@ function! NERDTreeToggleAndFind()
     endif
 endfunction
 let NERDTreeMapOpenExpl = 'j'  " Enable using Colemak vertical navigation
-" Don't show random cache files.
+" Don't show random cache files or binary files that are commonly mixed with
+" projects.
 let NERDTreeIgnore = [
             \'\.git$', '\.cpcache$', '\.lsp$', '\.o$',
-            \'\.pyc$', '__pycache__', '\.clj-kondo$', '\.direnv$' ]
+            \'\.pyc$', '__pycache__', '\.clj-kondo$', '\.direnv$',
+            \'\.bin$', '\.png$', '\.jpg$', '\.webp$', '\.glb$',
+            \'\.unwrap_cache$', '\.exr$', '\.lmbake$', '\.blend$' ]
 let NERDTreeShowHidden = 1  " Show dotfiles
 " Have a more manageable navigation bar for narrow spaces.
 if (winwidth(0) < 120)
