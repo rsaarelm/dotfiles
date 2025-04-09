@@ -350,7 +350,7 @@ autocmd FileType python setlocal shiftwidth=4 softtabstop=-1 formatoptions-=t co
 
 autocmd FileType go setlocal tabstop=4 listchars=tab:\ \ ,trail:· formatoptions-=t
 
-autocmd FileType gdscript setlocal tabstop=4
+autocmd FileType gdscript setlocal tabstop=4 listchars=tab:\ \ ,trail:· noexpandtab
 
 autocmd FileType javascript setlocal shiftwidth=2
 
