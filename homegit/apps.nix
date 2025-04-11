@@ -48,6 +48,7 @@
         just
         links2
         lynx
+        moreutils
         mosh
         ncdu
         neofetch
@@ -131,7 +132,9 @@
         rofi
 
         alacritty
+        blender
         chromium
+        godot_4
         gimp
         keepass
         mpv
