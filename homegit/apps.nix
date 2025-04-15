@@ -72,6 +72,7 @@
         tmux
         tokei
         unzip
+        uv
         wget
         xsel
         xxd
