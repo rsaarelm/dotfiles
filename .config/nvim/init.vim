@@ -40,7 +40,7 @@ let NERDTreeMapOpenExpl = 'j'  " Enable using Colemak vertical navigation
 let NERDTreeIgnore = [
             \'\.git$', '\.cpcache$', '\.lsp$', '\.o$',
             \'\.pyc$', '__pycache__', '\.clj-kondo$', '\.direnv$',
-            \'\.bin$', '\.png$', '\.jpg$', '\.webp$', '\.glb$',
+            \'\.bin$', '\.png$', '\.jpg$', '\.webp$', '\.glb$', '\.wav$',
             \'\.unwrap_cache$', '\.exr$', '\.lmbake$', '\.blend$' ]
 let NERDTreeShowHidden = 1  " Show dotfiles
 " Have a more manageable navigation bar for narrow spaces.
