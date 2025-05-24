@@ -44,6 +44,7 @@
         hledger
         imagemagick
         jq
+        jujutsu
         just
         links2
         lynx
