@@ -41,6 +41,9 @@
   # At daemon
   services.atd.enable = true;
 
+  # Make i3lock work
+  security.pam.services.i3lock.enable = true;
+
   location = {
     provider = "manual";
     latitude = 60.0;
