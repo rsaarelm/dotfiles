@@ -41,7 +41,8 @@ let NERDTreeIgnore = [
             \'\.git$', '\.cpcache$', '\.lsp$', '\.o$',
             \'\.pyc$', '__pycache__', '\.clj-kondo$', '\.direnv$',
             \'\.bin$', '\.png$', '\.jpg$', '\.webp$', '\.glb$', '\.wav$',
-            \'\.unwrap_cache$', '\.exr$', '\.lmbake$', '\.blend$' ]
+            \'\.unwrap_cache$', '\.exr$', '\.lmbake$', '\.blend$',
+            \'\.uid$', '\.res$' ]
 let NERDTreeShowHidden = 1  " Show dotfiles
 " Have a more manageable navigation bar for narrow spaces.
 if (winwidth(0) < 120)
