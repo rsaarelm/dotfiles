@@ -5,6 +5,8 @@ map <Right> feedkeys "<PageDown>"
 map <Left> feedkeys "<PageUp>"
 map c feedkeys "<C-f>"
 map C feedkeys "<C-b>"
+map m feedkeys "<C-f>"
+map M feedkeys "<C-b>"
 map <Button3> navigate next
 set guioptions ""  # Don't show status bar by default
 
