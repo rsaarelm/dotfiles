@@ -1,0 +1,66 @@
+#!/usr/bin/env rust-script
+
+//! List ongoing tasks from your done list
+//!
+//! ```cargo
+//! [dependencies]
+//! anyhow = "1"
+//! lazy-regex = "3"
+//! ```
+
+use std::collections::HashMap;
+
+use anyhow::Result;
+use lazy_regex::regex;
+
+// Track ongoing tasks from your todo list. You register one using a @begin
+// tag:
+//
+// x 2025-06-01 +read Gödel, Escher, Bach @begin  Read chapter 1
+// \-date part/ \----- task ID ---------/  tag     ignore the rest
+//
+// Task ID is the part between the date and the @begin tag.
+// Items that include the ID of an ongoing task are tracked, the result is the
+// latest item that includes the ID so you can see where the task is at.
+//
+// x 2025-06-04 +read Gödel, Escher, Bach  ch 2-4
+//
+// A task ends when a line like this shows up:
+//
+// x 2025-06-12 +read Gödel, Escher, Back @end  Finished everything
+//
+// Same routine, ignore the date, read the ID, notice @end, and stop reading.
+// This means the task is complete and no longer ongoing.
+
+fn main() -> Result<()> {
+    use std::io::{self, BufRead};
+
+    let mut ongoing_tasks = HashMap::new();
+    let re_begin = regex!(r"^x \d{4}-\d{2}-\d{2} (.+) @begin(?:\s+.*)?$");
+    let re_end = regex!(r"^x \d{4}-\d{2}-\d{2} (.+) @end(?:\s+.*)?$");
+
+    for line in io::stdin().lock().lines() {
+        let line = line?;
+        if let Some(caps) = re_begin.captures(&line) {
+            ongoing_tasks.insert(caps[1].to_string(), line);
+        } else if let Some(caps) = re_end.captures(&line) {
+            ongoing_tasks.remove(&caps[1]);
+        } else {
+            // Check if this line is part of an ongoing task.
+            for (id, old_line) in ongoing_tasks.iter_mut() {
+                if line.contains(id) {
+                    *old_line = line.clone();
+                    break;
+                }
+            }
+        }
+    }
+
+    let mut tasks = ongoing_tasks.values().cloned().collect::<Vec<_>>();
+    tasks.sort();
+    for task in tasks {
+        println!("{task}");
+    }
+
+    Ok(())
+}
