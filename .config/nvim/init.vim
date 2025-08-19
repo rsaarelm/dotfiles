@@ -355,8 +355,8 @@ autocmd FileType javascript setlocal shiftwidth=2
 " Commands
 " ================================
 
-" Remove trailing whitespace.
-command! WhiteClean %s/\s\+$
+" Remove trailing whitespace and Windows <CR> linebreaks.
+command! WhiteClean %s/\s\+$//ge | %s/\r//g
 
 " Reformat Python source code using https://github.com/psf/black
 command! Black !black %
