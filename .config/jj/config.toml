@@ -6,4 +6,11 @@ email = "risto.saarelma@iki.fi"
 pager = "bat -p"
 
 [aliases]
-lg = ["log", "-l", "10"]
+lg = ["log", "-n", "8"]
+
+# jj gush [branch] points current working head to [branch]
+# and pushes it to the git remote
+gush = ["util", "exec", "--", "sh", "-c", """
+jj bookmark set $1 -r @
+jj git push -b $1
+""", ""]
