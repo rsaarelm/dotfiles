@@ -7,3 +7,21 @@ pager = "bat -p"
 
 [aliases]
 lg = ["log", "-n", "8"]
+
+# Commit everything and update master, for text repos without commit messages.
+snap = ["util", "exec", "--", "sh", "-c", """
+# Don't do anything if there are no changes.
+if [ -z "$(jj diff)" ]; then
+    echo "No changes."
+    exit 0
+fi
+
+# Assign dummy message if there's no description set.
+if [ -z "$(jj show --no-patch @ -T 'description')" ]; then
+    jj desc -m .
+fi
+
+jj new
+# Update master branch to point to new commit.
+jj bookmark set master -r @-
+""", ""]
