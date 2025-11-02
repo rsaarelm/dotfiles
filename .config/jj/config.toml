@@ -4,6 +4,7 @@ email = "risto.saarelma@iki.fi"
 
 [ui]
 pager = "bat -p"
+default-command = "status"
 
 [aliases]
 lg = ["log", "-n", "8"]
