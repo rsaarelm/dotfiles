@@ -26,3 +26,9 @@ jj new
 # Update master branch to point to new commit.
 jj bookmark set master -r @-
 """, ""]
+
+# Pull from remote named branch and rebase current work on top of it
+purr = ["util", "exec", "--", "sh", "-c", """
+jj git fetch
+jj rebase -A $1
+""", ""]
