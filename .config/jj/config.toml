@@ -29,6 +29,12 @@ jj bookmark set master -r @-
 
 # Pull from remote named branch and rebase current work on top of it
 purr = ["util", "exec", "--", "sh", "-c", """
+# Get branch name from argument, default to master if not provided.
+BRANCH_NAME="$1"
+if [ -z "$BRANCH_NAME" ]; then
+    BRANCH_NAME="master"
+fi
+
 jj git fetch
-jj rebase -A $1
+jj rebase -A $BRANCH_NAME
 """, ""]
