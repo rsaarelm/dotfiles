@@ -22,7 +22,7 @@ missing_format = ""
 block = "load"
 [[block.click]]
 button = "left"
-cmd = "st -e 'btm'"
+cmd = "alacritty -e 'btop'"
 
 [[block]]
 block = "tea_timer"

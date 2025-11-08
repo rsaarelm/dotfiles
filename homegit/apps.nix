@@ -25,7 +25,7 @@
 
         # Basic tools
         bat
-        bottom
+        btop
         busybox
         caddy
         direnv
@@ -39,6 +39,7 @@
         ghostscript
         git
         git-annex
+        glances
         gnumake
         helix
         hledger
