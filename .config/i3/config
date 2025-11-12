@@ -27,7 +27,7 @@ floating_maximum_size 1536 x 1024
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec "fish -c 'run-term'"
+bindsym $mod+Return exec "fish -c 'alacritty'"
 
 # kill focused window
 bindsym $mod+Shift+q kill
