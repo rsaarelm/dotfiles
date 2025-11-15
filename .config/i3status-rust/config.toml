@@ -25,11 +25,6 @@ button = "left"
 cmd = "alacritty -e 'btop'"
 
 [[block]]
-block = "tea_timer"
-increment = 360
-done_cmd = "notify-send 'Timer done'"
-
-[[block]]
 block = "sound"
 [[block.click]]
 button = "left"
