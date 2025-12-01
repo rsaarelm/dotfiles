@@ -13,7 +13,7 @@
         cachix
         coreutils
         exfat
-        inotifyTools
+        inotify-tools
         jmtpfs
         lm_sensors
         openssl
