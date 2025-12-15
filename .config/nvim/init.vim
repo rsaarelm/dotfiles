@@ -84,9 +84,6 @@ let g:rustfmt_options = '--edition 2021'
 " Nix file format
 Plug 'LnL7/vim-nix'
 
-" Language client
-Plug 'neovim/nvim-lspconfig'
-
 " Asynchronous completion framework
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -126,89 +123,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 EOF
-
-" Language client setup
-if has('nvim-0.7')
-
-lua << EOF
-local nvim_lsp = require('lspconfig')
-
-local opts = { noremap=true, silent=true }
-vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>=', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
-
-    -- https://old.reddit.com/r/rust/comments/1geyfld/rustanalyzer_server_cancelled_the_request_in/
-    -- as of 2024-12-13, fix from https://github.com/neovim/neovim/issues/30985
-    -- TODO: Remove the LSP cancel event shim when NeoVim has updated with the fix, prolly sometime in early 2025
-    for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
-        local default_diagnostic_handler = vim.lsp.handlers[method]
-        vim.lsp.handlers[method] = function(err, result, context, config)
-            if err ~= nil and err.code == -32802 then
-                return
-            end
-            return default_diagnostic_handler(err, result, context, config)
-        end
-    end
-end
-
-nvim_lsp.clangd.setup({
-  on_attach=on_attach,
-  settings = {
-  }
-})
-
-nvim_lsp.rust_analyzer.setup({
-  on_attach=on_attach,
-  settings = {
-    ["rust-analyzer"] = {
-      assist = {
-        importEnforceGranularity = true,
-        importGranularity = "crate",
-        importPrefix = "plain",
-      },
-      cargo = {
-        loadOutDirsFromCheck = true,
-        allFeatures = true,
-      },
-      -- Use clippy instead of check to report errors
-      checkOnSave = {
-        command = "clippy",
-      },
-      diagnostics = {
-        enable = true,
-        enableExperimental = true,
-      },
-      procMacro = {
-        enable = true,
-      },
-    }
-  },
-})
-EOF
-
-endif
 
 
 " Settings
