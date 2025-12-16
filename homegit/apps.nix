@@ -133,7 +133,6 @@
         gimp
         keepass
         mpv
-        neovim-qt
         scrot
         sxiv
         xorg.xrefresh
