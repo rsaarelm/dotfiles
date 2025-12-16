@@ -2,95 +2,94 @@
 
 {
   environment = {
-    systemPackages = with pkgs;
-      let neovim = pkgs.neovim.override { vimAlias = true; };
-      in [
-        # System
-        acpi
-        acpitool
-        at
-        bluez
-        cachix
-        coreutils
-        exfat
-        inotify-tools
-        jmtpfs
-        lm_sensors
-        openssl
-        openvpn
-        pciutils
-        pkg-config
-        psmisc
-        usbutils
+    systemPackages = with pkgs; [
+      # System
+      acpi
+      acpitool
+      at
+      bluez
+      cachix
+      coreutils
+      exfat
+      inotify-tools
+      jmtpfs
+      lm_sensors
+      openssl
+      openvpn
+      pciutils
+      pkg-config
+      psmisc
+      usbutils
 
-        # Basic tools
-        bat
-        btop
-        busybox
-        caddy
-        direnv
-        entr
-        eza
-        fd
-        ffmpeg
-        file
-        fzf
-        gcc
-        ghostscript
-        git
-        git-annex
-        glances
-        gnumake
-        helix
-        hledger
-        imagemagick
-        jq
-        jujutsu
-        just
-        links2
-        lynx
-        moreutils
-        mosh
-        ncdu
-        neofetch
-        neovim
-        nix-index
-        nixfmt-rfc-style
-        nodejs
-        optipng
-        p7zip
-        pandoc
-        pinentry-tty
-        pwgen
-        (python3.withPackages (python-pkgs: with python-pkgs; [
+      # Basic tools
+      bat
+      btop
+      busybox
+      caddy
+      direnv
+      entr
+      eza
+      fd
+      ffmpeg
+      file
+      fzf
+      gcc
+      ghostscript
+      git
+      git-annex
+      glances
+      gnumake
+      helix
+      hledger
+      imagemagick
+      jq
+      jujutsu
+      just
+      links2
+      lynx
+      moreutils
+      mosh
+      ncdu
+      neofetch
+      nix-index
+      nixfmt-rfc-style
+      nodejs
+      optipng
+      p7zip
+      pandoc
+      pinentry-tty
+      pwgen
+      (python3.withPackages (
+        python-pkgs: with python-pkgs; [
           scipy
           pandas
-        ]))
-        python3Packages.ipython
-        ripgrep
-        sshfs
-        texlive.combined.scheme-small
-        tmux
-        tokei
-        unzip
-        uv
-        wget
-        xsel
-        xxd
-        yewtube
-        yt-dlp
-        zoxide
+        ]
+      ))
+      python3Packages.ipython
+      ripgrep
+      sshfs
+      texlive.combined.scheme-small
+      tmux
+      tokei
+      unzip
+      uv
+      wget
+      xsel
+      xxd
+      yewtube
+      yt-dlp
+      zoxide
 
-        # Rust and rust-script stuff
-        cargo
-        cargo-outdated
-        clang
-        clippy
-        rust-analyzer
-        rust-script
-        rustc
-        rustfmt
-      ];
+      # Rust and rust-script stuff
+      cargo
+      cargo-outdated
+      clang
+      clippy
+      rust-analyzer
+      rust-script
+      rustc
+      rustfmt
+    ];
 
     variables = {
       EDITOR = pkgs.lib.mkOverride 0 "nvim";
@@ -119,8 +118,7 @@
       enable = true;
       extraPackages = with pkgs; [
         (st.overrideAttrs (oldAttrs: rec {
-          configFile =
-            writeText "config.def.h" (builtins.readFile ./st.config.h);
+          configFile = writeText "config.def.h" (builtins.readFile ./st.config.h);
           postPatch = ''
             ${oldAttrs.postPatch}
              cp ${configFile} config.def.h'';
@@ -162,8 +160,7 @@
       time = 60; # minutes
       locker = "${pkgs.i3lock}/bin/i3lock --color 002222";
       notify = 20; # seconds
-      notifier =
-        "${pkgs.libnotify}/bin/notify-send 'Locking machine in 20 seconds'";
+      notifier = "${pkgs.libnotify}/bin/notify-send 'Locking machine in 20 seconds'";
       extraOptions = [ "-detectsleep" ];
     };
   };

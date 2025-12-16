@@ -98,6 +98,11 @@
     fish = {
       enable = true;
     };
+
+    neovim = {
+      enable = true;
+      vimAlias = true;
+    };
   };
 
   services = {
