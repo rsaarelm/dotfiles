@@ -1,0 +1,36 @@
+{
+  "plugins": {
+    "copilot.vim": {
+      "rev": "f89e977c87180519ba3b942200e3d05b17b1e2fc",
+      "src": "https://github.com/github/copilot.vim"
+    },
+    "fzf-lua": {
+      "rev": "9d579feab4d3035627150e5e9b6e8fbf5e814ef6",
+      "src": "https://github.com/ibhagwan/fzf-lua"
+    },
+    "hotpot.nvim": {
+      "rev": "443fe563423c0fc2fdb1c4fa92c3ab3ad5de8ae1",
+      "src": "https://github.com/rktjmp/hotpot.nvim"
+    },
+    "oil.nvim": {
+      "rev": "cbcb3f997f6f261c577b943ec94e4ef55108dd95",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "todo.txt-vim": {
+      "rev": "3bb5f9cf0d6c7ee91b476a97054c336104d2b6f5",
+      "src": "https://github.com/freitass/todo.txt-vim"
+    },
+    "vim-fennel": {
+      "rev": "cb934828023e90c70a073081f473208a66d6f9cc",
+      "src": "https://github.com/atweiden/vim-fennel"
+    },
+    "vim-peekaboo": {
+      "rev": "2a8a3187ba6b15201b2563a3f0331fcdf49da36c",
+      "src": "https://github.com/junegunn/vim-peekaboo"
+    },
+    "vimoutliner": {
+      "rev": "efc9f68a4d8198a27ffc08edbdb4d3274f481a57",
+      "src": "https://github.com/rsaarelm/vimoutliner"
+    }
+  }
+}
