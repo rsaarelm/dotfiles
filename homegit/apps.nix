@@ -33,7 +33,6 @@
       ffmpeg
       file
       fzf
-      gcc
       ghostscript
       git
       git-annex
@@ -53,7 +52,6 @@
       neofetch
       nix-index
       nixfmt-rfc-style
-      nodejs
       optipng
       p7zip
       pandoc
@@ -80,11 +78,15 @@
       yt-dlp
       zoxide
 
-      # Rust and rust-script stuff
+      # Programming language stuff
       cargo
       cargo-outdated
-      clang
+      clang-tools
       clippy
+      fennel-ls
+      gcc
+      lua-language-server
+      nodejs
       rust-analyzer
       rust-script
       rustc
