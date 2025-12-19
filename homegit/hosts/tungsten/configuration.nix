@@ -82,12 +82,12 @@
 
   # hiDPI settinps
   services.xserver.dpi = 168;
+  environment.variables = {
+    GDK_SCALE = "2";
   # Not needed as of 24.11?
-  # environment.variables = {
-  #   GDK_SCALE = "2";
   #   GDK_DPI_SCALE = "0.5";
   #   _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
-  # };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
