@@ -160,3 +160,6 @@ workspace_layout tabbed
 bindsym $mod+Tab workspace back_and_forth
 
 mouse_warping none
+
+# Chromium's upload/download dialogs are glitched and show up larger than the screen, unfloat them to fix.
+for_window [class="^(?i)chromium" window_role="(?i)GtkFileChooserDialog"] floating disable
