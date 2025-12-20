@@ -1,11 +1,14 @@
-; We don't have from module import *, gotta name the imports.
-(local { : list-plugin-modules } (require :util))
-
 (require :config.mappings)
 (require :config.settings)
 (require :config.autocmds)
 (require :config.lsp)
 
 ; Automatically load all plugin specs under "fnl/plugins/"
-(each [_ m (pairs (list-plugin-modules))]
-                    (require m))
+(local plugin-paths
+  (-> (vim.fn.stdpath "config")
+      (.. "/fnl/plugins/*.fnl")
+      (vim.fn.glob)
+      (vim.split "\n")))
+
+(each [_ path (ipairs plugin-paths)]
+  (require (.. "plugins." (vim.fn.fnamemodify path ":t:r"))))
