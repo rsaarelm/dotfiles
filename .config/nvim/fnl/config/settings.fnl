@@ -2,3 +2,4 @@
 (set vim.opt.listchars { :tab "›…" :trail "·" :nbsp "░" })
 (set vim.opt.list true)
 (set vim.opt.mouse "")  ; Mouse support just gets in the way, rely on natural terminal functions
+(set vim.opt.expandtab false)
