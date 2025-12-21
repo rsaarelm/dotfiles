@@ -162,12 +162,11 @@
   fonts.packages = with pkgs; [
     terminus_font
     intel-one-mono
+    nerd-fonts.envy-code-r
     source-code-pro
 
     # Fonts with extra symbols
     noto-fonts-cjk-sans
-    font-awesome
-    powerline-fonts
   ];
 
   # Hide immobile mouse cursor.
