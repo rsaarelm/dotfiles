@@ -1,7 +1,7 @@
 icons_format = "{icon}"
 
 [icons]
-icons = "awesome6"
+icons = "material-nf"
 
 [[block]]
 block = "net"
