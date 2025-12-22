@@ -4,7 +4,7 @@ normal.family = "EnvyCodeR Nerd Font"
 bold.family = "EnvyCodeR Nerd Font"
 italic.family = "EnvyCodeR Nerd Font"
 bold_italic.family = "EnvyCodeR Nerd Font"
-size = 9
+size = 14
 
 [[hints.enabled]]
 hyperlinks = true
