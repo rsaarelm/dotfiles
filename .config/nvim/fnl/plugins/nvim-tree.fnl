@@ -24,13 +24,14 @@
     :filters {
       :custom [
         ; Programming and VCS stuff
-        "^.git$" ".o$" ".cpcache$" ".pyc$" "^.direnv$" "__pycache__$"
+        "^\\.git$" "\\.o$" "\\.cpcache$" "\\.pyc$" "^\\.direnv$" "__pycache__$"
 
         ; Binary media files
-        ".png$" ".wav$" ".bin$" ".blend$" ".glb$" ".jpg$" ".ttf$" ".otf$" ".woff$" ".woff2$"
+        "\\.png$" "\\.wav$" "\\.bin$" "\\.blend$" "\\.glb$" "\\.jpg$" "\\.ttf$"
+        "\\.otf$" "\\.woff$" "\\.woff2$"
 
         ; Godot stuff
-        ".import$" ".res$" ".uid$"
+        "\\.import$" "\\.res$" "\\.uid$"
         ]
     }
 
