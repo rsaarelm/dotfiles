@@ -69,6 +69,7 @@
       texlive.combined.scheme-small
       tmux
       tokei
+      tree-sitter
       unzip
       uv
       wget
