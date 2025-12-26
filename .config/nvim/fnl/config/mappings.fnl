@@ -33,6 +33,9 @@
 (vim.keymap.set "v" "<" "<gv")
 (vim.keymap.set "v" ">" ">gv")
 
+; Macro repeat
+(vim.keymap.set "" "<f4>" "@@")
+
 ; Timestamp abbreviations (Do these not have API?), trailing caps to make them improbable real input
 (vim.cmd "iabbr tsP <C-r>=strftime(\"%Y-%m-%d\")<cr>")
 (vim.cmd "iabbr tsT <C-r>=strftime(\"%Y-%m-%d %H:%M\")<cr>")
