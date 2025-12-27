@@ -5,4 +5,4 @@
 (set vim.opt.expandtab false)  ; Indent with spaces everywhere by default.
 (set vim.opt.ignorecase true)  ; Case-insensitive search by default
 (set vim.opt.smartcase true)
-(set vim.opt_local.linebreak true)  ; Wrap at word breaks
+(set vim.opt.linebreak true)  ; Wrap at word breaks
