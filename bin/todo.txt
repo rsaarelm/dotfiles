@@ -6,6 +6,7 @@
 //! [dependencies]
 //! anyhow = "1"
 //! chrono = "0.4"
+//! clap = { version = "4", features = ["derive"] }
 //! regex = "1"
 //! ```
 
@@ -13,18 +14,32 @@
 // https://github.com/rust-lang/cargo/issues/12207
 
 use anyhow::{anyhow, bail, Context, Result};
+use clap::Parser;
 use regex::Regex;
 use std::{
     fs::read_to_string,
     process::{Command, Stdio},
 };
 
+#[derive(Parser, Debug)]
+struct Args {
+    /// Keyword to search for, default TODO
+    #[arg(long, default_value = "TODO")]
+    keyword: String,
+
+    /// Whether date values should be left out.
+    #[arg(long)]
+    omit_dates: bool,
+}
+
 fn main() -> Result<()> {
+    let args = Args::parse();
+
     // Valid TODO items are a single comment marker followed immediately by
     // "TODO", optionally followed with a colon that is dropped. The subsequent
     // text, and the text of any lines below that have the exact same comment
     // prefix and do not start with "TODO" are added to the item sans the prefix.
-    let todo_re = Regex::new(r"^(\s*\S{1,4}\s+)TODO:? (.*)$").unwrap();
+    let todo_re = Regex::new(&format!(r"^(\s*\S{{1,4}}\s+){}:? (.*)$", args.keyword)).unwrap();
     let priority_re = Regex::new(r"^(\(.\)) (.*)$").unwrap();
 
     let mut todo_list = Vec::new();
@@ -52,7 +67,7 @@ fn main() -> Result<()> {
                 while let Some((_, next_line)) = lines.peek() {
                     if let Some(next_line) = next_line.strip_prefix(prefix) {
                         let next_line = next_line.trim();
-                        if !next_line.starts_with("TODO") && !next_line.is_empty() {
+                        if !next_line.starts_with(&args.keyword) && !next_line.is_empty() {
                             text.push_str(" ");
                             text.push_str(next_line);
                             lines.next();
@@ -61,13 +76,18 @@ fn main() -> Result<()> {
                     }
                     break;
                 }
-                let date = blame_date(&path, n)?;
+
+                let date = if args.omit_dates {
+                    "".to_owned()
+                } else {
+                    format!("{} ", blame_date(&path, n)?)
+                };
 
                 // Move priority marker in front of date.
                 if let Some(caps) = priority_re.captures(&text) {
-                    todo_list.push(format!("{} {date} {}", &caps[1], &caps[2]));
+                    todo_list.push(format!("{} {date}{}", &caps[1], &caps[2]));
                 } else {
-                    todo_list.push(format!("{date} {text}"));
+                    todo_list.push(format!("{date}{text}"));
                 }
             }
         }
