@@ -4,6 +4,8 @@
    :severity_sort true  ; Display errors before warnings.
   })
 
+(vim.keymap.set "" "grf" vim.lsp.buf.format)  ; Language formatter shortcut using convention of built-in LSP bindings
+
 (vim.lsp.config
   "clangd"
   {:cmd [ "clangd" ]
