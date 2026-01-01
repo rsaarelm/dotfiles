@@ -1,9 +1,8 @@
-(vim.lsp.inlay_hint.enable true)
 (vim.diagnostic.config
-   ; Display the LSP code problems while editing.
-  {:virtual_text true
-   ; Display errors before warnings.
-   :severity_sort true})
+  {
+   :virtual_text true   ; Display the LSP code problems while editing.
+   :severity_sort true  ; Display errors before warnings.
+  })
 
 (vim.lsp.config
   "clangd"
