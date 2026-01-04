@@ -7,6 +7,14 @@
    })
 
 (vim.api.nvim_create_autocmd ["FileType"]
+  {:pattern ["text"]
+   ; Make things look nice for long lines when using semantic linefeeds
+   :callback (λ []
+               (set vim.opt_local.breakindent true)
+               (set vim.opt_local.breakindentopt [ :shift:2 ]))
+   })
+
+(vim.api.nvim_create_autocmd ["FileType"]
   {:pattern ["rust"]
    :callback
    (λ []
