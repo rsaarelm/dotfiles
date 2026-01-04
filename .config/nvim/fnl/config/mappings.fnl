@@ -40,3 +40,8 @@
 (vim.cmd "iabbr tsP <C-r>=strftime(\"%Y-%m-%d\")<cr>")
 (vim.cmd "iabbr tsT <C-r>=strftime(\"%Y-%m-%d %H:%M\")<cr>")
 (vim.cmd "iabbr tsZ <C-r>=strftime(\"%Y-%m-%dT%H:%M:%S%z\")<cr>")
+
+(vim.api.nvim_create_user_command
+  "ClearWhitespace"
+  (λ [] (local util (require :util)) (util.clear-trailing-whitespace))
+  { :desc "Clear trailing whitespace from buffer" })
