@@ -32,6 +32,7 @@
     steam
     discord
     wine64
+    starsector
   ];
 
   services = {
@@ -97,4 +98,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11";
 }
-
