@@ -33,6 +33,10 @@
 (vim.keymap.set "v" "<" "<gv")
 (vim.keymap.set "v" ">" ">gv")
 
+; Simple buffer navigation
+(vim.keymap.set "" "<left>" ":bp<cr>")
+(vim.keymap.set "" "<right>" ":bn<cr>")
+
 ; Macro repeat
 (vim.keymap.set "" "<f4>" "@@")
 
