@@ -31,10 +31,9 @@
         "\\.otf$" "\\.woff$" "\\.woff2$"
 
         ; Godot stuff
-        "\\.import$" "\\.res$" "\\.uid$"
+        "\\.res$" "\\.uid$"
         ]
     }
 
     :on_attach on-attach
   })
-
