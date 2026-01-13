@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+
+# Formatting tool that aligns columnar data in text files.
+#
+# A column separator is two or more space characters (" " only, no tabs, no NBSPs) surrounded by non-space, non-EOL on both sides.
+# A block is a contiguous set of lines containing the same nonzero number of column separators.
+# The tool formats each block independently and extends the column separators so that each column is left-aligned.
+
+# By default, automatically look for blocks with the same number of columns, but if called with the --all flag, align all lines together regardless of the number of columns.
+
+import argparse
+import re
+import sys
+import unittest
+
+def to_columns(lines: list[str]) -> list[list[str]]:
+    """Split lines at points of two or more spaces."""
+    return [re.split(r'(?<=\S) {2,}(?=\S)', line) for line in lines]
+
+def format_columns(rows: list[list[str]]) -> list[str]:
+    """Print out a sequence of rows so that all columns are left-aligned.
+
+    The number of columns in the argument list may vary."""
+    num_columns = max(len(row) for row in rows)
+    column_widths = [0] * num_columns
+    for row in rows:
+        for i in range(len(row)):
+            column_widths[i] = max(column_widths[i], len(row[i]))
+
+    formatted_lines = []
+    for row in rows:
+        formatted_line = ''
+        for i in range(len(row)):
+            formatted_line += row[i].ljust(column_widths[i])
+            if i < len(row) - 1:
+                formatted_line += '  '
+        formatted_lines.append(formatted_line.rstrip())
+    return formatted_lines
+
+def align_blocks(lines: list[str]) -> list[str]:
+    formatted_lines = []
+    lines = to_columns(lines)
+
+    i = 0
+    while i < len(lines):
+        # Append single-column lines as is.
+        if len(lines[i]) <= 1:
+            formatted_lines.append(''.join(lines[i]))
+            i += 1
+            continue
+
+        # Find contiguous block of multi-column lines.
+        block_start = i
+        num_columns = len(lines[i])
+        while i < len(lines) and len(lines[i]) == num_columns:
+            i += 1
+        block_end = i
+
+        formatted_lines.extend(format_columns(lines[block_start:block_end]))
+
+    return formatted_lines
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Align columnar data in text files.")
+    parser.add_argument('--all', action='store_true', help='Align all lines together regardless of the number of columns.')
+    args = parser.parse_args()
+
+    input_lines = [line.rstrip('\n') for line in sys.stdin]
+
+    if args.all:
+        input_lines = to_columns(input_lines)
+        formatted_lines = format_columns(input_lines)
+    else:
+        formatted_lines = align_blocks(input_lines)
+
+    for line in formatted_lines:
+        print(line)
