@@ -16,20 +16,18 @@ class Entry:
     message: str
 
 def parse(line):
-    date_pattern = r'\d{4}-\d{2}-\d{2}'
+    date_pattern = r'^x (\d{4}-\d{2}-\d{2})'
     match = re.search(date_pattern, line)
     if match:
-        date = match.group()
+        date = match.group(1)
         date_obj = datetime.strptime(date, '%Y-%m-%d')
         week_number = date_obj.isocalendar()[1]
         day_of_week = date_obj.strftime('%a')
-        #decorated_date = f"{date_str} w{week_number:02} {day_of_week} "
-        #return line.replace(date_str, decorated_date)
         return Entry(
             date,
             date_obj.isocalendar()[1],
             date_obj.strftime('%a'),
-            line.replace(date, "", 1).strip()
+            line.replace(match.group(), "", 1).strip()
         )
     return Entry("", 0, "", line.strip())
 
@@ -40,6 +38,6 @@ for line in sys.stdin:
         if week_number is not None and week_number != entry.week_number:
             print()
         week_number = entry.week_number
-        print(f"{entry.date} w{entry.week_number:02} {entry.day_of_week} {entry.message}")
+        print(f"x {entry.date} w{entry.week_number:02} {entry.day_of_week}  {entry.message}")
     else:
         print(entry.message)
