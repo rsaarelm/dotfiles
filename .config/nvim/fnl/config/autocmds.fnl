@@ -7,7 +7,9 @@
                (util.dont-highlight-tabs)
                ; Support the fold comments in the language.
                (set vim.opt_local.foldmarker "#region,#endregion")
-               (set vim.opt_local.foldmethod "marker"))
+               (set vim.opt_local.foldmethod "marker")
+               ; Format ## comments
+               (vim.opt_local.comments:append "b:##"))
    })
 
 (vim.api.nvim_create_autocmd ["FileType"]
