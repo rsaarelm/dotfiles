@@ -2,8 +2,12 @@
 
 (vim.api.nvim_create_autocmd ["FileType"]
   {:pattern ["gdscript"]
-   ; Don't highlight tabs in GDScript as they're the standard indentation.
-   :callback util.dont-highlight-tabs
+   :callback (λ []
+               ; GDScript uses tabs for indentation, don't highlight.
+               (util.dont-highlight-tabs)
+               ; Support the fold comments in the language.
+               (set vim.opt_local.foldmarker "#region,#endregion")
+               (set vim.opt_local.foldmethod "marker"))
    })
 
 (vim.api.nvim_create_autocmd ["FileType"]
