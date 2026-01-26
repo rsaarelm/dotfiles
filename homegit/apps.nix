@@ -65,6 +65,7 @@
       ))
       python3Packages.ipython
       ripgrep
+      rumdl # Markdown formatter
       sshfs
       texlive.combined.scheme-small
       tmux
@@ -80,11 +81,13 @@
       zoxide
 
       # Programming language stuff
+      black # Python formatter
       cargo
       cargo-outdated
       clang-tools
       clippy
       fennel-ls
+      fnlfmt # Fennel formatter
       gcc
       lua-language-server
       nodejs
@@ -92,6 +95,7 @@
       rust-script
       rustc
       rustfmt
+      stylua # Lua formatter
     ];
 
     variables = {
