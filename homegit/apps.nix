@@ -130,7 +130,6 @@
         alacritty
         blender
         chromium
-        godot_4
         gimp
         keepass
         mpv
@@ -138,6 +137,9 @@
         sxiv
         xorg.xrefresh
         zathura
+
+        godot_4
+        gdscript-formatter
       ];
     };
 
