@@ -16,6 +16,10 @@
       "rev": "443fe563423c0fc2fdb1c4fa92c3ab3ad5de8ae1",
       "src": "https://github.com/rktjmp/hotpot.nvim"
     },
+    "nvim-lint": {
+      "rev": "ca6ea12daf0a4d92dc24c5c9ae22a1f0418ade37",
+      "src": "https://github.com/mfussenegger/nvim-lint"
+    },
     "nvim-tree.lua": {
       "rev": "b8b44b6a2494d086a9177251a119f9daec6cace8",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
