@@ -12,8 +12,6 @@
   ; Default
   (api.config.mappings.default_on_attach bufnr)
 
-  ; Map on this end too.
-  (vim.keymap.set "n" "<tab>" api.tree.toggle { :buffer bufnr :noremap true })
   ; Remap for colemak movement.
   (vim.keymap.set "n" "e" "gk" { :buffer bufnr :noremap true }))
 
@@ -32,6 +30,9 @@
         "\\.res$" "\\.uid$"
         ]
     }
+
+    ; Disable the window picker, if I want precise
+    :actions { :open_file { :window_picker { :enable false } } }
 
     :on_attach on-attach
   })
