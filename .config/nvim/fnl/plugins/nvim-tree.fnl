@@ -8,8 +8,6 @@
 (set vim.g.loaded_netrw 1)
 (set vim.g.loaded_netrwPlugin 1)
 
-(vim.keymap.set "n" "<tab>" api.tree.toggle)
-
 (λ on-attach [bufnr]
   ; Default
   (api.config.mappings.default_on_attach bufnr)
