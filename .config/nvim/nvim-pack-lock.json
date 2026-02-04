@@ -8,6 +8,10 @@
       "rev": "f89e977c87180519ba3b942200e3d05b17b1e2fc",
       "src": "https://github.com/github/copilot.vim"
     },
+    "cornelis": {
+      "rev": "8401538b8d5056571827679658331136c38f11be",
+      "src": "https://github.com/agda/cornelis"
+    },
     "fzf-lua": {
       "rev": "9d579feab4d3035627150e5e9b6e8fbf5e814ef6",
       "src": "https://github.com/ibhagwan/fzf-lua"
@@ -15,6 +19,10 @@
     "hotpot.nvim": {
       "rev": "443fe563423c0fc2fdb1c4fa92c3ab3ad5de8ae1",
       "src": "https://github.com/rktjmp/hotpot.nvim"
+    },
+    "nvim-hs.vim": {
+      "rev": "d4a6b7278ae6a1fdc64e300c3ebc1e24719af342",
+      "src": "https://github.com/neovimhaskell/nvim-hs.vim"
     },
     "nvim-lint": {
       "rev": "ca6ea12daf0a4d92dc24c5c9ae22a1f0418ade37",
@@ -43,6 +51,10 @@
     "vim-peekaboo": {
       "rev": "2a8a3187ba6b15201b2563a3f0331fcdf49da36c",
       "src": "https://github.com/junegunn/vim-peekaboo"
+    },
+    "vim-textobj-user": {
+      "rev": "41a675ddbeefd6a93664a4dc52f302fe3086a933",
+      "src": "https://github.com/kana/vim-textobj-user"
     },
     "vimoutliner": {
       "rev": "efc9f68a4d8198a27ffc08edbdb4d3274f481a57",

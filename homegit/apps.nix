@@ -81,11 +81,13 @@
       zoxide
 
       # Programming language stuff
+      (agda.withPackages (p: [ p.standard-library ]))
       black # Python formatter
       cargo
       cargo-outdated
       clang-tools
       clippy
+      cornelis # Binary for neovim's agda mode
       fennel-ls
       fnlfmt # Fennel formatter
       gcc
@@ -95,6 +97,7 @@
       rust-script
       rustc
       rustfmt
+      stack # Haskell thing
       stylua # Lua formatter
     ];
 
