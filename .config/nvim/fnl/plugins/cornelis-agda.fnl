@@ -27,3 +27,9 @@
        ["<C-A>" ":CornelisInc"]
        ["<C-D>" ":CornelisDec"]])]
        (vim.keymap.set "" bind (fn [] (vim.cmd cmd) {:buffer true}))))})
+
+; Run the loader every time an agda file is saved.
+(vim.api.nvim_create_autocmd
+  [:BufWritePost]
+  {:pattern ["*.agda"]
+   :callback (fn [] (vim.cmd ":CornelisLoad") false)})
