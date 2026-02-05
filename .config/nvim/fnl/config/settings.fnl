@@ -9,8 +9,8 @@
 (set vim.opt.linebreak true)  ; Wrap at word breaks
 
 ; Define some missing digraphs
-(vim.api.nvim_command "digraph Cx 8450") ; ℂ
-(vim.api.nvim_command "digraph Nx 8469") ; ℕ
-(vim.api.nvim_command "digraph Qx 8474") ; ℚ
-(vim.api.nvim_command "digraph Rx 8477") ; ℝ
-(vim.api.nvim_command "digraph Zx 8484") ; ℤ
+(vim.api.nvim_command "digraph Cb 8450") ; ℂ
+(vim.api.nvim_command "digraph Nb 8469") ; ℕ
+(vim.api.nvim_command "digraph Qb 8474") ; ℚ
+(vim.api.nvim_command "digraph Rb 8477") ; ℝ
+(vim.api.nvim_command "digraph Zb 8484") ; ℤ
