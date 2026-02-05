@@ -87,7 +87,6 @@
       cargo-outdated
       clang-tools
       clippy
-      cornelis # Binary for neovim's agda mode
       fennel-ls
       fnlfmt # Fennel formatter
       gcc
