@@ -90,6 +90,8 @@
       fennel-ls
       fnlfmt # Fennel formatter
       gcc
+      idris2
+      idris2Packages.idris2Lsp
       lua-language-server
       nodejs
       rust-analyzer
