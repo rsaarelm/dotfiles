@@ -13,24 +13,11 @@
 (vim.lsp.enable "clangd")
 
 (vim.lsp.config
-  "lua"
-  {:cmd [ "lua-language-server" ]
-   :filetypes ["lua"]})
-(vim.lsp.enable "lua")
-
-(vim.lsp.config
   "fennel"
   {:cmd [ "fennel-ls" ]
    :filetypes ["fennel"]
    :root_markers ["flsproject.fnl" ".git"]})
 (vim.lsp.enable "fennel")
-
-(vim.lsp.config
-  "rust-analyzer"
-  {:cmd [ "rust-analyzer" ]
-   :filetypes ["rust"]
-   :root_markers ["Cargo.toml"]})
-(vim.lsp.enable "rust-analyzer")
 
 (vim.lsp.config
   "gdscript"
@@ -39,3 +26,22 @@
    :filetypes ["gdscript"]
    :root_markers ["project.godot"]})
 (vim.lsp.enable "gdscript")
+
+(vim.lsp.config
+  "lua"
+  {:cmd [ "lua-language-server" ]
+   :filetypes ["lua"]})
+(vim.lsp.enable "lua")
+
+(vim.lsp.config
+  "python"
+  {:cmd [ "basedpyright" ]
+   :filetypes ["python"]})
+(vim.lsp.enable "python")
+
+(vim.lsp.config
+  "rust-analyzer"
+  {:cmd [ "rust-analyzer" ]
+   :filetypes ["rust"]
+   :root_markers ["Cargo.toml"]})
+(vim.lsp.enable "rust-analyzer")

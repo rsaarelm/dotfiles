@@ -57,22 +57,13 @@
       pandoc
       pinentry-tty
       pwgen
-      (python3.withPackages (
-        python-pkgs: with python-pkgs; [
-          scipy
-          pandas
-        ]
-      ))
-      python3Packages.ipython
       ripgrep
-      rumdl # Markdown formatter
       sshfs
       texlive.combined.scheme-small
       tmux
       tokei
       tree-sitter
       unzip
-      uv
       wget
       xsel
       xxd
@@ -81,25 +72,56 @@
       zoxide
 
       # Programming language stuff
+
+      # Agda
       (agda.withPackages (p: [ p.standard-library ]))
-      black # Python formatter
-      cargo
-      cargo-outdated
+
+      # C/++
       clang-tools
-      clippy
-      fennel-ls
-      fnlfmt # Fennel formatter
       gcc
+
+      # Fennel
+      fennel-ls
+      fnlfmt
+
+      # Haskell
+      stack
+
+      # Idris
       idris2
       idris2Packages.idris2Lsp
-      lua-language-server
+
+      # JavaScript
       nodejs
+
+      # Lua
+      lua-language-server
+      stylua
+
+      # Markdown
+      rumdl
+
+      # Python
+      basedpyright
+      (python3.withPackages (
+        python-pkgs: with python-pkgs; [
+          scipy
+          pandas
+        ]
+      ))
+      python3Packages.ipython
+      ruff
+      uv
+
+      # Rust
+      cargo
+      cargo-outdated
+      clippy
       rust-analyzer
       rust-script
       rustc
       rustfmt
-      stack # Haskell thing
-      stylua # Lua formatter
+
     ];
 
     variables = {

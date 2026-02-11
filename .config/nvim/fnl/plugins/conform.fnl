@@ -7,7 +7,7 @@
                                    :lua [:stylua]
                                    :markdown [:rumdl]
                                    :nix [:nixfmt]
-                                   :python [:black]
+                                   :python [:ruff]
                                    :rust [:rustfmt]}})
 
 (vim.keymap.set "" :<leader>= conform.format)
