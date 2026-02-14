@@ -33,7 +33,8 @@
         ]
     }
 
-    ; Disable the window picker, if I want precise
+    ; Disable the window picker to make things run faster, switch buffers
+    ; manually if you want a specific layout.
     :actions { :open_file { :window_picker { :enable false } } }
 
     :on_attach on-attach
