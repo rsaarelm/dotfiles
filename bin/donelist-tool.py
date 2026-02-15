@@ -12,6 +12,7 @@ from datetime import datetime
 @dataclass
 class Entry:
     date: str
+    full_message: str
     message: str
     project: str
 
@@ -23,7 +24,8 @@ def parse(line: str) -> Entry:
         date = match.group(1)
         project = ""
 
-        message = line.replace(match.group(), "", 1).strip()
+        full_message = line.replace(match.group(), "", 1).strip()
+        message = full_message
 
         # First project pattern, if the line ends with " (subdir/xyzzy.ext)", the project is "xyzzy"
         filename_project_pattern = r" \((.*?\/)*([^.) ]+)(\.[^) ]+)\)$"
@@ -40,6 +42,7 @@ def parse(line: str) -> Entry:
 
         return Entry(
             date,
+            full_message,
             message,
             project,
         )
@@ -59,10 +62,10 @@ def decorate_dates(entries: list[Entry]):
                 print()
             last_weeknum = week_number
             print(
-                f"x {e.date} w{week_number:02} {day_of_week}  {e.message}"
+                f"x {e.date} w{week_number:02} {day_of_week}  {e.full_message}"
             )
         else:
-            print(e.message)
+            print(e.full_message)
 
 
 def group_projects(entries: list[Entry], max_items: int = 6):
