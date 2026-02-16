@@ -7,18 +7,24 @@
 //! anyhow = "1"
 //! chrono = "0.4"
 //! clap = { version = "4", features = ["derive"] }
+//! lazy-regex = "3"
+//! memoize = "0.4"
 //! regex = "1"
 //! ```
 
 // TODO: Use cargo script runner when it's stable instead of rust-script,
 // https://github.com/rust-lang/cargo/issues/12207
 
-use anyhow::{anyhow, bail, Context, Result};
+use anyhow::{Result, bail};
 use clap::Parser;
+use lazy_regex::regex;
+use memoize::memoize;
 use regex::Regex;
 use std::{
+    collections::HashMap,
     fs::read_to_string,
     process::{Command, Stdio},
+    rc::Rc,
 };
 
 #[derive(Parser, Debug)]
@@ -26,6 +32,11 @@ struct Args {
     /// Keyword to search for, default TODO
     #[arg(long, default_value = "TODO")]
     keyword: String,
+
+    /// Search outline TODOs instead of comment TODOs, outline TODO is [_]
+    /// with only whitespace before it.
+    #[arg(long)]
+    outline_todos: bool,
 
     /// Whether date values should be left out.
     #[arg(long)]
@@ -40,7 +51,9 @@ fn main() -> Result<()> {
     // text, and the text of any lines below that have the exact same comment
     // prefix and do not start with "TODO" are added to the item sans the prefix.
     let todo_re = Regex::new(&format!(r"^(\s*\S{{1,4}}\s+){}:? (.*)$", args.keyword)).unwrap();
-    let priority_re = Regex::new(r"^(\(.\)) (.*)$").unwrap();
+    let priority_re = regex!(r"^(\(.\)) (.*)$");
+
+    let outline_re = regex!(r"\s*\[_\] (.*)$");
 
     let mut todo_list = Vec::new();
 
@@ -59,35 +72,49 @@ fn main() -> Result<()> {
 
         while let Some((n, line)) = lines.next() {
             let n = n + 1;
-            if let Some(caps) = todo_re.captures(line) {
-                // Matched a TODO item, grab the first line and see if it
-                // continues to the next.
-                let prefix = &caps[1];
-                let mut text = caps[2].trim().to_string();
-                while let Some((_, next_line)) = lines.peek() {
-                    if let Some(next_line) = next_line.strip_prefix(prefix) {
-                        let next_line = next_line.trim();
-                        if !next_line.starts_with(&args.keyword) && !next_line.is_empty() {
-                            text.push_str(" ");
-                            text.push_str(next_line);
-                            lines.next();
-                            continue;
+            if !args.outline_todos {
+                if let Some(caps) = todo_re.captures(line) {
+                    // Matched a TODO item, grab the first line and see if it
+                    // continues to the next.
+                    let prefix = &caps[1];
+                    let mut text = caps[2].trim().to_string();
+                    while let Some((_, next_line)) = lines.peek() {
+                        if let Some(next_line) = next_line.strip_prefix(prefix) {
+                            let next_line = next_line.trim();
+                            if !next_line.starts_with(&args.keyword) && !next_line.is_empty() {
+                                text.push_str(" ");
+                                text.push_str(next_line);
+                                lines.next();
+                                continue;
+                            }
                         }
+                        break;
                     }
-                    break;
+
+                    let date = if args.omit_dates {
+                        "".to_owned()
+                    } else {
+                        format!("{} ", blame_date(&path, n))
+                    };
+
+                    // Move priority marker in front of date.
+                    if let Some(caps) = priority_re.captures(&text) {
+                        todo_list.push(format!("{} {date}{}  ({path})", &caps[1], &caps[2]));
+                    } else {
+                        todo_list.push(format!("{date}{text}  ({path})"));
+                    }
                 }
+            } else {
+                if let Some(caps) = outline_re.captures(line) {
+                    // Outline todos are simpler, they're always on one line.
+                    let text = caps[1].trim();
+                    let date = if args.omit_dates {
+                        "".to_owned()
+                    } else {
+                        format!("{} ", blame_date(&path, n))
+                    };
 
-                let date = if args.omit_dates {
-                    "".to_owned()
-                } else {
-                    format!("{} ", blame_date(&path, n)?)
-                };
-
-                // Move priority marker in front of date.
-                if let Some(caps) = priority_re.captures(&text) {
-                    todo_list.push(format!("{} {date}{}", &caps[1], &caps[2]));
-                } else {
-                    todo_list.push(format!("{date}{text}"));
+                    todo_list.push(format!("{date}{text}  ({path})"));
                 }
             }
         }
@@ -121,52 +148,70 @@ fn list_files() -> Result<Vec<String>> {
     }
 }
 
-fn blame_date(path: &str, line: usize) -> Result<String> {
+fn blame_date(path: &str, line: usize) -> Rc<String> {
+    blame_dates(path.to_string())[line - 1].clone()
+}
+
+#[memoize]
+fn blame_dates(path: String) -> Rc<Vec<Rc<String>>> {
+    // SHA-1 hash for each line.
+    let sha_line = regex!(r"^([0-9a-f]{40}) (\d+) (\d+)");
+
     let output = Command::new("git")
-        .args(&["blame", "-p", "-L", &format!("{line},{line}"), path])
+        .args(&["blame", "--porcelain", &path])
         .stdout(Stdio::piped())
-        .output()?;
+        .output()
+        .unwrap();
 
-    if output.status.success() {
-        let stdout = String::from_utf8(output.stdout)?;
-        let mut author_time = String::new();
-        let mut author_tz = String::new();
-
-        for line in stdout.lines() {
-            let words: Vec<&str> = line.split_whitespace().collect();
-            if words.len() == 2 {
-                if words[0] == "author-time" {
-                    author_time = words[1].to_string();
-                }
-                if words[0] == "author-tz" {
-                    author_tz = words[1].to_string();
-                }
-            }
-        }
-
-        if author_time.is_empty() {
-            bail!("failed to get blame time");
-        }
-        let author_time: i64 = author_time
-            .parse()
-            .map_err(|_| anyhow!("invalid author_time"))?;
-
-        let mut author_tz: i64 = if author_tz.is_empty() {
-            0
-        } else {
-            author_tz
-                .parse()
-                .map_err(|_| anyhow!("invalid author_tz"))?
-        };
-        // Should be good enough to convert +0200 style stuff to seconds.
-        author_tz = author_tz / 100 * 3600;
-
-        let dt = chrono::DateTime::from_timestamp(author_time + author_tz, 0)
-            .with_context(|| "timestamp failed")?;
-        Ok(dt.format("%Y-%m-%d").to_string())
-    } else {
-        bail!("git blame failed")
+    if !output.status.success() {
+        panic!("git blame failed")
     }
+
+    let stdout = String::from_utf8(output.stdout).expect("invalid UTF-8 in git blame output");
+
+    let mut result = Vec::new();
+
+    let mut last_sha: &str = "";
+    let mut timestamp: i64 = 0;
+    let mut sha_to_date = HashMap::new();
+
+    // We need to parse the machine-friendly git blame output to get the date
+    // for each line.
+    for line in stdout.lines() {
+        // Each line is identified with a SHA-1 hash, recognize that to see
+        // which commit we're on.
+        if let Some(caps) = sha_line.captures(line) {
+            last_sha = caps.get(1).unwrap().as_str();
+        }
+        // Date is declared with a line that stast with `author-time` and it
+        // has a unix timestamp as value. It maps to the last SHA-1 seen.
+        else if line.starts_with("author-time ") {
+            let timestamp_str = line["author-time ".len()..].trim();
+            timestamp = timestamp_str
+                .parse()
+                .expect("invalid author_time in git blame output");
+        }
+        // Once we get the timezone, we can construct the date.
+        // It's assumed here that we saw the author-time line before this.
+        else if line.starts_with("author-tz ") {
+            let tz_str = line["author-tz ".len()..].trim();
+            let tz: i64 = tz_str
+                .parse()
+                .expect("invalid author_tz in git blame output");
+            // Stupid trick to convert +0200 style timezone to seconds.
+            let delta = tz / 100 * 3600;
+            let dt = chrono::DateTime::from_timestamp(timestamp + delta, 0)
+                .expect("invalid timestamp in git blame output");
+            sha_to_date.insert(last_sha, Rc::new(dt.format("%Y-%m-%d").to_string()));
+        }
+        // If we get a line starting with tab, then it's an actual line of
+        // code, emit the date.
+        else if line.starts_with('\t') {
+            result.push(sha_to_date[last_sha].clone());
+        }
+    }
+
+    Rc::new(result)
 }
 
 fn is_binary(text: &str) -> bool {
