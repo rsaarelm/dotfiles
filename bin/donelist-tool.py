@@ -32,7 +32,7 @@ def parse(line: str) -> Entry:
         filename_match = re.search(filename_project_pattern, line)
         if filename_match:
             project = filename_match.group(2)
-            message = line.replace(filename_match.group(), "", 1).strip()
+            message = message.replace(filename_match.group(), "", 1).strip()
         else:
             # Second project pattern, find the first +tag string in line and use that.
             tag_project_pattern = r" \+(\w+)"
@@ -90,7 +90,7 @@ def group_projects(entries: list[Entry], max_items: int = 6):
     for project, entries in sorted_projects:
         print(f"{project or '-'}")
         for e in entries[-max_items:]:
-            print(f"  x {e.date}  {e.message}")
+            print(f"  x {e.date} {e.message}")
         print()
 
 
