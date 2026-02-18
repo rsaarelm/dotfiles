@@ -88,7 +88,10 @@ def group_projects(entries: list[Entry], max_items: int = 6):
     )
 
     for project, entries in sorted_projects:
-        print(f"{project or '-'}")
+        # We don't want uncategorized stuff in the group view, just discard them.
+        if not project:
+            continue
+        print(project)
         for e in entries[-max_items:]:
             print(f"  x {e.date} {e.message}")
         print()
