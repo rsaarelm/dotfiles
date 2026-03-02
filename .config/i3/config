@@ -26,6 +26,10 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec "fish -c 'alacritty'"
 
+# start terminal in scratchpad
+for_window [instance="scratchpad"] move window to scratchpad, scratchpad show
+bindsym $mod+Shift+Return exec alacritty --class scratchpad
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
