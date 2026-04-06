@@ -28,6 +28,7 @@
       caddy
       direnv
       entr
+      envsubst
       eza
       fd
       ffmpeg
