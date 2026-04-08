@@ -19,6 +19,7 @@ function ','
         case keeper; set pkg keeperrl
         case mocp; set pkg moc
         case perf; set pkg linuxPackages.perf
+        case quake; set pkg quakespasm
         case snunzip; set pkg snzip
         case wtfutil; set pkg wtf
         case xev; set pkg xorg.xev
