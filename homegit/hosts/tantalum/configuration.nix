@@ -30,6 +30,7 @@
   environment.systemPackages = with pkgs; [
     steam
     discord
+    aseprite
   ];
 
   services = {

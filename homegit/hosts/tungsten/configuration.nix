@@ -33,6 +33,7 @@
     discord
     wine64
     starsector
+    aseprite
   ];
 
   services = {
