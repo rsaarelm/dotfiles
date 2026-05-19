@@ -11,6 +11,7 @@ function ','
     switch $cmd
         case Discord; set pkg discord
         case FBReader; set pkg fbreader
+        case Telegram; set pkg telegram-desktop
         case btm; set pkg bottom
         case getgbook; set pkg getxbook
         case glxgears; set pkg glxinfo
