@@ -1,0 +1,8 @@
+#!/bin/sh
+# Play a looping noise track for the given duration, eg. 25m
+
+DURATION=${1:-25m}
+NOISE_FILE=${2:-~/Music/pomodoro-loop.ogg}
+
+echo "Working for $DURATION, playing noise from $NOISE_FILE"
+timeout -f $DURATION mpv --really-quiet -loop "$NOISE_FILE"
