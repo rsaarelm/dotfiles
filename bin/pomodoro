@@ -4,5 +4,17 @@
 DURATION=${1:-25m}
 NOISE_FILE=${2:-~/Music/pomodoro-loop.ogg}
 
-echo "Working for $DURATION, playing noise from $NOISE_FILE"
+echo -n "Playing $NOISE_FILE"
+
+case "$DURATION" in
+  *m)
+      # Round the time to nearest minute by adding 30 seconds, 12:24:35 gets shown as 12:25
+      SECONDS=$(awk "BEGIN { print int(${DURATION%m} * 60 + 30) }")
+      echo " until $(date -d "$SECONDS seconds" +%H:%M)." ;;
+  *h)
+      SECONDS=$(awk "BEGIN { print int(${DURATION%h} * 3600 + 30) }")
+      echo " until $(date -d "$SECONDS seconds" +%H:%M)." ;;
+   *) echo " for $DURATION." ;;
+esac
+
 timeout -f $DURATION mpv --really-quiet -loop "$NOISE_FILE"
