@@ -1,3 +1,146 @@
-#!/bin/sh
+#!/usr/bin/env python3
 
-mpv ~/Music/pomodoro.ogg
+import os
+import re
+import sys
+import subprocess
+import time
+
+LOG_FILE = os.path.expanduser("~/.local/share/pomodoro.timedot")
+
+COMMAND = "mpv --really-quiet --input-terminal=no %s" % os.path.expanduser("~/Music/pomodoro.ogg")
+DONE_COMMAND = "mpv --really-quiet --input-terminal=no %s" % os.path.expanduser("~/Music/done.wav")
+DURATION_MIN = 32
+
+DATE_LINE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\s*$")
+
+# (task_name, dots)
+TASK_RE = re.compile(r"^(\D\S*)(\s+[. ]+)?$")
+
+def run() -> bool:
+    """Run the OS command to play the pomodoro, while blocking.
+
+    Detect Ctrl-C from the user to stop early, return False if stopped early.
+    """
+    end_time = round(time.time() / 60.0 + DURATION_MIN) * 60
+    print("Running pomodoro until %s" % time.strftime("%H:%M", time.localtime(end_time)))
+    try:
+        subprocess.run(COMMAND.split())
+        os.system(DONE_COMMAND)
+        return True
+    except KeyboardInterrupt:
+        return False
+
+
+class TimeDotFile:
+    """Wrapper for hledger timedot files.
+
+    File contains lines like:
+        2019-01-08
+        fos.hledger.sup          .
+        adm.email                ..
+        adm.finance              .... .... ..
+        ; Random comment line, needs to be preserved
+
+    A date stamp with nothing else on the line indicates date for the lines below it
+    A line with a whitespace-separated task name followed by dots is a task entry.
+    There can be other lines like blanks and comments that should be preserved as is.
+
+    The object loads its contents from a file (empty if file doesn't exist yet), and will save changes back when closed.
+    """
+
+    def __init__(self, path: str):
+        self.path = path
+        self.lines: list[str] = []
+        self.last_date: str | None = None
+        ## Lines for latest day's tasks.
+        self.task_lines: dict[str, int] = {}
+        self.changed = False
+
+    def __enter__(self) -> "TimeDotFile":
+        try:
+            self.lines = []
+            with open(self.path, "r") as f:
+                for i, line in enumerate(f.read().splitlines()):
+                    if DATE_LINE_RE.match(line):
+                        self.last_date = DATE_LINE_RE.match(line).group(1)
+                        # Reset task lines, we're only interested in the latest date's tasks.
+                        self.task_lines = {}
+                    # Store lines where a named task occurs, we may want to append to them.
+                    if TASK_RE.match(line):
+                        task_name = TASK_RE.match(line).group(1)
+                        dots = TASK_RE.match(line).group(2) or ""
+                        self.task_lines[task_name] = i
+                    self.lines.append(line)
+        except FileNotFoundError:
+            pass
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback) -> None:
+        # Only write if you have something new.
+        if not self.changed:
+            return
+
+        with open(self.path, "w") as f:
+            f.write("\n".join(self.lines) + "\n")
+
+
+    def record(self, task, num_dots=2):
+        """Record a task with the current date and given number of dots.
+        One dot is 15 minutes, so 2 dots is our default pomodoro.
+
+        If the last date line is not for today, add a new date line.
+        """
+        today = time.strftime("%Y-%m-%d")
+        if self.last_date != today:
+            if len(self.lines) > 0 and self.lines[-1].strip() != "":
+                self.lines.append("")
+            self.lines.append(today)
+            self.task_lines = {}
+            self.changed = True
+
+        if task not in self.task_lines:
+            # Pad task name to 24 characters
+            self.lines.append(task.ljust(23) + " ")
+            self.task_lines[task] = len(self.lines) - 1
+
+        line_num = self.task_lines[task]
+        line = self.lines[line_num]
+        count = (TASK_RE.match(line).group(2) or "").count('.')
+
+        for i in range(count, count + num_dots):
+            # Add a space after every four dots.
+            if i > 0 and i % 4 == 0:
+                line += " "
+            line += "."
+        self.lines[line_num] = line
+
+        self.changed = True
+
+
+def main():
+    # Usage
+    # pomodoro.py [task_name]  - Run pomodoro and record to named task.
+    # pomodoro.py              - Run pomodoro withour recording task.
+
+    if len(sys.argv) > 1:
+        task_name = sys.argv[1]
+        # If task_mame doesn't match TASK_RE, raise an error
+        if not TASK_RE.match(task_name):
+            print("Invalid task name '%s'" % task_name)
+            sys.exit(1)
+        with TimeDotFile(LOG_FILE) as log:
+            if run():
+                log.record(task_name)
+                print("Pomodoro finished, recorded task '%s'!" % task_name)
+            else:
+                print("Pomodoro stopped early, not recording task.")
+    else:
+        if run():
+            print("Pomodoro finished!")
+        else:
+            print("Pomodoro stopped early.")
+
+
+if __name__ == "__main__":
+    main()
