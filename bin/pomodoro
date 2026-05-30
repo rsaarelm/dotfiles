@@ -15,7 +15,7 @@ DURATION_MIN = 32
 DATE_LINE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\s*$")
 
 # (task_name, dots)
-TASK_RE = re.compile(r"^(\D\S*)(\s+[. ]+)?$")
+TASK_RE = re.compile(r"^(\D\S*)(\s\s+[. ]+)?$")
 
 def run() -> bool:
     """Run the OS command to play the pomodoro, while blocking.
@@ -101,7 +101,7 @@ class TimeDotFile:
 
         if task not in self.task_lines:
             # Pad task name to 24 characters
-            self.lines.append(task.ljust(23) + " ")
+            self.lines.append(task.ljust(22) + "  ")
             self.task_lines[task] = len(self.lines) - 1
 
         line_num = self.task_lines[task]
