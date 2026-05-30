@@ -27,7 +27,6 @@ sudo apt install -y \
     mosh \
     mupdf \
     ncdu \
-    neofetch \
     neovim \
     neovim-qt \
     pandoc \

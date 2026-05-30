@@ -8,21 +8,21 @@
       acpitool
       at
       bluez
-      cachix
+      #cachix
       coreutils
       exfat
       inotify-tools
       jmtpfs
       lm_sensors
       openssl
-      openvpn
+      #openvpn
       pciutils
       pkg-config
       psmisc
       usbutils
 
       # Basic tools
-      bat
+      #bat
       btop
       busybox
       caddy
@@ -30,6 +30,7 @@
       entr
       envsubst
       eza
+      fastfetch
       fd
       ffmpeg
       file
@@ -37,22 +38,21 @@
       ghostscript
       git
       git-annex
-      glances
       gnumake
       helix
       hledger
       imagemagick
       jq
-      jujutsu
+      #jujutsu
       just
       links2
       lynx
       moreutils
       mosh
       ncdu
-      neofetch
+      neovim
       nix-index
-      nixfmt-rfc-style
+      nixfmt
       optipng
       p7zip
       pandoc
@@ -60,7 +60,7 @@
       pwgen
       ripgrep
       sshfs
-      texlive.combined.scheme-small
+      #texlive.combined.scheme-small
       tmux
       tokei
       tree-sitter
@@ -68,42 +68,43 @@
       wget
       xsel
       xxd
-      yewtube
+      #yewtube
       yt-dlp
       zoxide
 
       # Programming language stuff
+      # (Stuff not in active use commented out, these bring up the system install size...)
 
       # Agda
-      (agda.withPackages (p: [ p.standard-library ]))
+      #(agda.withPackages (p: [ p.standard-library ]))
 
       # C/++
       clang-tools
       gcc
 
       # Fennel
-      fennel-ls
-      fnlfmt
+      #fennel-ls
+      #fnlfmt
 
       # Haskell
-      stack
+      #stack
 
       # Idris
-      idris2
-      idris2Packages.idris2Lsp
+      #idris2
+      #idris2Packages.idris2Lsp
 
       # JavaScript
       nodejs
 
       # Lua
-      lua-language-server
-      stylua
+      #lua-language-server
+      #stylua
 
       # Markdown
       rumdl
 
       # Python
-      basedpyright
+      #basedpyright
       (python3.withPackages (
         python-pkgs: with python-pkgs; [
           scipy
@@ -166,7 +167,7 @@
         mpv
         scrot
         sxiv
-        xorg.xrefresh
+        xrefresh
         zathura
 
         godot_4

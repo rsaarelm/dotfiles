@@ -4,7 +4,7 @@ if status is-interactive
 
     zoxide init fish | source
 
-    neofetch --disable packages
+    fastfetch -c examples/7
 end
 
 fish_add_path ~/bin

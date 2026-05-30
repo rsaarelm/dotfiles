@@ -31,9 +31,11 @@
   environment.systemPackages = with pkgs; [
     steam
     discord
-    wine64
-    starsector
     aseprite
+
+    # These add like a gigabyte to the install...
+    #wine64
+    #starsector
   ];
 
   services = {
