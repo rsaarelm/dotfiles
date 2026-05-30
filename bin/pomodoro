@@ -129,17 +129,14 @@ def main():
         if not TASK_RE.match(task_name):
             print("Invalid task name '%s'" % task_name)
             sys.exit(1)
-        with TimeDotFile(LOG_FILE) as log:
-            if run():
-                log.record(task_name)
-                print("Pomodoro finished, recorded task '%s'!" % task_name)
-            else:
-                print("Pomodoro stopped early, not recording task.")
-    else:
         if run():
-            print("Pomodoro finished!")
+            with TimeDotFile(LOG_FILE) as log:
+                log.record(task_name)
+            print("Pomodoro '%s' finished." % task_name)
         else:
-            print("Pomodoro stopped early.")
+            print("Pomodoro aborted.")
+    else:
+        run()
 
 
 if __name__ == "__main__":
