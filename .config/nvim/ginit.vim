@@ -1,4 +1,5 @@
-GuiFont Intel\ One\ Mono
+"GuiFont Intel\ One\ Mono
+GuiFont EnvyCodeR\ Nerd\ Font
 
 set linespace=1
 
@@ -12,4 +13,4 @@ vmap <LeftRelease> "*ygv
 " Clipboard paste in insert mode
 imap <S-Insert> <C-o>"*p
 
-colorscheme ayu-dark
+"colorscheme ayu-dark
