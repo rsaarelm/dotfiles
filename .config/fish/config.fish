@@ -4,7 +4,7 @@ if status is-interactive
 
     zoxide init fish | source
 
-    fastfetch -c examples/7
+    fastfetch
 end
 
 fish_add_path ~/bin
