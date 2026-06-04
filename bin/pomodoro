@@ -9,7 +9,6 @@ import time
 LOG_FILE = os.path.expanduser("~/.local/share/pomodoro.timedot")
 
 COMMAND = "mpv --really-quiet --input-terminal=no %s" % os.path.expanduser("~/Music/pomodoro.ogg")
-DONE_COMMAND = "mpv --really-quiet --input-terminal=no %s" % os.path.expanduser("~/Music/done.wav")
 DURATION_MIN = 32
 
 DATE_LINE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\s*$")
@@ -26,7 +25,6 @@ def run() -> bool:
     print("Running pomodoro until %s" % time.strftime("%H:%M", time.localtime(end_time)))
     try:
         subprocess.run(COMMAND.split())
-        os.system(DONE_COMMAND)
         return True
     except KeyboardInterrupt:
         return False
