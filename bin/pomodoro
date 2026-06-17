@@ -22,7 +22,7 @@ def run() -> bool:
     Detect Ctrl-C from the user to stop early, return False if stopped early.
     """
     end_time = round(time.time() / 60.0 + DURATION_MIN) * 60
-    print("Running pomodoro until %s" % time.strftime("%H:%M", time.localtime(end_time)))
+    print("Running pomodoro until %s" % time.strftime("%Y-%m-%d %a %H:%M", time.localtime(end_time)))
     try:
         subprocess.run(COMMAND.split())
         return True
