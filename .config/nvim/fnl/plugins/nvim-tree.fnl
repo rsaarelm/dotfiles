@@ -26,7 +26,7 @@
 
         ; Binary media files
         "\\.png$" "\\.wav$" "\\.bin$" "\\.blend$" "\\.glb$" "\\.jpg$" "\\.ttf$"
-        "\\.otf$" "\\.woff$" "\\.woff2$"
+        "\\.aseprite$" "\\.otf$" "\\.woff$" "\\.woff2$"
 
         ; Godot stuff
         "\\.res$" "\\.uid$"
