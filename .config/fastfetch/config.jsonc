@@ -108,13 +108,6 @@
 
         "break",
 
-        {
-            "type": "weather",
-            "key": " ",
-            "keyColor": "white"
-        },
-        "break",
-
         "colors"
     ]
 }
