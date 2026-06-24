@@ -55,6 +55,7 @@ class TimeDotFile:
         ## Lines for latest day's tasks.
         self.task_lines: dict[str, int] = {}
         self.changed = False
+        self.today = time.strftime("%Y-%m-%d")
 
     def __enter__(self) -> "TimeDotFile":
         try:
@@ -71,6 +72,10 @@ class TimeDotFile:
                         dots = TASK_RE.match(line).group(2) or ""
                         self.task_lines[task_name] = i
                     self.lines.append(line)
+
+            # Don't cache tasks from before today.
+            if self.last_date != self.today:
+                self.task_lines = {}
         except FileNotFoundError:
             pass
         return self
@@ -90,11 +95,10 @@ class TimeDotFile:
 
         If the last date line is not for today, add a new date line.
         """
-        today = time.strftime("%Y-%m-%d")
-        if self.last_date != today:
+        if self.last_date != self.today:
             if len(self.lines) > 0 and self.lines[-1].strip() != "":
                 self.lines.append("")
-            self.lines.append(today)
+            self.lines.append(self.today)
             self.task_lines = {}
             self.changed = True
 
