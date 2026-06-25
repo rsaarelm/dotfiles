@@ -10,6 +10,11 @@ import time
 LOG_FILE = os.path.expanduser("~/.local/share/pomodoro.timedot")
 
 COMMAND = "mpv --really-quiet --input-terminal=no %s" % os.path.expanduser("~/Music/pomodoro.ogg")
+
+# It's assumed that ~/Music/pomodoro.ogg is exactly this length. Lots of
+# timedot code has a baked-in assumption that a Pomodor lasts half an hour so
+# if you want to change this you need to edit the code as well as change the
+# sound track and the constant.
 DURATION_MIN = 32
 
 DATE_LINE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\s*$")
@@ -22,8 +27,6 @@ def run() -> bool:
 
     Detect Ctrl-C from the user to stop early, return False if stopped early.
     """
-    end_time = round(time.time() / 60.0 + DURATION_MIN) * 60
-    print("Running pomodoro until %s" % time.strftime("%Y-%m-%d %a %H:%M", time.localtime(end_time)))
     try:
         subprocess.run(COMMAND.split())
         return True
@@ -151,6 +154,9 @@ def main():
     # pomodoro.py [task_name]  - Run pomodoro and record to named task.
     # pomodoro.py              - Run pomodoro withour recording task.
 
+    end_time = round(time.time() / 60.0 + DURATION_MIN) * 60
+    end_str = time.strftime("%Y-%m-%d %a %H:%M", time.localtime(end_time))
+
     if len(sys.argv) > 1:
         task_name = sys.argv[1]
         # If task_mame doesn't match TASK_RE, raise an error
@@ -162,19 +168,21 @@ def main():
             total_time = sum(stats.values()) * 900 + 1800
             task_time = stats.get(task_name, 0) * 900 + 1800
             if total_time > task_time:
-                print(f"Working towards {tformat(task_time)} on {task_name} ({tformat(total_time)} total) today.")
+                print(f"Working towards {tformat(task_time)} on '{task_name}' ({tformat(total_time)} total) until {end_str}.")
             else:
-                print(f"Working towards {tformat(task_time)} on {task_name} today.")
+                print(f"Working towards {tformat(task_time)} on '{task_name}' until {end_str}.")
 
         if run():
             with TimeDotFile(LOG_FILE) as log:
                 log.record(task_name)
-            print("Pomodoro '%s' finished." % task_name)
         else:
             print("Pomodoro aborted.")
+            return 1
     else:
-        run()
+        print(f"Running pomodoro until {end_str}.")
+        if not run():
+            return 1
 
 
 if __name__ == "__main__":
-    main()
+    exit(main())
