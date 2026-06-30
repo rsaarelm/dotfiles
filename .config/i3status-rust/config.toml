@@ -15,6 +15,10 @@ alert_unit = "GB"
 format = " $icon $available "
 
 [[block]]
+block = "memory"
+format = "$icon$mem_used.eng(prefix:M)($mem_used_percents.eng(w:2))"
+
+[[block]]
 block = "battery"
 missing_format = ""
 
