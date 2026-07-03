@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# Pomodoro runner using hledger timedot files and a fixed-length sound track for work.
+
 from collections.abc import Iterator
 import os
 import re
@@ -12,7 +14,7 @@ LOG_FILE = os.path.expanduser("~/.local/share/pomodoro.timedot")
 COMMAND = "mpv --really-quiet --input-terminal=no %s" % os.path.expanduser("~/Music/pomodoro.ogg")
 
 # It's assumed that ~/Music/pomodoro.ogg is exactly this length. Lots of
-# timedot code has a baked-in assumption that a Pomodor lasts half an hour so
+# timedot code has a baked-in assumption that a Pomodoro lasts half an hour so
 # if you want to change this you need to edit the code as well as change the
 # sound track and the constant.
 DURATION_MIN = 32
@@ -39,9 +41,9 @@ class TimeDotFile:
 
     File contains lines like:
         2019-01-08
-        fos.hledger.sup          .
-        adm.email                ..
-        adm.finance              .... .... ..
+        fos:hledger:sup          .
+        adm:email                ..
+        adm:finance              .... .... ..
         ; Random comment line, needs to be preserved
 
     A date stamp with nothing else on the line indicates date for the lines below it
