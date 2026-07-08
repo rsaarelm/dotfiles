@@ -120,8 +120,8 @@ bindsym $mod+Shift+0 move container to workspace 10
 # Removed the reload/restart/exit key bindings, do these from the command line
 # yourself with i3-msg.
 
-bindsym $mod+Shift+semicolon exec "i3lock"
-bindsym $mod+Shift+slash exec "i3lock & sleep 1; systemctl suspend"
+bindsym $mod+Shift+semicolon exec "i3lock --color=1166ee"
+bindsym $mod+Shift+slash exec "i3lock --color=1166ee & sleep 1; systemctl suspend"
 
 # Quick-launch a one-off browser instance.
 bindsym $mod+b exec "chromium-browser --incognito"

@@ -188,7 +188,7 @@
     xautolock = {
       enable = true;
       time = 60; # minutes
-      locker = "${pkgs.i3lock}/bin/i3lock --color 002222";
+      locker = "${pkgs.i3lock}/bin/i3lock --color 1166ee";
       notify = 20; # seconds
       notifier = "${pkgs.libnotify}/bin/notify-send 'Locking machine in 20 seconds'";
       extraOptions = [ "-detectsleep" ];
