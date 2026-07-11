@@ -14,3 +14,4 @@
 (vim.api.nvim_command "digraph Qb 8474") ; ℚ
 (vim.api.nvim_command "digraph Rb 8477") ; ℝ
 (vim.api.nvim_command "digraph Zb 8484") ; ℤ
+(vim.api.nvim_command "digraph =v 8659") ; ⇓
