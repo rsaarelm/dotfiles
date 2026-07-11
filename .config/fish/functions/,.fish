@@ -22,6 +22,7 @@ function ','
         case perf; set pkg linuxPackages.perf
         case quake; set pkg quakespasm
         case snunzip; set pkg snzip
+        case tidy; set pkg html-tidy
         case wtfutil; set pkg wtf
         case xev; set pkg xorg.xev
         case yt; set pkg yewtube
