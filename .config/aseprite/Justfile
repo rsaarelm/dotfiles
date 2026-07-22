@@ -1,0 +1,8 @@
+# XXX: The ini file is a mess of config settings and runtime state so versioning it in homegit is no good.
+# Instead, just patch the custom settings I want with an outside script like this...
+# Should come up with a better way to splice a partial ini file in...
+
+apply-custom:
+    # Background color that's good for working with grayscale images.
+    nix-shell -p crudini --run "crudini --set aseprite.ini bg color1 'rgb{85,170,170,255}'"
+    nix-shell -p crudini --run "crudini --set aseprite.ini bg color2 'rgb{119,204,204,255}'"
