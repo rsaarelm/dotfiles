@@ -37,4 +37,4 @@ cmd = "pavucontrol"
 [[block]]
 block = "time"
 interval = 5
-format = " $timestamp.datetime(f:'%g%V.%u/%m-%d %R:%S')"
+format = " $timestamp.datetime(f:'%Y-%m-%d %a W%V %R:%S')"
