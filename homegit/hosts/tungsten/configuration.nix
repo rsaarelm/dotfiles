@@ -34,7 +34,7 @@
     aseprite
 
     # These add like a gigabyte to the install...
-    #wine64
+    wineWow64Packages.stable
     #starsector
   ];
 

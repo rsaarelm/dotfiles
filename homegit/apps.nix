@@ -196,6 +196,7 @@
   };
 
   fonts.packages = with pkgs; [
+    font-misc-misc
     terminus_font
     intel-one-mono
     nerd-fonts.envy-code-r
