@@ -16,6 +16,15 @@ function fish_prompt --description 'Write out the prompt'
         set suffix '#'
     end
 
+    # If command took a long time to run, print the duration.
+    if test $CMD_DURATION -gt 10000
+        set_color yellow
+        # Print hours and minutes of duration as [0:00], eg [0:04], [3:25]
+        set -l secs (math "round($CMD_DURATION / 1000)")
+        printf "[%d:%02d:%02d] " (math "floor($secs / 3600)") (math "(floor($secs / 60) % 60)") (math "($secs % 60)")
+        set_color normal
+    end
+
     # Write pipestatus
     # If the status was carried over (if no command is issued or if `set` leaves the status untouched), don't bold it.
     set -l bold_flag --bold
