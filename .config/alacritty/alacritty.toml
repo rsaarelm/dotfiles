@@ -25,5 +25,5 @@ mods = "None"
 
 [general]
 import = [
-    "~/.config/alacritty/themes/default.toml"
+    "~/.config/alacritty/themes/light.toml"
 ]

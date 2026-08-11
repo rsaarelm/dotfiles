@@ -5,6 +5,8 @@ else
     GuiFont! EnvyCodeR\ Nerd\ Font:h10
 endif
 
+set background=light
+
 set linespace=1
 
 set mouse=a

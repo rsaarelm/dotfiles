@@ -1,0 +1,34 @@
+# (Github Light High Contrast) Colors for Alacritty
+# Modified to get dark / light colors distinct
+
+# Default colors
+[colors.primary]
+background = '#ffffff'
+foreground = '#010409'
+
+# Cursor colors
+[colors.cursor]
+text = '#ffffff'
+cursor = '#0e1116'
+
+# Normal colors
+[colors.normal]
+black = '#0e1116'
+red = '#660000'
+green = '#114422'
+yellow = '#3f2200'
+blue = '#0349b4'
+magenta = '#442288'
+cyan = '#225555'
+white = '#555566'
+
+# Bright colors
+[colors.bright]
+black = '#334444'
+red = '#881111'
+green = '#055d20'
+yellow = '#553300'
+blue = '#1168e3'
+magenta = '#622cbc'
+cyan = '#227788'
+white = '#667777'
