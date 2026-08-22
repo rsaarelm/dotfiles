@@ -10,9 +10,9 @@
 //! chrono = "0.4"
 //! clap = { version = "4", features = ["derive"] }
 //! futures = "0.3"
-//! htmlescape = "0.3"
 //! reqwest = "0.12"
 //! scraper = "0.22"
+//! serde_json = "1"
 //! tokio = { version = "1", features = ["rt-multi-thread"] }
 //! lazy-regex = "3"
 //! ```
@@ -20,6 +20,11 @@
 // TODO Better detection for dead links, acknowledge error codes
 
 // TODO If the link is dead, try to get a wayback machine mirror
+
+// XXX: Something's weird with NixOS and rust-script native deps, pkg and
+// openssl deps don't register to this script in normal environment, so I need to
+// rebuild it with shell command
+//   `nix-shell -p pkg-config openssl --run "scrape --help"`.
 
 use std::{fmt, fs::File, io::Read, time::Duration};
 
@@ -172,7 +177,10 @@ fn extract_title(document: &Html) -> Option<String> {
         .root_element()
         .text()
         .collect::<String>();
-    title = htmlescape::decode_html(&title).unwrap_or(title);
+
+    // The title can have unicode escapes like "\u201", decode them.
+    title = serde_json::from_str::<String>(&format!(r#""{title}""#)).unwrap_or(title);
+
     title = title
         .trim()
         .chars()
