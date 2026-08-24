@@ -36,7 +36,7 @@ def run() -> bool:
         return False
 
 
-class TimeDotFile:
+class TimedotFile:
     """Wrapper for hledger timedot files.
 
     File contains lines like:
@@ -62,7 +62,7 @@ class TimeDotFile:
         self.changed = False
         self.today = time.strftime("%Y-%m-%d")
 
-    def __enter__(self) -> "TimeDotFile":
+    def __enter__(self) -> "TimedotFile":
         try:
             self.lines = []
             with open(self.path, "r") as f:
@@ -165,7 +165,7 @@ def main():
         if not TASK_RE.match(task_name):
             print("Invalid task name '%s'" % task_name)
             sys.exit(1)
-        with TimeDotFile(LOG_FILE) as log:
+        with TimedotFile(LOG_FILE) as log:
             stats = dict(log.todays_stats())
             total_time = sum(stats.values()) * 900 + 1800
             task_time = stats.get(task_name, 0) * 900 + 1800
@@ -175,7 +175,7 @@ def main():
                 print(f"Working towards {tformat(task_time)} on '{task_name}' until {end_str}.")
 
         if run():
-            with TimeDotFile(LOG_FILE) as log:
+            with TimedotFile(LOG_FILE) as log:
                 log.record(task_name)
         else:
             print("Pomodoro aborted.")
