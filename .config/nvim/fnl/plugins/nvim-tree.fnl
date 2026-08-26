@@ -15,7 +15,10 @@
   (api.config.mappings.default_on_attach bufnr)
 
   ; Remap for colemak movement.
-  (vim.keymap.set "n" "e" "gk" { :buffer bufnr :noremap true }))
+  (vim.keymap.set "n" "e" "gk" { :buffer bufnr :noremap true })
+  ; No picker for enter
+  (vim.keymap.set "n" "<CR>" api.node.open.no_window_picker
+                  { :desc "Open: No window picker" :buffer bufnr :noremap true  }))
 
 (tree.setup
   {
@@ -32,10 +35,6 @@
         "\\.res$" "\\.uid$"
         ]
     }
-
-    ; Disable the window picker to make things run faster, switch buffers
-    ; manually if you want a specific layout.
-    :actions { :open_file { :window_picker { :enable false } } }
 
     :on_attach on-attach
   })
