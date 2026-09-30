@@ -13,6 +13,15 @@
    })
 
 (vim.api.nvim_create_autocmd ["FileType"]
+  {:pattern ["gdshader"]
+   :callback (λ []
+               ; GDshaders use tabs for indentation, don't highlight.
+               (util.dont-highlight-tabs)
+               (set vim.opt_local.expandtab false)
+               (set vim.opt_local.tabstop 4))
+   })
+
+(vim.api.nvim_create_autocmd ["FileType"]
   {:pattern ["text"]
    ; Make things look nice for long lines when using semantic linefeeds
    :callback (λ []
