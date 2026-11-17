@@ -129,6 +129,8 @@
     variables = {
       EDITOR = pkgs.lib.mkOverride 0 "nvim";
       TERMINAL = "alacritty";
+
+      XCURSOR_THEME = "Adwaita";
     };
   };
 
